@@ -14,4 +14,6 @@ And, most importantly, please enjoy the repository, and good luck with your stud
 NOTES: 
 Please do not upload any file that are not made by you on this repository. This includes resources created by the professors, or anything that is not meant to be shared freely. I do not take any responsibility about files that other people might upload on this repository without permission.
 
+The documents stored here are not in any way guaranteed to be error-free. You should never consider anything seen in these documents as a truth before you have checked it for yourself and with your teacher. I, or any of the contributors to this repository, do not take any responsibility for problems that these documents may create in your studies or your work. Thank you for your understanding.
+
 This repository and all of its content is under a MIT license. Please read the full license available in the root directory of the repository. The main idea is that any content here can be forked, reused or modified, as long as one shares the modifications under the same MIT license.

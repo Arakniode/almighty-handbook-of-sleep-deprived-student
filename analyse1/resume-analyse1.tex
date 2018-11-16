@@ -12,16 +12,18 @@
 \newcolumntype{C}{>{$}c<{$}} % math-mode version of "c" column type
 %the above column types were found on https://tex.stackexchange.com/a/112585
 
+\usepackage{hyperref}
+
 \title{Analyse 1 - Anna Lachowska\\Résumé}
 \author{Benjamin Bovey}
 \date{November 2018}
 
+%margins
 \addtolength{\oddsidemargin}{-.875in}
-	\addtolength{\evensidemargin}{-.875in}
-	\addtolength{\textwidth}{1.75in}
-
-	\addtolength{\topmargin}{-.875in}
-	\addtolength{\textheight}{1.75in}
+\addtolength{\evensidemargin}{-.875in}
+\addtolength{\textwidth}{1.75in}
+\addtolength{\topmargin}{-.875in}
+\addtolength{\textheight}{1.75in}
 
 \begin{document}
 
@@ -29,10 +31,10 @@
 
 \section*{Introduction}
 Ce document est destiné à résumer les certainement laborieux cours d'analyse 1 présentés par Mme Lachowska, afin d'en présenter uniquement les aspects les plus cruciaux quand à la résolution d'exercices. \\
-Vous pouvez retrouver le repo de ce projet sur mon github: 
+Ce document fait partie d'un projet auquel vous pouvez participer: plus d'informations sur \href{https://github.com/Arakniode/almighty-handbook-of-sleep-deprived-student}{le GitHub du projet}.
 
 \section{Identités}
-Ces quelques identités permettent de transformer des expressions, ce qui est souvent utile lorsqu'on cherche leur limite et que celle de l'équation de base est indéterminée.
+Ces quelques identités de base permettent de transformer des expressions, ce qui est souvent utile lorsqu'on cherche leur limite et que celle de l'équation de base est indéterminée. Il FAUT les connaître, mais surtout savoir les \emph{reconnaître}. N'oublions pas que les rédacteurs d'exercices aiment bien cacher les solutions par ce genre d'identités simples, mais parfois difficiles à camouflées.
 \subsection{Identités algébriques}
 \subsubsection{Polynômes:} 
 \(x,y \in \mathbb{R}\):
@@ -42,6 +44,7 @@ Ces quelques identités permettent de transformer des expressions, ce qui est so
 	&(x+y)^3 = x^3 + 3x^2y + 3xy^2 + y^3 	& 	&x^3 + y^3 = (x + y)(x^2 - xy + y^2) \\
 	&(x-y)^3 = x^3 - 3x^2y + 3xy^2 - y^3 
 \end{flalign*}
+Les identités de droites sont souvent particulièrement utiles face aux indéterminations de type \(\frac{\infty}{\infty} \text{ ou } \frac{0}{0}\). Elles peuvent nous aider à modifier l'expression afin de contourner l'indétermination, par exemple en simplifiant des polynômes au numérateur et au dénominateur. \emph{N.B}: Il est utile de se souvenir que \(1^2 = 1^3 = 1\), ce qui peut aider à trouver des expressions de la forme \(x^3 \pm y^3\). 
 
 \subsubsection{Exponentielles:}
 \(a, b \in \mathbb{R}_{>0}, \; x, y \in \mathbb{R}\)
@@ -53,7 +56,7 @@ Ces quelques identités permettent de transformer des expressions, ce qui est so
 \end{flalign*}
 
 \subsubsection{Logarithmes:}
-On assume que la notation \(\log\) sans indice précisé dénote le logarithme naturel. \\
+On assume que la notation \(\log\) sans indice précisé dénote le logarithme naturel, car c'est la convention utilisée par Mme Lachowska. \\
 \(a, b \in \mathbb{R}_{>0}, \; c \in \mathbb{R}\)
 \begin{flalign*}
 	&\log(ab) 							= \log(a) + \log(b) 		&	&\log(e)		= 1 \\
@@ -65,9 +68,17 @@ On assume que la notation \(\log\) sans indice précisé dénote le logarithme n
 \begin{flalign*}
 	&\sin(x \pm y) 			= \sin(x) \cos(y) \pm \cos(x) \sin(y) \\
 	&\cos(x \pm y) 			= \cos(x) \cos(y) \mp \sin(x)\sin(y) \\
-	&\tan(x) 					= \dfrac{\sin(x)}{\cos(x)}, \quad \cot(x) = \dfrac{\cos(x)}{\sin(x)}, \quad \tan(x) \cdot \cot(x)	= \dfrac{\tan(x)}{\cot(x)} = \dfrac{\cot(x)}{\tan(x)} = 1 \\ %?is this second part really useful
+	&\tan(x) 					= \dfrac{\sin(x)}{\cos(x)}, \quad \cot(x) = \dfrac{\cos(x)}{\sin(x)}, \quad \tan(x) \cdot \cot(x)	= \dfrac{\tan(x)}{\cot(x)} = \dfrac{\cot(x)}{\tan(x)} = 1 \\ %?is this second part really useful?
 	&\cos^2(x) + \sin^2(x)	= 1 \quad (= \cos(x-x))
 \end{flalign*}
+Souvenons-nous que l'on peut toujours "compliquer nos équations pour les simplifier": par exemple, l'identité bien connue \(\cos^2(x) + \sin^2(x) = 1\) peut être retrouvée par cette ligne de raisonnement suivante:
+\begin{align*}
+	\cos(0) 	&= 1 \\
+	\text{mais aussi} \\
+	\cos(0)	&= \cos(x-x) \\
+				&= \cos^2(x) + \sin^2(x) \\
+\end{align*}
+Donc, \(\cos^2(x) + \sin^2(x) = 1\). Ce "truc" de "compliquer pour mieux simplifier" est un coup à prendre. Il n'y a pas d'autre façon que de s'entraîner afin d'apprendre à reconnaître quand et comment utiliser cette technique.
 
 \subsubsection{Quelques valeurs de \(\cos\) et \(\sin\):}
 \begin{center}
@@ -80,7 +91,6 @@ On assume que la notation \(\log\) sans indice précisé dénote le logarithme n
 		\frac{\pi}{4}			& \frac{\sqrt{2}}{2} 			& \frac{\sqrt{2}}{2}	 \\
 		\frac{\pi}{3}			& \frac{\sqrt{3}}{2} 			& \frac{1}{2} \\
 		\frac{\pi}{2}			& 1								& 0 \\
-
 		\hline
 	\end{tabular}
 \end{center}
