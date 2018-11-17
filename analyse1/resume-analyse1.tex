@@ -12,10 +12,11 @@
 \newcolumntype{C}{>{$}c<{$}} % math-mode version of "c" column type
 %the above column types were found on https://tex.stackexchange.com/a/112585
 
-\usepackage{hyperref}
+\usepackage[hidelinks]{hyperref} %the hidelink parameter is to avoid blue boxes around links and URLs
 
-\title{Analyse 1 - Anna Lachowska\\Résumé}
-\author{Benjamin Bovey}
+\title{\vspace{-1.5cm}	Analyse 1 -  Anna Lachowska \\
+							Résumé}
+\author{Benjamin Bovey - EPFL IC}
 \date{November 2018}
 
 %margins
@@ -30,57 +31,67 @@
 \maketitle
 
 \section*{Introduction}
-Ce document est destiné à résumer les certainement laborieux cours d'analyse 1 présentés par Mme Lachowska, afin d'en présenter uniquement les aspects les plus cruciaux quand à la résolution d'exercices. \\
-Ce document fait partie d'un projet auquel vous pouvez participer: plus d'informations sur \href{https://github.com/Arakniode/almighty-handbook-of-sleep-deprived-student}{le GitHub du projet}.
+Ce document est destiné à résumer les certainement laborieux cours d'analyse 1 présentés par Mme Lachowska, afin d'en présenter uniquement les aspects les plus cruciaux quand à la résolution d'exercices. Il fait partie d'un projet auquel vous pouvez participer! Plus d'informations sur \href{https://github.com/Arakniode/almighty-handbook-of-sleep-deprived-student}{le GitHub du projet} (\url{https://github.com/Arakniode/almighty-handbook-of-sleep-deprived-student}). \\
+Ce résumé est pour l'instant incomplet par rapport à l'ensemble des notions couvertes par le cours d'analyse 1, ce cours n'ayant pas encore touché à sa fin. 
 
 \section{Identités}
-Ces quelques identités de base permettent de transformer des expressions, ce qui est souvent utile lorsqu'on cherche leur limite et que celle de l'équation de base est indéterminée. Il FAUT les connaître, mais surtout savoir les \emph{reconnaître}. N'oublions pas que les rédacteurs d'exercices aiment bien cacher les solutions par ce genre d'identités simples, mais parfois difficiles à camouflées.
+Ces quelques identités de base permettent de transformer des expressions, ce qui est souvent utile lorsqu'on cherche leur limite et que celle de l'équation de base est indéterminée. Il faut les connaître, mais surtout savoir les \emph{reconnaître} et les dénicher. N'oublions pas que les rédacteurs d'exercices aiment bien cacher les solutions sous ce genre d'identités simples, mais parfois bien camouflées.
 \subsection{Identités algébriques}
-\subsubsection{Polynômes:} 
+\subsubsection{Polynômes} 
 \(x,y \in \mathbb{R}\):
-\begin{flalign*}
+\begin{align*}
 	&(x+y)^2 = x^2 + 2xy + y^2 				& 	&x^2 - y^2 = (x - y)(x + y) \\
 	&(x-y)^2 = x^2 - 2xy + y^2 					& 	&x^3 - y^3 = (x - y)(x^2 + xy + y^2) \\
 	&(x+y)^3 = x^3 + 3x^2y + 3xy^2 + y^3 	& 	&x^3 + y^3 = (x + y)(x^2 - xy + y^2) \\
 	&(x-y)^3 = x^3 - 3x^2y + 3xy^2 - y^3 
-\end{flalign*}
-Les identités de droites sont souvent particulièrement utiles face aux indéterminations de type \(\frac{\infty}{\infty} \text{ ou } \frac{0}{0}\). Elles peuvent nous aider à modifier l'expression afin de contourner l'indétermination, par exemple en simplifiant des polynômes au numérateur et au dénominateur. \emph{N.B}: Il est utile de se souvenir que \(1^2 = 1^3 = 1\), ce qui peut aider à trouver des expressions de la forme \(x^3 \pm y^3\). 
+\end{align*}
+\emph{N.B}: Il est utile de se souvenir que \(1^2 = 1^3 = 1\), ce qui peut aider à dénicher des expressions de la forme \(x^3 \pm y^3\). Par exemple:
+\vspace{-0.2cm}
+\begin{align*}
+	1 - a^3 	&= 1^3 - a^3 \\
+				&= (1-a)(1+a+a^2)
+\end{align*}
+Dans le cas, par exemple, d'une limite fraction de polynômes, dans lequel l'expression de base donnerait une limite indéterminée, on pourrait peut-être utiliser cette identité pour simplifier le calcul de la limite, en faisant apparaître des facteurs communs au numérateur et au dénominateur.
 
-\subsubsection{Exponentielles:}
+\subsubsection{Exponentielles}
 \(a, b \in \mathbb{R}_{>0}, \; x, y \in \mathbb{R}\)
-\begin{flalign*}
+\begin{align*}
 	a^x \cdot a^y 		&= a^{x+y} 			&	(a^x)^y 							&= a^{x \cdot y} \\
 	\dfrac{a^x}{a^y} 	&= a^{x-y}  			&	\sqrt[n]{a}						&= a^{\frac{1}{n}}, \quad n \in \mathbb{N}_{>0} \\
 	(ab)^x 				&= a^x \cdot b^x 	&	\left (\dfrac{a}{b} \right )^x 	&= \dfrac{a^x}{b^x} \\
 	a^0 					&= 1 					& 	a^1 								&= a
-\end{flalign*}
+\end{align*}
 
-\subsubsection{Logarithmes:}
-On assume que la notation \(\log\) sans indice précisé dénote le logarithme naturel, car c'est la convention utilisée par Mme Lachowska. \\
+\subsubsection{Logarithmes}
+On assume que la notation \(\log\) sans indice précisé dénote le logarithme naturel, car c'est la convention utilisée par Mme Lachowska dans son cours. \\
 \(a, b \in \mathbb{R}_{>0}, \; c \in \mathbb{R}\)
-\begin{flalign*}
+\begin{align*}
 	&\log(ab) 							= \log(a) + \log(b) 		&	&\log(e)		= 1 \\
 	&\log{\left (\dfrac{a}{b}\right )} 	= \log (a) - \log (b) 	&	&\log_a(1)	= 0 \\
 	&\log(a^c) 							= c \cdot \log(a) 		&	&\log_a(a)	= 1, \; a \neq 1 \\
-\end{flalign*}
+\end{align*}
 
-\subsubsection{Trigonométrie:}
-\begin{flalign*}
+\subsubsection{Trigonométrie}
+\begin{align*}
 	&\sin(x \pm y) 			= \sin(x) \cos(y) \pm \cos(x) \sin(y) \\
 	&\cos(x \pm y) 			= \cos(x) \cos(y) \mp \sin(x)\sin(y) \\
-	&\tan(x) 					= \dfrac{\sin(x)}{\cos(x)}, \quad \cot(x) = \dfrac{\cos(x)}{\sin(x)}, \quad \tan(x) \cdot \cot(x)	= \dfrac{\tan(x)}{\cot(x)} = \dfrac{\cot(x)}{\tan(x)} = 1 \\ %?is this second part really useful?
+	&\tan(x) 					= \dfrac{\sin(x)}{\cos(x)}, \; \cot(x) = \dfrac{\cos(x)}{\sin(x)}, & &\tan(x) \cdot \cot(x) = \dfrac{\tan(x)}{\cot(x)} = \dfrac{\cot(x)}{\tan(x)} = 1 \\ %?is this second part really useful?
 	&\cos^2(x) + \sin^2(x)	= 1 \quad (= \cos(x-x))
-\end{flalign*}
-Souvenons-nous que l'on peut toujours "compliquer nos équations pour les simplifier": par exemple, l'identité bien connue \(\cos^2(x) + \sin^2(x) = 1\) peut être retrouvée par cette ligne de raisonnement suivante:
-\begin{align*}
-	\cos(0) 	&= 1 \\
-	\text{mais aussi} \\
-	\cos(0)	&= \cos(x-x) \\
-				&= \cos^2(x) + \sin^2(x) \\
 \end{align*}
-Donc, \(\cos^2(x) + \sin^2(x) = 1\). Ce "truc" de "compliquer pour mieux simplifier" est un coup à prendre. Il n'y a pas d'autre façon que de s'entraîner afin d'apprendre à reconnaître quand et comment utiliser cette technique.
+Souvenons-nous que l'on peut parfois "compliquer nos équations pour les simplifier": par exemple, l'identité \(\cos^2(x) + \sin^2(x) = 1\) peut être retrouvée à partir d'une des autres identités ci-dessus par le raisonnement suivant: 
+\vspace{-0.2cm}
+\begin{align*}
+	\cos(0) 	&= 1 \quad \text{(\emph{se référer au tableau des valeurs de \(\cos(x)\) et \(\sin(x)\) ci-dessous})}
+\end{align*}
+\vspace{-0.2cm}
+mais aussi: 
+\begin{align*}
+	\cos(0)	&= \cos(x-x) \\
+				&= \cos^2(x) + \sin^2(x) 
+\end{align*}
+Donc, \(\cos^2(x) + \sin^2(x) = 1\). Ce truc de "compliquer pour mieux simplifier" est un coup à prendre. Il n'y a malheureusement pas d'autre façon que de s'entraîner par des exercices afin d'apprendre à reconnaître quand et comment utiliser cette technique.
 
-\subsubsection{Quelques valeurs de \(\cos\) et \(\sin\):}
+\subsubsection{Quelques valeurs de \(\cos(x)\) et \(\sin(x)\)}
 \begin{center}
 	\def\arraystretch{1.5}
 	\begin{tabular}{| C | C | C |} %https://tex.stackexchange.com/questions/112576/math-mode-in-tabular-without-having-to-use-everywhere
@@ -94,17 +105,17 @@ Donc, \(\cos^2(x) + \sin^2(x) = 1\). Ce "truc" de "compliquer pour mieux simplif
 		\hline
 	\end{tabular}
 \end{center}
-Pour se souvenir de ces valeurs, on peut observer que les valeurs croissent avec l'angle pour \(\sin(x)\), et décroissent pour \(\cos(x)\) (penser aux graphes des fonctions!). Il y a une symmétrie entre la colonne de \(\sin(x)\) et celle de \(\cos(x)\).
+Pour se souvenir de ces valeurs importantes, on peut observer que les valeurs de \(\sin(x)\) croissent avec l'angle, et décroissent pour \(\cos(x)\) (penser aux graphes des fonctions!). Il existe une symmétrie verticale entre la colonne \(\sin(x)\) et la colonne \(\cos(x)\).
 
 \section{Limites utiles}
-Ces limites ont été définies parfois dans le cadre des suites, et parfois dans celui des fonctions. Les limites de suites et les séries sont exprimées par rapport à \(n\), et les limites de fonctions par rapport à \(x\). Elles s'appliquent cependant généralement de la même façon dans les deux cas.
+Ces limites ont été définies lors du cours, parfois dans le cadre des suites, et parfois dans celui des fonctions. Généralement, les limites de suites et les séries sont exprimées par rapport à \(n\), et les limites de fonctions par rapport à \(x\). Elles s'appliquent cependant dans la majorité des cas, et selon le bon sens, de la même façon dans les deux cas.
 
-\begingroup\allowdisplaybreaks[1]
+\begingroup\allowdisplaybreaks[1] %to avoid all the equations creating page jumps everywhere, we need to allow them to separate within the align environment
 \begin{flalign}
-	&\nonumber\text{\(P_n\) et \(Q_n\) deux suites polynomiales, \(p_n\) et \(q_n\) comme coefficients du terme de plus grand degré:} \\
+	&\nonumber\text{Soient \(P_n\) et \(Q_n\) deux suites polynomiales:} \\
 	&\lim_{n\to\infty} \dfrac{P_n}{Q_n} = 	\begin{cases}	
 															0, 						&\text{si } \deg{P_n} > \deg{Q_n} \\
-															\frac{p_n}{q_n},	&\text{si } \deg{P_n} = \deg{Q_n} \\
+															\frac{p_n}{q_n},	&\text{si } \deg{P_n} = \deg{Q_n}, \; \text{avec \(p_n\) et \(q_n\) coefficients du terme de plus haut degré}\\
 															\infty , 				&\text{si } \deg{P_n} < \deg{Q_n}
 													\end{cases} \\
 	&\lim_{n\to\infty} \dfrac{1}{n^p} = 0 \quad \forall p \in \mathbb{R}_+^* \\
