@@ -6,6 +6,7 @@
 \usepackage{mathtools}
 \newcommand\eqdef{\; \stackrel{\mathclap{\normalfont\text{déf.}}}{ = } \;}
 \numberwithin{equation}{section}
+\setlength{\mathindent}{.3cm}
 
 \usepackage{array}
 \newcolumntype{L}{>{$}l<{$}} % math-mode version of "l" column type
@@ -20,11 +21,11 @@
 \date{November 2018}
 
 %margins
-\addtolength{\oddsidemargin}{-.875in}
-\addtolength{\evensidemargin}{-.875in}
-\addtolength{\textwidth}{1.75in}
-\addtolength{\topmargin}{-.875in}
-\addtolength{\textheight}{1.75in}
+\addtolength{\oddsidemargin}{-2.5cm}
+\addtolength{\evensidemargin}{-2.5cm}
+\addtolength{\textwidth}{4.5cm}
+\addtolength{\topmargin}{-2.5cm}
+\addtolength{\textheight}{4.5cm}
 
 \begin{document}
 
@@ -72,13 +73,27 @@ On assume que la notation \(\log\) sans indice précisé dénote le logarithme n
 \end{align*}
 
 \subsubsection{Trigonométrie}
-\begin{align*}
-	&\sin(x \pm y) 			= \sin(x) \cos(y) \pm \cos(x) \sin(y) \\
-	&\cos(x \pm y) 			= \cos(x) \cos(y) \mp \sin(x)\sin(y) \\
-	&\tan(x) 					= \dfrac{\sin(x)}{\cos(x)}, \; \cot(x) = \dfrac{\cos(x)}{\sin(x)}, & &\tan(x) \cdot \cot(x) = \dfrac{\tan(x)}{\cot(x)} = \dfrac{\cot(x)}{\tan(x)} = 1 \\ %?is this second part really useful?
-	&\cos^2(x) + \sin^2(x)	= 1 \quad (= \cos(x-x))
-\end{align*}
-Souvenons-nous que l'on peut parfois "compliquer nos équations pour les simplifier": par exemple, l'identité \(\cos^2(x) + \sin^2(x) = 1\) peut être retrouvée à partir d'une des autres identités ci-dessus par le raisonnement suivant: 
+\begin{align}
+	\label{eq:anglesum}
+	&\sin(x \pm y) 	= \sin(x) \cos(y) \pm \cos(x) \sin(y)	& &\cos(x \pm y) 	= \cos(x) \cos(y) \mp \sin(x)\sin(y) \\
+	\label{eq:doubleangle}
+	&\begin{cases}
+		\begin{aligned}	
+			\sin(2x) = 2\cos(x)\sin(x) \\ 
+						\\ 
+						\\
+		\end{aligned} 
+	\end{cases} & &\begin{cases}
+		\begin{aligned}
+			\cos(2x) 	&= 1 - 2\sin^2(x) \\
+						&= -1 + 2\cos^2(x)  \\
+						&= \cos^2(x) - \sin^2(x)
+		\end{aligned}
+	\end{cases} \\
+	&\cos^2(x) + \sin^2(x) = 1 \\
+	&\tan(x) = \frac{\sin(x)}{\cos(x)} 
+\end{align}
+Souvenons-nous que l'on peut parfois "compliquer nos équations pour les simplifier": par exemple, l'identité \(\cos^2(x) + \sin^2(x) = 1\) peut être retrouvée à partir de l'identité \ref{eq:anglesum} par les observations suivantes: 
 \vspace{-0.2cm}
 \begin{align*}
 	\cos(0) 	&= 1 \quad \text{(\emph{se référer au tableau des valeurs de \(\cos(x)\) et \(\sin(x)\) ci-dessous})}
@@ -89,7 +104,9 @@ mais aussi:
 	\cos(0)	&= \cos(x-x) \\
 				&= \cos^2(x) + \sin^2(x) 
 \end{align*}
-Donc, \(\cos^2(x) + \sin^2(x) = 1\). Ce truc de "compliquer pour mieux simplifier" est un coup à prendre. Il n'y a malheureusement pas d'autre façon que de s'entraîner par des exercices afin d'apprendre à reconnaître quand et comment utiliser cette technique.
+Donc, \(\cos^2(x) + \sin^2(x) = 1\). 
+Il est toujours plus simple de trouver une limite lorsque le facteur de \(x\) dans \(\sin(x)\) ou \(cos(x)\) est simplement \(1\). Les identités \ref{eq:doubleangle}, appelées "\emph{identités de l'angle double}", sont donc très utiles dans la recherche de limite. \\
+Il n'y a malheureusement pas d'autre façon que de s'entraîner par des exercices afin d'apprendre à connaître quand et comment utiliser ces identités. Cependant, dans les exercices de recherche de limites comportant des expressions, par exemple, du type \(\sin(3x)\), on peut généralement assumer qu'il faudra transformer l'expression en \(\sin(2x + x)\), puis utiliser les identités \ref{eq:anglesum} et \ref{eq:doubleangle} pour simplifier.
 
 \subsubsection{Quelques valeurs de \(\cos(x)\) et \(\sin(x)\)}
 \begin{center}
@@ -112,12 +129,13 @@ Ces limites ont été définies lors du cours, parfois dans le cadre des suites,
 
 \begingroup\allowdisplaybreaks[1] %to avoid all the equations creating page jumps everywhere, we need to allow them to separate within the align environment
 \begin{flalign}
-	&\nonumber\text{Soient \(P_n\) et \(Q_n\) deux suites polynomiales:} \\
-	&\lim_{n\to\infty} \dfrac{P_n}{Q_n} = 	\begin{cases}	
-															0, 						&\text{si } \deg{P_n} > \deg{Q_n} \\
-															\frac{p_n}{q_n},	&\text{si } \deg{P_n} = \deg{Q_n}, \; \text{avec \(p_n\) et \(q_n\) coefficients du terme de plus haut degré}\\
-															\infty , 				&\text{si } \deg{P_n} < \deg{Q_n}
-													\end{cases} \\
+		&\nonumber\text{Soient \(P_n\) et \(Q_n\) deux suites polynomiales:} \\
+	&\lim_{n\to\infty} \dfrac{P_n}{Q_n} = 
+		\begin{cases}
+			0, 						&\text{si } \deg{P_n} > \deg{Q_n} \\
+			\frac{p_n}{q_n},	&\text{si } \deg{P_n} = \deg{Q_n}, \; \text{avec \(p_n\) et \(q_n\) les coefficients du terme de plus haut degré}\\
+			\infty , 				&\text{si } \deg{P_n} < \deg{Q_n}
+		\end{cases} \\
 	&\lim_{n\to\infty} \dfrac{1}{n^p} = 0 \quad \forall p \in \mathbb{R}_+^* \\
 	&\lim_{n\to\infty} \sqrt[n]{a} = 1 \quad \forall a \in \mathbb{R}_+ \\
 	&\lim_{n\to\infty} \dfrac{p^n}{n!} = 0 \quad \forall p \in \mathbb{R}_+^* \\
@@ -142,7 +160,7 @@ Ces limites ont été définies lors du cours, parfois dans le cadre des suites,
 \allowdisplaybreaks[0]\endgroup
 
 \section{Formes indéterminées}
-Les formes indéterminées qui peuvent être rencontrées lors du calcul de limite sont les suivantes:
+Voici toutes les formes indéterminées qui peuvent être rencontrées lors du calcul de limite:
 \begin{align*}
 	&\infty - \infty, \quad \dfrac{\infty}{\infty}, \quad \dfrac{0}{0}, \quad 0 \cdot \infty, \quad 0^0, \quad \infty^0, \quad 1^\infty
 \end{align*}

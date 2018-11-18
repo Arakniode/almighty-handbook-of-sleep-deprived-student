@@ -6,6 +6,7 @@
 \usepackage{mathtools}
 \newcommand\eqdef{\; \stackrel{\mathclap{\normalfont\text{déf.}}}{ = } \;}
 \numberwithin{equation}{section}
+\setlength{\mathindent}{0cm}
 
 \usepackage{array}
 \newcolumntype{L}{>{$}l<{$}} % math-mode version of "l" column type
@@ -30,34 +31,45 @@
 \section{Identités algébriques}
 \subsection{Polynômes:} 
 \(x,y \in \mathbb{R}\):
-\begin{flalign*}
+\begin{align*}
 	&(x+y)^2 = x^2 + 2xy + y^2 				& 	&x^2 - y^2 = (x - y)(x + y) \\
 	&(x-y)^2 = x^2 - 2xy + y^2 					& 	&x^3 - y^3 = (x - y)(x^2 + xy + y^2) \\
 	&(x+y)^3 = x^3 + 3x^2y + 3xy^2 + y^3 	& 	&x^3 + y^3 = (x + y)(x^2 - xy + y^2) \\
 	&(x-y)^3 = x^3 - 3x^2y + 3xy^2 - y^3 
-\end{flalign*}
+\end{align*}
 
 \subsection{Logarithmes:}
 On assume que la notation \(\log\) sans indice précisé dénote le logarithme naturel. \\
 \(a, b \in \mathbb{R}_{>0}, \; c \in \mathbb{R}\)
-\begin{flalign*}
+\begin{align*}
 	&\log(ab) 							= \log(a) + \log(b) 		&	&\log(e)		= 1 \\
 	&\log{\left (\dfrac{a}{b}\right )} 	= \log (a) - \log (b) 	&	&\log_a(1)	= 0 \\
 	&\log(a^c) 							= c \cdot \log(a) 		&	&\log_a(a)	= 1, \; a \neq 1 \\
-\end{flalign*}
+\end{align*}
 
 \subsection{Trigonométrie:}
-\begin{flalign*}
-	&\sin(x \pm y) 			= \sin(x) \cos(y) \pm \cos(x) \sin(y) \\
-	&\cos(x \pm y) 			= \cos(x) \cos(y) \mp \sin(x)\sin(y) \\
-	&\tan(x) 					= \dfrac{\sin(x)}{\cos(x)}, \quad \cot(x) = \dfrac{\cos(x)}{\sin(x)}, \quad \tan(x) \cdot \cot(x)	= \dfrac{\tan(x)}{\cot(x)} = \dfrac{\cot(x)}{\tan(x)} = 1 \\ %?is this second part really useful
-	&\cos^2(x) + \sin^2(x)	= 1 \quad (= \cos(x-x))
-\end{flalign*}
+\begin{align*}
+	&\sin(x \pm y) 	= \sin(x) \cos(y) \pm \cos(x) \sin(y)	& &\cos(x \pm y) 	= \cos(x) \cos(y) \mp \sin(x)\sin(y) \\
+	&\begin{cases}
+		\begin{aligned}	
+			\sin(2x) = 2\cos(x)\sin(x) \\ 
+						\\ 
+						\\
+		\end{aligned} 
+	\end{cases} & &\begin{cases}
+		\begin{aligned}
+			\cos(2x) 	&= 1 - 2\sin^2(x) \\
+						&= -1 + 2\cos^2(x)  \\
+						&= \cos^2(x) - \sin^2(x)
+		\end{aligned}
+	\end{cases} \\
+	&\cos^2(x) + \sin^2(x) = 1 & &\tan(x) = \frac{\sin(x)}{\cos(x)} 
+\end{align*}
 
 \subsection{Quelques valeurs de \(\cos\) et \(\sin\):}
 \begin{center}
 	\def\arraystretch{1.5}
-	\begin{tabular}{| C | C | C |} %https://tex.stackexchange.com/questions/112576/math-mode-in-tabular-without-having-to-use-everywhere
+	\begin{tabular}{| C | C | C |} %see the comment about \newcolumntype at the start of the file
 		\hline
 		x 						& \sin(x) 							& \cos(x) \\ \hline
 		0 						& 0								& 1 \\
@@ -73,12 +85,13 @@ On assume que la notation \(\log\) sans indice précisé dénote le logarithme n
 \section{Limites utiles}
 \begingroup\allowdisplaybreaks[1]
 \begin{flalign}
-	&\nonumber\text{\(P_n\) et \(Q_n\) deux suites polynomiales, \(p_n\) et \(q_n\) comme coefficients du terme de plus grand degré:} \\
-	&\lim_{n\to\infty} \dfrac{P_n}{Q_n} = 	\begin{cases}	
-															0, 						&\text{si } \deg{P_n} > \deg{Q_n} \\
-															\frac{p_n}{q_n},	&\text{si } \deg{P_n} = \deg{Q_n} \\
-															\infty , 				&\text{si } \deg{P_n} < \deg{Q_n}
-													\end{cases} \\
+		&\nonumber\text{Soient \(P_n\) et \(Q_n\) deux suites polynomiales:} \\
+	&\lim_{n\to\infty} \dfrac{P_n}{Q_n} = 
+		\begin{cases}
+			0, 						&\text{si } \deg{P_n} > \deg{Q_n} \\
+			\frac{p_n}{q_n},	&\text{si } \deg{P_n} = \deg{Q_n}, \; \text{avec \(p_n\) et \(q_n\) les coefficients du terme de plus haut degré}\\
+			\infty , 				&\text{si } \deg{P_n} < \deg{Q_n}
+		\end{cases} \\
 	&\lim_{n\to\infty} \dfrac{1}{n^p} = 0 \quad \forall p \in \mathbb{R}_+^* \\
 	&\lim_{n\to\infty} \sqrt[n]{a} = 1 \quad \forall a \in \mathbb{R}_+ \\
 	&\lim_{n\to\infty} \dfrac{p^n}{n!} = 0 \quad \forall p \in \mathbb{R}_+^* \\
