@@ -132,9 +132,9 @@ Ces limites ont été définies lors du cours, parfois dans le cadre des suites,
 		&\nonumber\text{Soient \(P_n\) et \(Q_n\) deux suites polynomiales:} \\
 	&\lim_{n\to\infty} \dfrac{P_n}{Q_n} = 
 		\begin{cases}
-			0, 						&\text{si } \deg{P_n} > \deg{Q_n} \\
+			0, 						&\text{si } \deg{P_n} < \deg{Q_n} \\
 			\frac{p_n}{q_n},	&\text{si } \deg{P_n} = \deg{Q_n}, \; \text{avec \(p_n\) et \(q_n\) les coefficients du terme de plus haut degré}\\
-			\infty , 				&\text{si } \deg{P_n} < \deg{Q_n}
+			\infty , 				&\text{si } \deg{P_n} > \deg{Q_n}
 		\end{cases} \\
 	&\lim_{n\to\infty} \dfrac{1}{n^p} = 0 \quad \forall p \in \mathbb{R}_+^* \\
 	&\lim_{n\to\infty} \sqrt[n]{a} = 1 \quad \forall a \in \mathbb{R}_+ \\
@@ -144,7 +144,7 @@ Ces limites ont été définies lors du cours, parfois dans le cadre des suites,
 	&\lim_{n\to\infty} \left (1 + \frac{1}{n} \right )^n = e  \\
 	&\lim_{n\to\infty} \left (1 - \frac{1}{n} \right )^n = \frac{1}{e} = e^{-1} \\
 	&\lim_{n\to\infty} \frac{n!}{n^n} = 0 \\
-	&\sum_{k=0}^{\infty} a_{0}r^k = \begin{cases}
+	&\sum_{k=0}^{\infty} r^k = \begin{cases}
 										\dfrac{1}{1-r}, &|r| < 1 \\
 										\text{diverge, } &|r| \geq 1
 									   	\end{cases}\quad , r \in \mathbb{R} \\
