@@ -1,12 +1,11 @@
 \documentclass{article}
 
 \usepackage[utf8]{inputenc}
-\usepackage[fleqn]{amsmath}
+\usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{mathtools}
 \newcommand\eqdef{\; \stackrel{\mathclap{\normalfont\text{déf.}}}{ = } \;}
 \numberwithin{equation}{section}
-\setlength{\mathindent}{.3cm}
 
 \usepackage{array}
 \newcolumntype{L}{>{$}l<{$}} % math-mode version of "l" column type
@@ -91,7 +90,8 @@ On assume que la notation \(\log\) sans indice précisé dénote le logarithme n
 		\end{aligned}
 	\end{cases} \\
 	&\cos^2(x) + \sin^2(x) = 1 \\
-	&\tan(x) = \frac{\sin(x)}{\cos(x)} 
+	&\tan(x) = \frac{\sin(x)}{\cos(x)} \\
+	&\sin(-x) = -\sin(x) \quad \text{(impaire)}		& &\cos(-x) = \cos(x) \quad \text{(paire)}
 \end{align}
 Souvenons-nous que l'on peut parfois "compliquer nos équations pour les simplifier": par exemple, l'identité \(\cos^2(x) + \sin^2(x) = 1\) peut être retrouvée à partir de l'identité \ref{eq:anglesum} par les observations suivantes: 
 \vspace{-0.2cm}
@@ -104,7 +104,7 @@ mais aussi:
 	\cos(0)	&= \cos(x-x) \\
 				&= \cos^2(x) + \sin^2(x) 
 \end{align*}
-Donc, \(\cos^2(x) + \sin^2(x) = 1\). 
+Donc, \(\cos^2(x) + \sin^2(x) = 1\). \\
 Il est toujours plus simple de trouver une limite lorsque le facteur de \(x\) dans \(\sin(x)\) ou \(cos(x)\) est simplement \(1\). Les identités \ref{eq:doubleangle}, appelées "\emph{identités de l'angle double}", sont donc très utiles dans la recherche de limite. \\
 Il n'y a malheureusement pas d'autre façon que de s'entraîner par des exercices afin d'apprendre à connaître quand et comment utiliser ces identités. Cependant, dans les exercices de recherche de limites comportant des expressions, par exemple, du type \(\sin(3x)\), on peut généralement assumer qu'il faudra transformer l'expression en \(\sin(2x + x)\), puis utiliser les identités \ref{eq:anglesum} et \ref{eq:doubleangle} pour simplifier.
 
@@ -170,5 +170,32 @@ Pour les valeurs des limites de puissances avec \(0, 1, \text{ ou } \infty\) en 
 	&\underline{\infty^0}	& &\infty^1				& &\infty^\infty \\
 	&1^0						& &1^1					& &\underline{1^\infty}
 \end{align*}
+
+\section{Dérivées}
+\subsection{Définition}
+La dérivée d'une fonction \(f(x)\) en \(x=x_0\) est définie par la limite suivante:
+\begin{equation*}
+	f'(x_0) = \lim_{x \to x_0} \dfrac{f(x) - f(x_0)}{x - x_0}
+\end{equation*}
+On peut également utiliser cette définition, qui est équivalente:
+\begin{equation*}
+	f'(x_0) = \lim_{h \to 0} \dfrac{f(x_0 + h) - f(x_0)}{h}
+\end{equation*}
+Cette seconde définition est peut-être plus facile à lier à une représentation graphique de la dérivée: on prend deux points sur la fonction, \(x_0\) et \(x_0 + h\), on regarde la différence verticale entre les deux \(\left (f(x_0 + h) - f(x_0)\right )\) et on la divise par la différence horizontale entre les deux \(\left (\frac{f(x_0 + h) - f(x_0)}{h}\right )\). Ici, nous avons retrouvé la formule de la pente d'un graphe linéaire, ou de l'estimation de la pente d'un graphe courbe. Tout ce que la dérivée ajoute à une formule, c'est une limite afin d'améliorer la précision de cette estimation. On accomplit cela en "pinçant" les deux points ensemble, c'est à dire en réduisant la distance \(h\) qui les sépare en la faisant tendre vers 0. On se retrouve donc non plus avec une estimation, mais avec la valeur exacte de la pente du graphe en ce point.
+
+\subsection{Dérivées utiles}
+\begin{align*}
+	&(\sin(x))' = \cos(x)		& &(\cos(x))' = -\sin(x)			& &(\tan(x))' = \frac{1}{\cos^2(x)} \\
+	&(x^2)' = 2x 				& &(x^3)' = 3x^2				& &(x^n)' = n \cdot x^{n-1} \\
+\end{align*}
+
+\subsection{Opérations sur les dérivées}
+Soient les applications \(f: \mathbb{R} \to \mathbb{R}\) et \(g: \mathbb{R} \to \mathbb{R}\) et les réels \(\alpha, \beta \in \mathbb{R}\):
+\begin{align*}
+	&(\alpha f + \beta g)' = \alpha f' + \beta g' 
+	& &(f \cdot g)' = f' \cdot g + f \cdot g' 
+	& &\left (\frac{f}{g}\right ) = \frac{f' \cdot g + f \cdot g'}{g^2} \\ 
+\end{align*}
+
 
 \end{document}
