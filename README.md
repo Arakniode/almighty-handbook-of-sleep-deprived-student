@@ -11,6 +11,15 @@ The repository might be quite empty at the start, but I do hope that it will hel
 
 And, most importantly, please enjoy the repository, and good luck with your studies!
 
+# Q: I want to share some notes to this repository, where should I put it and how should I name it?
+Thank you very much for your interest! The tree organization of this repository is quite straight-forward: you just have to go into the folder of the faculty, then into the folder of the semester that the notes are about, and then into the folder named after that class, and put your notes there. 
+The best way to name your file in order to keep the repository ordered is the following:
+<the professor's last name>-<your last name>-<the type of document this is (in the language that the document is written in)>
+For example, if I (Benjamin Bovey) wrote notes in French in LaTeX for Anna Lachowska's class of "Analyse 1" for the first semester of bachelor of IC:
+Lachowska-Bovey-resume.tex
+Lachowska-Bovey-resume.pdf
+Please keep all characters simple ASCII, and do not leave any empty spaces in the names, as it makes it harder to deal with using Git. Replace spaces by hyphens "-".
+
 NOTES: 
 Please do not upload any file that are not made by you on this repository. This includes resources created by the professors, or anything that is not meant to be shared freely. I do not take any responsibility about files that other people might upload on this repository without permission.
 
