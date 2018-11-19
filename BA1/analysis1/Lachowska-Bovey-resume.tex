@@ -1,0 +1,199 @@
+\documentclass{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\newcommand\eqdef{\; \stackrel{\mathclap{\normalfont\text{déf.}}}{ = } \;}
+\numberwithin{equation}{section}
+
+\usepackage{array}
+\newcolumntype{L}{>{$}l<{$}} % math-mode version of "l" column type
+\newcolumntype{C}{>{$}c<{$}} % math-mode version of "c" column type
+%the above column types were found on https://tex.stackexchange.com/a/112585
+
+\usepackage[hidelinks]{hyperref} %the hidelink parameter is to avoid blue boxes around links and URLs
+%margins
+\addtolength{\oddsidemargin}{-2.5cm}
+\addtolength{\evensidemargin}{-2.5cm}
+\addtolength{\textwidth}{4.5cm}
+\addtolength{\topmargin}{-2.5cm}
+\addtolength{\textheight}{4.5cm}
+
+\title{\vspace{-1.5cm} Analyse 1 -  Anna Lachowska \\ Résumé}
+\author{Benjamin Bovey - EPFL IC}
+\date{November 2018}
+
+\begin{document}
+
+\maketitle
+
+\section*{Introduction}
+Ce document est destiné à résumer les certainement laborieux cours d'Analyse 1 présentés par Mme Lachowska, afin d'en présenter uniquement les aspects les plus cruciaux quand à la résolution d'exercices. Il fait partie d'un projet auquel vous pouvez participer! Plus d'informations sur \href{https://github.com/Arakniode/almighty-handbook-of-sleep-deprived-student}{le GitHub du projet} (\url{https://github.com/Arakniode/almighty-handbook-of-sleep-deprived-student}). \\
+Ce résumé est pour l'instant incomplet par rapport à l'ensemble des notions couvertes par le cours d'analyse 1, ce cours n'ayant pas encore touché à sa fin. 
+
+\section{Identités}
+Ces quelques identités de base permettent de transformer des expressions, ce qui est souvent utile lorsqu'on cherche leur limite et que celle de l'équation de base est indéterminée. Il faut les connaître, mais surtout savoir les \emph{reconnaître} et les dénicher. N'oublions pas que les rédacteurs d'exercices aiment bien cacher les solutions sous ce genre d'identités simples, mais parfois bien camouflées.
+\subsection{Identités algébriques}
+\subsubsection{Polynômes} 
+\(x,y \in \mathbb{R}\):
+\begin{align*}
+	&(x+y)^2 = x^2 + 2xy + y^2 				& 	&x^2 - y^2 = (x - y)(x + y) \\
+	&(x-y)^2 = x^2 - 2xy + y^2 					& 	&x^3 - y^3 = (x - y)(x^2 + xy + y^2) \\
+	&(x+y)^3 = x^3 + 3x^2y + 3xy^2 + y^3 	& 	&x^3 + y^3 = (x + y)(x^2 - xy + y^2) \\
+	&(x-y)^3 = x^3 - 3x^2y + 3xy^2 - y^3 
+\end{align*}
+\emph{N.B}: Il est utile de se souvenir que \(1^2 = 1^3 = 1\), ce qui peut aider à dénicher des expressions de la forme \(x^3 \pm y^3\). Par exemple:
+\vspace{-0.2cm}
+\begin{align*}
+	1 - a^3 	&= 1^3 - a^3 \\
+				&= (1-a)(1+a+a^2)
+\end{align*}
+Dans le cas, par exemple, d'une limite fraction de polynômes, dans lequel l'expression de base donnerait une limite indéterminée, on pourrait peut-être utiliser cette identité pour simplifier le calcul de la limite, en faisant apparaître des facteurs communs au numérateur et au dénominateur.
+
+\subsubsection{Exponentielles}
+\(a, b \in \mathbb{R}_{>0}, \; x, y \in \mathbb{R}\)
+\begin{align*}
+	a^x \cdot a^y 		&= a^{x+y} 			&	(a^x)^y 							&= a^{x \cdot y} \\
+	\dfrac{a^x}{a^y} 	&= a^{x-y}  			&	\sqrt[n]{a}						&= a^{\frac{1}{n}}, \quad n \in \mathbb{N}_{>0} \\
+	(ab)^x 				&= a^x \cdot b^x 	&	\left (\dfrac{a}{b} \right )^x 	&= \dfrac{a^x}{b^x} \\
+	a^0 					&= 1 					& 	a^1 								&= a
+\end{align*}
+
+\subsubsection{Logarithmes}
+On assume que la notation \(\log\) sans indice précisé dénote le logarithme naturel, car c'est la convention utilisée par Mme Lachowska dans son cours. \\
+\(a, b \in \mathbb{R}_{>0}, \; c \in \mathbb{R}\)
+\begin{align*}
+	&\log(ab) 							= \log(a) + \log(b) 		&	&\log(e)		= 1 \\
+	&\log{\left (\dfrac{a}{b}\right )} 	= \log (a) - \log (b) 	&	&\log_a(1)	= 0 \\
+	&\log(a^c) 							= c \cdot \log(a) 		&	&\log_a(a)	= 1, \; a \neq 1 \\
+\end{align*}
+
+\subsubsection{Trigonométrie}
+\begin{align}
+	\label{eq:anglesum}
+	&\sin(x \pm y) 	= \sin(x) \cos(y) \pm \cos(x) \sin(y)	& &\cos(x \pm y) 	= \cos(x) \cos(y) \mp \sin(x)\sin(y) \\
+	\label{eq:doubleangle}
+	&\begin{cases}
+		\begin{aligned}	
+			\sin(2x) = 2\cos(x)\sin(x) \\ 
+						\\ 
+						\\
+		\end{aligned} 
+	\end{cases} & &\begin{cases}
+		\begin{aligned}
+			\cos(2x) 	&= 1 - 2\sin^2(x) \\
+						&= -1 + 2\cos^2(x)  \\
+						&= \cos^2(x) - \sin^2(x)
+		\end{aligned}
+	\end{cases} \\
+	&\cos^2(x) + \sin^2(x) = 1 \\
+	&\tan(x) = \frac{\sin(x)}{\cos(x)} \\
+	&\sin(-x) = -\sin(x) \quad \text{(impaire)}		& &\cos(-x) = \cos(x) \quad \text{(paire)}
+\end{align}
+Souvenons-nous que l'on peut parfois "compliquer nos équations pour les simplifier": par exemple, l'identité \(\cos^2(x) + \sin^2(x) = 1\) peut être retrouvée à partir de l'identité \ref{eq:anglesum} par les observations suivantes: 
+\vspace{-0.2cm}
+\begin{align*}
+	\cos(0) 	&= 1 \quad \text{(\emph{se référer au tableau des valeurs de \(\cos(x)\) et \(\sin(x)\) ci-dessous})}
+\end{align*}
+\vspace{-0.2cm}
+mais aussi: 
+\begin{align*}
+	\cos(0)	&= \cos(x-x) \\
+				&= \cos^2(x) + \sin^2(x) 
+\end{align*}
+Donc, \(\cos^2(x) + \sin^2(x) = 1\). \\
+Il est toujours plus simple de trouver une limite lorsque le facteur de \(x\) dans \(\sin(x)\) ou \(cos(x)\) est simplement \(1\). Les identités \ref{eq:doubleangle}, appelées "\emph{identités de l'angle double}", sont donc très utiles dans la recherche de limite. \\
+Il n'y a malheureusement pas d'autre façon que de s'entraîner par des exercices afin d'apprendre à connaître quand et comment utiliser ces identités. Cependant, dans les exercices de recherche de limites comportant des expressions, par exemple, du type \(\sin(3x)\), on peut généralement assumer qu'il faudra transformer l'expression en \(\sin(2x + x)\), puis utiliser les identités \ref{eq:anglesum} et \ref{eq:doubleangle} pour simplifier.
+
+\subsubsection{Quelques valeurs de \(\cos(x)\) et \(\sin(x)\)}
+\begin{center}
+	\def\arraystretch{1.5}
+	\begin{tabular}{| C | C | C | C |} %https://tex.stackexchange.com/questions/112576/math-mode-in-tabular-without-having-to-use-everywhere
+		\hline
+		x 						& \sin(x) 							& \cos(x)						& \tan(x) \\ \hline
+		0 						& 0								& 1							& 0\\
+		\frac{\pi}{6}			& \frac{1}{2} 					& \frac{\sqrt{3}}{2}			& \frac{\sqrt{3}}{3} \\
+		\frac{\pi}{4}			& \frac{\sqrt{2}}{2} 			& \frac{\sqrt{2}}{2}			& 1 \\
+		\frac{\pi}{3}			& \frac{\sqrt{3}}{2} 			& \frac{1}{2}					& \sqrt{3} \\
+		\frac{\pi}{2}			& 1								& 0							& \infty \\
+		\hline
+	\end{tabular}
+\end{center}
+Pour se souvenir de ces valeurs importantes, on peut observer que les valeurs de \(\sin(x)\) croissent avec l'angle, et décroissent pour \(\cos(x)\) (penser aux graphes des fonctions!). Il existe une symmétrie verticale entre la colonne \(\sin(x)\) et la colonne \(\cos(x)\).
+
+\section{Limites utiles}
+Ces limites ont été définies lors du cours, parfois dans le cadre des suites, et parfois dans celui des fonctions. Généralement, les limites de suites et les séries sont exprimées par rapport à \(n\), et les limites de fonctions par rapport à \(x\). Elles s'appliquent cependant dans la majorité des cas, et selon le bon sens, de la même façon dans les deux cas.
+
+\begingroup\allowdisplaybreaks[1] %to avoid all the equations creating page jumps everywhere, we need to allow them to separate within the align environment
+\begin{flalign}
+		&\nonumber\text{Soient \(P_n\) et \(Q_n\) deux suites polynomiales:} \\
+	&\lim_{n\to\infty} \dfrac{P_n}{Q_n} = 
+		\begin{cases}
+			0, 						&\text{si } \deg{P_n} < \deg{Q_n} \\
+			\frac{p_n}{q_n},	&\text{si } \deg{P_n} = \deg{Q_n}, \; \text{avec \(p_n\) et \(q_n\) les coefficients du terme de plus haut degré}\\
+			\infty , 				&\text{si } \deg{P_n} > \deg{Q_n}
+		\end{cases} \\
+	&\lim_{n\to\infty} \dfrac{1}{n^p} = 0 \quad \forall p \in \mathbb{R}_+^* \\
+	&\lim_{n\to\infty} \sqrt[n]{a} = 1 \quad \forall a \in \mathbb{R}_+ \\
+	&\lim_{n\to\infty} \dfrac{p^n}{n!} = 0 \quad \forall p \in \mathbb{R}_+^* \\
+	&\lim_{n\to\infty} \frac{\sin{\frac{1}{n}}} {\frac{1}{n}} = 1 \\
+	&\lim_{n\to\infty} \sin{\frac{1}{n}} = 0 \\
+	&\lim_{n\to\infty} \left (1 + \frac{1}{n} \right )^n = e  \\
+	&\lim_{n\to\infty} \left (1 - \frac{1}{n} \right )^n = \frac{1}{e} = e^{-1} \\
+	&\lim_{n\to\infty} \frac{n!}{n^n} = 0 \\
+	&\sum_{k=0}^{\infty} r^k = \begin{cases}
+										\dfrac{1}{1-r}, &|r| < 1 \\
+										\text{diverge, } &|r| \geq 1
+									   	\end{cases}\quad , r \in \mathbb{R} \\
+	&\sum_{n=1}^{\infty} \frac{1}{n^p} \text{ converge } \forall p \in \mathbb{R}_{>1} \\
+	&\sum_{n=1}^{\infty} \frac{1}{n} \text{ diverge. } \\
+	&\sum_{n=0}^{\infty} |a_n| \text{ converge } \Rightarrow \sum_{k=0}^{\infty} a_n \text{ converge. } ( \nLeftarrow )\\
+	&\lim_{x \to 0} \dfrac{\sin{x}}{x} = 1 \\
+	&\lim_{x \to 0} \sin{\frac{1}{x}} \quad \text{n'existe pas.} \\
+	&\lim_{x \to 0} x \cdot \sin{\frac{1}{x}} = 0 \\
+	&e^x \eqdef \sum_{n=0}^{\infty} \dfrac{x^n}{n!} \\
+	&\lim_{x \to 0} \dfrac{e^x-1}{x} = 1
+\end{flalign}
+\allowdisplaybreaks[0]\endgroup
+
+\section{Formes indéterminées}
+Voici toutes les formes indéterminées qui peuvent être rencontrées lors du calcul de limite:
+\begin{align*}
+	&\infty - \infty, \quad \dfrac{\infty}{\infty}, \quad \dfrac{0}{0}, \quad 0 \cdot \infty, \quad 0^0, \quad \infty^0, \quad 1^\infty
+\end{align*}
+Pour les valeurs des limites de puissances avec \(0, 1, \text{ ou } \infty\) en base ou en exposant, il y a trois cas d'indétermination. Ces cas sont soulignés ci-dessous. \\ Dans les cas déterminés, la valeur de la limite sera la valeur de la base.
+\begin{align*}
+	&\underline{0^0	}		& &0^1					& &0^\infty \\
+	&\underline{\infty^0}	& &\infty^1				& &\infty^\infty \\
+	&1^0						& &1^1					& &\underline{1^\infty}
+\end{align*}
+
+\section{Dérivées}
+\subsection{Définition}
+La dérivée d'une fonction \(f(x)\) en \(x=x_0\) est définie par la limite suivante:
+\begin{equation*}
+	f'(x_0) = \lim_{x \to x_0} \dfrac{f(x) - f(x_0)}{x - x_0}
+\end{equation*}
+On peut également utiliser cette définition, qui est équivalente:
+\begin{equation*}
+	f'(x_0) = \lim_{h \to 0} \dfrac{f(x_0 + h) - f(x_0)}{h}
+\end{equation*}
+Cette seconde définition est peut-être plus facile à lier à une représentation graphique de la dérivée: on prend deux points sur la fonction, \(x_0\) et \(x_0 + h\), on regarde la différence verticale entre les deux \(\left (f(x_0 + h) - f(x_0)\right )\) et on la divise par la différence horizontale entre les deux \(\left (\frac{f(x_0 + h) - f(x_0)}{h}\right )\). Ici, nous avons retrouvé la formule de la pente d'un graphe linéaire, ou de l'estimation de la pente d'un graphe courbe. Tout ce que la dérivée ajoute à une formule, c'est une limite afin d'améliorer la précision de cette estimation. On accomplit cela en "pinçant" les deux points ensemble, c'est à dire en réduisant la distance \(h\) qui les sépare en la faisant tendre vers 0. On se retrouve donc non plus avec une estimation, mais avec la valeur exacte de la pente du graphe en ce point.
+
+\subsection{Dérivées utiles}
+\begin{align*}
+	&(\sin(x))' = \cos(x)		& &(\cos(x))' = -\sin(x)			& &(\tan(x))' = \frac{1}{\cos^2(x)} \\
+	&(x^2)' = 2x 				& &(x^3)' = 3x^2				& &(x^n)' = n \cdot x^{n-1} \\
+\end{align*}
+
+\subsection{Opérations sur les dérivées}
+Soient les applications \(f: \mathbb{R} \to \mathbb{R}\) et \(g: \mathbb{R} \to \mathbb{R}\) et les réels \(\alpha, \beta \in \mathbb{R}\):
+\begin{align*}
+	&(\alpha f + \beta g)' = \alpha f' + \beta g' 
+	& &(f \cdot g)' = f' \cdot g + f \cdot g' 
+	& &\left (\frac{f}{g}\right ) = \frac{f' \cdot g + f \cdot g'}{g^2} \\ 
+\end{align*}
+
+
+\end{document}

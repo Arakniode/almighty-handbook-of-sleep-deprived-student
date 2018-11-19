@@ -1,0 +1,413 @@
+\documentclass{article}
+%maths
+\usepackage{amsmath}
+\usepackage{amssymb}
+\numberwithin{equation}{section}
+
+%utility
+\usepackage[hidelinks]{hyperref}
+\usepackage[utf8]{inputenc}
+
+%margins
+\addtolength{\oddsidemargin}{-2.5cm}
+\addtolength{\evensidemargin}{-2.5cm}
+\addtolength{\textwidth}{4.5cm}
+\addtolength{\topmargin}{-2.5cm}
+\addtolength{\textheight}{4.5cm}
+
+\title{\vspace{-1.5cm} Physique 1 - Jean-Marie Fuerbringer \\ Résumé}
+\author{Benjamin Bovey - IC}
+\date{November 2018}
+
+\setcounter{section}{-1}
+
+\begin{document}
+
+\maketitle
+
+\subsection*{Introduction}
+Ce document est destiné à résumer les certainement laborieux cours de Physique 1 présentés par Mr Fuerbringer, afin d'en présenter uniquement les aspects les plus cruciaux quand à la résolution d'exercices. Il fait partie d'un projet auquel vous pouvez participer! Plus d'informations sur \href{https://github.com/Arakniode/almighty-handbook-of-sleep-deprived-student}{le GitHub du projet} (\url{https://github.com/Arakniode/almighty-handbook-of-sleep-deprived-student}). \\
+Ce résumé est pour l'instant incomplet par rapport à l'ensemble des notions couvertes par le cours de Physique 1, ce cours n'ayant pas encore touché à sa fin. 
+
+\section{Notions mathématiques - I}
+
+\subsection{Produit vectoriel}
+
+Le produit vectoriel est une opération prenant deux vecteurs de \(\mathbb{R}^3\) comme input et donnant un troisième vecteur comme output. \\ %changer le voc: input, output
+Il est défini ainsi:
+\begin{equation}
+	\boxed {\vec a \wedge \vec b = \begin{pmatrix}a_2b_3 - a_3b_2 \\ a_3b_1 - a_1b_3 \\ a_1b_2 - a_2b_1\end{pmatrix} }
+\end{equation}
+Ou, en termes de normes:
+\begin{equation}
+	\boxed{ ||\vec a \wedge \vec b|| = ||\vec a|| \cdot ||\vec b|| \cdot \sin(\theta) }
+\end{equation}
+
+Il est plus simple de se le concevoir visuellement par la figure suivante: \\
+	COMING SOON TO A MOVIE THEATER NEAR YOU \\
+
+Le vecteur résultant d'un produit vectoriel a la propriété d'être perpendiculaire au plan formé par les deux vecteurs d'input (orthogonalité).\\
+
+Si les deux vecteurs que l'on multiplie sont colinéaires, le produit vectoriel est nul. \\
+
+Le produit vectoriel possède les propriétés suivantes:
+\begin{itemize}
+	\item \(\vec a \parallel \vec b \Leftrightarrow \vec a \wedge \vec b = \vec 0\)
+	\item
+	%TODO: A COMPLETER
+\end{itemize}
+Le produit vectoriel est 	\textbf{anti-commutatif}. %TODO: A COMPLETER
+
+\subsection{Produit scalaire}
+Le produit scalaire est une opération prenant deux vecteurs comme input et donnant un scalaire, c'est-à-dire un nombre réel, comme output. \\
+Il est défini ainsi:
+\begin{equation}
+	\boxed{ \vec a \cdot \vec b = a_1b_1 + a_2b_2 + a_3b_3 }
+\end{equation}
+
+Le produit vectoriel possède les propriétés suivantes:
+\begin{itemize}
+	\item \(\vec a \cdot \vec b = 0 \Leftrightarrow \vec a \perp \vec b\)
+	\item 
+	%TODO: A COMPLETER
+\end{itemize}
+
+Il est \textbf{commutatif}, \textbf{distributif} et %TODO: A COMPLETER
+
+\subsection{Produit mixte et double produit vectoriel}
+Quelques propriétés des combinations du produit vectoriel et du produit scalaire:
+\begin{itemize}
+	\item \((\vec a \wedge \vec b) \cdot \vec c = (\vec c \wedge \vec a) \cdot \vec b\)
+	\item \((\vec a \wedge \vec b) \cdot \vec c = 0 \Leftrightarrow \vec a, \vec b \text{ et } \vec c \text{ sont coplanaires.}\)
+	\item \(\vec a \wedge (\vec b \wedge \vec c) = (\vec a \cdot \vec c) \vec b - (\vec a \cdot \vec b) \vec c\)
+\end{itemize}
+
+\subsection{Dérivée}
+La dérivée d'une fonction \(f(x)\) est la fonction \(f'(x)\) qui représente la pente de la fonction \(f(x)\).
+\subsubsection{Notations}
+\begin{itemize}
+	\item Leibniz: la dérivée première de \(f(x)\) est \(\frac{d\,f(x)}{dx}\), \\
+		la dérivée seconde est \(\frac{d^2\,f(x)}{dx^2}\) \\
+		(parfois \(\frac{d}{dx}f(x)\) et \(\frac{d^2}{dx^2}f(x)\))
+	\item Lagrange: la dérivée première de \(f(x)\) est \(f'(x)\), \\
+		la dérivée seconde est \(f''(x)\)
+	\item Autre: lorsqu'on dérive \emph{par rapport au temps}, en physique, on désigne souvent la dérivée première par \(\dot f(x)\), et la dérivée seconde par \(\ddot f(x)\).
+\end{itemize}
+
+La notation utilisée sera le plus souvent la troisième. On désignera donc par exemple la position sur \(\hat x\) par \(x\), la vitesse par \(\dot x\) et l'accélération par \(\ddot x\).
+
+\section{Mécanique du point}
+
+\subsection{Systèmes de coordonnées}
+Pour modéliser certains problèmes physiques, il est souvent pratique d'utiliser différents systèmes de coordonnées.
+
+\subsubsection{Système cartésien}
+%TODO: compléter
+
+\subsubsection{Système de coordonnées cylindriques}
+Les axes utilisés sont \(\hat e_\rho, \hat e_\phi\) et \(\hat e_z\). \\
+%TODO: schema du système
+
+Position projetée sur les axes:
+\begin{equation}
+	\boxed{\vec r = \rho \hat e_\rho + z \hat e_z}
+\end{equation}
+Vitesse projetée sur les axes:
+\begin{equation}
+	\boxed{\vec v = \dot{\vec{r}} = \dot \rho \hat e_\rho + \rho \dot \phi \hat e_\phi + \dot z \hat e_z}
+\end{equation}
+Accélération projetée sur les axes:
+\begin{equation}
+	\boxed{\vec a = \ddot{\vec{r}}	= \left (\ddot \rho - \rho \dot \phi^2 \right ) \hat e_\rho
+					 						+ \left (\rho \ddot \phi + 2 \dot \rho \dot \phi \right ) \hat e_\phi
+					 						+ \ddot z \hat e_z}
+\end{equation}
+
+\subsubsection{Système de coordonnées sphériques}
+Les axes utilisés sont \(\hat e_r, \hat e_\phi\) et \(\hat e_\theta\). \\
+%TODO: schema du système
+Position projetée sur les axes:
+\begin{equation}
+	\boxed{\vec r = r \hat e_r}
+\end{equation}
+Vitesse projetée sur les axes:
+\begin{equation}
+	\boxed{\vec v = \dot{\vec{r}} = \dot r \hat e_\theta + r \dot \theta \hat e_\theta + r \dot \phi \sin(\theta) \hat e_\phi}
+\end{equation}
+Accélération projetée sur les axes:
+\begin{equation}
+	\boxed{\begin{cases}
+	a_r 		= \ddot r - r \dot \theta^2 - r \dot \phi^2 \sin^2(\theta) \\
+	a_\theta	= r \ddot \theta + 2 \dot r \dot \theta - r \dot \phi^2 \cos(\theta)\sin(\theta) \\
+	a_\phi		= r \ddot \phi \sin(\theta) + 2r \dot \phi \dot \theta \cos(\theta) + 2 \dot r \dot \phi \sin(\theta)
+	\end{cases}}
+\end{equation}
+
+\subsection{Les 3 lois de Newton}
+
+\subsubsection{Loi d'inertie}
+\begin{center}
+	\emph{"Tout corps persévère dans l'état de repos ou de mouvement uniforme en ligne droite, \\
+	 à moins qu'une force n'agisse sur lui et ne le contraigne à changer d'état."}
+\end{center}
+\begin{equation}
+	\boxed{\vec F = \vec 0 \Leftrightarrow \text{MRU}}
+\end{equation}
+(MRU = Mouvement Rectiligne Uniforme)
+
+\subsubsection{Principe fondamental de la dynamique (\emph{Lex Secunda})}
+\begin{center}
+	\emph{"Les changements dans le mouvement d'un corps \\ sont proportionnels à la force et se font dans la direction de la force."}
+\end{center}
+\begin{equation} \label{eq:lexsecunda}
+	\boxed{\vec F = m \vec a}
+\end{equation}
+On a aussi la formule plus universelle, qui prend en compte les éventuels changements de masse du système:
+\begin{equation*}
+	\vec F = \dot{\vec{p}}
+\end{equation*}
+où \(\vec p\) est la quantité de mouvement (concept abordé plus tard dans le cours) %TODO: référence à qté movement
+
+\subsubsection{Loi d'action-réaction}
+\begin{center}
+	\emph{"A chaque action, il y a toujours une réaction égale et opposée; si un corps exerce une force sur un autre, cet autre corps exerce une force égale et opposée sur le premier."}
+\end{center}
+\begin{equation}
+	\boxed{\vec F_{1 \to 2} = - \vec F_{2 \to 1}}
+\end{equation}
+
+\subsection{Ballistique}
+\subsubsection{Chute libre}
+Équation horaire, sans frottement:
+\begin{equation}
+	\boxed{z(t) = \frac{1}{2} gt^2 + v_0t + z_0}
+\end{equation}
+
+\subsubsection{Tir ballistique}
+Équations horaires, sans frottement:
+\begin{equation}
+	\boxed{\begin{cases}
+		x(t) = v_{0x}t + x_0 \\
+		y(t) = 0 \\
+		z(t) = -\frac{1}{1}gt^2 + v_{0z}t + z_0
+	\end{cases}}
+\end{equation}
+
+Hauteur maximale:
+\begin{equation}
+	\boxed{h = \dfrac{v_0^2}{2g}}
+\end{equation}
+
+Portée:
+La portée est maximale pour \(\theta = \frac{\pi}{4}\):
+\begin{equation}
+	x_{\text{max}} = 2h = \dfrac{v_0^2}{g}
+\end{equation}
+
+Angles symmétriques à \(\frac{\pi}{4}\):
+\begin{center}
+	Deux lancers avec la même vitesse \\ sur des angles symmétriques par rapport à \(\frac{\pi}{h}\) \\ auront la même portée.
+\end{center}
+
+Parabole de sûreté:
+\begin{equation}
+	\boxed{z = h - \dfrac{x^2}{4h}}
+\end{equation}
+
+%TODO: avec frottement
+
+\subsection{Oscillateur harmonique}
+\subsubsection{Loi de Hooke}
+Force exercée par un ressort:
+\begin{equation}
+	\boxed{\vec F = - k \vec x}
+\end{equation}
+\(\vec x\) est la différence entre la longueur actuelle et la longueur au repos du ressort. Le signe \(-\) indique que la force est dirigée vers le "centre du ressort" (sa longueur au repos).
+
+\subsubsection{Oscillateur harmonique non-amorti}
+On modélise le système d'un oscillateur harmonique par une équation différentielle de la forme:
+\begin{equation} \label{eq:osciharmo}
+	\boxed{ m \ddot x = - \frac{k}{m} x = - \omega^2 x }
+\end{equation}
+\(\omega\) est la vitesse angulaire du mouvement.
+
+La solution générale de l'équation \ref{eq:osciharmo} est:
+\begin{equation}
+	\boxed{ x(t) = A \cos(\omega_0 t) + B \sin(\omega_0 t) }
+\end{equation}
+
+On peut aussi utiliser cette seconde solution, pour laquelle on n'a qu'une constante à déterminer:
+\begin{equation}
+	\boxed{ x(t) = C \sin(\omega_0 t + \phi) }
+\end{equation}
+
+\subsubsection{Oscillateur harmonique amorti}
+On rajoute une force de frottement proportionnelle à la vitesse. On se retrouve avec l'équation différentielle suivante:
+\begin{equation}
+	\boxed{ m \ddot x = - k(x - x_0) - b \dot x }
+\end{equation}
+%TODO: image des graphes des amortissements sous-critique, critique, sur-critique
+
+%TODO: solution de l'oscillateur harmonique amorti
+
+%TODO: oscillateur harmonique forcé
+
+\section{Travail et énergie}
+
+\subsection{Forces de frottement}
+La force de frottement s'oppose au mouvement du corps.
+
+\subsubsection{Frottement sec statique}
+La force de frottement statique s'oppose à la force parallèle à la surface, et est proportionnelle à la force normale et à un coefficient de frottement spécifique aux deux surfaces:
+\begin{equation*}
+	\vec F_s = - \vec F_\parallel
+\end{equation*}
+
+La force dépend des deux matériaux en contact, mais pas des surfaces:
+\begin{equation}
+	\boxed{ ||\vec F_s|| \leq \mu_s||\vec N|| }
+\end{equation}
+
+Lorsque la force de frottement maximale \( || \vec F_{s, \text{max}} || = \mu_s || \vec F_\parallel ||\) est atteinte, l'objet commence à glisser. 
+
+\subsubsection{Frottement sec cinétique}
+La force de frottement cinétique s'oppose à la vitesse, et est proportionnelle à la force normale:
+\begin{equation}
+	\boxed{ \vec F_d = - \mu_c ||\vec N|| \hat v }
+\end{equation}
+
+\subsection{Impulsion, quantité de mouvement et lien avec la force}
+
+\subsubsection{Impulsion}
+On définit l'impulsion de la force appliquée d'un point 1 à un point 2 comme:
+\begin{equation}
+	\boxed{ \vec I_{12} = \int_1^2 \vec F \, d \vec t }
+\end{equation}
+
+\subsubsection{Quantité de mouvement}
+On définit la quantité de mouvement \(\vec p\):
+\begin{equation}
+	\boxed{ \vec p = m \vec v }
+\end{equation}
+
+\begin{center}
+	\emph{La variation de la quantité de mouvement est égale \\ à l'impulsion de la force résultante.}
+\end{center}
+
+Force et quantité de mouvement sont directements liées par la \emph{Lex Secunda} de Newton (\ref{eq:lexsecunda}). La quantité de mouvement d'un système ne change pas tant que la somme des forces extérieures est nulle.
+
+\subsection{Travail et énérgie cinétique}
+
+On peut définir le travail entre deux points de manière infinitésimale (sur une très courte distance, de manière précise):
+\begin{equation}
+	\boxed{ W_{12} = \int_1^2 \vec F \cdot d \vec r }
+\end{equation}
+Ce type de définition infinitésimale est utile lorsqu'on veut appliquer la notion de travail à des trajectoires curvilignes. Le calcul est plus simple pour des trajectoires rectilignes:
+\begin{equation}
+	\boxed{ W = ||\vec F|| \cdot \text{distance} }
+\end{equation}
+
+\subsubsection{Énergie cinétique}
+Définition de l'énergie cinétique:
+\begin{equation}
+	\boxed{ K = E_cin = \frac{1}{2} m ||\vec v||^2 }
+\end{equation}
+
+\begin{center}
+	\emph{"La variation de l'énergie cinétîque \\ est égale au travail de la somme des forces"}
+\end{center}
+
+%MAYBE: inclure intégrale curviligne?
+
+\subsubsection{Puissance d'une force}
+La puissance d'une force est la quantité d'énergie fournie par la force (\emph{le travail}) par unité de temps:
+\begin{equation}
+	\boxed{ P = \frac{\delta W}{dt} = \frac{\vec F \cdot d \vec r}{dt} = \vec F \cdot \vec v}
+\end{equation}
+
+\subsubsection{Théorème de l'énergie cinétique}
+
+\begin{center}
+	\emph{"Dans un référentiel galiléen, pour un corps ponctuel de masse m constante parcourant un chemin reliant un point A à un point B, la variation d'énergie cinétique est égale à la somme des travaux W des forces extérieures et intérieures qui s'exercent sur le solide considéré."}
+\end{center}
+Pour un point matériel:
+\begin{equation}
+	\boxed{ K_2 - K_1 = W_{12} \Leftrightarrow \frac{dK}{dt} = P = \vec F \cdot \vec v }
+\end{equation}
+%TODO: ajouter explications
+
+\subsubsection{Conservation de l'énergie mécanique, forces conservatives}
+Une force conservative est une force qui dérive d'un potentiel et ne dépend que de la position. Avec les forces conservatives, on peut introduire la notion de "potentiel d'une force" \(V(\vec r)\). \\
+
+La pesanteur est un exemple commun de force conservative: elle ne dépend que de la hauteur de l'objet, et non pas de la trajectoire que parcourt ou qu'a parcourue l'objet. Elle dérive d'un champ, le champ gravitationnel, représenté par \(g\) dans la formule suivante:
+\begin{equation}
+	W_{12} = mgz_1 - mgz_2
+\end{equation}
+On représente typiquement l'énergie potentielle gravitationnelle d'un système par \(mgh\), ou \(mgz\), où \(z/h\) représentent la hauteur du système, \(m\) sa masse et \(g\) l'accélération gravitationnelle terrestre. On peut y penser comme "le travail qu'il faudrait fournir pour élever le système à cette hauteur". \\
+
+Lorsque les seules forces agissant sur le système sont conservatives, on peut postuler que l'énergie mécanique totale (\(K + V\)) est constante. Quand on rencontre de telles situations dans un problème, on peut utiliser ce postulat pour déduire les vitesses maximales du système (lorsque \(V\) est nul, \(K\) est maximale), et tirer bien d'autres conclusions utiles.
+
+Voici quelques exemples de forces conservatives:
+\begin{itemize}
+	\item La pesanteur
+	\item La force exercée par un ressort
+	\item La gravitation
+	\item La force centrale %TODO: pas encore discutée
+\end{itemize}
+Et une force non-conservative bien commune, et dont l'apparition dans un problème supprime tout espoir de pouvoir utiliser les énergies à son avantage:
+\begin{itemize}
+	\item La force de frottement
+\end{itemize}
+
+Des observations faites ci-dessus, on peut transitionner vers le Théorème de l'énergie.
+
+\subsubsection{Théorème de l'énergie}
+Le théorème est le suivant:
+\begin{equation} \label{eq:thmenergie}
+	\boxed{ E_2 - E_1 = W_{12}^\text{NC} }
+\end{equation}
+Ce qui revient à dire:
+\begin{center}
+	\emph{"La variation de l'énergie mécanique du système est égale au travail des forces non-conservatives."}
+\end{center}
+Cette observation découle assez directement de celle qui précède, ç.à.d que les forces conservatives ne modifient pas l'énergie totale du système. Les seules forces qui peuvent la modifier sont donc les forces non-conservatives. \\
+
+Une expression équivalente du théorème est:
+\begin{equation}
+	\boxed{ \frac{dE}{dt} = P^\text{NC} = \vec F^\text{NC} \cdot \vec v }
+\end{equation}
+Autrement dit,
+\begin{center}
+	\emph{"La dérivée de l'énergie mécanique est égale à la puissance des forces non-conservatives."}
+\end{center}
+
+\subsubsection{L'énergie mécanique en tant qu'intégrale première du mouvement}
+On dit que l'énergie mécanique, si elle est conservée (\(\Leftrightarrow si seules des forces conservatives entrent en jeu, \ref{thmenergie}\), est une \textbf{intégrale première du mouvement}. \\
+
+Nous n'inclurons pas ici le procédé mathématique un poil longuet, mais sachez qu'en dérivant l'énergie mécanique \(E = K + V\), on peut retomber sur le principe fondamental de la dynamique, la \emph{Lex Secunda} (\ref{eq:lexsecunda}). \\
+Le processus est simplifié si l'on considère non pas le cas général mais celui d'un oscillateur harmonique:
+\begin{align*}
+	E &= \frac{1}{2} m \dot x^2 + \frac{1}{2} k x^2 + C \\
+	\frac{d}{dt}\left ( \frac{1}{2} m \dot x^2 + \frac{1}{2} k x^2 + C \right ) &= m \dot x \ddot x + k x \dot x = 0 \\
+	&= m \ddot x + k x = 0 \\
+	m \ddot x &= -k x \\
+	\Rightarrow \ddot x &= -\frac{k}{m} x,
+\end{align*}
+ce qui est effectivement l'équation du mouvement d'un oscillateur harmonique. \\
+(On a posé \(\frac{dE}{dt} = 0\), car seules des forces conservatives entrent en jeu.)
+
+\subsubsection{Points d'équilibre}
+\begin{center}
+	\emph{"Un point d'équilibre est une position d'un système physique \\ à laquelle le système restera immobile s'il est placé sans vitesse initiale. \\ Un point \(x_0\) est un point d'équilibre si \(F(x_0) = 0\) ou si \(\left . \frac{dV}{dx} \right \rvert_{x=x_0} = 0\)."} % the \left . is to put an invisible bracket on the left so that you can match it on the right: https://tex.stackexchange.com/a/40162
+\end{center}
+% je ne suis pas trop sûr d'avoir compris le concept de ces prochaines lignes, si quelqu'un arrive à l'expliquer mieux ça serait parfait (slides 4.6.1 de Fuerbringer)
+On étudie la fonction \(V(x)\) afin de déterminer les points d'équilibre et les fréquences des petites oscillations autour des points d'équilibre stable. On effectue un développement limité autour d'un point d'équilibre pour déterminer la nature de l'équilibre (stable ou instable).
+
+\end{document}
+
+
+
+
+
+
+

@@ -1,0 +1,122 @@
+\documentclass{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\newcommand\eqdef{\; \stackrel{\mathclap{\normalfont\text{déf.}}}{ = } \;}
+\numberwithin{equation}{section}
+
+\usepackage{array}
+\newcolumntype{L}{>{$}l<{$}} % math-mode version of "l" column type
+\newcolumntype{C}{>{$}c<{$}} % math-mode version of "c" column type
+%the above column types were found on https://tex.stackexchange.com/a/112585
+
+\title{\vspace{-2cm}Analyse 1 - Anna Lachowska\\Résumé}
+\author{Benjamin Bovey}
+\date{November 2018}
+
+\addtolength{\oddsidemargin}{-.875in}
+	\addtolength{\evensidemargin}{-.875in}
+	\addtolength{\textwidth}{1.75in}
+
+	\addtolength{\topmargin}{-.875in}
+	\addtolength{\textheight}{1.75in}
+
+\begin{document}
+
+\maketitle
+
+\section{Identités algébriques}
+\subsection{Polynômes:} 
+\(x,y \in \mathbb{R}\):
+\begin{align*}
+	&(x+y)^2 = x^2 + 2xy + y^2 				& 	&x^2 - y^2 = (x - y)(x + y) \\
+	&(x-y)^2 = x^2 - 2xy + y^2 					& 	&x^3 - y^3 = (x - y)(x^2 + xy + y^2) \\
+	&(x+y)^3 = x^3 + 3x^2y + 3xy^2 + y^3 	& 	&x^3 + y^3 = (x + y)(x^2 - xy + y^2) \\
+	&(x-y)^3 = x^3 - 3x^2y + 3xy^2 - y^3 
+\end{align*}
+
+\subsection{Logarithmes:}
+On assume que la notation \(\log\) sans indice précisé dénote le logarithme naturel. \\
+\(a, b \in \mathbb{R}_{>0}, \; c \in \mathbb{R}\)
+\begin{align*}
+	&\log(ab) 							= \log(a) + \log(b) 		&	&\log(e)		= 1 \\
+	&\log{\left (\dfrac{a}{b}\right )} 	= \log (a) - \log (b) 	&	&\log_a(1)	= 0 \\
+	&\log(a^c) 							= c \cdot \log(a) 		&	&\log_a(a)	= 1, \; a \neq 1 \\
+\end{align*}
+
+\subsection{Trigonométrie:}
+\begin{align*}
+	&\sin(x \pm y) 	= \sin(x) \cos(y) \pm \cos(x) \sin(y)	& &\cos(x \pm y) 	= \cos(x) \cos(y) \mp \sin(x)\sin(y) \\
+	&\begin{cases}
+		\begin{aligned}	
+			\sin(2x) = 2\cos(x)\sin(x) \\ 
+						\\ 
+						\\
+		\end{aligned} 
+	\end{cases} & &\begin{cases}
+		\begin{aligned}
+			\cos(2x) 	&= 1 - 2\sin^2(x) \\
+						&= -1 + 2\cos^2(x)  \\
+						&= \cos^2(x) - \sin^2(x)
+		\end{aligned}
+	\end{cases} \\
+	&\cos^2(x) + \sin^2(x) = 1 & &\tan(x) = \frac{\sin(x)}{\cos(x)}  \\
+	&\sin(-x) = -\sin(x) \quad \text{(impaire)}		& &\cos(-x) = \cos(x) \quad \text{(paire)}
+\end{align*}
+
+\subsubsection{Quelques valeurs de \(\cos(x)\) et \(\sin(x)\)}
+\begin{center}
+	\def\arraystretch{1.5}
+	\begin{tabular}{| C | C | C | C |} %https://tex.stackexchange.com/questions/112576/math-mode-in-tabular-without-having-to-use-everywhere
+		\hline
+		x 						& \sin(x) 							& \cos(x)						& \tan(x) \\ \hline
+		0 						& 0								& 1							& 0\\
+		\frac{\pi}{6}			& \frac{1}{2} 					& \frac{\sqrt{3}}{2}			& \frac{\sqrt{3}}{3} \\
+		\frac{\pi}{4}			& \frac{\sqrt{2}}{2} 			& \frac{\sqrt{2}}{2}			& 1 \\
+		\frac{\pi}{3}			& \frac{\sqrt{3}}{2} 			& \frac{1}{2}					& \sqrt{3} \\
+		\frac{\pi}{2}			& 1								& 0							& \infty \\
+		\hline
+	\end{tabular}
+\end{center}
+
+\section{Limites utiles}
+\begingroup\allowdisplaybreaks[1]
+\begin{flalign}
+		&\nonumber\text{Soient \(P_n\) et \(Q_n\) deux suites polynomiales:} \\
+	&\lim_{n\to\infty} \dfrac{P_n}{Q_n} = 
+		\begin{cases}
+			0, 						&\text{si } \deg{P_n} < \deg{Q_n} \\
+			\frac{p_n}{q_n},	&\text{si } \deg{P_n} = \deg{Q_n}, \; \text{avec \(p_n\) et \(q_n\) les coefficients du terme de plus haut degré}\\
+			\infty , 				&\text{si } \deg{P_n} > \deg{Q_n}
+		\end{cases} \\
+	&\lim_{n\to\infty} \dfrac{1}{n^p} = 0 \quad \forall p \in \mathbb{R}_+^* \\
+	&\lim_{n\to\infty} \sqrt[n]{a} = 1 \quad \forall a \in \mathbb{R}_+ \\
+	&\lim_{n\to\infty} \dfrac{p^n}{n!} = 0 \quad \forall p \in \mathbb{R}_+^* \\
+	&\lim_{n\to\infty} \frac{\sin{\frac{1}{n}}} {\frac{1}{n}} = 1 \\
+	&\lim_{n\to\infty} \sin{\frac{1}{n}} = 0 \\
+	&\lim_{n\to\infty} \left (1 + \frac{1}{n} \right )^n = e  \\
+	&\lim_{n\to\infty} \left (1 - \frac{1}{n} \right )^n = \frac{1}{e} = e^{-1} \\
+	&\lim_{n\to\infty} \frac{n!}{n^n} = 0 \\
+	&\sum_{k=0}^{\infty} r^k = \begin{cases}
+										\dfrac{1}{1-r}, &|r| < 1 \\
+										\text{diverge, } &|r| \geq 1
+									   	\end{cases}\quad , r \in \mathbb{R} \\
+	&\sum_{n=1}^{\infty} \frac{1}{n^p} \text{ converge } \forall p \in \mathbb{R}_{>1} \\
+	&\sum_{n=1}^{\infty} \frac{1}{n} \text{ diverge. } \\
+	&\sum_{n=0}^{\infty} |a_n| \text{ converge } \Rightarrow \sum_{k=0}^{\infty} a_n \text{ converge. } ( \nLeftarrow )\\
+	&\lim_{x \to 0} \dfrac{\sin{x}}{x} = 1 \\
+	&\lim_{x \to 0} \sin{\frac{1}{x}} \quad \text{n'existe pas.} \\
+	&\lim_{x \to 0} x \cdot \sin{\frac{1}{x}} = 0 \\
+	&e^x \eqdef \sum_{n=0}^{\infty} \dfrac{x^n}{n!} \\
+	&\lim_{x \to 0} \dfrac{e^x-1}{x} = 1
+\end{flalign}
+\allowdisplaybreaks[0]\endgroup
+
+\section{Formes indéterminées}
+\begin{align*}
+	&\infty - \infty, \quad \dfrac{\infty}{\infty}, \quad \dfrac{0}{0}, \quad 0 \cdot \infty, \quad 0^0, \quad \infty^0, \quad 1^\infty
+\end{align*}
+
+\end{document}
