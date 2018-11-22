@@ -31,7 +31,9 @@ Ce résumé est pour l'instant incomplet par rapport à l'ensemble des notions c
 
 \section{Notions mathématiques - I}
 
-\subsection{Produit vectoriel}
+\subsection{Vecteurs}
+
+\subsubsection{Produit vectoriel}
 
 Le produit vectoriel est une opération prenant deux vecteurs de \(\mathbb{R}^3\) comme input et donnant un troisième vecteur comme output. \\ %changer le voc: input, output
 Il est défini ainsi:
@@ -42,39 +44,39 @@ Ou, en termes de normes:
 \begin{equation}
 	\boxed{ ||\vec a \wedge \vec b|| = ||\vec a|| \cdot ||\vec b|| \cdot \sin(\theta) }
 \end{equation}
-
-Il est plus simple de se le concevoir visuellement par la figure suivante: \\
-	COMING SOON TO A MOVIE THEATER NEAR YOU \\
-
 Le vecteur résultant d'un produit vectoriel a la propriété d'être perpendiculaire au plan formé par les deux vecteurs d'input (orthogonalité).\\
-
-Si les deux vecteurs que l'on multiplie sont colinéaires, le produit vectoriel est nul. \\
+Si deux vecteurs sont parallèles, leur produit vectoriel est nul. \\
 
 Le produit vectoriel possède les propriétés suivantes:
 \begin{itemize}
 	\item \(\vec a \parallel \vec b \Leftrightarrow \vec a \wedge \vec b = \vec 0\)
-	\item
+	\item 
 	%TODO: A COMPLETER
 \end{itemize}
-Le produit vectoriel est 	\textbf{anti-commutatif}. %TODO: A COMPLETER
+Il est également \textbf{anti-commutatif} et \textbf{distributif}.
 
-\subsection{Produit scalaire}
+\subsubsection{Produit scalaire}
 Le produit scalaire est une opération prenant deux vecteurs comme input et donnant un scalaire, c'est-à-dire un nombre réel, comme output. \\
 Il est défini ainsi:
 \begin{equation}
 	\boxed{ \vec a \cdot \vec b = a_1b_1 + a_2b_2 + a_3b_3 }
 \end{equation}
+Ou, en termes de normes:
+\begin{equation}
+	\boxed{ \vec a \cdot \vec b = ||\vec a|| \cdot ||\vec b|| \cdot \cos(\theta) }
+\end{equation}
 
-Le produit vectoriel possède les propriétés suivantes:
+Si deux vecteurs sont perpendiculaires, leur produit scalaire est nul. \\
+
+Le produit scalaire possède les propriétés suivantes:
 \begin{itemize}
-	\item \(\vec a \cdot \vec b = 0 \Leftrightarrow \vec a \perp \vec b\)
-	\item 
-	%TODO: A COMPLETER
+	\item \( \vec a \cdot \vec b = 0 \Leftrightarrow \vec a \perp \vec b \)
+	\item \( (\alpha \vec a) \cdot (\beta \vec b) = \alpha \beta (\vec a \cdot \vec b) \)
 \end{itemize}
 
-Il est \textbf{commutatif}, \textbf{distributif} et %TODO: A COMPLETER
+Il est également \textbf{commutatif} et \textbf{distributif}.
 
-\subsection{Produit mixte et double produit vectoriel}
+\subsubsection{Produit mixte et double produit vectoriel}
 Quelques propriétés des combinations du produit vectoriel et du produit scalaire:
 \begin{itemize}
 	\item \((\vec a \wedge \vec b) \cdot \vec c = (\vec c \wedge \vec a) \cdot \vec b\)
@@ -95,8 +97,6 @@ La dérivée d'une fonction \(f(x)\) est la fonction \(f'(x)\) qui représente l
 \end{itemize}
 
 La notation utilisée sera le plus souvent la troisième. On désignera donc par exemple la position sur \(\hat x\) par \(x\), la vitesse par \(\dot x\) et l'accélération par \(\ddot x\).
-
-\section{Mécanique du point}
 
 \subsection{Systèmes de coordonnées}
 Pour modéliser certains problèmes physiques, il est souvent pratique d'utiliser différents systèmes de coordonnées.
@@ -143,6 +143,8 @@ Accélération projetée sur les axes:
 	\end{cases}}
 \end{equation}
 
+\section{Mécanique du point}
+
 \subsection{Les 3 lois de Newton}
 
 \subsubsection{Loi d'inertie}
@@ -164,9 +166,11 @@ Accélération projetée sur les axes:
 \end{equation}
 On a aussi la formule plus universelle, qui prend en compte les éventuels changements de masse du système:
 \begin{equation*}
-	\vec F = \dot{\vec{p}}
+	\boxed{ \vec F = \dot{\vec{p}} }
 \end{equation*}
-où \(\vec p\) est la quantité de mouvement (concept abordé plus tard dans le cours) %TODO: référence à qté movement
+où \(\vec p\) est la quantité de mouvement (concept abordé plus tard dans le cours, \ref{eq:defquantitemouvement}). Cette formule est équivalente à la précédente dans des systèmes fermés (où la masse ne change pas).
+
+À partir de la seconde loi de Newton, on peut considérer la masse comme "la capacité qu'a un objet à résister au changement de vitesse". C'est pourquoi il est difficile de mettre un mouvement un gros rocher perché au sommet d'une colline afin d'écraser un vil coquin qui sieste à son pied, et qu'il est tout autant difficile de l'arrêter après qu'il ait commencé à rouler si on est soudainement pris d'une vague d'amour pour le pauvre dormeur (?).
 
 \subsubsection{Loi d'action-réaction}
 \begin{center}
@@ -195,9 +199,9 @@ où \(\vec p\) est la quantité de mouvement (concept abordé plus tard dans le 
 
 Hauteur maximale:
 \begin{equation}
-	\boxed{h = \dfrac{v_0^2}{2g}}
+	\boxed{h = \dfrac{v_{0,z}^2}{2g}}
 \end{equation}
-\(v_0\) est la vitesse sur l'axe \emph{vertical}.
+\(v_{0,z}\) est la vitesse projetée sur l'axe \emph{vertical}.
 
 Portée:
 La portée est maximale pour \(\theta = \frac{\pi}{4}\):
@@ -292,7 +296,7 @@ On définit l'impulsion de la force appliquée d'un point 1 à un point 2 comme:
 
 \subsubsection{Quantité de mouvement}
 On définit la quantité de mouvement \(\vec p\):
-\begin{equation}
+\begin{equation} \label{eq:defquantitemouvement}
 	\boxed{ \vec p = m \vec v }
 \end{equation}
 
@@ -413,7 +417,7 @@ ce qui est effectivement l'équation du mouvement d'un oscillateur harmonique. \
 % je ne suis pas trop sûr d'avoir compris le concept de ces prochaines lignes, si quelqu'un arrive à l'expliquer mieux ça serait parfait (slides 4.6.1 de Fuerbringer)
 On étudie la fonction \(V(x)\) afin de déterminer les points d'équilibre et les fréquences des petites oscillations autour des points d'équilibre stable. On effectue un développement limité autour d'un point d'équilibre pour déterminer la nature de l'équilibre (stable ou instable).
 
-\section{Gravitation et moment cinétiques}
+\section{Moment cinétique et gravitation}
 
 \subsection{Moment}
 En physique, le moment est une quantité qui rend compte de la distribution spatiale d'une quantité physique. En gros, on va considérer cette quantité physique non pas en tant que telle, mais plutôt dans un contexte spatial, c'est à dire par rapport à une origine \(O\) et à sa position par rapport à cette origine \(\vec r\). On appelle souvent cette origine le \emph{pivot}, car ces moments entrent souvent en compte lors de mouvements rotatifs autour d'un ou plusieurs points. \\ Il est important de bien comprendre que les moments ne sont pas des grandeurs physiques objectives dans un système: on les utilise juste afin d'étudier certains types de mouvements. On peut donc choisir le point de pivot comme cela nous arrange (p. ex problème de l'échelle contre un mur). \\
@@ -578,8 +582,8 @@ En partant de la seconde loi de Newton (\ref{eq:lexsecunda}), on voit que:
 \end{align*}
 Si on prend, par exemple, un oeuf qui tombe depuis la même hauteur (a) sur un matelas ou (b) sur du goudron, on observe que:
 \begin{itemize}
-	\item (a) le choc prend plus de temps, il est "amorti". L'oeuf ne se casse pas (\emph{don't try this at home, kiddos})
-	\item (b) le choc est instantané. L'oeuf se casse (probablement).
+	\item (a) le choc prend plus de temps, il est "amorti". L'oeuf ne se casse pas (\emph{don't try this at home, kiddos. I won't take responsibility.})
+	\item (b) le choc est instantané. L'oeuf se casse (\emph{probablement. Sinon, pourriez-vous m'indiquer votre fournisseur d'oeufs?}).
 \end{itemize}
 Dans les deux cas, la quantité de mouvement était identique avant le choc, et nulle après. \(\Delta \vec p\) est donc identique. Mais \(\Delta t\) était plus court dans le cas (b), ce qui a fait que le choc était plus "fort" (si \(\Delta t\) est plus petit, \(\vec F\) doit être plus grand pour que l'égalité tienne).
 
@@ -618,7 +622,7 @@ Solide indéformable:
 	\vec R_G = \frac{1}{M} \int_V \vec r \rho(\vec r) dV
 \end{equation*}
 On intègre par rapport au volume \(V\). La fonction \(\rho (\vec r)\) représente la masse volumique à la position \(\vec r\). \\
-Vraiment, ces intégrales ne sont pas très importantes au niveau des calculs. Je n'intégrerai donc que peu des résultats intermédiaires qui en comprennent, et tenterai de présenter uniquement les formules applicables et la façon de les appliquer.
+Vraiment, ces intégrales ne sont pas très importantes au niveau des calculs. Je n'intégrerai (\emph{hmmm}) donc dans ce résumé que peu des résultats intermédiaires qui en comprennent, et tenterai de présenter uniquement les formules applicables.
 
 %TODO
 
