@@ -1,7 +1,4 @@
 ## TeX.gitignore copied from the github/gitignore repository: https://github.com/gitignore
-## It is simpler for people who do not have a TeX compiler if we include the rendered PDF files on GitHub. That is why I commented out the next two lines.
-#### Ignore rendered PDF files, we only want the source code
-##*.pdf
 
 ## Core latex/pdflatex auxiliary files:
 *.aux

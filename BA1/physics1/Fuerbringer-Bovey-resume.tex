@@ -510,6 +510,11 @@ Un système est à l'équilibre si il est isolé et que les conditions suivantes
 \end{equation}
 
 \subsection{Centre de masse}
+La position du centre de masse:
+\begin{equation}
+	\boxed{ \vec R = \frac{1}{M} \cdot \sum_\alpha m_\alpha \vec r_\alpha }
+\end{equation}
+Les termes en majuscule désignent les attributs du centre de masse. Dans le cas de la masse, \(M\) désigne simplement la somme des masses des points composant le système.
 
 \subsubsection{Théorème du centre de masse}
 \begin{center}
@@ -524,14 +529,93 @@ Lorsqu'on prend la position du centre de masse comme origine, on désignera les 
 Les propriétés du centre de masse sont les suivantes:
 \begin{equation}
 	\begin{cases}
-		\sum_\alpha m_\alpha \vec r_\alpha * = 0 \\
-		\sum_\alpha m_\alpha \vec p_\alpha * =0 \\
+		\sum_\alpha m_\alpha \vec r_\alpha^* = 0 \\
+		\sum_\alpha m_\alpha \vec p_\alpha^* =0 \\
 	\end{cases}
 \end{equation} 
-avec les \(\vec r_\alpha *\) les vecteurs position de chaque point matériel du système, relatifs à l'origine placée sur le centre de masse.
+avec les \(\vec r_\alpha *\) les vecteurs position de chaque point matériel du système, relatifs au le centre de masse.
 
-\subsubsection{Coordonnées relatives}
+\subsection{Problèmes à deux corps}
 
+\subsubsection{Coordonnées relatives} %TODO: revoir, donner les infos importantes uniquement, verifier que toutes les infos importantes sont la
+Masse réduite du système:
+\begin{equation}
+	\boxed{ \mu = \frac{m_1m_2}{m_1 + m_2} }
+\end{equation}
+
+\subsubsection{Équation du mouvement et variables dynamiques} %TODO: completer aussi. je sais pas quoi inclure et ne pas inclure
+Théorème de la quantité de mouvement:
+\begin{equation}
+	\begin{cases}
+		\vec p = m_1 \vec v_1 + m_2 \vec v_2 = M \vec V_G \\
+		\vec p * = m_1 \vec v_1^* + m_2 \vec v_2^* = 0
+	\end{cases}
+\end{equation}
+\(M =\) masse totale du système
+
+\subsubsection{Les deux théorèmes de König}
+1er théorème, le mouvement cinétique total:
+\begin{equation}
+	\boxed{ \vec L_\text{tot, O} = \vec R \wedge M \vec V + \vec L_\text{tot, O}^* }
+\end{equation}
+2nd théorème, l'énergie cinétique totale:
+\begin{equation}
+	K_\text{tot} = \frac{1}{2}MV^2 + K_\text{tot}^*
+\end{equation}
+
+\subsection{Les chocs}
+
+\subsubsection{Concept d'impulsion, "force" du choc}
+En partant de la seconde loi de Newton (\ref{eq:lexsecunda}), on voit que:
+\begin{align*}
+	\vec F 			&= \frac{d \vec p}{dt} \approx \frac{\Delta \vec p}{\Delta t} \\
+	\vec F \Delta t 	&= \Delta \vec p \\
+\end{align*}
+Si on prend, par exemple, un oeuf qui tombe depuis la même hauteur (a) sur un matelas ou (b) sur du goudron, on observe que:
+\begin{itemize}
+	\item (a) le choc prend plus de temps, il est "amorti". L'oeuf ne se casse pas (\emph{don't try this at home, kiddos})
+	\item (b) le choc est instantané. L'oeuf se casse (probablement).
+\end{itemize}
+Dans les deux cas, la quantité de mouvement était identique avant le choc, et nulle après. \(\Delta \vec p\) est donc identique. Mais \(\Delta t\) était plus court dans le cas (b), ce qui a fait que le choc était plus "fort" (si \(\Delta t\) est plus petit, \(\vec F\) doit être plus grand pour que l'égalité tienne).
+
+\subsubsection{Chocs élastiques}
+Dans le cas d'un choc élastique, on a:
+\begin{itemize}
+	\item conservation de la quantité de mouvement totale du système \((\vec P_i = \vec P_f)\)
+	\item conservation de l'énergie mécanique totale du système \((E_i = E_f)\)
+\end{itemize}
+Cela est vrai pour l'entier du mouvement et du choc (= longtemps avant et après le choc) uniquement si le système est isolé et qu'aucun potentiel ne change (= p.ex, le système reste à la même hauteur et ne gagne ou ne perd aucune énergie potentielle gravitationnelle). \\
+Cependant, ces deux conservations valent dans tous les cas à l'instant exact du choc élastique. Si on parle par exemple d'une balle qui tombe verticalement (\(\Rightarrow\) subit un changement d'énergie potentielle) et qui est soumise lors de sa chute à une force de frottement fluide (\(\Rightarrow\) non conservative), on peut considérer que la quantité de mouvement de la balle et son énergie mécanique \emph{un instant} avant le choc sera la même que \emph{un instant} après le choc. 
+
+\subsubsection{Chocs (totalement) inélastiques}
+Dans ce cas-ci, on a uniquement:
+\begin{itemize}
+	\item conservation de la quantité de mouvement totale du système \((\vec P_i = \vec P_f)\)
+\end{itemize}
+L'énergie n'est pas conservée parce qu'une partie est perdue durant le choc. On rencontre ce cas, par exemple, dans les problèmes suivants:
+\begin{itemize}
+	\item un choc avec un bloc mou (\emph{si vous faites du hockey avec une plaque de beurre p.ex})
+	\item une fusée qui se sépare d'un module (il y a une petite explosion qui dissipe une partie de l'énergie, mais \(\vec p\) est constante)
+	\item ...
+\end{itemize}
+Les paragraphes explicatifs de la section précédente sur les chocs élastiques s'appliquent aussi, mais uniquement pour la quantité de mouvement et non l'énergie.
+
+\section{Le solide indéformable}
+En gros, c'est un système de points matériels, mais qui sont fixés les uns par rapport aux autres. Rien de bien grave. \\
+Le seul problème avec ça c'est que vu que les gens veulent toujours être très précis, ils remplacent la somme de points pour un nombre fini de points par des intégrales de Riemann pour des nombres infinis de points. Faut pas se faire trop impressionner, on utilise ces intégrales uniquement dans la théorie par souci de précision, et pas en exercices. \\
+
+Système de points matériels:
+\begin{equation*}
+	\vec R_G = \frac{1}{M} \sum_\alpha \vec r_\alpha m_\alpha
+\end{equation*}
+Solide indéformable:
+\begin{equation*}
+	\vec R_G = \frac{1}{M} \int_V \vec r \rho(\vec r) dV
+\end{equation*}
+On intègre par rapport au volume \(V\). La fonction \(\rho (\vec r)\) représente la masse volumique à la position \(\vec r\). \\
+Vraiment, ces intégrales ne sont pas très importantes au niveau des calculs. Je n'intégrerai donc que peu des résultats intermédiaires qui en comprennent, et tenterai de présenter uniquement les formules applicables et la façon de les appliquer.
+
+%TODO
 
 \end{document}
 
