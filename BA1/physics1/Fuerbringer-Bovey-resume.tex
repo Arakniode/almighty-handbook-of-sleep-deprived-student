@@ -284,6 +284,10 @@ On définit l'impulsion de la force appliquée d'un point 1 à un point 2 comme:
 	\boxed{ \vec I_{12} = \int_1^2 \vec F \, d \vec t }
 \end{equation}
 
+\begin{equation}
+	\boxed{ \vec I_{12} = \vec p_2 - \vec p_1 }
+\end{equation}
+
 \subsubsection{Quantité de mouvement}
 On définit la quantité de mouvement \(\vec p\):
 \begin{equation}
@@ -382,7 +386,7 @@ Autrement dit,
 \end{center}
 
 \subsubsection{L'énergie mécanique en tant qu'intégrale première du mouvement}
-On dit que l'énergie mécanique, si elle est conservée (\(\Leftrightarrow si seules des forces conservatives entrent en jeu, \ref{thmenergie}\), est une \textbf{intégrale première du mouvement}. \\
+On dit que l'énergie mécanique, si elle est conservée (\(\Leftrightarrow\) si seules des forces conservatives entrent en jeu, \ref{eq:thmenergie}), est une \textbf{intégrale première du mouvement}. \\
 
 Nous n'inclurons pas ici le procédé mathématique un poil longuet, mais sachez qu'en dérivant l'énergie mécanique \(E = K + V\), on peut retomber sur le principe fondamental de la dynamique, la \emph{Lex Secunda} (\ref{eq:lexsecunda}). \\
 Le processus est simplifié si l'on considère non pas le cas général mais celui d'un oscillateur harmonique:
@@ -402,6 +406,132 @@ ce qui est effectivement l'équation du mouvement d'un oscillateur harmonique. \
 \end{center}
 % je ne suis pas trop sûr d'avoir compris le concept de ces prochaines lignes, si quelqu'un arrive à l'expliquer mieux ça serait parfait (slides 4.6.1 de Fuerbringer)
 On étudie la fonction \(V(x)\) afin de déterminer les points d'équilibre et les fréquences des petites oscillations autour des points d'équilibre stable. On effectue un développement limité autour d'un point d'équilibre pour déterminer la nature de l'équilibre (stable ou instable).
+
+\section{Gravitation et moment cinétiques}
+
+\subsection{Moment}
+En physique, le moment est une quantité qui rend compte de la distribution spatiale d'une quantité physique. En gros, on va considérer cette quantité physique non pas en tant que telle, mais plutôt dans un contexte spatial, c'est à dire par rapport à une origine \(O\) et à sa position par rapport à cette origine \(\vec r\). On appelle souvent cette origine le \emph{pivot}, car ces moments entrent souvent en compte lors de mouvements rotatifs autour d'un ou plusieurs points. \\ Il est important de bien comprendre que les moments ne sont pas des grandeurs physiques objectives dans un système: on les utilise juste afin d'étudier certains types de mouvements. On peut donc choisir le point de pivot comme cela nous arrange (p. ex problème de l'échelle contre un mur). \\
+
+En physique, il existe plusieurs types de moment, qui possèdent des propriétés qui peuvent nous être utile afin d'étudier certains types de mouvements. \\
+
+\begin{center}
+	\emph{"Lorsque la quantité physique à laquelle on s'intéresse est un vecteur, \\ l'angle entre le vecteur position et la quantité physique est pris en compte \\ grâce au produit vectoriel."}
+\end{center}
+
+\subsubsection{Moment de force}
+\begin{equation}
+	\boxed{ \vec M_O ( \vec F ) = \vec r \wedge \vec F }
+\end{equation}
+On peut imaginer ce moment de force comme "l'aptitude d'une force à faire tourner un système autour du point \(O\)". Comme on le disait dans le paragraphe précédent, il dépend de l'endroit où on applique la force: pensez à un bras de levier.
+
+\subsubsection{Moment cinétique}
+\begin{equation}
+	\boxed{ \vec L_O = \vec r \wedge \vec p = \vec r \wedge m \vec v }
+\end{equation}
+Si \(\vec p\) est la \emph{quantité de mouvement}, \(\vec L_O\) pourrait être appelé la \emph{quantité de rotation}.
+
+\subsubsection{Mouvement central}
+\begin{center}
+	\emph{"Un point \(p\) de masse \(m\) a un mouvement central si la droite portant son accélération passe toujours par le même point \(O\) (le pivot)."}
+\end{center}
+\textbf{Exemple:} un mouvement circulaire uniforme. La rotation des planètes autour du soleil.\\
+Lorsqu'un mouvement est central, la loi des aires est respectée: l'aire balayée par le vecteur position sera toujours la même pour un même intervalle de temps (troisième loi de Kepler). \\
+
+On a une équivalence entre ces trois propositions:
+\begin{itemize}
+	\item \quad Le mouvement est central
+	\item \(\Leftrightarrow\) Le moment cinétique \(\vec L_O\) est constant
+	\item \(\Leftrightarrow\) La loi des aires est respectée et le mouvement est plan
+\end{itemize}
+
+\subsubsection{Loi de la gravitation universelle}
+Force gravitationnelle entre deux corps:
+\begin{equation}
+	\boxed{ \vec F = -G \dfrac{m_1m_2}{r^2} \hat e_r }
+\end{equation}
+Potentiel de cette force:
+\begin{equation}
+	\boxed{ V(r) = -G \dfrac{m_1m_2}{r} }
+\end{equation}
+%5.2.10: moment cinétique et energie mécanique importants?
+
+\section{Systèmes de points matériels}
+Nous nous intéresseront à des systèmes composés de plusieurs points matériels \textbf{non-liés} (en opposition aux corps indéformables). % TODO: référence à corps indéformables
+
+\subsection{Lois de conservation pour un système isolé}
+Le terme "isolé" peut être défini ainsi dans le contexte d'un système de points matériels:
+\begin{center}
+	\emph{"Un système de points matériels est isolé si les somme des forces extérieures ainsi que des moments de forces extérieurs sont nulles."}
+\end{center}
+\begin{equation*}
+	\boxed{ \begin{cases} 
+		\vec F^{\text{ext}} = 0 \\
+		\vec M_O^{\text{ext}} = 0
+	\end{cases} }
+\end{equation*}
+
+\subsubsection{Théorème du moment cinétique}
+La dérivée du moment cinétique est égale au moment de la somme des forces:
+\begin{equation} \label{eq:thmmomentcinetique}
+	\boxed{ \frac{d \vec L_O }{dt} = \vec M_O }
+\end{equation}
+Ce théorème est assez facilement prouvé à partir de la seconde loi de Newton (\ref{eq:lexsecunda}).
+
+\subsubsection{Forces internes et externes}
+\begin{center}
+	\emph{"La somme des forces internes est nulle. \\ Le moment de la somme des forces internes est nul."}
+\end{center}
+Si le moment est nul, on peut selon le théorème du moment cinétique \ref{eq:thmmomentcinetique} déduire que le moment cinétique est constant.
+De cela, on peut tirer que:
+\begin{center}
+	\emph{"Seules les forces extérieures au système \\ déterminent l'évolution de la quantité de mouvement totale \\ et du moment cinétique total."}
+\end{center}
+
+\subsubsection{Conclusions sur les systèmes isolés}
+Un système isolé possède donc les propriétés suivantes:
+\begin{equation}
+	\begin{cases}
+		\vec F^{\text{ext}} = 0 \\
+		\vec M_O^{\text{ext}} = 0 \\
+		\text{Moment cinétique total = cst.} \\
+		\text{Quantité de mouvement totale = cst.}
+	\end{cases}
+\end{equation}
+Les propriétés 3 et 4 sont équivalentes aux propriétés 1 et 2 par le théorème du moment cinétique (\ref{eq:thmmomentcinetique}) et le principe fondamental de la dynamique (\ref{eq:lexsecunda}).
+
+\subsubsection{Système à l'équilibre}
+Dans un système de points matériels à l'équilibre, chaque point matériel a une vitesse nulle (\( \vec v = 0 \Rightarrow \vec p = 0  \)). \\
+Un système est à l'équilibre si il est isolé et que les conditions suivantes sont également respectées:
+\begin{equation}
+	\begin{cases}
+		\vec p^{\text{\, tot}} = 0 \\
+		\vec L_O^{\text{tot}} = 0
+	\end{cases}
+\end{equation}
+
+\subsection{Centre de masse}
+
+\subsubsection{Théorème du centre de masse}
+\begin{center}
+	\emph{"Le centre de masse d'un système se comporte comme un point matériel de masse \(M = \sum_\alpha m_\alpha\) subissant toutes les forces extérieures appliquées sur les différentes parties du système, comme si ces forces étaient directement exercées sur ce centre de masse."}
+\end{center}
+Bref, on va principalement se soucier du centre de masse d'un système de points matériels, parce qu'il se comporte de façon plus prévisible que les points matériels individuels. \\
+Chaque système possède un centre de masse \textbf{unique}.
+
+\subsubsection{Propriétés du centre de masse}
+Lorsqu'on prend la position du centre de masse comme origine, on désignera les vecteurs exprimés par rapport à cette origine par une astérisque (*). \\
+
+Les propriétés du centre de masse sont les suivantes:
+\begin{equation}
+	\begin{cases}
+		\sum_\alpha m_\alpha \vec r_\alpha * = 0 \\
+		\sum_\alpha m_\alpha \vec p_\alpha * =0 \\
+	\end{cases}
+\end{equation} 
+avec les \(\vec r_\alpha *\) les vecteurs position de chaque point matériel du système, relatifs à l'origine placée sur le centre de masse.
+
+\subsubsection{Coordonnées relatives}
+
 
 \end{document}
 

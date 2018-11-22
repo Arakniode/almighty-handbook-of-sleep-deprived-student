@@ -64,10 +64,15 @@ Dans le cas, par exemple, d'une limite fraction de polynômes, dans lequel l'exp
 On assume que la notation \(\log\) sans indice précisé dénote le logarithme naturel, car c'est la convention utilisée par Mme Lachowska dans son cours. \\
 \(a, b \in \mathbb{R}_{>0}, \; c \in \mathbb{R}\)
 \begin{align*}
-	&\log(ab) 							= \log(a) + \log(b) 		&	&\log(e)		= 1 \\
-	&\log{\left (\dfrac{a}{b}\right )} 	= \log (a) - \log (b) 	&	&\log_a(1)	= 0 \\
-	&\log(a^c) 							= c \cdot \log(a) 		&	&\log_a(a)	= 1, \; a \neq 1 \\
+	&\log(ab) = \log(a) + \log(b) 
+		& &\log{\left (\dfrac{a}{b}\right )} = \log (a) - \log (b) 
+			& &\log(a^c) = c \cdot \log(a) \\
+	&\log_a(1) = 0 
+		& &\log(e) = 1 
+			& &\log_a(a)	= 1, \; a \neq 1 \\
+	&\log_a(b) = \frac{\log(b)}{\log(a)}
 \end{align*}
+L'identité de changement de base est applicable avec toute autre base réelle, pas juste base \(e\).
 
 \subsubsection{Trigonométrie}
 \begin{align}
@@ -183,17 +188,46 @@ Cette seconde définition est peut-être plus facile à lier à une représentat
 
 \subsection{Dérivées utiles}
 \begin{align*}
-	&(\sin(x))' = \cos(x)		& &(\cos(x))' = -\sin(x)			& &(\tan(x))' = \frac{1}{\cos^2(x)} \\
-	&(x^2)' = 2x 				& &(x^3)' = 3x^2				& &(x^n)' = n \cdot x^{n-1} \\
+	&(\sin(x))' = \cos(x)
+		& &(\cos(x))' = -\sin(x)
+			& &(\tan(x))' = \frac{1}{\cos^2(x)} \\
+	&(x^2)' = 2x
+		& &(x^3)' = 3x^2
+			& &(x^n)' = n \cdot x^{n-1} \\
+	&(e^x)' = e^x
+		& &(\log(x))' = \frac{1}{x}
 \end{align*}
 
 \subsection{Opérations sur les dérivées}
 Soient les applications \(f: \mathbb{R} \to \mathbb{R}\) et \(g: \mathbb{R} \to \mathbb{R}\) et les réels \(\alpha, \beta \in \mathbb{R}\):
 \begin{align*}
 	&(\alpha f + \beta g)' = \alpha f' + \beta g' 
-	& &(f \cdot g)' = f' \cdot g + f \cdot g' 
-	& &\left (\frac{f}{g}\right ) = \frac{f' \cdot g + f \cdot g'}{g^2} \\ 
+		& &(f \cdot g)' = f' \cdot g + f \cdot g' 
+			& &\left (\frac{f}{g}\right ) = \frac{f' \cdot g - f \cdot g'}{g^2} \\ 
+	&(f \circ g)'(x) = g'(f(x)) \cdot f'(x) \\
+	&(f^{-1})' (f(x_0))  = \frac{1}{f'(x_0)} %should I really include this (used only for proofs of other derivatives)
 \end{align*}
 
 
+
+
+
+
 \end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
