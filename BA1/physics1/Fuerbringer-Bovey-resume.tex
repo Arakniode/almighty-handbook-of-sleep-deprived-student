@@ -102,7 +102,7 @@ La notation utilisée sera le plus souvent la troisième. On désignera donc par
 Pour modéliser certains problèmes physiques, il est souvent pratique d'utiliser différents systèmes de coordonnées.
 
 \subsubsection{Système cartésien}
-%TODO: compléter
+Il s'agit du système de coordonnées "basique", qui est assez pratique pour la résolution d'exercices en général (ballistique, chocs à une ou deux dimensions, etc.) Lorsque la géométrie du problème est plus complexe, on préférera choisir parmis les systèmes de coordonnées suivants.
 
 \subsubsection{Système de coordonnées cylindriques}
 Les axes utilisés sont \(\hat e_\rho, \hat e_\phi\) et \(\hat e_z\). \\
@@ -132,7 +132,7 @@ Position projetée sur les axes:
 \end{equation}
 Vitesse projetée sur les axes:
 \begin{equation}
-	\boxed{\vec v = \dot{\vec{r}} = \dot r \hat e_\theta + r \dot \theta \hat e_\theta + r \dot \phi \sin(\theta) \hat e_\phi}
+	\boxed{\vec v = \dot{\vec{r}} = \dot r \hat e_r + r \dot \theta \hat e_\theta + r \dot \phi \sin(\theta) \hat e_\phi}
 \end{equation}
 Accélération projetée sur les axes:
 \begin{equation}
@@ -197,6 +197,7 @@ Hauteur maximale:
 \begin{equation}
 	\boxed{h = \dfrac{v_0^2}{2g}}
 \end{equation}
+\(v_0\) est la vitesse sur l'axe \emph{vertical}.
 
 Portée:
 La portée est maximale pour \(\theta = \frac{\pi}{4}\):
@@ -206,7 +207,7 @@ La portée est maximale pour \(\theta = \frac{\pi}{4}\):
 
 Angles symmétriques à \(\frac{\pi}{4}\):
 \begin{center}
-	Deux lancers avec la même vitesse \\ sur des angles symmétriques par rapport à \(\frac{\pi}{h}\) \\ auront la même portée.
+	Deux lancers avec la même vitesse \\ sur des angles symmétriques par rapport à \(\frac{\pi}{4}\) \\ auront la même portée.
 \end{center}
 
 Parabole de sûreté:
@@ -227,7 +228,7 @@ Force exercée par un ressort:
 \subsubsection{Oscillateur harmonique non-amorti}
 On modélise le système d'un oscillateur harmonique par une équation différentielle de la forme:
 \begin{equation} \label{eq:osciharmo}
-	\boxed{ m \ddot x = - \frac{k}{m} x = - \omega^2 x }
+	\boxed{ m \ddot x = - kx = - \omega^2 x }
 \end{equation}
 \(\omega\) est la vitesse angulaire du mouvement.
 
@@ -236,10 +237,11 @@ La solution générale de l'équation \ref{eq:osciharmo} est:
 	\boxed{ x(t) = A \cos(\omega_0 t) + B \sin(\omega_0 t) }
 \end{equation}
 
-On peut aussi utiliser cette seconde solution, pour laquelle on n'a qu'une constante à déterminer:
+On peut aussi utiliser cette seconde solution:
 \begin{equation}
 	\boxed{ x(t) = C \sin(\omega_0 t + \phi) }
 \end{equation}
+La constante \(C\) est l'amplitude du mouvement.
 
 \subsubsection{Oscillateur harmonique amorti}
 On rajoute une force de frottement proportionnelle à la vitesse. On se retrouve avec l'équation différentielle suivante:
@@ -314,11 +316,11 @@ Ce type de définition infinitésimale est utile lorsqu'on veut appliquer la not
 \subsubsection{Énergie cinétique}
 Définition de l'énergie cinétique:
 \begin{equation}
-	\boxed{ K = E_cin = \frac{1}{2} m ||\vec v||^2 }
+	\boxed{ K = E_\text{cin} = \frac{1}{2} m ||\vec v||^2 }
 \end{equation}
 
 \begin{center}
-	\emph{"La variation de l'énergie cinétîque \\ est égale au travail de la somme des forces"}
+	\emph{"La variation de l'énergie cinétique \\ est égale au travail de la somme des forces"}
 \end{center}
 
 %MAYBE: inclure intégrale curviligne?
@@ -326,7 +328,11 @@ Définition de l'énergie cinétique:
 \subsubsection{Puissance d'une force}
 La puissance d'une force est la quantité d'énergie fournie par la force (\emph{le travail}) par unité de temps:
 \begin{equation}
-	\boxed{ P = \frac{\delta W}{dt} = \frac{\vec F \cdot d \vec r}{dt} = \vec F \cdot \vec v}
+	\boxed{ P = \frac{\delta W}{dt} = \frac{\vec F \cdot d \vec r}{dt} = \vec F \cdot \vec v }
+\end{equation}
+La formule suivante est parfois plus pratique:
+\begin{equation}
+	\boxed{ \dfrac{\text{travail}}{\text{temps}} }
 \end{equation}
 
 \subsubsection{Théorème de l'énergie cinétique}
@@ -543,7 +549,7 @@ Masse réduite du système:
 	\boxed{ \mu = \frac{m_1m_2}{m_1 + m_2} }
 \end{equation}
 
-\subsubsection{Équation du mouvement et variables dynamiques} %TODO: completer aussi. je sais pas quoi inclure et ne pas inclure
+\subsubsection{Équation du mouvement et variables dynamiques} %TODO: changer titre de cette section. completer aussi. je sais pas quoi inclure et ne pas inclure
 Théorème de la quantité de mouvement:
 \begin{equation}
 	\begin{cases}
@@ -551,7 +557,6 @@ Théorème de la quantité de mouvement:
 		\vec p * = m_1 \vec v_1^* + m_2 \vec v_2^* = 0
 	\end{cases}
 \end{equation}
-\(M =\) masse totale du système
 
 \subsubsection{Les deux théorèmes de König}
 1er théorème, le mouvement cinétique total:
