@@ -150,18 +150,69 @@ Ces limites ont été définies lors du cours, parfois dans le cadre des suites,
 	&\sum_{k=0}^{\infty} r^k = \begin{cases}
 										\dfrac{1}{1-r}, &|r| < 1 \\
 										\text{diverge, } &|r| \geq 1
-									   	\end{cases}\quad , r \in \mathbb{R} \\
+									   	\end{cases}\quad r \in \mathbb{R} \\
 	&\sum_{n=1}^{\infty} \frac{1}{n^p} \text{ converge } \forall p \in \mathbb{R}_{>1} \\
 	&\sum_{n=1}^{\infty} \frac{1}{n} \text{ diverge. } \\
 	&\sum_{n=0}^{\infty} |a_n| \text{ converge } \Rightarrow \sum_{k=0}^{\infty} a_n \text{ converge. } ( \nLeftarrow )\\
 	&\lim_{x \to 0} \dfrac{\sin{x}}{x} = 1 \\
 	&\lim_{x \to 0} \sin{\frac{1}{x}} \quad \text{n'existe pas.} \\
-	&\lim_{x \to 0} x \cdot \sin{\frac{1}{x}} = 0 \\
+	&\lim_{x \to 0} x \cdot \sin{\frac{1}{x}} = \lim_{x \to 0} x \cdot \cos{\frac{1}{x}} = 0 \\
 	&e^x \eqdef \sum_{n=0}^{\infty} \dfrac{x^n}{n!} \\
-	&\lim_{x \to 0} \dfrac{e^x-1}{x} = 1
+	&\lim_{x \to 0} \dfrac{e^x-1}{x} = 1 \\
+	&\lim_{x \to \infty} \frac{\log(x)}{x^\alpha} = 0, \; \alpha > 0
 \end{flalign}
 \allowdisplaybreaks[0]\endgroup
 
+\subsection{Critères de convergence}
+Ces critères permettent de déterminer si une \textbf{série} de la forme \(\sum^\infty a_n\) converge ou non. Souvenons-nous que \(\lim_{x \to 0} a_n = 0\) est une \emph{condition nécessaire} à la convergence, mais n'implique pas la convergence. \\
+
+\subsubsection{Critère d'Alembert}
+\begin{equation*}
+	\lim_{n \to \infty} \left | \dfrac{a_{n+1}}{a_n} \right | = \rho \in \mathbb{R} 
+	\begin{cases}
+		\rho < 1 \Rightarrow \sum_{n=0}^\infty a_n \ \text{converge absolument.} \\
+		\rho > 1 \Rightarrow \sum_{n=0}^\infty a_n \ \text{diverge.} \\
+		\rho = 1 \quad \text{ne nous indique rien sur la convergence de la série.}
+	\end{cases}
+\end{equation*}
+
+\subsubsection{Critère de Cauchy}
+\begin{equation*}
+	\lim_{n \to \infty} \left | a_n \right |^{\frac{1}{n}} = \rho \in \mathbb{R}
+	\begin{cases}
+		\rho < 1 \Rightarrow \sum_{n=0}^\infty a_n \ \text{converge absolument.} \\
+		\rho > 1 \Rightarrow \sum_{n=0}^\infty a_n \ \text{diverge.} \\
+		\rho = 1 \quad \text{ne nous indique rien sur la convergence de la série.}
+	\end{cases}
+\end{equation*}
+
+\subsubsection{Critère de comparaison}
+Soient \(a_n\) et \(b_n\) deux suites telles que \(\exists k : \forall n \geq k b_n \geq a_n\):
+\begin{equation*}
+	\begin{cases}
+		\sum_{n=0}^\infty b_n \text{converge} \Rightarrow \sum_{n=0}^\infty a_n \ \text{converge} \\
+		\sum_{n=0}^\infty a_n \text{diverge} \Rightarrow \sum_{n=0}^\infty b_n \ \text{diverge}
+	\end{cases}
+\end{equation*}
+
+\subsubsection{Critère de Leibniz}
+\begin{equation*}
+	\begin{rcases} %rcases environment from the mathtools package, bracket to the right of cases
+		\exists p \in \mathbb{N} : \forall n \geq p \quad |a_{n+1}| \leq |a_n| \\
+		\exists p \in \mathbb{N} : \forall n \geq p \quad a_{n+1} \cdot a_n \leq 0 \\
+		\lim_{n \to \infty} a_n = 0
+	\end{rcases}
+	\Rightarrow \sum_{n=0}^\infty a_n \: \text{converge.}
+\end{equation*}
+La seconde condition peut sembler étrange, mais il s'agit juste de la définition formelle de l'alternance: comme chaque terme positif est suivi d'un terme négatif et vice-versa, si on multiplie deux termes arbitraires consécutifs, le résultat devrait être négatif.
+
+\subsubsection{Conclusion sur les critères de convergence}
+Il est généralement optimal d'appliquer ces critères dans cet ordre précis (sauf si la suite est alternée, auquel cas on préférera Leibniz) pour plusieurs raisons:
+\begin{itemize}
+	\item ils sont classés par ordre de difficulté d'application (encore une fois, la difficulté dépend de la suite et certaines suites appellent à l'utilisation de certains critères). %TODO: note de bas de page pour exemple suite puissance n?
+	\item Le critère d'Alembert est souvent plus facile à appliquer, cependant il existe des cas où le critère d'Alembert ne donne aucun information (\(\rho = 1\)), mais où le critère de Cauchy nous en donne. Le cas inverse n'existe pas.
+\end{itemize}
+ 
 \section{Formes indéterminées}
 Voici toutes les formes indéterminées qui peuvent être rencontrées lors du calcul de limite:
 \begin{align*}
@@ -175,6 +226,7 @@ Pour les valeurs des limites de puissances avec \(0, 1, \text{ ou } \infty\) en 
 \end{align*}
 
 \section{Dérivées}
+
 \subsection{Définition}
 La dérivée d'une fonction \(f(x)\) en \(x=x_0\) est définie par la limite suivante:
 \begin{equation*}
@@ -184,7 +236,7 @@ On peut également utiliser cette définition, qui est équivalente:
 \begin{equation*}
 	f'(x_0) = \lim_{h \to 0} \dfrac{f(x_0 + h) - f(x_0)}{h}
 \end{equation*}
-Cette seconde définition est peut-être plus facile à lier à une représentation graphique de la dérivée: on prend deux points sur la fonction, \(x_0\) et \(x_0 + h\), on regarde la différence verticale entre les deux \(\left (f(x_0 + h) - f(x_0)\right )\) et on la divise par la différence horizontale entre les deux \(\left (\frac{f(x_0 + h) - f(x_0)}{h}\right )\). Ici, nous avons retrouvé la formule de la pente d'un graphe linéaire, ou de l'estimation de la pente d'un graphe courbe. Tout ce que la dérivée ajoute à une formule, c'est une limite afin d'améliorer la précision de cette estimation. On accomplit cela en "pinçant" les deux points ensemble, c'est à dire en réduisant la distance \(h\) qui les sépare en la faisant tendre vers 0. On se retrouve donc non plus avec une estimation, mais avec la valeur exacte de la pente du graphe en ce point.
+Cette seconde définition est peut-être plus facile à lier à une représentation graphique de la dérivée: on prend deux points sur la fonction, \(x_0\) et \(x_0 + h\), on regarde la différence verticale entre les deux \(\left (f(x_0 + h) - f(x_0)\right )\) et on la divise par la différence horizontale entre les deux \(\left (\frac{f(x_0 + h) - f(x_0)}{h}\right )\). Ici, nous avons retrouvé la formule de la pente d'un graphe linéaire, ou de l'estimation de la pente d'un graphe courbe. Tout ce que la dérivée ajoute à la formule, c'est une limite afin d'améliorer la précision de cette estimation. On accomplit cela en "pinçant" les deux points ensemble, c'est à dire en réduisant la distance \(h\) qui les sépare en la faisant tendre vers 0. On se retrouve donc non plus avec une estimation, mais avec la valeur exacte de la pente du graphe en ce point.
 
 \subsection{Dérivées utiles}
 \begin{align*}
@@ -208,10 +260,118 @@ Soient les applications \(f: \mathbb{R} \to \mathbb{R}\) et \(g: \mathbb{R} \to 
 	&(f^{-1})' (f(x_0))  = \frac{1}{f'(x_0)} %should I really include this (used only for proofs of other derivatives)
 \end{align*}
 
+\subsection{Théorèmes utiles} %TODO: completer si necessaire
+
+\subsubsection{Théorème de la valeur intermédiaire}
+Soit \(a < b \in \mathbb{R}; f : \left [a, b \right ] \to F\) une fonction continue. \\
+Alors, \(f\) atteint son \(\sup_{\left [a, b \right ]}\), son \(\inf_{\left [a, b \right ]}\), et toutes les valeurs comprises entre \(f(a)\) et \(f(b)\).
+
+\subsubsection{Théorème de Rolle}
+Soit \(f : \left [a, b \right ] \to \mathbb{R}\) telle que:
+\begin{equation*}
+	\begin{rcases}
+		\text{Continue sur } \left [a, b \right ] \\
+		\text{Dérivable sur} \left [a, b \right ] \\
+		f(a) = f(b)
+	\end{rcases}
+	\Rightarrow \exists c \in \left ]a, b \right [ : f'(c) = 0
+\end{equation*}
+
+\subsubsection{Théorème des accroissements finis (TAF)}
+Soit \(f : \left [a, b \right ] \to \mathbb{R}\) telle que:
+\begin{equation*}
+	\begin{rcases}
+		\text{Continue sur } \left [a, b \right ] \\
+		\text{Dérivable sur } \left [a, b \right ] 
+	\end{rcases}
+	\Rightarrow \exists c \in \left ]a, b \right [ : f'(x) = \frac{f(b) - f(a)}{b - a}
+\end{equation*}
 
 
+\subsubsection{Théorème de Bernouilli-l'Hospital}
+Le théorème de Bernouilli-l'Hospital est utile lors de la recherche de limite d'une fonction rationnelle qui est a première vue indéterminée. \\
 
+Il dit que la limite lorsque \(x\) tend vers \(a\) du quotient de deux fonctions dérivables en \(a\) est égale à la limite du quotient des dérivées de ces deux fonctions:
+\begin{equation*}
+	\lim_{x \to a} \dfrac{f(x)}{g(x)} = \lim_{x \to a} \dfrac{f'(x)}{g'(x)}
+\end{equation*}
+Cette identité peut être utilisée plusieurs fois si les fonction sont plusieurs fois dérivables en \(a\). \\
 
+\textbf{Attention}: la limite de \(\dfrac{f'(x)}{g'(x)}\) n'existe pas \(\nRightarrow\) la limite de \(\dfrac{f(x)}{g(x)}\) n'existe pas.
+
+\subsection{Développement limité}
+Stop! Avant quoique ce soit, allez voir la vidéo de 3Blue1Brown sur le sujet des développements limités (appelés \emph{Taylor teries} ou \emph{Taylor approximations} en anglais). Cela vous donnera une excellente compréhension de ce que sont les développements limités, et pourquoi ils sont définis ainsi. %TODO: completer
+
+\section{Étude de fonctions}
+Lorsqu'on étudie une fonction, on tente de connaître un maximum de ses propriétés. La liste des étapes à suivre lors de l'étude d'une fonction est généralement du type:
+\begin{itemize}
+	\item domaine de définition
+	\item signe de la fonction
+	\item extremums
+	\item points de flexion, convexité et concavité
+	\item asymptotes
+	\item ... %TODO: completer
+\end{itemize}
+
+Dans cette section du document, pour des raisons de simplicité, nous appellerons "\(f(x)\)" la fonction réelle à étudier. Nous assumerons que ses dérivées existent lorsque nous les utiliserons. \\
+Ce qui est entendu par les "zéros" d'une fonction est les valeurs de \(x\) pour lesquelles la valeur de la fonction est nulle. Graphiquement, ce sont les points sur l'axe des abscisses où cet axe est touché ou traversé par le graphe de la fonction. \\
+Il y a donc deux types de zéros d'une fonction: 
+\begin{itemize}
+	\item ceux où le graphe touche simplement l'axe de la variable et repart ensuite dans la direction d'où il est venu (sans changer de signe), que nous appellerons \textbf{zéros faibles}, %TODO: trouver un meilleur nom 
+	\item ceux où le graphe traverse l'axe des abscisses et continue de l'autre côté (ce qui signifie que le signe de la fonction est inversé), que nous appelerons \textbf{zéros forts}.
+\end{itemize}
+\emph{N.B: les termes "zéro faible" et "zéro fort" sont uniquement définis dans ce document à des fins de clarité, et ne sont pas officiellement définis dans le cours en général.}
+
+\subsection{Étude de la fonction originale}
+
+\subsubsection{Domaine de définition}
+Pour trouver le domaine de définition d'une fonction réelle \(f\), il faut éliminer de \(\mathbb{R}\) toutes les valeurs pour lesquelles la fonction n'est pas définie. Il faut donc faire en sorte qu'aucune division par zéro ne puisse arriver, que les racines n'entourent pas de nombre négatif, que les logarithmes n'entourent pas de nombre négatif ou nul, etc. Après avoir déterminé ces valeurs / intervalles "interdites", on écrit le domaine de définition de la fonction \(f\) ainsi:
+\begin{equation*}
+	D_f = \mathbb{R} \setminus \{ x \in \mathbb{R} : x \text{ est une valeur "interdite"} \}
+\end{equation*}
+
+\(D_f\) est donc l'ensembles des valeurs pour lesquelles 
+
+\subsubsection{Signe de la fonction}
+Étudier le signe de la fonction \(f\) signifie déterminer sur quels intervalles la fonction est positive ou négative. La meilleure façon de procéder est de déterminer les zéros de la fonction, et de regarder quel est le signe de la fonction sur les intervalles délimités par les zéros. Comme défini plus haut, les zéros forts sont les zéros qui marquent un changement de signe de la fonction, et les zéros faibles sont ceux où le signe ne change pas.
+
+\subsection{Étude des dérivées de la fonction}
+
+\subsubsection{Extremums locaux}
+Mathématiquement, les extremums locaux sont des points où \(f'\) est nulle. Attention, un point où \(f'\) est nulle \emph{n'est pas forcément un extremum local (p. ex. dans le cas des zéros faibles)}. \\
+
+La condition proposée ci-dessous est suffisante à l'existence d'un extremum local de \(f\) en \(x = c\):
+Soit \(c \in I\), et soit \(n\) pair, tels que:
+\begin{align*}
+	&f'(c) = f''(c) = f^{(3)}(c) = ... = f^{(n-1)}(c) = 0, \\ 
+	&\text{ mais } f^{(n)}(c) \neq 0, \text{ alors:} \\
+	& &\begin{cases}
+		f \text{ admet un minimum local en } x = c \text{ si } \quad f^{(n)}(c) > 0  \\
+		f \text{ admet un maximum local en } x = c \text{ si } \quad f^{(n)}(c) < 0  
+	\end{cases}
+\end{align*}
+Cette condition est ici définie de façon très générale, mais il suffit généralement d'étudier les première et seconde dérivées de \(f\), voire les troisième et quatrième dans le pire des cas, afin de définir s'il existe un extremum local en \(x = c\). \\
+Afin de se souvenir pourquoi on a un minimum lorsque la \(n^\text{eme}\) dérivée est positive, et vice-versa, on peut penser par exemple:
+\begin{itemize}
+	\item au graphe de \(x^2\), dont la \(2^\text{nde}\) dérivée est \(2 > 0\), et qui admet un minimum en \(x = 0\).
+	\item au graphe de \(-x^2\), dont la \(2^\text{nde}\) dérivée est  \(-2 < 0\), et qui admet un mimimum en \(x = 0\).
+\end{itemize}
+
+Une autre méthode pour déterminer les extremums locaux consiste à trouver les zéros forts de \(f'\), qui seront donc les points où \(f'\) change de signe, et donc les extremums locaux. Il faut donc d'abord déterminer tous les zéros de \(f'\), puis étudier le signe de \(f'\) autour de ces points, afin de déterminer quels zéros sont forts/faibles, et, pour les zéros forts, si il s'agit de maximums ou de minimums de \(f\).
+
+\subsubsection{Points de flexion, convexité et concavité}
+Les points de flexion, la convexité et la concavité sont étudiées avec l'aide de la dérivée seconde de la fonction. \\
+
+Sur un intervalle \(I\), une fonction est:
+\begin{itemize}
+	\item \textbf{convexe}, si \(\forall x \in I, f''(x) \geq 0\)
+	\item \textbf{concave}, si \(\forall x \in I, f''(x) \leq 0\)
+\end{itemize}
+On voit que lorsque \(\forall x \in I f''(x) = 0\), le graphe est à la fois convexe et concave: autrement dit, le graphe est linéaire sur cet intervalle.
+
+Graphiquement, "convexe" signifie que le graphe est "plié vers le haut" (un peu comme un bol), et concave signifie à l'inverse "plié vers le bas". Cependant, la convexité/concavité n'est pas toujours aussi évidente lorsqu'on observe simplement le graphe d'une fonction. \\
+
+Les points de flexions sont les points où la fonction passe de concave à convexe, ou inversément. De manière analogue aux extremums, les points de flexions sont des points ou \(f''\) est nulle. Encore une fois, un point ou \(f''\) est nulle \emph{n'est pas nécessairement un point de flexion}. \\
 
 \end{document}
 
