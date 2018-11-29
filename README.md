@@ -17,6 +17,7 @@ And, most importantly, please enjoy the repository, and good luck with your stud
 LaTeX is much easier than what you probably think! It is really always the same kind of syntax, and the online documentation is very complete. There are a few websites that could help you with the basics:
  - https://openclassrooms.com/fr/courses/1617396-redigez-des-documents-de-qualite-avec-latex/1620583-les-mathematiques (in French)
  - https://www.overleaf.com/learn has great documentation, especially about writing maths
+ 
 These two should get you started pretty well. As I said, you really do not need much in terms of basics. Once you've started writing a bit, you'll get the jist of it really quick. And, as always, if you run into any error or do not know how to do something, google it! I'm nearly positive you'll find what you're looking for.
 
 ---
