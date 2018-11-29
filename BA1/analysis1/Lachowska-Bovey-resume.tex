@@ -5,7 +5,7 @@
 \usepackage{amssymb}
 \usepackage{mathtools}
 \newcommand\eqdef{\; \stackrel{\mathclap{\normalfont\text{déf.}}}{ = } \;}
-\numberwithin{equation}{section}
+\numberwithin{equation}{subsection}
 
 \usepackage{array}
 \newcolumntype{L}{>{$}l<{$}} % math-mode version of "l" column type
@@ -75,15 +75,14 @@ On assume que la notation \(\log\) sans indice précisé dénote le logarithme n
 L'identité de changement de base est applicable avec toute autre base réelle, pas juste base \(e\).
 
 \subsubsection{Trigonométrie}
+\emph{N.B: quelques identités des fonctions trigonométriques peuvent être retrouvées dans les \hyperref[sec:hypertrigo]{annexes}.}
 \begin{align}
 	\label{eq:anglesum}
 	&\sin(x \pm y) 	= \sin(x) \cos(y) \pm \cos(x) \sin(y)	& &\cos(x \pm y) 	= \cos(x) \cos(y) \mp \sin(x)\sin(y) \\
 	\label{eq:doubleangle}
 	&\begin{cases}
 		\begin{aligned}	
-			\sin(2x) = 2\cos(x)\sin(x) \\ 
-						\\ 
-						\\
+			\sin(2x) = 2\cos(x)\sin(x)
 		\end{aligned} 
 	\end{cases} & &\begin{cases}
 		\begin{aligned}
@@ -267,26 +266,29 @@ Soit \(a < b \in \mathbb{R}; f : \left [a, b \right ] \to F\) une fonction conti
 Alors, \(f\) atteint son \(\sup_{\left [a, b \right ]}\), son \(\inf_{\left [a, b \right ]}\), et toutes les valeurs comprises entre \(f(a)\) et \(f(b)\).
 
 \subsubsection{Théorème de Rolle}
-Soit \(f : \left [a, b \right ] \to \mathbb{R}\) telle que:
+Soit \(f : \left [a, b \right ] \to \mathbb{R}\). Alors:
 \begin{equation*}
 	\begin{rcases}
-		\text{Continue sur } \left [a, b \right ] \\
-		\text{Dérivable sur} \left [a, b \right ] \\
+		f \text{ continue sur } \left [a, b \right ] \\
+		f \text{ dérivable sur} \left [a, b \right ] \\
 		f(a) = f(b)
 	\end{rcases}
 	\Rightarrow \exists c \in \left ]a, b \right [ : f'(c) = 0
 \end{equation*}
 
 \subsubsection{Théorème des accroissements finis (TAF)}
-Soit \(f : \left [a, b \right ] \to \mathbb{R}\) telle que:
+Soit \(f : \left [a, b \right ] \to \mathbb{R}\). Alors:
 \begin{equation*}
 	\begin{rcases}
-		\text{Continue sur } \left [a, b \right ] \\
-		\text{Dérivable sur } \left [a, b \right ] 
+		f \text{ continue sur } \left [a, b \right ] \\
+		f \text{ dérivable sur } \left [a, b \right ] 
 	\end{rcases}
 	\Rightarrow \exists c \in \left ]a, b \right [ : f'(x) = \frac{f(b) - f(a)}{b - a}
 \end{equation*}
-
+On peut en tirer le corollaire suivant, plus utile:
+\begin{equation*}
+	f(x + h) = f(x) + h \cdot f'(x + \alpha h)
+\end{equation*}
 
 \subsubsection{Théorème de Bernouilli-l'Hospital}
 Le théorème de Bernouilli-l'Hospital est utile lors de la recherche de limite d'une fonction rationnelle qui est a première vue indéterminée. \\
@@ -372,6 +374,27 @@ On voit que lorsque \(\forall x \in I f''(x) = 0\), le graphe est à la fois con
 Graphiquement, "convexe" signifie que le graphe est "plié vers le haut" (un peu comme un bol), et concave signifie à l'inverse "plié vers le bas". Cependant, la convexité/concavité n'est pas toujours aussi évidente lorsqu'on observe simplement le graphe d'une fonction. \\
 
 Les points de flexions sont les points où la fonction passe de concave à convexe, ou inversément. De manière analogue aux extremums, les points de flexions sont des points ou \(f''\) est nulle. Encore une fois, un point ou \(f''\) est nulle \emph{n'est pas nécessairement un point de flexion}. \\
+
+\section{Annexes} \label{sec:annexes}
+
+\subsection{Identités des fonctions trigonométriques hyperboliques} \label{sec:hypertrigo}
+
+\begin{align*}
+	&\sinh(x \pm y) = \sinh(x)\cosh(y) \pm \cosh(x)\sinh(y) & &\cosh(x \pm y) = \cosh(x)\cosh(y) \pm \sinh(x)\sinh(y) \\
+	&\begin{cases}
+		\sinh(2x) = 2\sinh(x)\cosh(x)
+	\end{cases} & &\begin{cases}
+		\begin{aligned}
+			\cosh(2x) &= \cosh^2(x) + \sinh^2(x) \\
+						&= 2\cosh^2(x) - 1 \\
+						&= 1 + 2\sinh^2(x) 
+		\end{aligned}
+	\end{cases} \\
+	&\cosh^2(x) - \sinh^2(x) = 1 \\
+	&\tanh(x) = \frac{\sinh(x)}{\cosh(x)} \\
+	&\sinh(-x) = -\sin(x) \quad \text{(impaire)} & &\cosh(-x) = \cosh(x) \quad \text{(paire)}
+\end{align*}
+
 
 \end{document}
 

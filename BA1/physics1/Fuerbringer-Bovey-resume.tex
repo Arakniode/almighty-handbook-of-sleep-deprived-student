@@ -36,11 +36,11 @@ Ce résumé est pour l'instant incomplet par rapport à l'ensemble des notions c
 \subsubsection{Produit vectoriel}
 
 Le produit vectoriel est une opération prenant deux vecteurs de \(\mathbb{R}^3\) comme input et donnant un troisième vecteur comme output. \\ %changer le voc: input, output
-Il est défini ainsi:
+Mathématiquement, il est défini ainsi:
 \begin{equation}
-	\boxed {\vec a \wedge \vec b = \begin{pmatrix}a_2b_3 - a_3b_2 \\ a_3b_1 - a_1b_3 \\ a_1b_2 - a_2b_1\end{pmatrix} }
+	\vec a \wedge \vec b = \begin{pmatrix}a_2b_3 - a_3b_2 \\ a_3b_1 - a_1b_3 \\ a_1b_2 - a_2b_1\end{pmatrix}
 \end{equation}
-Ou, en termes de normes:
+La formule suivante, qui concerne les normes, est plus souvent utile en pyhsique:
 \begin{equation}
 	\boxed{ ||\vec a \wedge \vec b|| = ||\vec a|| \cdot ||\vec b|| \cdot \sin(\theta) }
 \end{equation}
@@ -57,11 +57,11 @@ Il est également \textbf{anti-commutatif} et \textbf{distributif}.
 
 \subsubsection{Produit scalaire}
 Le produit scalaire est une opération prenant deux vecteurs comme input et donnant un scalaire, c'est-à-dire un nombre réel, comme output. \\
-Il est défini ainsi:
+Mathématiquement, il est défini ainsi:
 \begin{equation}
-	\boxed{ \vec a \cdot \vec b = a_1b_1 + a_2b_2 + a_3b_3 }
+	\vec a \cdot \vec b = a_1b_1 + a_2b_2 + a_3b_3
 \end{equation}
-Ou, en termes de normes:
+Cette formule est cependant plus souvent utilisée en physique:
 \begin{equation}
 	\boxed{ \vec a \cdot \vec b = ||\vec a|| \cdot ||\vec b|| \cdot \cos(\theta) }
 \end{equation}
@@ -132,7 +132,7 @@ Position projetée sur les axes:
 \end{equation}
 Vitesse projetée sur les axes:
 \begin{equation}
-	\boxed{\vec v = \dot{\vec{r}} = \dot r \hat e_r + r \dot \theta \hat e_\theta + r \dot \phi \sin(\theta) \hat e_\phi}
+	\boxed{\vec v = \dot{\vec r} = \dot r \hat e_r + r \dot \theta \hat e_\theta + r \dot \phi \sin(\theta) \hat e_\phi}
 \end{equation}
 Accélération projetée sur les axes:
 \begin{equation}
@@ -166,13 +166,13 @@ Accélération projetée sur les axes:
 \end{equation}
 On a aussi la formule plus universelle, qui prend en compte les éventuels changements de masse du système:
 \begin{equation*}
-	\boxed{ \vec F = \dot{\vec{p}} }
+	\boxed{ \vec F = \dot{\vec p} }
 \end{equation*}
-où \(\vec p\) est la quantité de mouvement (concept abordé plus tard dans le cours, \ref{eq:defquantitemouvement}). Cette formule est équivalente à la précédente dans des systèmes fermés (où la masse ne change pas).
+où \(\vec p\) est la quantité de mouvement (concept abordé plus tard dans le cours, \ref{eq:defquantitemouvement}). Cette formule est équivalente à la précédente dans des systèmes fermés (où la masse ne change pas). \\
 
-À partir de la seconde loi de Newton, on peut considérer la masse comme "la capacité qu'a un objet à résister au changement de vitesse". C'est pourquoi il est difficile de mettre un mouvement un gros rocher perché au sommet d'une colline afin d'écraser un vil coquin qui sieste à son pied, et qu'il est tout autant difficile de l'arrêter après qu'il ait commencé à rouler si on est soudainement pris d'une vague d'amour pour le pauvre dormeur (?).
+À partir de la seconde loi de Newton, on peut considérer la force comme la grandeur qui modifie la vitesse d'un système, et la masse comme la résistance d'un système à ce changement de vitesse. C'est pourquoi il est difficile de mettre un mouvement un gros rocher perché au sommet d'une colline afin d'écraser un vil coquin qui sieste à son pied, et qu'il est tout autant difficile de l'arrêter après qu'il ait commencé à rouler si on se rend compte que notre voiture était également garée au bas de la colline.
 
-\subsubsection{Loi d'action-réaction}
+\subsubsection{Loi d'action-réaction} \label{sec:actionreaction}
 \begin{center}
 	\emph{"A chaque action, il y a toujours une réaction égale et opposée; si un corps exerce une force sur un autre, cet autre corps exerce une force égale et opposée sur le premier."}
 \end{center}
@@ -417,77 +417,112 @@ ce qui est effectivement l'équation du mouvement d'un oscillateur harmonique. \
 % je ne suis pas trop sûr d'avoir compris le concept de ces prochaines lignes, si quelqu'un arrive à l'expliquer mieux ça serait parfait (slides 4.6.1 de Fuerbringer)
 On étudie la fonction \(V(x)\) afin de déterminer les points d'équilibre et les fréquences des petites oscillations autour des points d'équilibre stable. On effectue un développement limité autour d'un point d'équilibre pour déterminer la nature de l'équilibre (stable ou instable).
 
-\section{Moment cinétique et gravitation}
+\section{Introduction aux mouvements rotatifs}
+A partir d'ici, dans le cours, nous allons souvent travailler avec des mouvements rotatifs, en plus des mouvements translationnels que nous avons vus jusqu'ici. C'est pour cela que la notion de moment est introduite. Cependant, il est important de réaliser, pour faciliter la compréhension, que les "grandeurs-moments" que nous allons voir sont souvent analogues à des grandeurs que nous avons déjà vues dans les mouvements translationnels: les moments sont simplement une façon de considérer ces grandeurs translationnelles par rapport à un point de rotation. Ils sont plus adaptée à l'étude de mouvements rotationnels. \\
+
+On peut lier, par exemple, les grandeurs suivantes entre les mouvements translationnels et rotatifs:
+\begin{itemize}
+	\item Force \(\leftrightarrow\) Moment de force
+	\item Quantité de mouvement \(\leftrightarrow\) Moment cinétique
+	\item Masse \(\leftrightarrow\) Moment d'inertie
+	\item ...
+\end{itemize}
+Je tenterai d'exposer, après la présentation de chacun de ces concepts, leur concept analogue dans l'étude des mouvements translationnels.
 
 \subsection{Moment}
-En physique, le moment est une quantité qui rend compte de la distribution spatiale d'une quantité physique. En gros, on va considérer cette quantité physique non pas en tant que telle, mais plutôt dans un contexte spatial, c'est à dire par rapport à une origine \(O\) et à sa position par rapport à cette origine \(\vec r\). On appelle souvent cette origine le \emph{pivot}, car ces moments entrent souvent en compte lors de mouvements rotatifs autour d'un ou plusieurs points. \\ Il est important de bien comprendre que les moments ne sont pas des grandeurs physiques objectives dans un système: on les utilise juste afin d'étudier certains types de mouvements. On peut donc choisir le point de pivot comme cela nous arrange (p. ex problème de l'échelle contre un mur). \\
-
-En physique, il existe plusieurs types de moment, qui possèdent des propriétés qui peuvent nous être utile afin d'étudier certains types de mouvements. \\
+En physique, le moment est une quantité qui rend compte de la distribution spatiale d'une quantité physique. En gros, on va considérer cette quantité physique non pas en tant que telle, mais plutôt dans un contexte spatial, c'est à dire par rapport à une origine \(O\), et selon à sa position \(\vec r\) par rapport à cette origine. On appelle souvent cette origine le \emph{pivot}, et on peut considérer ce point comme le centre de la rotation. \\ Il est important de bien comprendre que les moments ne sont pas des grandeurs physiques objectives dans un système: on peut choisir l'origine, c.à.d. le point de pivot, comme cela nous arrange (p. ex problème de l'échelle contre un mur). Il s'agit plutôt d'outils mathématiques qui s'adaptent mieux à l'étude des mouvements rotatifs. \\
 
 \begin{center}
-	\emph{"Lorsque la quantité physique à laquelle on s'intéresse est un vecteur, \\ l'angle entre le vecteur position et la quantité physique est pris en compte \\ grâce au produit vectoriel."}
+	\emph{"Lorsque la quantité physique à laquelle on s'intéresse est un vecteur, \\ l'angle entre le vecteur position \(\vec r\) et la quantité physique est pris en compte \\ grâce au produit vectoriel entre \(r\) et le vecteur de cette quantité."}
 \end{center}
+
+Les moments sont exprimés selon une position \(\vec r\) par rapport à l'origine, et ce vecteur \(\vec r\) est élevé à différentes puissance pour calculer différents moments. Par exemple, le moment cinétique est en \(r\), mais le moment d'inertie est en \(r^2\).
 
 \subsubsection{Moment de force}
 \begin{equation}
 	\boxed{ \vec M_O ( \vec F ) = \vec r \wedge \vec F }
 \end{equation}
-On peut imaginer ce moment de force comme "l'aptitude d'une force à faire tourner un système autour du point \(O\)". Comme on le disait dans le paragraphe précédent, il dépend de l'endroit où on applique la force: pensez à un bras de levier.
+On peut imaginer ce moment de force comme "l'aptitude d'une force à faire tourner un système autour du point \(O\)". Comme on le disait dans le paragraphe précédent, il dépend de l'endroit où on applique la force: pensez à un bras de levier. \\
+
+Le moment de force est l'analogue rotatif de la force.
 
 \subsubsection{Moment cinétique}
 \begin{equation}
 	\boxed{ \vec L_O = \vec r \wedge \vec p = \vec r \wedge m \vec v }
 \end{equation}
-Si \(\vec p\) est la \emph{quantité de mouvement}, \(\vec L_O\) pourrait être appelé la \emph{quantité de rotation}.
-
-\subsubsection{Mouvement central}
-\begin{center}
-	\emph{"Un point \(p\) de masse \(m\) a un mouvement central si la droite portant son accélération passe toujours par le même point \(O\) (le pivot)."}
-\end{center}
-\textbf{Exemple:} un mouvement circulaire uniforme. La rotation des planètes autour du soleil.\\
-Lorsqu'un mouvement est central, la loi des aires est respectée: l'aire balayée par le vecteur position sera toujours la même pour un même intervalle de temps (troisième loi de Kepler). \\
-
-On a une équivalence entre ces trois propositions:
-\begin{itemize}
-	\item \quad Le mouvement est central
-	\item \(\Leftrightarrow\) Le moment cinétique \(\vec L_O\) est constant
-	\item \(\Leftrightarrow\) La loi des aires est respectée et le mouvement est plan
-\end{itemize}
-
-\subsubsection{Loi de la gravitation universelle}
-Force gravitationnelle entre deux corps:
-\begin{equation}
-	\boxed{ \vec F = -G \dfrac{m_1m_2}{r^2} \hat e_r }
-\end{equation}
-Potentiel de cette force:
-\begin{equation}
-	\boxed{ V(r) = -G \dfrac{m_1m_2}{r} }
-\end{equation}
-%5.2.10: moment cinétique et energie mécanique importants?
-
-\section{Systèmes de points matériels}
-Nous nous intéresseront à des systèmes composés de plusieurs points matériels \textbf{non-liés} (en opposition aux corps indéformables). % TODO: référence à corps indéformables
-
-\subsection{Lois de conservation pour un système isolé}
-Le terme "isolé" peut être défini ainsi dans le contexte d'un système de points matériels:
-\begin{center}
-	\emph{"Un système de points matériels est isolé si les somme des forces extérieures ainsi que des moments de forces extérieurs sont nulles."}
-\end{center}
-\begin{equation*}
-	\boxed{ \begin{cases} 
-		\vec F^{\text{ext}} = 0 \\
-		\vec M_O^{\text{ext}} = 0
-	\end{cases} }
-\end{equation*}
+Le moment cinétique est l'analogue rotatif de la quantité de mouvement.
 
 \subsubsection{Théorème du moment cinétique}
 La dérivée du moment cinétique est égale au moment de la somme des forces:
 \begin{equation} \label{eq:thmmomentcinetique}
 	\boxed{ \frac{d \vec L_O }{dt} = \vec M_O }
 \end{equation}
-Ce théorème est assez facilement prouvé à partir de la seconde loi de Newton (\ref{eq:lexsecunda}).
+On peut interpréter ce théorème comme l'analogue rotatif de la Lex Secunda (\ref{eq:lexsecunda}): le moment de force (analogue à la force) modifie le moment cinétique (analogue à la quantité de mouvement), et modifie donc la vitesse du système si la masse est constante (ce qui est le cas dans la grande majorité des problèmes).
+
+\subsection{Mouvement central}
+\begin{center}
+	\emph{"Un point \(p\) de masse \(m\) et de position \(\vec r\) effectue un mouvement central si la droite portant son accélération passe toujours par le même point \(O\) (le pivot)."}
+\end{center}
+Autrement dit, un mouvement est central si les seules forces internes ou externes appliquées sur le système sont centrales. Voici quelques exemples de mouvement centraux:
+\begin{itemize} 
+	\item Un mouvement circulaire uniforme d'une balle retenue par une ficelle, où la seule force est la tension de la ficelle, qui est parallèle au rayon et donc centrale.
+	\item La rotation elliptique des planètes autour du soleil, où la seule force est la force gravitationnelle entre le soleil et les planètes (si on ne considère pas les forces entre les planètes), qui est centrale également (vu plus bas). \\
+\end{itemize}
+Lorsqu'un mouvement est central, la loi des aires est respectée: l'aire balayée par le vecteur position sera toujours la même pour un même intervalle de temps (troisième loi de Kepler). \\
+
+On a une équivalence entre ces propositions:
+\begin{itemize}
+	\item Le mouvement est central
+	\item \(\Leftrightarrow\) Les seules forces internes et externes appliquées sur le système sont centrales
+	\item \(\Leftrightarrow\) Le moment des forces internes et externes est nul
+	\item \(\Leftrightarrow\) Le moment cinétique \(\vec L_O\) est constant
+	\item \(\Leftrightarrow\) La loi des aires est respectée et le mouvement est plan
+\end{itemize}
+
+\subsection{Loi de la gravitation universelle}
+Force gravitationnelle entre deux corps:
+\begin{equation}
+	\boxed{ \vec F = -G \dfrac{m_1m_2}{r^2} \hat e_r }
+\end{equation}
+C'est une force centrale: on voit qu'elle agit sur \(\hat e_r\), c.à.d. parallèlement au rayon. C'est également une force conservative, on peut donc lui assigner une fonction potentiel:
+\begin{equation}
+	\boxed{ V(r) = -G \dfrac{m_1m_2}{r} }
+\end{equation}
+
+\subsection{La vitesse angulaire}
+La vitesse angulaire est une grandeur extrêmement importante à l'étude des mouvements rotatifs. Elle représente, comme son nom l'indique, l'angle couvert en un certain temps, et est souvent désignée par la lettre \(\omega\) (parfois \(\Omega\)). Une équation basique mais importante lorsqu'on parle de la norme de la vitesse angulaire est la suivante:
+\begin{equation}
+	\boxed{ \omega = \frac{d\phi}{dt} = \dfrac{v_\perp}{r} }
+\end{equation}
+où \(v_\perp\) est la vitesse \emph{perpendiculaire au rayon}. Cette équation vient du fait que le périmètre d'un cercle est égal à \(2 \pi r\); \(v_\perp\) est obtenue en divisant cette distance par le temps: \(\frac{2 \pi r}{\Delta t}\). Enfin, en divisant par \(r\), on obtient: \(\frac{2 \pi}{t} = \omega\), qui est bien ici exprimée en angle par seconde. \\
+
+En vérité, \(\omega\) est une grandeur vectorielle, mais abstraite: c'est un vecteur perpendiculaire au plan de rotation, et il est plus généralement relié au rayon et à la vitesse par la formule suivante:
+\begin{equation}
+	\boxed{ \vec v_\perp = \vec \omega \wedge \vec r }
+\end{equation}
+
+En tant que vecteur, il est important de savoir que l'on peut additionner deux vitesses angulaires pour obtenir la véritable vitesse angulaire d'un point. Si un vecteur était soumis à deux rotations dont les vecteurs de vitesse angulaire seraient \(\vec \omega\) et \(\vec \Omega\), on aurait:
+\begin{equation}
+	\vec v_\perp = (\vec \omega + \vec \Omega) \wedge \vec r
+\end{equation}
+
+
+\section{Systèmes de points matériels}
+Dans ce chapitre, nous nous intéresserons à des systèmes composés de plusieurs points matériels \textbf{non-liés} (en opposition aux \hyperref[sec:solideindeformable]{solides indéformables}).
+
+\subsection{Système isolé}
+\begin{center}
+	\emph{"Un système de points matériels est isolé si les somme des forces extérieures au système \\ est nulle"}
+\end{center}
+\begin{equation*}
+	\boxed{ \begin{cases} 
+		\vec F^{\text{ext}} = 0 \\
+		\vec M_O^{\text{ext}} = 0 
+	\end{cases} }
+\end{equation*}
 
 \subsubsection{Forces internes et externes}
+Par la loi d'\hyperref[sec:actionreaction]{action-réaction}, on a que:
 \begin{center}
 	\emph{"La somme des forces internes est nulle. \\ Le moment de la somme des forces internes est nul."}
 \end{center}
@@ -582,34 +617,34 @@ En partant de la seconde loi de Newton (\ref{eq:lexsecunda}), on voit que:
 \end{align*}
 Si on prend, par exemple, un oeuf qui tombe depuis la même hauteur (a) sur un matelas ou (b) sur du goudron, on observe que:
 \begin{itemize}
-	\item (a) le choc prend plus de temps, il est "amorti". L'oeuf ne se casse pas (\emph{don't try this at home, kiddos. I won't take responsibility.})
-	\item (b) le choc est instantané. L'oeuf se casse (\emph{probablement. Sinon, pourriez-vous m'indiquer votre fournisseur d'oeufs?}).
+	\item (a) le choc prend plus de temps, il est "amorti". L'oeuf ne se casse pas (\emph{don't try this at home, kiddos.})
+	\item (b) le choc est instantané. L'oeuf se casse (probablement. Sinon, pourriez-vous m'indiquer votre fournisseur d'oeufs?).
 \end{itemize}
 Dans les deux cas, la quantité de mouvement était identique avant le choc, et nulle après. \(\Delta \vec p\) est donc identique. Mais \(\Delta t\) était plus court dans le cas (b), ce qui a fait que le choc était plus "fort" (si \(\Delta t\) est plus petit, \(\vec F\) doit être plus grand pour que l'égalité tienne).
 
-\subsubsection{Chocs élastiques}
+\subsubsection{Chocs totalement élastiques}
+Les chocs totalement élastices sont les chocs où le coefficient de restitution est de 1.
 Dans le cas d'un choc élastique, on a:
 \begin{itemize}
-	\item conservation de la quantité de mouvement totale du système \((\vec P_i = \vec P_f)\)
+	\item conservation de la quantité de mouvement totale du système \((\vec p_i = \vec p_f)\)
 	\item conservation de l'énergie mécanique totale du système \((E_i = E_f)\)
 \end{itemize}
 Cela est vrai pour l'entier du mouvement et du choc (= longtemps avant et après le choc) uniquement si le système est isolé et qu'aucun potentiel ne change (= p.ex, le système reste à la même hauteur et ne gagne ou ne perd aucune énergie potentielle gravitationnelle). \\
 Cependant, ces deux conservations valent dans tous les cas à l'instant exact du choc élastique. Si on parle par exemple d'une balle qui tombe verticalement (\(\Rightarrow\) subit un changement d'énergie potentielle) et qui est soumise lors de sa chute à une force de frottement fluide (\(\Rightarrow\) non conservative), on peut considérer que la quantité de mouvement de la balle et son énergie mécanique \emph{un instant} avant le choc sera la même que \emph{un instant} après le choc. 
 
-\subsubsection{Chocs (totalement) inélastiques}
+\subsubsection{Chocs totalement inélastiques}
+Les chocs totalement inélastiques sont les chocs où le coefficient de restitution est nul. Les deux corps \emph{restent collés} après le choc, et on peut les considérer à partir de là comme un unique système.
 Dans ce cas-ci, on a uniquement:
 \begin{itemize}
-	\item conservation de la quantité de mouvement totale du système \((\vec P_i = \vec P_f)\)
+	\item conservation de la quantité de mouvement totale du système \((\vec p_i = \vec p_f)\)
 \end{itemize}
-L'énergie n'est pas conservée parce qu'une partie est perdue durant le choc. On rencontre ce cas, par exemple, dans les problèmes suivants:
-\begin{itemize}
-	\item un choc avec un bloc mou (\emph{si vous faites du hockey avec une plaque de beurre p.ex})
-	\item une fusée qui se sépare d'un module (il y a une petite explosion qui dissipe une partie de l'énergie, mais \(\vec p\) est constante)
-	\item ...
-\end{itemize}
+L'énergie n'est pas conservée parce qu'une partie est perdue durant le choc, en déformation ou en chaleur. \\
+
+Dans les exercices, on nous indique souvent si un choc est parfaitement élastique ou parfaitement inélastique, et il faut donc procéder de la manière adaptée dans ce cas idéal. Cependant, le fait est que dans la réalité, aucun choc n'est totalement élastique ou totalement inélastique.
+
 Les paragraphes explicatifs de la section précédente sur les chocs élastiques s'appliquent aussi, mais uniquement pour la quantité de mouvement et non l'énergie.
 
-\section{Le solide indéformable}
+\section{Le solide indéformable} \label{sec:solideindeformable}
 En gros, c'est un système de points matériels, mais qui sont fixés les uns par rapport aux autres. Rien de bien grave. \\
 Le seul problème avec ça c'est que vu que les gens veulent toujours être très précis, ils remplacent la somme de points pour un nombre fini de points par des intégrales de Riemann pour des nombres infinis de points. Faut pas se faire trop impressionner, on utilise ces intégrales uniquement dans la théorie par souci de précision, et pas en exercices. \\
 
@@ -622,9 +657,28 @@ Solide indéformable:
 	\vec R_G = \frac{1}{M} \int_V \vec r \rho(\vec r) dV
 \end{equation*}
 On intègre par rapport au volume \(V\). La fonction \(\rho (\vec r)\) représente la masse volumique à la position \(\vec r\). \\
-Vraiment, ces intégrales ne sont pas très importantes au niveau des calculs. Je n'intégrerai (\emph{hmmm}) donc dans ce résumé que peu des résultats intermédiaires qui en comprennent, et tenterai de présenter uniquement les formules applicables.
+Vraiment, ces intégrales ne sont pas très importantes au niveau des calculs. Je n'intégrerai (\emph{lel}) donc dans ce résumé que peu des résultats intermédiaires qui en comprennent, et tenterai de présenter uniquement les formules vraiment utiles. \\
 
-%TODO
+\subsection{Gyroscope}
+La propriété principale du gyroscope, c.à.d sa capacité à garder un axe de rotation constant qu'importe comment il est déplacé ou tourné, est en gros due au théorème du moment cinétique (\ref{eq:thmmomentcinetique}). \\
+
+Étant donné qu'on a \( \dot{\vec L}_O = M_O\), on sait que lorsqu'un moment de force extérieur au gyroscope est appliqué, on aura un petit "delta" vecteur de moment cinétique \emph{parallèle} à ce vecteur de moment de force, c'est à dire \emph{perpendiculaire} au vecteur de force. C'est pour ça que lorsqu'on essaie de tourner un gyroscope dans sa main (\(\Rightarrow\) on lui applique une force dans une certaine direction), le gyroscope "résiste" et ne se tourne pas comme on le voulait (\(\Rightarrow\) la direction de son vecteur de moment cinétique se tourne perpendiculairement comparé à ce qu'on attendait). \\
+
+Pour un gyroscope, on a:
+\begin{equation}
+	L_G = I_\Delta \vec \omega
+\end{equation}
+
+\subsection{Moment d'inertie}
+On peut penser au moment d'inertie comme le "moment de masse", c'est à dire l'équivalent de la masse dans un mouvement de rotation. De manière analogue à la masse qui résiste au changement de vitesse (\(\vec F = m \dot{\vec v}\)), le moment d'inertie résiste au changement de vitesse angulaire. \\
+
+L'inertie d'un système de points autour d'un axe \(\Delta\) peut être exprimée des deux façons suivantes:
+\begin{align*}
+	I &= \dfrac{L}{\omega} & I &= \sum_\alpha m_\alpha \cdot d_\alpha^2
+\end{align*}
+où \(d_\alpha\) est la distance perpendiculaire de l'axe \(\Delta\) au point \(\alpha\).
+
+
 
 \end{document}
 
