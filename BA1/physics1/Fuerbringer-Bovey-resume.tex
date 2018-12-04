@@ -44,16 +44,11 @@ La formule suivante, qui concerne les normes, est plus souvent utile en pyhsique
 \begin{equation}
 	\boxed{ ||\vec a \wedge \vec b|| = ||\vec a|| \cdot ||\vec b|| \cdot \sin(\theta) }
 \end{equation}
-Le vecteur résultant d'un produit vectoriel a la propriété d'être perpendiculaire au plan formé par les deux vecteurs d'input (orthogonalité).\\
-Si deux vecteurs sont parallèles, leur produit vectoriel est nul. \\
+Le vecteur résultant d'un produit vectoriel a la propriété d'être perpendiculaire au plan formé par les deux vecteurs d'input (orthogonalité). \\
 
-Le produit vectoriel possède les propriétés suivantes:
-\begin{itemize}
-	\item \(\vec a \parallel \vec b \Leftrightarrow \vec a \wedge \vec b = \vec 0\)
-	\item 
-	%TODO: A COMPLETER
-\end{itemize}
-Il est également \textbf{anti-commutatif} et \textbf{distributif}.
+\underline{Si deux vecteurs sont parallèles, leur produit vectoriel est nul.} \\
+
+Le produit vectoriel possède les propriétés algébriques suivantes: \textbf{anti-commutativité} et \textbf{distributivité}.
 
 \subsubsection{Produit scalaire}
 Le produit scalaire est une opération prenant deux vecteurs comme input et donnant un scalaire, c'est-à-dire un nombre réel, comme output. \\
@@ -66,15 +61,9 @@ Cette formule est cependant plus souvent utilisée en physique:
 	\boxed{ \vec a \cdot \vec b = ||\vec a|| \cdot ||\vec b|| \cdot \cos(\theta) }
 \end{equation}
 
-Si deux vecteurs sont perpendiculaires, leur produit scalaire est nul. \\
+\underline{Si deux vecteurs sont perpendiculaires, leur produit scalaire est nul.} \\
 
-Le produit scalaire possède les propriétés suivantes:
-\begin{itemize}
-	\item \( \vec a \cdot \vec b = 0 \Leftrightarrow \vec a \perp \vec b \)
-	\item \( (\alpha \vec a) \cdot (\beta \vec b) = \alpha \beta (\vec a \cdot \vec b) \)
-\end{itemize}
-
-Il est également \textbf{commutatif} et \textbf{distributif}.
+Le produit scalaire possède les propriétés suivantes: \textbf{commutativité} et \textbf{distributivité}. Si on calcule le produit vectoriel d'un vecteur avec lui-même, le résultat sera toujours le vecteur nul: \(\vec v \wedge \vec v = \vec 0\).
 
 \subsubsection{Produit mixte et double produit vectoriel}
 Quelques propriétés des combinations du produit vectoriel et du produit scalaire:
@@ -85,24 +74,28 @@ Quelques propriétés des combinations du produit vectoriel et du produit scalai
 \end{itemize}
 
 \subsection{Dérivée}
-La dérivée d'une fonction \(f(x)\) est la fonction \(f'(x)\) qui représente la pente de la fonction \(f(x)\).
-\subsubsection{Notations}
+Visuellement, la dérivée d'une fonction \(f(x)\) est la fonction qui représente la pente du graphe de la fonction \(f(x)\). \\
+
+\textbf{Notations:}
 \begin{itemize}
-	\item Leibniz: la dérivée première de \(f(x)\) est \(\frac{d\,f(x)}{dx}\), \\
-		la dérivée seconde est \(\frac{d^2\,f(x)}{dx^2}\) \\
-		(parfois \(\frac{d}{dx}f(x)\) et \(\frac{d^2}{dx^2}f(x)\))
+	\item Leibniz: la dérivée première de \(f(x)\) par rapport à \(t\) est \(\frac{df(x)}{dt}\), \\
+		la dérivée seconde est \(\frac{d^2f(x)}{dt^2}\) \\
+		(parfois \(\frac{d}{dt}f(x)\) et \(\frac{d^2}{dt^2}f(x)\))
 	\item Lagrange: la dérivée première de \(f(x)\) est \(f'(x)\), \\
 		la dérivée seconde est \(f''(x)\)
 	\item Autre: lorsqu'on dérive \emph{par rapport au temps}, en physique, on désigne souvent la dérivée première par \(\dot f(x)\), et la dérivée seconde par \(\ddot f(x)\).
 \end{itemize}
 
-La notation utilisée sera le plus souvent la troisième. On désignera donc par exemple la position sur \(\hat x\) par \(x\), la vitesse par \(\dot x\) et l'accélération par \(\ddot x\).
+Pour sa simplicité, la notation utilisée sera le plus souvent la troisième. On désignera donc, par exemple, la position sur \(\hat x\) par \(x\), la vitesse par \(\dot x\) et l'accélération par \(\ddot x\).
 
 \subsection{Systèmes de coordonnées}
-Pour modéliser certains problèmes physiques, il est souvent pratique d'utiliser différents systèmes de coordonnées.
+Pour modéliser certains problèmes physiques, il est souvent pratique d'utiliser différents systèmes de coordonnées. Trois d'entre eux nous sont proposés: cartésien, cylindrique et sphérique. Voici leur histoire. \\
+
+\emph{Nota Bene}: \\
+Il est important de se souvenir que, même si les systèmes de coordonnées alternatifs peuvent paraître attrayants (ou non), il est toujours mieux de vérifier si il n'existe pas d'autres méthodes plus simples de résoudre les problèmes, car les systèmes de coordonnées cylindriques et sphériques résultent souvent en de longues et fastidieuses équations différentielles. Prenons un exemple: dans le cas d'un problème avec une piste de luge sans frottement composée de plusieurs portions de cercle, où l'on doit déterminer la vitesse de la luge à différents points de la piste, on peut être tenté de sauter sur nos formules du système de coordonnées cylindriques afin d'écrire les équations du mouvement de la luge sur chacune des différentes portions. Cependant, en prenant un peu de recul, il est sans aucun doute plus simple d'appliquer ici le théorème de la conservation de l'énergie mécanique (\textit{ce problème est apparu dans le second test blanc d'hiver 2018-2019 du cours de Mr Fuerbringer}).
 
 \subsubsection{Système cartésien}
-Il s'agit du système de coordonnées "basique", qui est assez pratique pour la résolution d'exercices en général (ballistique, chocs à une ou deux dimensions, etc.) Lorsque la géométrie du problème est plus complexe, on préférera choisir parmis les systèmes de coordonnées suivants.
+Il s'agit du système de coordonnées "basique", qui est assez pratique pour la résolution d'exercices en général (ballistique, chocs à une ou deux dimensions, etc.) Lorsque la géométrie du problème est plus complexe, on préférera choisir parmis les systèmes de coordonnées suivants:
 
 \subsubsection{Système de coordonnées cylindriques}
 Les axes utilisés sont \(\hat e_\rho, \hat e_\phi\) et \(\hat e_z\). \\
@@ -118,9 +111,11 @@ Vitesse projetée sur les axes:
 \end{equation}
 Accélération projetée sur les axes:
 \begin{equation}
-	\boxed{\vec a = \ddot{\vec{r}}	= \left (\ddot \rho - \rho \dot \phi^2 \right ) \hat e_\rho
-					 						+ \left (\rho \ddot \phi + 2 \dot \rho \dot \phi \right ) \hat e_\phi
-					 						+ \ddot z \hat e_z}
+	\boxed{\begin{cases}
+			a_\rho = \ddot \rho - \rho \dot \phi^2 \\
+			a_\phi = \rho \ddot \phi + 2 \dot \rho \dot \phi \\
+			a_z = \ddot z 
+		\end{cases}}
 \end{equation}
 
 \subsubsection{Système de coordonnées sphériques}
@@ -170,7 +165,12 @@ On a aussi la formule plus universelle, qui prend en compte les éventuels chang
 \end{equation*}
 où \(\vec p\) est la quantité de mouvement (concept abordé plus tard dans le cours, \ref{eq:defquantitemouvement}). Cette formule est équivalente à la précédente dans des systèmes fermés (où la masse ne change pas). \\
 
-À partir de la seconde loi de Newton, on peut considérer la force comme la grandeur qui modifie la vitesse d'un système, et la masse comme la résistance d'un système à ce changement de vitesse. C'est pourquoi il est difficile de mettre un mouvement un gros rocher perché au sommet d'une colline afin d'écraser un vil coquin qui sieste à son pied, et qu'il est tout autant difficile de l'arrêter après qu'il ait commencé à rouler si on se rend compte que notre voiture était également garée au bas de la colline.
+Il est intéressant, à partir de ce principe fondamental de la dynamique, de faire les observations suivantes:
+\begin{itemize}
+	\item La force peut être considérée comme la grandeur physique qui \emph{modifie la vitesse d'un système} (l'accélération étant le changement de vitesse).
+	\item La masse, elle, peut être vue comme la grandeur physique qui \emph{résiste à cette modification de vitesse}.
+\end{itemize}
+Ces observations peuvent paraître relativement évidentes, voire inutiles, lorsqu'elles sont présentées dans le seul cadre de la dynamique. Ce qui est particulièrement remarquable, cependant, c'est que l'on peut retrouver de telles grandeurs ailleurs en physique: par exemple, en électricité, on voit que la résistance est la 
 
 \subsubsection{Loi d'action-réaction} \label{sec:actionreaction}
 \begin{center}
@@ -340,13 +340,12 @@ La formule suivante est parfois plus pratique:
 \end{equation}
 
 \subsubsection{Théorème de l'énergie cinétique}
-
 \begin{center}
 	\emph{"Dans un référentiel galiléen, pour un corps ponctuel de masse m constante parcourant un chemin reliant un point A à un point B, la variation d'énergie cinétique est égale à la somme des travaux W des forces extérieures et intérieures qui s'exercent sur le solide considéré."}
 \end{center}
 Pour un point matériel:
 \begin{equation}
-	\boxed{ K_2 - K_1 = W_{12} \Leftrightarrow \frac{dK}{dt} = P = \vec F \cdot \vec v }
+	\boxed{ W_{12} = K_2 - K_1 \Leftrightarrow \frac{dK}{dt} = P = \vec F \cdot \vec v }
 \end{equation}
 %TODO: ajouter explications
 
@@ -355,7 +354,7 @@ Une force conservative est une force qui dérive d'un potentiel et ne dépend qu
 
 La pesanteur est un exemple commun de force conservative: elle ne dépend que de la hauteur de l'objet, et non pas de la trajectoire que parcourt ou qu'a parcourue l'objet. Elle dérive d'un champ, le champ gravitationnel, représenté par \(g\) dans la formule suivante:
 \begin{equation}
-	W_{12} = mgz_1 - mgz_2
+	W_{12} = mgz_2 - mgz_1
 \end{equation}
 On représente typiquement l'énergie potentielle gravitationnelle d'un système par \(mgh\), ou \(mgz\), où \(z/h\) représentent la hauteur du système, \(m\) sa masse et \(g\) l'accélération gravitationnelle terrestre. On peut y penser comme "le travail qu'il faudrait fournir pour élever le système à cette hauteur". \\
 
@@ -414,8 +413,7 @@ ce qui est effectivement l'équation du mouvement d'un oscillateur harmonique. \
 \begin{center}
 	\emph{"Un point d'équilibre est une position d'un système physique \\ à laquelle le système restera immobile s'il est placé sans vitesse initiale. \\ Un point \(x_0\) est un point d'équilibre si \(F(x_0) = 0\) ou si \(\left . \frac{dV}{dx} \right \rvert_{x=x_0} = 0\)."} % the \left . is to put an invisible bracket on the left so that you can match it on the right: https://tex.stackexchange.com/a/40162
 \end{center}
-% je ne suis pas trop sûr d'avoir compris le concept de ces prochaines lignes, si quelqu'un arrive à l'expliquer mieux ça serait parfait (slides 4.6.1 de Fuerbringer)
-On étudie la fonction \(V(x)\) afin de déterminer les points d'équilibre et les fréquences des petites oscillations autour des points d'équilibre stable. On effectue un développement limité autour d'un point d'équilibre pour déterminer la nature de l'équilibre (stable ou instable).
+On étudie la fonction \(V(x)\) (fonction potentiel) afin de déterminer les points d'équilibre et les fréquences des petites oscillations autour des points d'équilibre stable; \(\left . \frac{dV}{dx} \right \rvert_{x=x_0} = 0\) signifie que la dérivée du potentiel au point \(x_0\) est nulle. C'est une condition suffisante pour que le point \(x_0\) soit un point d'équilibre. On effectue un développement limité autour d'un point d'équilibre pour déterminer la nature de l'équilibre (stable = minimum local, instable = maximum local). (ou alors on procède en regardant des valeurs de \(V(x)\) autour de \(x_0\), et on détermine selon leur valeurs si il s'agit d'un minimum ou d'un maximum local. Cette méthode est très efficace si vous êtes pressés et n'avez pas trop envie de faire le développement limité de \(V(x)\).)
 
 \section{Introduction aux mouvements rotatifs}
 A partir d'ici, dans le cours, nous allons souvent travailler avec des mouvements rotatifs, en plus des mouvements translationnels que nous avons vus jusqu'ici. C'est pour cela que la notion de moment est introduite. Cependant, il est important de réaliser, pour faciliter la compréhension, que les "grandeurs-moments" que nous allons voir sont souvent analogues à des grandeurs que nous avons déjà vues dans les mouvements translationnels: les moments sont simplement une façon de considérer ces grandeurs translationnelles par rapport à un point de rotation. Ils sont plus adaptée à l'étude de mouvements rotationnels. \\
@@ -442,7 +440,7 @@ Les moments sont exprimés selon une position \(\vec r\) par rapport à l'origin
 \begin{equation}
 	\boxed{ \vec M_O ( \vec F ) = \vec r \wedge \vec F }
 \end{equation}
-On peut imaginer ce moment de force comme "l'aptitude d'une force à faire tourner un système autour du point \(O\)". Comme on le disait dans le paragraphe précédent, il dépend de l'endroit où on applique la force: pensez à un bras de levier. \\
+On peut imaginer ce moment de force comme "l'aptitude d'une force à faire tourner un système autour du point \(O\)". Comme on le disait dans le paragraphe précédent, il dépend de l'endroit où on applique la force; pensez à un bras de levier, et à la raison pour laquelle il est plus facile d'activer un levier lorsqu'on applique la force à son extrémité plutôt qu'à son début. \\
 
 Le moment de force est l'analogue rotatif de la force.
 
@@ -557,15 +555,15 @@ Un système est à l'équilibre si il est isolé et que les conditions suivantes
 \subsection{Centre de masse}
 La position du centre de masse:
 \begin{equation}
-	\boxed{ \vec R = \frac{1}{M} \cdot \sum_\alpha m_\alpha \vec r_\alpha }
+	\boxed{ \vec R = \frac{1}{M} \sum_\alpha m_\alpha \vec r_\alpha }
 \end{equation}
 Les termes en majuscule désignent les attributs du centre de masse. Dans le cas de la masse, \(M\) désigne simplement la somme des masses des points composant le système.
 
 \subsubsection{Théorème du centre de masse}
 \begin{center}
-	\emph{"Le centre de masse d'un système se comporte comme un point matériel de masse \(M = \sum_\alpha m_\alpha\) subissant toutes les forces extérieures appliquées sur les différentes parties du système, comme si ces forces étaient directement exercées sur ce centre de masse."}
+	\emph{"Le centre de masse d'un système se comporte comme un point matériel de masse \(M = \sum_\alpha m_\alpha\) \\ subissant toutes les forces extérieures appliquées sur les différentes parties du système, \\ comme si ces forces étaient directement exercées sur ce centre de masse."}
 \end{center}
-Bref, on va principalement se soucier du centre de masse d'un système de points matériels, parce qu'il se comporte de façon plus prévisible que les points matériels individuels. \\
+Bref, on va principalement se soucier du centre de masse d'un système de points matériels, parce qu'il se comporte de façon plus prévisible que les points individuels. \\
 Chaque système possède un centre de masse \textbf{unique}.
 
 \subsubsection{Propriétés du centre de masse}
@@ -674,9 +672,24 @@ On peut penser au moment d'inertie comme le "moment de masse", c'est à dire l'�
 
 L'inertie d'un système de points autour d'un axe \(\Delta\) peut être exprimée des deux façons suivantes:
 \begin{align*}
-	I &= \dfrac{L}{\omega} & I &= \sum_\alpha m_\alpha \cdot d_\alpha^2
+	I &= \dfrac{L}{\omega} & I &= \sum_\alpha m_\alpha d_\alpha^2
 \end{align*}
 où \(d_\alpha\) est la distance perpendiculaire de l'axe \(\Delta\) au point \(\alpha\).
+
+\subsection{Calcul d'une vitesse dans un système de points}
+Il est souvent extrêmement pratique de savoir calculer la vitesse d'un point d'un solide lorsqu'on connaît déjà la vitesse d'un de ses autres points. Il faut dans ces cas utiliser la relation suivante:
+\begin{equation}
+	\vec v_A = \vec v_O + \vec \omega \wedge \overrightarrow{OA}
+\end{equation}
+Ici, le point dont nous connaissons déjà la vitesse est le point \(O\), et nous pouvons trouver la vitesse au point \(A\) grâce à cette relation. \\
+Il est souvent très utile d'appliquer cette relation lorsqu'on sait que certains points du solide ont une vitesse nulle, comme par exemple dans le cas d'un roulement sans glissement où le point de contact entre les solides / entre le solide et le sol a une vitesse nulle.
+
+\subsection{Théorème du transfert}
+Le théorème du transfert concerne le moment cinétique d'système évalué par rapport à un autre système. Il est crucial dans les exercices, notamment lorsqu'il est demandé de trouver le moment cinétique total d'un système composé de plusieurs sous-systèmes. La relation est la suivante:
+\begin{equation}
+	\vec L_O = \overrightarrow{OA} \wedge m \vec v_A + \vec L_A^*
+\end{equation}
+Ici, \(\vec L_O\) est le moment cinétique de \(A\) évalué autour du point \(O\), et \(\vec L_A^*\) est le moment cinétique de \(A\) évalué autour de \(A\). Il est utile, pour se souvenir de cette propriété étrange, de penser qu'en plus du moment cinétique propre à \(A\) (évalué autour de \(A\)), il y a un "reste" qui vient de l'évaluation autour d'un autre point.
 
 
 
