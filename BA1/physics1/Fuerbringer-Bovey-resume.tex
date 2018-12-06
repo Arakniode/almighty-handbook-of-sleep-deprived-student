@@ -1,3 +1,6 @@
+%TODO: general stuff that needs to be added
+% - section about solving differential equations
+
 \documentclass{article}
 %maths
 \usepackage{amsmath}
@@ -25,7 +28,7 @@
 
 \maketitle
 
-\subsection*{Introduction}
+\subsection*{Introduction} \label{sec:introduction}
 Ce document est destiné à résumer les certainement laborieux cours de Physique 1 présentés par Mr Fuerbringer, afin d'en présenter uniquement les aspects les plus cruciaux quand à la résolution d'exercices. Il fait partie d'un projet auquel vous pouvez participer! Plus d'informations sur \href{https://github.com/Arakniode/almighty-handbook-of-sleep-deprived-student}{le GitHub du projet} (\url{https://github.com/Arakniode/almighty-handbook-of-sleep-deprived-student}). \\
 Ce résumé est pour l'instant incomplet par rapport à l'ensemble des notions couvertes par le cours de Physique 1, ce cours n'ayant pas encore touché à sa fin. 
 
@@ -139,6 +142,7 @@ Accélération projetée sur les axes:
 \end{equation}
 
 \section{Mécanique du point}
+Cette section contient des équations et théorèmes généraux par rapport aux premiers éléments de cinématique vus en cours (ballistique, oscillateur harmonique...). De l'aide serait appréciée dans l'insertion d'explications au formules, qui sont actuellement présentées sans contexte, et pour compléter les éléments du cours manquants (voir les commentaires dans le code source du document). Si vous désirez aider, référez-vous à la section \hyperref[sec:introduction]{introduction}.
 
 \subsection{Les 3 lois de Newton}
 
@@ -287,11 +291,18 @@ La force de frottement cinétique s'oppose à la vitesse, et est proportionnelle
 \subsubsection{Impulsion}
 On définit l'impulsion de la force appliquée d'un point 1 à un point 2 comme:
 \begin{equation}
-	\boxed{ \vec I_{12} = \int_1^2 \vec F \, d \vec t }
+	\boxed{ \vec I_{12} = \vec p_2 - \vec p_1 }
 \end{equation}
 
 \begin{equation}
-	\boxed{ \vec I_{12} = \vec p_2 - \vec p_1 }
+	\boxed{ \vec I_{12} = \int_1^2 \vec F \, d \vec t }
+\end{equation}
+
+La première définition est la version qu'il faut en général appliquer dans les exercices. La seconde version est une version plus formelle et précise, car elle utilise une intégrale, cependant elle est également beaucoup moins pratique à appliquer lors de calculs qui ne prennent en compte que des trajectoires simples. \\
+
+Il est également utile de se souvenir que la proposition suivante est équivalente:
+\begin{equation}
+	\boxed{ \dot{\vec{I}} = \vec F }
 \end{equation}
 
 \subsubsection{Quantité de mouvement}
@@ -310,7 +321,7 @@ Force et quantité de mouvement sont directements liées par la \emph{Lex Secund
 
 On peut définir le travail entre deux points de manière infinitésimale (sur une très courte distance, de manière précise):
 \begin{equation}
-	\boxed{ W_{12} = \int_1^2 \vec F \cdot d \vec r }
+	\boxed{ W_{12} = \int_1^2 \vec F \, d \vec r }
 \end{equation}
 Ce type de définition infinitésimale est utile lorsqu'on veut appliquer la notion de travail à des trajectoires curvilignes. Le calcul est plus simple pour des trajectoires rectilignes:
 \begin{equation}
@@ -334,9 +345,9 @@ La puissance d'une force est la quantité d'énergie fournie par la force (\emph
 \begin{equation}
 	\boxed{ P = \frac{\delta W}{dt} = \frac{\vec F \cdot d \vec r}{dt} = \vec F \cdot \vec v }
 \end{equation}
-La formule suivante est parfois plus pratique:
+La formule suivante est souvent plus pratique:
 \begin{equation}
-	\boxed{ \dfrac{\text{travail}}{\text{temps}} }
+	\boxed{ P = \dfrac{W}{\Delta t} }
 \end{equation}
 
 \subsubsection{Théorème de l'énergie cinétique}
@@ -358,7 +369,7 @@ La pesanteur est un exemple commun de force conservative: elle ne dépend que de
 \end{equation}
 On représente typiquement l'énergie potentielle gravitationnelle d'un système par \(mgh\), ou \(mgz\), où \(z/h\) représentent la hauteur du système, \(m\) sa masse et \(g\) l'accélération gravitationnelle terrestre. On peut y penser comme "le travail qu'il faudrait fournir pour élever le système à cette hauteur". \\
 
-Lorsque les seules forces agissant sur le système sont conservatives, on peut postuler que l'énergie mécanique totale (\(K + V\)) est constante. Quand on rencontre de telles situations dans un problème, on peut utiliser ce postulat pour déduire les vitesses maximales du système (lorsque \(V\) est nul, \(K\) est maximale), et tirer bien d'autres conclusions utiles.
+Lorsque les seules forces agissant sur le système sont conservatives, on peut postuler que l'énergie mécanique totale (\(K + V\)) est constante. Quand on rencontre de telles situations dans un problème, on peut utiliser ce postulat pour déduire les vitesses maximales du système (lorsque \(V\) est nul, \(K\) est maximale), et tirer bien d'autres conclusions utiles. \\
 
 Voici quelques exemples de forces conservatives:
 \begin{itemize}
