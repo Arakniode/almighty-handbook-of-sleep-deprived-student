@@ -192,7 +192,7 @@ Ces critères permettent de déterminer si une \textbf{série} de la forme \(\su
 \end{equation*}
 
 \subsubsection{Critère de comparaison}
-Soient \(a_n\) et \(b_n\) deux suites telles que \(\exists k : \forall n \geq k b_n \geq a_n\):
+Soient \(a_n\) et \(b_n\) deux suites telles que \(\exists k : \forall n \geq k, b_n \geq a_n\):
 \begin{equation*}
 	\begin{cases}
 		\sum_{n=0}^\infty b_n \text{converge} \Rightarrow \sum_{n=0}^\infty a_n \ \text{converge} \\
@@ -207,7 +207,7 @@ Soient \(a_n\) et \(b_n\) deux suites telles que \(\exists k : \forall n \geq k 
 		\exists p \in \mathbb{N} : \forall n \geq p \quad a_{n+1} \cdot a_n \leq 0 \\
 		\lim_{n \to \infty} a_n = 0
 	\end{rcases}
-	\Rightarrow \sum_{n=0}^\infty a_n \: \text{converge.}
+	\Rightarrow \sum_{n=0}^\infty (-1)^n \, a_n \: \text{converge.}
 \end{equation*}
 La seconde condition peut sembler étrange, mais il s'agit juste de la définition formelle de l'alternance: comme chaque terme positif est suivi d'un terme négatif et vice-versa, si on multiplie deux termes arbitraires consécutifs, le résultat devrait être négatif.
 
@@ -448,10 +448,30 @@ Parfois, l'intégration directe ne marche pas. Ne vous inquiétez pas; des profe
 \begin{equation}
 	\boxed{ \int_{\varphi(\alpha)}^{\varphi(\beta)} f(x) \, dx = \int_\alpha^\beta f(\varphi(t)) \cdot \phi'(t) \, dt } \: \text{ où } x= \varphi(t)
 \end{equation}
+L'intégration par changement de variable peut être particulièrement utile lorsqu'on remarque que l'intégrale consiste d'une fonction multipliée par sa propre dérivée. Par exemple: 
+\begin{align*}
+	\int \dfrac{\sin(x)}{\cos^3(x)} \, dx 	&= \int \dfrac{\sin(x)}{\cos(x)} \cdot \dfrac{1}{\cos^2(x)} \, dx \\
+												&= \int \tan(x) \cdot \dfrac{1}{\cos^2(x)} \, dx \\
+\end{align*}
+On remarque (\emph{trivial}) que \(\frac{1}{\cos^2(x)}\) est simplement la dérivée de \(\tan(x)\). On peut donc faire le changement de variable \(u = \tan(x)\), et donc \(du = \tan'(x) = \frac{1}{\cos^2(x)}\):
+\begin{align*}
+	\int \tan(x) \cdot \dfrac{1}{\cos^2(x)} \, dx 	&= \int u \, du \\
+															&= \dfrac{1}{2}u^2 + C \\
+\end{align*}
+On réimplante alors le \(x\) sachant que \(u = \tan(x)\):
+\begin{align*}
+	\frac{1}{2}u^2 + C &= \dfrac{1}{2}\tan^2(x) + C \\
+	\int \dfrac{\sin(x)}{\cos^3(x)} \, dx &= \dfrac{1}{2}\tan^2(x) + C
+\end{align*}
+Voici les amis! L'intégration est réussie! Youpi! \\
+Plus généralement, on peut dire que (aucune garantie sur la véridité de cette équation, vérifiez par vous-même, mais ça m'a l'air plus ou moins correct):
+\begin{equation*}
+	\int f(x) \, f'(x) \, dx = \dfrac{1}{2}f^2(x)
+\end{equation*}
 
 \subsubsection{Intégration par parties}
 \begin{center}
-	\emph{"Before you jump, have you tried integration by parts?" \\ \qquad - Lachowska}
+	\emph{"Before you jump, have you tried integrating by parts?" \\ \qquad \qquad - Lachowska}
 \end{center}
 
 
