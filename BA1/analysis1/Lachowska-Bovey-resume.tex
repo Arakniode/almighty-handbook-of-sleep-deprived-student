@@ -4,9 +4,10 @@
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{mathtools}
-\newcommand\eqdef{\; \stackrel{ \mathclap{ \normalfont\text{déf.} } }{ = } \;} % for definitions
+\newcommand\eqdef{\; \stackrel{ \mathclap{ \normalfont\text{def.} } }{ = } \;} % for definitions
 \newcommand\eqbl{\; \stackrel{ \mathclap{ \normalfont\text{BL} } }{ = } \;} % for applications of Bernouilli-l'Hospital's theorem
-\newcommand\eqsmile{\; \stackrel{ \mathclap{\ddot \omega}}{ = } \;} % for equations that make you smile like a kitten :3
+\newcommand\eqsmile{\; \stackrel{ \mathclap{ \underbracket[0.8pt]{\circ \, \circ} } }{ = } \;} % for equations that make you smile :)
+\newcommand\equwu{\stackrel{\textsf{uwu}}{=}}
 %\numberwithin{equation}{subsection}
 
 \usepackage{array}
@@ -33,7 +34,9 @@
 
 \section*{Introduction}
 Ce document est destiné à résumer les certainement laborieux cours d'Analyse 1 présentés par Mme Lachowska, afin d'en présenter uniquement les aspects les plus cruciaux quand à la résolution d'exercices. Il fait partie d'un projet auquel vous pouvez participer! Plus d'informations sur \href{https://github.com/Arakniode/almighty-handbook-of-sleep-deprived-student}{le GitHub du projet} (\url{https://github.com/Arakniode/almighty-handbook-of-sleep-deprived-student}). \\
-Ce résumé est pour l'instant incomplet par rapport à l'ensemble des notions couvertes par le cours d'analyse 1, ce cours n'ayant pas encore touché à sa fin. 
+Ce résumé est pour l'instant incomplet par rapport à l'ensemble des notions couvertes par le cours d'analyse 1, ce cours n'ayant pas encore touché à sa fin. \\
+
+\textbf{N.B.} avant de commencer à lire ce document, j'aimerais vous rediriger vers \href{https://www.youtube.com/playlist?list=PLZHQObOWTQDMsr9K-rj53DwVRMYO3t5Yr}{la série de 3Blue1Brown sur l'analyse (\emph{calculus})}. Regarder ces vidéos vous donnera sans aucun doute une bien meilleure compréhension intuitive du sujet que l'entier de la matière formelle du cours (qui est, bien entendu, quand même en partie nécessaire). De plus, la série est vraiment passionnante, comme le sont toutes les vidéos de la chaîne 3Blue1Brown sur les mathématiques. Je vous conseille donc ses autres créations!
 
 \section{Identités}
 Ces quelques identités de base permettent de transformer des expressions, ce qui est souvent utile lorsqu'on cherche leur limite et que celle de l'équation de base est indéterminée. Il faut les connaître, mais surtout savoir les \emph{reconnaître} et les dénicher. N'oublions pas que les rédacteurs d'exercices aiment bien cacher les solutions sous ce genre d'identités simples, mais parfois bien camouflées.
@@ -406,16 +409,58 @@ Graphiquement, "convexe" signifie que le graphe est "plié vers le haut" (un peu
 
 Les points de flexions sont les points où la fonction passe de concave à convexe, ou inversément. De manière analogue aux extremums, les points de flexions sont des points ou \(f''\) est nulle. Encore une fois, un point ou \(f''\) est nulle \emph{n'est pas nécessairement un point de flexion}. \\
 
-\section{Séries entières}
+\section{Calcul intégral}
+Encore une fois, avant quoique ce soit, je vous redirige vers \href{https://www.youtube.com/playlist?list=PLZHQObOWTQDMsr9K-rj53DwVRMYO3t5Yr}{la série de 3Blue1Brown sur l'analyse}. Elle est passionnante et vous servira plus à la compréhension générale du sujet que toutes les définitions formelles vues en cours. 
 
-\subsection{Rayon de convergence}
+\subsection{Propriétés basiques}
+\begin{align*}
+	\int_a^b f(x) \, dx &= F(b) - F(a) \\
+	\text{Si } b < a, \; \int_a^b f(x) \, dx &\eqdef -\int_b^a f(x) \, dx \\
+	\text{Soit } b \in \left[a, c\right] \Rightarrow \int_a^c f(x) \, dx &= \int_a^b f(x) \, dx + \int_b^c f(x) \, dx \\
+	\int_a^a f(x) \, dx &= 0
+\end{align*}
+
+\subsection{Primitives communes}
+\begin{center}
+	\def\arraystretch{1.5}
+	\begin{tabular}{| C | C |} %https://tex.stackexchange.com/questions/112576/math-mode-in-tabular-without-having-to-use-everywhere
+		\hline
+		f(x) 						& F(x) \\ \hline
+		e^x 						& e^x + C \\
+		\sin(x)						& -\cos(x) + C \\
+		\cos(x) 					& \sin(x) + C \\
+		\sinh(x)					& \cosh(x) + C \\
+		\cosh(x) 					& \sinh(x) + C \\
+		a^x, a > 0, a \neq 1	& \frac{1}{\log(a)} a^x + C \\
+		\frac{1}{x}				& \log(|x|) + C \\
+		x^r, r \neq -1			& \frac{1}{r+1} x^{r+1} + C \\
+		\frac{1}{\cos^2(x)} 	& \tan(x) + C \\
+		\frac{1}{1+x^2}			& \arctan(x) + C \\
+		\frac{1}{\sqrt{1-x^2}} & \arcsin(x) + C \\
+		\hline
+	\end{tabular}
+\end{center}
+
+\subsection{Techniques d'intégration}
+Parfois, l'intégration directe ne marche pas. Ne vous inquiétez pas; des professionnels de la santé ont déjà imaginé des solutions à votre problème. En voici une collection des plus compétitives sur le marché.
+
+\subsubsection{Changement de variable}
+\begin{equation}
+	\boxed{ \int_{\varphi(\alpha)}^{\varphi(\beta)} f(x) \, dx = \int_\alpha^\beta f(\varphi(t)) \cdot \phi'(t) \, dt } \: \text{ où } x= \varphi(t)
+\end{equation}
+
+\subsubsection{Intégration par parties}
+\begin{center}
+	\emph{"Before you jump, have you tried integration by parts?" \\ \qquad - Lachowska}
+\end{center}
+
 
 \section{Annexes} \label{sec:annexes}
 
 \subsection{Identités des fonctions trigonométriques hyperboliques} \label{sec:hypertrigo}
 
 \begin{align*}
-	&\sinh(x \pm y) = \sinh(x)\cosh(y) \pm \cosh(x)\sinh(y) & &\cosh(x \pm y) = \cosh(x)\cosh(y) \pm \sinh(x)\sinh(y) \\
+	&\sinh(x \pm y) \equwu \sinh(x)\cosh(y) \pm \cosh(x)\sinh(y) & &\cosh(x \pm y) = \cosh(x)\cosh(y) \pm \sinh(x)\sinh(y) \\
 	&\begin{cases}
 		\sinh(2x) = 2\sinh(x)\cosh(x)
 	\end{cases} & &\begin{cases}
