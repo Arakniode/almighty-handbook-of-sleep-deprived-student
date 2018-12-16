@@ -1,0 +1,120 @@
+\documentclass{article}
+
+\title{Algèbre Linéaire 1 - Scherer}
+\author{Benjamin Bovey -  EPFL IC}
+\date{Année 2018-2019}
+
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage{hyperref}
+
+\newcommand\defn{\textbf{Définition:}}
+\newcommand\thm{\textbf{Théorème:}}
+
+% TODO check if we can override \Im and \Ker
+\DeclareMathOperator{\rang}{rang}
+\DeclareMathOperator{\im}{Im}
+\DeclareMathOperator{\ke}{Ker}
+\DeclareMathOperator{\mult}{mult}
+
+\begin{document}
+\maketitle
+
+\section*{Introduction}
+Ce document est destiné à résumer les cours d'algèbre linéaire 1 donnés par Mr. Jérôme Scherer. Pour l'instant il regroupe la matière à partir du cours 16. Voici le \href{https://github.com/Arakniode/almighty-handbook-of-sleep-deprived-student}{GitHub du projet}.
+
+\section{Inversibilité}
+Les propositions suivantes sont équivalentes:
+\begin{itemize}
+	\item La matrice \(A\) est inversible
+	\item Les colonnes de \(A\) forment une base de \(\mathbb{R}^n\)
+	\item \(\im(A) = \mathbb{R}^n\)
+	\item \(\dim \im(A) = n\)
+	\item \(\rang(A) = n\)
+	\item \(\ke(A) = \{0\}\)
+	\item \(\dim \ke(A) = 0\)
+\end{itemize}
+
+\section{Vecteurs propres et valeurs propres}
+Les propositions suivantes sont équivalentes:
+\begin{itemize}
+	\item \(0\) est valeur propre de \(A\)
+	\item \(\ke(A) \neq 0\)
+	\item \(\rang(A) < n\)
+	\item \(A\) n'est pas inversible
+\end{itemize}
+Les valeurs propres d'une matrice \textbf{triangulaire} sont les coefficients diagonaux de la matrice. Cette propriété tient donc bien sûr pour les matrices \textbf{diagonales}, qui sont des cas particuliers de matrices triangulaires.
+\subsection{Le polynôme caractéristique}
+Le polynôme caractéristique d'une matrice n'existe que pour les matrices carrées, car le déterminant est uniquement défini sur les matrices carrées. \\
+Soit \(A\) une matrice \(n \times n\), et soit \(\chi_A(\lambda)\) son polynôme caractéristique. Alors
+\begin{equation}
+	\chi_A(\lambda) = \det(A-\lambda I_n)
+\end{equation}
+Une valeur propre de \(A\) est une racine du polynôme caractéristique \(\chi_A(\lambda)\). 
+
+\subsection{Espace propre associé à une valeur propre}
+Soit \(\lambda\) une valeur propre de \(A\). Alors l'espace propre associé à \(\lambda\) est
+\begin{equation}
+	\ke(A-\lambda I_n)
+\end{equation}
+
+\subsection{Similitude}
+\textbf{Définition:}
+\begin{center}
+	\emph{Deux matrices carrées de taille \(n \times n\) sont \textbf{semblables} \\ s'il existe une matrice inversible \(P\) de taille \(n \times n\) \\ telle que \(A = P^{-1}BP\).}
+\end{center}
+
+En gros, deux matrices sont semblables si elles représentent la même application exprimée dans deux bases différentes. \\
+Ce qui est important, c'est que:
+\begin{center}
+	\emph{Deux matrices semblables ont le même polynôme caractéristique, \\ et donc les mêmes valeurs propres.}
+\end{center}
+\textbf{Attention:} le fait que deux matrices aient les mêmes valeurs propres n'implique pas qu'elles sont semblables.
+
+\subsection{Multiplicité des valeurs propres}
+On fait la différence entre la multiplicité \textbf{algébrique} d'une valeur propre et sa multiplicité \textbf{géométrique}.
+\textbf{Définition:}
+\begin{center}
+	La \textbf{multiplicité algébrique} d'une valeur propre \\ est sa multiplicité en tant que racine de \(\chi_A(\lambda)\). \\ \vspace{10pt}
+	La \textbf{multiplicité géométrique} d'une valeur propre \\ est la dimension de l'espace propre qui lui est associé.
+\end{center}
+On écrira d'ailleurs \(\mult(\lambda)\) pour la multiplicité algébrique de \(\lambda\) et \(\dim(E_\lambda)\) pour la multiplicité géométrique de \(\lambda\).
+
+\subsection{Diagonalisabilité}
+\thm une matrice \(A\) est diagonalisable si et seulement si:
+\begin{itemize}
+	\item \(\chi_A(\lambda)\) est scindé
+	\item \(\forall \lambda\), on a \(\dim(E_\lambda) = \mult(\lambda)\)
+\end{itemize}
+Autrement dit:
+\begin{center}
+	Une matrice \(A\) est diagonalisable si et seulement si \\ la somme des multiplicités géométriques de ses valeurs propres \\ est égale à \(n\).
+\end{center}
+Une condition suffisante \emph{mais pas nécessaire} est la suivante:
+\begin{center}
+	Une matrice \(A\) est diagonalisable \\ si elle possède \(n\) valeurs propres \underline{distinctes}.
+\end{center}
+
+\section{Orthogonalité}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
