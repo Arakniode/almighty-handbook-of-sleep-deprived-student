@@ -702,6 +702,56 @@ Le théorème du transfert concerne le moment cinétique d'système évalué par
 \end{equation}
 Ici, \(\vec L_O\) est le moment cinétique de \(A\) évalué autour du point \(O\), et \(\vec L_A^*\) est le moment cinétique de \(A\) évalué autour de \(A\). Il est utile, pour se souvenir de cette propriété étrange, de penser qu'en plus du moment cinétique propre à \(A\) (évalué autour de \(A\)), il y a un "reste" qui vient de l'évaluation autour d'un autre point.
 
+\section{Tenseurs d'inertie}
+\begin{center}
+	\emph{"Inertia tensor? More like inertia cancer, haha!"} \\ \qquad \qquad - Bob Ross, 852 A.D.
+\end{center}
+Les tenseurs d'inertie, c'est vraiment caca. \\
+On utilise toujours des tenseurs d'inertie diagonaux. La diagonalité du tenseur d'inertie dépend du choix de la base. Si on ne choisit pas une base qui fait que le tenseur est diagonal, on est dans un caca de type profond. Un tenseur d'inertie sera généralement noté de la manière suivante:
+\begin{equation}
+\tilde{I}_G = \begin{pmatrix}
+I_1 & 0 & 0 \\
+0 & I_2 & 0 \\
+0 & 0 & I_2
+\end{pmatrix}
+\end{equation}
+\(I_1, I_2\) et \(I_3\) sont donc les coefficients diagonaux du tenseur. \\
+Si on place les axes du système le long des axes d'inertie principaux, le tenseur d'inertie sera diagonal.
+\subsection{Inerties de solides communs}
+\allowdisplaybreaks[1]
+\begin{align}
+\intertext{Brique pleine de dimensions \(a \times b \times c\):}
+&\tilde{I}_G = \dfrac{m}{12}
+\begin{pmatrix}
+b^2 + c^2 & 0 & 0 \\
+0 & c^2 + a^2 & 0 \\
+0 & 0 & a^2 + b^2
+\end{pmatrix} \\
+\intertext{Brique cubique pleine:}
+&\tilde{I}_G = \dfrac{ma^2}{6}
+\begin{pmatrix}
+1 & 0 & 0 \\
+0 & 1 & 0 \\
+0 & 0 & 1
+\end{pmatrix} \\
+\intertext{Cylindre plein:}
+&\begin{cases}
+I_1 = I_\Delta = \frac{1}{4}mR^2 + \frac{1}{12}mL^2 \\
+I_2 = I_1 \\
+I_3 = \frac{1}{2}mR^2
+\end{cases} \\
+\intertext{Cylindre vide:}
+&\begin{cases}
+I_1 = I_\Delta = \frac{1}{2}mR^2 + \frac{1}{12}mL^2 \\
+I_2 = I_1 \\
+I_3 = mR^2
+\end{cases} \\
+\intertext{Sphère pleine:}
+&I_1 = I_2 = I_3 = I_\Delta = \frac{2}{5}mR^2 \\
+\intertext{Sphère vide:}
+&I_1 = I_2 = I_3 = I_\Delta = \frac{2}{3}mR^2
+\end{align}
+\allowdisplaybreaks[0]
 
 
 \end{document}

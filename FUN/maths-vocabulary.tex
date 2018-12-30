@@ -19,7 +19,7 @@
 \begin{document}
 \maketitle
 \section*{Introduction}
-This document's purpose is to sort of organize the abstract terms often encountered while browsing mathematics articles on wikipedia. It will surely contain a bunch of errors in terms of strict definitions, which I hope to improve.
+This document's purpose is to sort of organize the abstract terms often encountered while browsing mathematics articles on wikipedia. It will surely contain a bunch of errors in terms of strict definitions. I hope to improve that as time goes.
 
 \section{Algebraic structures}
 \subsection{General understanding}
@@ -34,7 +34,7 @@ The goal of the below flowchart is to give a sort of general view of how the mai
 \begin{tikzpicture}[node distance = 20pt]
 
 %NODES
-\node (set) [big] {\textbf{Set} \(S\) \\ Well-defined collection of distinct objects. \\ Not equipped with any operations on its elements. \\ Degenerate algebraic structure.};
+\node (set) [big] {\textbf{Set} \(S\) \\ Well-defined collection of \emph{distinct} objects. \\ Not equipped with any operations on its elements. \\ Degenerate algebraic structure.};
 \node (magma) [medium, below of = set, yshift = -2cm] {\textbf{Magma} \((S, \circ)\) \\ Closed under its binary operation. This operation is often, but not always, addition (according to wikia).};
 \node (semigroup) [medium, below of = magma, yshift = -1cm] {\textbf{Semigroup} \\ \((a \circ b) \circ c = a \circ (b \circ c)\)};
 \node (monoid) [medium, below of = semigroup, yshift = -1cm] {\textbf{Monoid} \\ \(a \circ 0 = a\)};
