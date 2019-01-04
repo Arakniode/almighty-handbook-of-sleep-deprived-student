@@ -499,18 +499,26 @@ Ce théorème lie les primitives d'une fonction \(f\) à l'aire sous le graphe d
 	\def\arraystretch{1.5}
 	\begin{tabular}{| C | C |} %https://tex.stackexchange.com/questions/112576/math-mode-in-tabular-without-having-to-use-everywhere
 		\hline
-		f(x) 						& F(x) \\ \hline
+		f(x) 						& F(x) \\
+		\hline
 		e^x 						& e^x + C \\
+		a^x \ (a > 0, a \neq 1)	& \frac{1}{\log(a)} a^x + C \\
 		\sin(x)						& -\cos(x) + C \\
 		\cos(x) 					& \sin(x) + C \\
+		\tan(x)					& -\log|\cos(x)| + C \\
+		\cot(x)						& \log|\sin(x)| + C \\
+		\tan^2(x)					& \tan(x) - x + C \\
+		\cot^2(x)					& -\cot(x) - x + C \\
 		\sinh(x)					& \cosh(x) + C \\
 		\cosh(x) 					& \sinh(x) + C \\
-		a^x, a > 0, a \neq 1	& \frac{1}{\log(a)} a^x + C \\
-		\frac{1}{x}				& \log(|x|) + C \\
-		x^r, r \neq -1			& \frac{1}{r+1} x^{r+1} + C \\
 		\frac{1}{\cos^2(x)} 	& \tan(x) + C \\
+		\frac{1}{\sin^2(x)}		& -\cot(x) + C \\
 		\frac{1}{1+x^2}			& \arctan(x) + C \\
 		\frac{1}{\sqrt{1-x^2}} & \arcsin(x) + C \\
+		\frac{1}{x}				& \log|x| + C \\
+		\frac{1}{\sqrt{x}}		& 2\sqrt{x} + C \\
+		x^r, r \neq -1			& \frac{1}{r+1} x^{r+1} + C \\
+		\log(x)						& x(\log(x) - 1) \\
 		\hline
 	\end{tabular}
 \end{center}
