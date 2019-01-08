@@ -9,6 +9,7 @@
 \newcommand\eqsmile{\; \stackrel{ \mathclap{ \underbracket[0.8pt]{\circ \, \circ} } }{ = } \;} % for equations that make you smile :)
 \newcommand\equwu{\stackrel{\textsf{uwu}}{=}}
 %\numberwithin{equation}{subsection}
+\usepackage{centernot}
 
 \usepackage{array}
 \newcolumntype{L}{>{$}l<{$}} %math-mode version of "l" column type
@@ -18,11 +19,14 @@
 \usepackage{hyperref}
 
 %margins
-\addtolength{\oddsidemargin}{-2.5cm}
-\addtolength{\evensidemargin}{-2.5cm}
-\addtolength{\textwidth}{4.5cm}
-\addtolength{\topmargin}{-2.5cm}
-\addtolength{\textheight}{4.5cm}
+\usepackage{geometry}
+\geometry{left=1.5cm, right=1.5cm, top = 1.5cm, bottom=1.5cm}
+%\addtolength{\oddsidemargin}{-2.5cm}
+%\addtolength{\evensidemargin}{-2.5cm}
+%\addtolength{\textwidth}{4.5cm}
+%\addtolength{\topmargin}{-2.5cm}
+%\addtolength{\bottommargin}{-2.5cm}
+%\addtolength{\textheight}{4.5cm}
 
 \title{\vspace{-1.5cm} Analyse 1 -  Anna Lachowska \\ Résumé}
 \author{Benjamin Bovey - EPFL IC}
@@ -71,7 +75,7 @@ Dans le cas, par exemple, d'une limite fraction de polynômes, dans lequel l'exp
 \(a, b \in \mathbb{R}_{>0}, \; x, y \in \mathbb{R}\)
 \begin{align*}
 	a^x \cdot a^y 		&= a^{x+y} 			&	(a^x)^y 							&= a^{x \cdot y} \\
-	\dfrac{a^x}{a^y} 	&= a^{x-y}  			&	\sqrt[n]{a}						&= a^{\frac{1}{n}}, \quad n \in \mathbb{N}_{>0} \\
+	\dfrac{a^x}{a^y} 	&= a^{x-y}  			&	\sqrt[n]{a}						&= a^{\frac1n}, \quad n \in \mathbb{N}_{>0} \\
 	(ab)^x 				&= a^x \cdot b^x 	&	\left (\dfrac{a}{b} \right )^x 	&= \dfrac{a^x}{b^x} \\
 	a^0 					&= 1 					& 	a^1 								&= a
 \end{align*}
@@ -133,9 +137,9 @@ Il n'y a malheureusement pas d'autre façon que de s'entraîner par des exercice
 		\hline
 		x 						& \sin(x) 							& \cos(x)						& \tan(x) \\ \hline
 		0 						& 0								& 1							& 0\\
-		\frac{\pi}{6}			& \frac{1}{2} 					& \frac{\sqrt{3}}{2}			& \frac{\sqrt{3}}{3} \\
+		\frac{\pi}{6}			& \frac12 					& \frac{\sqrt{3}}{2}			& \frac{\sqrt{3}}{3} \\
 		\frac{\pi}{4}			& \frac{\sqrt{2}}{2} 			& \frac{\sqrt{2}}{2}			& 1 \\
-		\frac{\pi}{3}			& \frac{\sqrt{3}}{2} 			& \frac{1}{2}					& \sqrt{3} \\
+		\frac{\pi}{3}			& \frac{\sqrt{3}}{2} 			& \frac12					& \sqrt{3} \\
 		\frac{\pi}{2}			& 1								& 0							& \infty \\
 		\hline
 	\end{tabular}
@@ -144,41 +148,70 @@ Pour se souvenir de ces valeurs importantes, on peut observer que les valeurs de
 
 %-----------------------------------------------------------------------------------------------------------------------------------------------
 
-\section{Limites utiles}
+\section{Suites et séries}
+
+\subsection{Propriétés des suites et séries}
+Voici des propriétés utiles lors de QCM et de vrai-faux:
+\begin{align*}
+\intertext{Soit \(a_n\) une suite réelle:} 
+	&\lim_{n\to\infty} a_n = 0 \iff \lim_{n\to\infty} |a_n| = 0 \\
+	&\lim_{n\to\infty} a_n = L \implies \lim_{n\to\infty} |a_n| = |L| \\
+	&\text{Si \(a_n\) est croissante:} \begin{cases}
+		\text{Si \(a_n\) est majorée} &\implies \lim_{n\to\infty} a_n = \sup(a_n) \\
+		\text{Si \(a_n\) n'est pas majorée} &\implies \text{\(a_n\) diverge}
+	\end{cases} \text{(resp. décroissante, minorée)}\\
+\intertext{Soit \(b_n\) une suite réelle définie par récurrence}
+	&b_{n+1} = qb_n + c \implies \lim_{n\to\infty} b_n = \frac{c}{1-q} \quad (q \leq 1, c \in \mathbb{R}) \\
+\end{align*}
+Si la relation de récurrence n'est pas linéaire, il faut regarder si la suite est croissante/décroissante et majorée/minorée ou non. On peut essayer de tirer des conclusions à partir de là.
+
+\subsection{Limites utiles}
 Ces limites ont été définies lors du cours, parfois dans le cadre des suites, et parfois dans celui des fonctions. Généralement, les limites de suites et les séries sont exprimées par rapport à \(n\), et les limites de fonctions par rapport à \(x\). Elles s'appliquent cependant dans la majorité des cas, et selon le bon sens, de la même façon dans les deux cas.
 
 \begingroup\allowdisplaybreaks[1] %to avoid all the equations creating page jumps everywhere, we need to allow them to separate within the align environment
 \begin{flalign}
-		&\nonumber\text{Soient \(P_n\) et \(Q_n\) deux suites polynomiales:} \\
+	&\lim_{n\to\infty} \dfrac{1}{n^p} = 0 \quad \forall p \in \mathbb{R}_+^* \\
+	&\lim_{n\to\infty} \sqrt[n]{a} = 1 \quad \forall a \in \mathbb{R}_+^* \\
+	&\lim_{n\to\infty} \dfrac{p^n}{n!} = 0 \quad \forall p \in \mathbb{R}_+^* \\
+\intertext{Soient \(P_n\) et \(Q_n\) deux suites polynomiales:}
 	&\lim_{n\to\infty} \dfrac{P_n}{Q_n} = 
 		\begin{cases}
 			0, 						&\text{si } \deg{P_n} < \deg{Q_n} \\
 			\frac{p_n}{q_n},	&\text{si } \deg{P_n} = \deg{Q_n}, \; \text{avec \(p_n\) et \(q_n\) les coefficients du terme de plus haut degré}\\
 			\infty , 				&\text{si } \deg{P_n} > \deg{Q_n}
 		\end{cases} \\
-	&\lim_{n\to\infty} \dfrac{1}{n^p} = 0 \quad \forall p \in \mathbb{R}_+^* \\
-	&\lim_{n\to\infty} \sqrt[n]{a} = 1 \quad \forall a \in \mathbb{R}_+^* \\
-	&\lim_{n\to\infty} \dfrac{p^n}{n!} = 0 \quad \forall p \in \mathbb{R}_+^* \\
-	&\lim_{n\to\infty} \frac{\sin{\frac{1}{n}}} {\frac{1}{n}} = 1 \\
-	&\lim_{n\to\infty} \sin{\frac{1}{n}} = 0 \\
-	&\lim_{n\to\infty} \left (1 + \frac{1}{n} \right )^n = e  \\
-	&\lim_{n\to\infty} \left (1 - \frac{1}{n} \right )^n = \frac{1}{e} = e^{-1} \\
+	&\lim_{n\to\infty} \frac{\sin{\frac1n}} {\frac1n} = 1 \\
+	&\lim_{n\to\infty} \sin{\frac1n} = 0 \\
+	&\lim_{n\to\infty} \left (1 + \frac1n \right )^n = e  \\
+	&\lim_{n\to\infty} \left (1 - \frac1n \right )^n = \frac{1}{e} = e^{-1} \\
 	&\lim_{n\to\infty} \frac{n!}{n^n} = 0 \\
 	&\sum_{k=0}^{\infty} r^k = \begin{cases}
 										\dfrac{1}{1-r}, &|r| < 1 \\
 										\text{diverge, } &|r| \geq 1
 									   	\end{cases}\quad r \in \mathbb{R} \\
 	&\sum_{n=1}^{\infty} \frac{1}{n^p} \text{ converge } \forall p \in \mathbb{R}_{>1} \\
-	&\sum_{n=1}^{\infty} \frac{1}{n} \text{ diverge. } \\
-	&\sum_{n=0}^{\infty} |a_n| \text{ converge } \Rightarrow \sum_{k=0}^{\infty} a_n \text{ converge. } ( \nLeftarrow )\\
+	&\sum_{n=1}^{\infty} \frac1n \text{ diverge. } \\
+	&\sum_{n=0}^{\infty} |a_n| \text{ converge } \implies \sum_{k=0}^{\infty} a_n \text{ converge. } ( \centernot\impliedby)\\
 	&\lim_{x \to 0} \dfrac{\sin{x}}{x} = 1 \\
-	&\lim_{x \to 0} \sin{\frac{1}{x}} \quad \text{n'existe pas.} \\
-	&\lim_{x \to 0} x \cdot \sin{\frac{1}{x}} = \lim_{x \to 0} x \cdot \cos{\frac{1}{x}} = 0 \\
+	&\lim_{x \to 0} \sin{\frac1x} \quad \text{n'existe pas.} \\
+	&\lim_{x \to 0} x \cdot \sin{\frac1x} = \lim_{x \to 0} x \cdot \cos{\frac1x} = 0 \\
 	&e^x \eqdef \sum_{n=0}^{\infty} \dfrac{x^n}{n!} \\
 	&\lim_{x \to 0} \dfrac{e^x-1}{x} = 1 \\
 	&\lim_{x \to \infty} \frac{\log(x)}{x^\alpha} = 0, \; \alpha > 0
 \end{flalign}
 \allowdisplaybreaks[0]\endgroup
+
+\subsection{Formes indéterminées}
+Voici toutes les formes indéterminées qui peuvent être rencontrées lors du calcul de limite:
+\begin{align*}
+	&\infty - \infty, \quad \dfrac{\infty}{\infty}, \quad \dfrac{0}{0}, \quad 0 \cdot \infty, \quad 0^0, \quad \infty^0, \quad 1^\infty
+\end{align*}
+Pour les valeurs des limites de puissances avec \(0, 1, \text{ ou } \infty\) en base ou en exposant, il y a trois cas d'indétermination. Ces cas sont soulignés ci-dessous. \\ Dans les cas déterminés, la valeur de la limite sera la valeur de la base.
+\begin{align*}
+	&\underline{0^0	}		& &0^1					& &0^\infty \\
+	&\underline{\infty^0}	& &\infty^1				& &\infty^\infty \\
+	&1^0						& &1^1					& &\underline{1^\infty}
+\end{align*}
 
 \subsection{Critères de convergence}
 Ces critères permettent de déterminer si une \textbf{série} de la forme \(\sum^\infty a_n\) converge ou non. Souvenons-nous que \(\lim_{x \to 0} a_n = 0\) est une \emph{condition nécessaire} à la convergence, mais n'implique pas la convergence. \\
@@ -187,18 +220,18 @@ Ces critères permettent de déterminer si une \textbf{série} de la forme \(\su
 \begin{equation*}
 	\lim_{n \to \infty} \left | \dfrac{a_{n+1}}{a_n} \right | = \rho \in \mathbb{R} 
 	\begin{cases}
-		\rho < 1 \Rightarrow \sum_{n=0}^\infty a_n \ \text{converge absolument.} \\
-		\rho > 1 \Rightarrow \sum_{n=0}^\infty a_n \ \text{diverge.} \\
+		\rho < 1 \implies \sum_{n=0}^\infty a_n \ \text{converge absolument.} \\
+		\rho > 1 \implies \sum_{n=0}^\infty a_n \ \text{diverge.} \\
 		\rho = 1 \quad \text{ne nous indique rien sur la convergence de la série.}
 	\end{cases}
 \end{equation*}
 
 \subsubsection{Critère de Cauchy}
 \begin{equation*}
-	\lim_{n \to \infty} \left | a_n \right |^{\frac{1}{n}} = \rho \in \mathbb{R}
+	\lim_{n \to \infty} \left | a_n \right |^{\frac1n} = \rho \in \mathbb{R}
 	\begin{cases}
-		\rho < 1 \Rightarrow \sum_{n=0}^\infty a_n \ \text{converge absolument.} \\
-		\rho > 1 \Rightarrow \sum_{n=0}^\infty a_n \ \text{diverge.} \\
+		\rho < 1 \implies \sum_{n=0}^\infty a_n \ \text{converge absolument.} \\
+		\rho > 1 \implies \sum_{n=0}^\infty a_n \ \text{diverge.} \\
 		\rho = 1 \quad \text{ne nous indique rien sur la convergence de la série.}
 	\end{cases}
 \end{equation*}
@@ -207,8 +240,8 @@ Ces critères permettent de déterminer si une \textbf{série} de la forme \(\su
 Soient \(a_n\) et \(b_n\) deux suites telles que \(\exists k : \forall n \geq k, b_n \geq a_n\):
 \begin{equation*}
 	\begin{cases}
-		\sum_{n=0}^\infty b_n \text{converge} \Rightarrow \sum_{n=0}^\infty a_n \ \text{converge} \\
-		\sum_{n=0}^\infty a_n \text{diverge} \Rightarrow \sum_{n=0}^\infty b_n \ \text{diverge}
+		\sum_{n=0}^\infty b_n \text{converge} \implies \sum_{n=0}^\infty a_n \ \text{converge} \\
+		\sum_{n=0}^\infty a_n \text{diverge} \implies \sum_{n=0}^\infty b_n \ \text{diverge}
 	\end{cases}
 \end{equation*}
 
@@ -219,7 +252,7 @@ Soient \(a_n\) et \(b_n\) deux suites telles que \(\exists k : \forall n \geq k,
 		\exists p \in \mathbb{N} : \forall n \geq p \quad a_{n+1} \cdot a_n \leq 0 \\
 		\lim_{n \to \infty} a_n = 0
 	\end{rcases}
-	\Rightarrow \sum_{n=0}^\infty (-1)^n \, a_n \: \text{converge.}
+	\implies \sum_{n=0}^\infty (-1)^n \, a_n \: \text{converge.}
 \end{equation*}
 Cela revient, en langage non-mathématique, à dire que si:
 \begin{itemize}
@@ -235,20 +268,6 @@ Il est généralement optimal d'appliquer ces critères dans cet ordre précis (
 	\item ils sont classés par ordre de difficulté d'application (encore une fois, la difficulté dépend de la suite et certaines suites appellent à l'utilisation de certains critères). %TODO: note de bas de page pour exemple suite puissance n?
 	\item Le critère d'Alembert est souvent plus facile à appliquer, cependant il existe des cas où le critère d'Alembert ne donne aucun information (\(\rho = 1\)), mais où le critère de Cauchy nous en donne. Le cas inverse n'existe pas.
 \end{itemize}
-
-%-----------------------------------------------------------------------------------------------------------------------------------------------
- 
-\section{Formes indéterminées}
-Voici toutes les formes indéterminées qui peuvent être rencontrées lors du calcul de limite:
-\begin{align*}
-	&\infty - \infty, \quad \dfrac{\infty}{\infty}, \quad \dfrac{0}{0}, \quad 0 \cdot \infty, \quad 0^0, \quad \infty^0, \quad 1^\infty
-\end{align*}
-Pour les valeurs des limites de puissances avec \(0, 1, \text{ ou } \infty\) en base ou en exposant, il y a trois cas d'indétermination. Ces cas sont soulignés ci-dessous. \\ Dans les cas déterminés, la valeur de la limite sera la valeur de la base.
-\begin{align*}
-	&\underline{0^0	}		& &0^1					& &0^\infty \\
-	&\underline{\infty^0}	& &\infty^1				& &\infty^\infty \\
-	&1^0						& &1^1					& &\underline{1^\infty}
-\end{align*}
 
 %-----------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -274,7 +293,7 @@ Cette seconde définition est peut-être plus facile à lier à une représentat
 		& &(x^3)' = 3x^2
 			& &(x^n)' = n \cdot x^{n-1} \\
 	&(e^x)' = e^x
-		& &(\log(x))' = \frac{1}{x}
+		& &(\log(x))' = \frac1x
 			& &(a^x)' = \log(a) \cdot a^x \\
 	&(\log_a(x))' = \frac{1}{x \cdot \log(a)}
 \end{align*}
@@ -298,19 +317,19 @@ Soit \(f : \ [a, b] \to \mathbb{R}\) une fonction continue. Alors: \\
 \(f\) atteint son \(\sup_{[a, b]}\), son \(\inf_{[a, b]}\), et toutes les valeurs comprises entre \(f(a)\) et \(f(b)\).
 
 \subsubsection{Corollaire 1}
-Soit \(f : \ [a, b] \to F\) une fonction continue telle que \(f(a) \cdot f(b) < 0\) (\(\Leftrightarrow\) soit \(f(a)\) soit \(f(b)\) est négatif, pas les deux). Alors: \\
+Soit \(f : \ [a, b] \to F\) une fonction continue telle que \(f(a) \cdot f(b) < 0\) (\(\iff\) soit \(f(a)\) soit \(f(b)\) est négatif, pas les deux). Alors: \\
 \(\exists c \in \ [a, b] \ : f(c) = 0\).
 
 \subsection{Théorème de Rolle}
 Soit \(f : \ [a, b] \to \mathbb{R}\) continue sur \([a, b]\) et dérivable sur \(]a, b[\):
 \begin{equation*}
-	f(a) = f(b) \Rightarrow \exists c \in \ ]a, b[ \ : f'(c) = 0
+	f(a) = f(b) \implies \exists c \in \ ]a, b[ \ : f'(c) = 0
 \end{equation*}
 
 \subsubsection{Corollaire 1: bornes à l'infini}
 Soit \(f : \ [a, b] \to \mathbb{R}\) continue sur \([a, b]\) et dérivable sur \(]a, b[\):
 \begin{equation*}
-	\lim\limits_{x \to a^+} f(x) = \lim\limits_{x \to b^-} f(x) = \pm \infty \Rightarrow \exists c \in \ ]a, b[ \ : f'(c) = 0
+	\lim\limits_{x \to a^+} f(x) = \lim\limits_{x \to b^-} f(x) = \pm \infty \implies \exists c \in \ ]a, b[ \ : f'(c) = 0
 \end{equation*}
 
 \subsection{Théorème des accroissements finis (TAF)}
@@ -322,21 +341,21 @@ Soit \(f : \ [a, b] \to \mathbb{R}\) continue sur \([a, b]\) et dérivable sur \
 \subsubsection{Corollaire 1: fonction constante}
 Soit \(f : [a, b] \to \mathbb{R}\) continue sur \([a, b]\) et dérivable sur \(]a, b[\):
 \begin{equation*}
-	f'(x) = 0 \ \forall x \in \ [a, b] \ \Rightarrow f(x) \text{ est constante sur } [a, b]
+	f'(x) = 0 \ \forall x \in \ [a, b] \ \implies f(x) \text{ est constante sur } [a, b]
 \end{equation*}
 
 \subsubsection{Corollaire 2: fonctions avec dérivées identiques}
 Soit \(f, g : [a, b] \to \mathbb{R}\) continues sur \([a, b]\) et dérivables sur \(]a, b[\):
 \begin{equation*}
-	f'(x) = g'(x) \forall x \in \ ]a, b[ \ \Rightarrow f(x) = g(x) + C \text{ où } C \in \mathbb{R}
+	f'(x) = g'(x) \forall x \in \ ]a, b[ \ \implies f(x) = g(x) + C \text{ où } C \in \mathbb{R}
 \end{equation*}
 
 \subsubsection{Corollaire 3: fonction croissante/décroissante}
 Soit \(f : \ [a, b] \to \mathbb{R}\) continue sur \([a, b]\) et dérivable sur \(]a, b[\):
 \begin{equation*}
 	\begin{cases}
-		f \text{ est croissante sur } [a, b] \ &\Leftrightarrow f'(x) \geq 0 \ \forall x \in \ ]a, b[ \\
-		f \text{ est décroissante sur } [a, b] \ &\Leftrightarrow f'(x) \leq 0 \ \forall x \in \ ]a, b[
+		f \text{ est croissante sur } [a, b] \ &\iff f'(x) \geq 0 \ \forall x \in \ ]a, b[ \\
+		f \text{ est décroissante sur } [a, b] \ &\iff f'(x) \leq 0 \ \forall x \in \ ]a, b[
 	\end{cases}
 \end{equation*}
 Les cas de croissance (resp. décroissance) stricte tiennent aussi avec \(f'(x) > 0\) (resp. \(f'(x) < 0\)).
@@ -356,17 +375,17 @@ Il dit que la limite lorsque \(x\) tend vers \(a\) du quotient de deux fonctions
 \end{equation*}
 Cette identité peut être utilisée plusieurs fois si les fonction sont plusieurs fois dérivables en \(a\). \\
 
-Le théorème de Bernouilli-l'Hospital peut souvent être utilisé sur des fonctions qui n'ont pas l'air rationnelles à première vue; par exemple, la fonction \(x \cdot \log(x)\) peut être écrite \(\frac{\log(x)}{\frac{1}{x}}\).
+Le théorème de Bernouilli-l'Hospital peut souvent être utilisé sur des fonctions qui n'ont pas l'air rationnelles à première vue; par exemple, la fonction \(x \cdot \log(x)\) peut être écrite \(\frac{\log(x)}{\frac1x}\).
 \begin{align*}
-	\lim_{x \to 0} x \cdot \log(x) &= \lim_{x \to 0} \frac{\log(x)}{\frac{1}{x}} 
-	\eqbl \lim_{x \to 0} \frac{\frac{1}{x}}{- \frac{1}{x^2}} 
+	\lim_{x \to 0} x \cdot \log(x) &= \lim_{x \to 0} \frac{\log(x)}{\frac1x} 
+	\eqbl \lim_{x \to 0} \frac{\frac1x}{- \frac{1}{x^2}} 
 	= - \lim_{x \to 0} \frac{x^2}{x} 
 	= - \lim_{x \to 0} x = 0
 \end{align*}
 
 \textbf{Attention}: la proposition converse n'est pas vraie:
 \begin{center}
-	la limite de \(\dfrac{f'(x)}{g'(x)}\) n'existe pas \(\nRightarrow\) la limite de \(\dfrac{f(x)}{g(x)}\) n'existe pas.
+	la limite de \(\dfrac{f'(x)}{g'(x)}\) n'existe pas \(\centernot\implies\) la limite de \(\dfrac{f(x)}{g(x)}\) n'existe pas.
 \end{center}
 
 %-----------------------------------------------------------------------------------------------------------------------------------------------
@@ -465,8 +484,8 @@ Les points d'inflexion, la convexité et la concavité sont étudiées avec l'ai
 
 Sur un intervalle \(I\), on définit qu'une fonction est:
 \begin{itemize}
-	\item \textbf{convexe} \( \Leftrightarrow \forall x \in I, f''(x) \geq 0\)
-	\item \textbf{concave} \( \Leftrightarrow \forall x \in I, f''(x) \leq 0\)
+	\item \textbf{convexe} \( \iff \forall x \in I, f''(x) \geq 0\)
+	\item \textbf{concave} \( \iff \forall x \in I, f''(x) \leq 0\)
 \end{itemize}
 On peut observer que lorsque \(\forall x \in I f''(x) = 0\), le graphe est à la fois convexe et concave: autrement dit, le graphe est linéaire sur cet intervalle.
 
@@ -490,9 +509,12 @@ Ce théorème lie les primitives d'une fonction \(f\) à l'aire sous le graphe d
 \begin{align*}
 	\int_a^b f(x) \, dx &= F(b) - F(a) \\
 	\text{Si } b < a, \; \int_a^b f(x) \, dx &\eqdef -\int_b^a f(x) \, dx \\
-	\text{Soit } b \in \left[a, c\right] \Rightarrow \int_a^c f(x) \, dx &= \int_a^b f(x) \, dx + \int_b^c f(x) \, dx \\
+	\text{Soit } b \in \left[a, c\right] \implies \int_a^c f(x) \, dx &= \int_a^b f(x) \, dx + \int_b^c f(x) \, dx \\
 	\int_a^a f(x) \, dx &= 0
 \end{align*}
+
+\textbf{Note importante}: l'intégrale de \(-a\) à \(a\) d'une fonction \underline{impaire} est égale à 0 (cela fait beaucoup de sens si l'on réfléchit à ce qu'est une fonction impaire).
+Souvenons-nous également qu'une fonction impaire multipliée par une fonction paire donne une fonction impaire.
 
 \subsection{Primitives communes}
 \begin{center}
@@ -515,10 +537,10 @@ Ce théorème lie les primitives d'une fonction \(f\) à l'aire sous le graphe d
 		\frac{1}{\sin^2(x)}		& -\cot(x) + C \\
 		\frac{1}{1+x^2}			& \arctan(x) + C \\
 		\frac{1}{\sqrt{1-x^2}} & \arcsin(x) + C \\
-		\frac{1}{x}				& \log|x| + C \\
+		\frac1x				& \log|x| + C \\
 		\frac{1}{\sqrt{x}}		& 2\sqrt{x} + C \\
-		x^r, r \neq -1			& \frac{1}{r+1} x^{r+1} + C \\
-		\log(x)						& x(\log(x) - 1) \\
+		x^r \ (r \neq -1)			& \frac{1}{r+1} x^{r+1} + C \\
+		\log(x)						& x(\log(x) - 1) + C \\
 		\hline
 	\end{tabular}
 \end{center}
@@ -535,21 +557,17 @@ L'intégration par changement de variable peut être particulièrement utile lor
 	\int \dfrac{\sin(x)}{\cos^3(x)} \, dx 	&= \int \dfrac{\sin(x)}{\cos(x)} \cdot \dfrac{1}{\cos^2(x)} \, dx \\
 												&= \int \tan(x) \cdot \dfrac{1}{\cos^2(x)} \, dx \\
 \end{align*}
-On remarque (\emph{trivial}) que \(\frac{1}{\cos^2(x)}\) est simplement la dérivée de \(\tan(x)\). On peut donc faire le changement de variable \(u = \tan(x)\), et donc \(du = \tan'(x) = \frac{1}{\cos^2(x)}\):
+On remarque (\emph{trivial}) que \(\frac{1}{\cos^2(x)}\) est simplement la dérivée de \(\tan(x)\). On peut donc faire le changement de variable \(u = \tan(x)\), et donc \(\frac{du}{dx} = \tan'(x) = \frac{1}{\cos^2(x)} \implies du = \frac{1}{\cos^2(x)} \, dx\):
 \begin{align*}
 	\int \tan(x) \cdot \dfrac{1}{\cos^2(x)} \, dx 	&= \int u \, du \\
 															&= \dfrac{1}{2}u^2 + C \\
 \end{align*}
 On réimplante alors le \(x\) sachant que \(u = \tan(x)\):
 \begin{align*}
-	\frac{1}{2}u^2 + C &= \dfrac{1}{2}\tan^2(x) + C \\
-	\Rightarrow \int \dfrac{\sin(x)}{\cos^3(x)} \, dx &= \dfrac{1}{2}\tan^2(x) + C
+	\frac12u^2 + C &= \dfrac{1}{2}\tan^2(x) + C \\
+	\implies \int \dfrac{\sin(x)}{\cos^3(x)} \, dx &= \dfrac{1}{2}\tan^2(x) + C
 \end{align*}
 Voici les amis! L'intégration est réussie! Youpi! \\
-Plus généralement, on peut dire que (aucune garantie sur la véridité de cette équation, vérifiez par vous-même, mais ça m'a l'air plus ou moins correct):
-\begin{equation*}
-	\int f^n(x) \cdot f'(x) \, dx = \tfrac{1}{n+1}f^{n+1}(x)
-\end{equation*}
 
 \subsubsection{Intégration par parties}
 \begin{center}
@@ -579,8 +597,6 @@ Continuons avec l'exemple de l'intégrale ci-dessus: pour pouvoir la calculer, i
 Dans ce cas, calculer la première des deux intégrales nous donne déjà un résultat de \(+\infty\). Cela nous indique, sans même devoir calculer la seconde, que cette intégrale diverge. \\
 
 Référencez-vous au cours 26 sur les intégrales généralisées pour plus d'exemples.
-
-%Si on a une intégrale avec un "problème" de la forme 1/x^\alpha, on sait qu'elle converge si et seulement si \alpha < 1, et diverge si et seulement si \alpha >= 1
 
 \subsection{Intégrales utiles}
 \begin{align}
@@ -629,9 +645,9 @@ Référencez-vous au cours 26 sur les intégrales généralisées pour plus d'ex
 \subsection{Chaînes YouTube}
 Parce qu'une bonne vidéo vaut bien mieux que mille mots.
 \begin{itemize}
-	\item \href{https://www.youtube.com/channel/UCYO_jab_esuFRV4b17AJtAw}{3Blue1Brown} est l'amour de ma vie. Ses vidéos sont basées sur l'intuition et non la formalisation.
+	\item \href{https://www.youtube.com/channel/UCYO_jab_esuFRV4b17AJtAw}{3Blue1Brown} est l'amour de ma vie. Ses vidéos sont basées sur l'intuition et non la formalisation et elles peuvent sauver des vies ainsi que des passions pour les maths.
 	\item \href{https://www.youtube.com/user/blackpenredpen}{blackpenredpen} intègre des machins et fait des vidéos intéressantes, qui incluent plus le côté formel mais un peu moins d'intuition.
-	\item \href{https://www.youtube.com/channel/UCtAIs1VCQrymlAnw3mGonhw}{Flammy} intègre des trucs bizarres et fait des vidéos sur des sujets intéressants. Si vous voulez un aperçu de ce qu'est l'analyse complexe, c'est le bon endroit.
+	\item \href{https://www.youtube.com/channel/UCtAIs1VCQrymlAnw3mGonhw}{Papa Flammy} intègre des trucs bizarres et fait des vidéos sur des sujets intéressants. Si vous voulez un aperçu de ce qu'est l'analyse complexe, c'est le bon endroit.
 \end{itemize}
 
 
