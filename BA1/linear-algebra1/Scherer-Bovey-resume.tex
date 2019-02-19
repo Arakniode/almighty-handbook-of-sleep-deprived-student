@@ -64,7 +64,7 @@ Les propositions suivantes sont équivalentes:
 	\item \(0\) est valeur propre de \(A\)
 	\item \(\ke(A) \neq 0\)
 	\item \(\rang(A) < n\)
-	\item \(A\) n'est pas surjective
+	\item \(A\) n'est pas injective
 	\item \(A\) n'est pas inversible
 \end{itemize}
 Les valeurs propres d'une matrice \textbf{triangulaire} sont les coefficients diagonaux de la matrice. Cette propriété tient donc bien sûr pour les matrices \textbf{diagonales}, qui sont des cas particuliers de matrices triangulaires.
@@ -79,7 +79,7 @@ Une valeur propre de \(A\) est une racine du polynôme caractéristique \(\chi_A
 \subsection{Espace propre associé à une valeur propre}
 Soit \(\lambda\) une valeur propre de \(A\). Alors l'espace propre associé à \(\lambda\) est
 \begin{equation}
-	\ke(A-\lambda I_n)
+	E_\lambda = \ke(A-\lambda I_n)
 \end{equation}
 
 \subsection{Similitude}
@@ -112,11 +112,11 @@ On écrira d'ailleurs \(\mult(\lambda)\) pour la multiplicité algébrique de \(
 \end{itemize}
 Autrement dit:
 \begin{center}
-	Une matrice \(A\) est diagonalisable si et seulement si \\ la somme des multiplicités géométriques de ses valeurs propres \\ est égale à \(n\).
+	Une matrice carrée $A$ de taille $n$ est diagonalisable si et seulement si \\ la somme des multiplicités géométriques de ses valeurs propres \\ est égale à $n$.
 \end{center}
 Une condition suffisante \emph{mais pas nécessaire} est la suivante:
 \begin{center}
-	Une matrice \(A\) est diagonalisable \\ si elle possède \(n\) valeurs propres \underline{distinctes}.
+	Une matrice $A$ est diagonalisable \\ si elle possède $n$ valeurs propres \underline{distinctes}.
 \end{center}
 
 %---------------------------------------------------------------------------------------------------------------------
@@ -125,9 +125,9 @@ Une condition suffisante \emph{mais pas nécessaire} est la suivante:
 
 \subsection{Idées générales}
 
-Soit $A$ une matrice de taille $n \times m$. Alors $A^T$ est de taille $n \times m$.
+Soit $A$ une matrice de taille $m \times n$. Alors $A^T$ est de taille $n \times m$.
 \begin{itemize}
-	\item Les lignes de $A^t$ sont les colonnes $\vec a_i$ de $A$
+	\item Les lignes de $A^T$ sont les colonnes $\vec a_i$ de $A$
 	\item $A^T\vec x = \vec 0 \iff \vec x \perp \im A$
 	\item Les coefficients $(A^TA)_{ij}$ sont les produits scalaires $\vec a_i \cdot \vec a_j$
 	\item Les colonnes de $A$ sont orthogonales $\iff A^TA$ est diagonale
@@ -147,26 +147,26 @@ Soit $A$ une matrice de taille $n \times m$. Alors $A^T$ est de taille $n \times
 \subsection{Base orthogonale}
 Soit \(W\) un sous-espace de \(\mathbb{R}^n\) et \((\vec u_1, \dots, \vec u_k)\) une base \emph{orthogonale} de \(W\). Alors
 \begin{align}
-	\vec w \in W = \alpha_1\vec u_1 + \dots + \alpha_k\vec u_k, \\
+	\proj_W \vec v \in \mathbb{R}^n = \alpha_1\vec u_1 + \dots + \alpha_k\vec u_k, \\
 \intertext{et on calcule les $\alpha_j$ de la manière suivante:}
 	\label{eq:orthoproj} \alpha_j = \dfrac{\vec w \cdot \vec u_j}{\norm{\vec u_j}^2}
 \end{align}
 
 \subsection{Matrice orthogonale}
 \thm{} matrices orthogonales \\
-Les propositions suivantes sont équivalentes:
+Soit $U$ une matrice carrée de taille $n$. Alors les propositions suivantes sont équivalentes:
 \begin{itemize}
 	\item $U$ est orthogonale.
-	\item Les colonnes et lignes d'une matrice \textbf{carrée} $U$ de taille $n$ sont \textbf{orthonormées}
+	\item Les colonnes et lignes de $U$ sont \textbf{orthonormées} (par définition)
 	\item $U^TU = I_n$
 	\item $U^{-1} = U^T$
 \end{itemize}
 Une matrice orthogonale représente une transformation linéaire qui préserve les distances et l'orthogonalité (isométrie, p. ex rotation ou symétrie). \\
 
-\thm{} préservation des longueurs \\
+\thm{} préservation des longueurs et des angles \\
 Soit $U$ une matrice orthogonale. Alors:
 \begin{enumerate}
-	\item $\norm{U\vec x} = \norm{\vec x} \forall \vec x \in \mathbb{R}^n$
+	\item $\norm{U\vec x} = \norm{\vec x} \quad \forall \vec x \in \mathbb{R}^n$
 	\item $U\vec x \cdot U\vec y = \vec x \cdot \vec y$
 	\item $U\vec x \perp U\vec y \iff \vec x \perp \vec y$
 \end{enumerate}
@@ -233,7 +233,7 @@ On appelle $\hat x$ la \emph{solution au sens des moindres carrés} du système.
 
 \defn
 \begin{center}
-	Une matrice carrée $A$ est diagonalisable par un changement de base orthonormée ou \emph{orthodiagonalisable} s'il existe une matrice $P$ orthogonale telle que $P^TAP$ est diagonale.
+	Une matrice carrée $A$ est diagonalisable par un changement de base orthonormée ou \emph{orthodiagonalisable} \\ s'il existe une matrice $P$ orthogonale \\ telle que $P^TAP$ est diagonale.
 \end{center}
 
 \thm{}
@@ -281,17 +281,32 @@ On peut également faire les remarques suivantes sur $A$:
 \thm{}
 \begin{align}
 \shortintertext{Comme $D = U^TAU$,}
-	A = UDU^T = \dots = \lambda_1 \vec u_1 \vec u_1^T + \overbrace{\dots}^{\text{cours 25}} + \lambda_n \vec u_n \vec u_n^T
+	A = UDU^T = \overbrace{\dots}^{\text{cours 25}} = \lambda_1 \vec u_1 \vec u_1^T + \dots + \lambda_n \vec u_n \vec u_n^T
 \end{align}
 
 \defn
 \begin{center}
 	$A = \lambda_1 \vec u_1 \vec u_1^T + \dots + \lambda_n \vec u_n \vec u_n^T$ est la \emph{décomposition spectrale} de la matrice symétrique $A$.
 \end{center}
-\textbf{Remarque}: c'est la somme de matrices contenant chacune 1 valeur propre dans sa diagonale. $A$ est décomposée en une combinaison linéaire de matrices de projection orthogonale!
+\textbf{Remarque}: c'est la somme de matrices contenant chacune une valeur propre dans sa diagonale. $A$ est décomposée en une combinaison linéaire de matrices de projection orthogonale!
 
 
+\section{Autres}
 
+\subsection{Terminologie: relations entre matrices}
+Les trois relations qui suivent sont classée de la moins restrictive à la plus restrictive.
+\defn Deux matrices rectangulaires de taille $m \times n$ sont \emph{équivalentes} si et seulement si:
+\begin{itemize}
+	\item on peut passer de l'une à l'autre par des opérations élémentaires sur les lignes et colonnes
+	\item elles ont le même rang
+\end{itemize}
+\textbf{Cependant}, il semble que dans le cours, la relation dénotée par le symbole $\sim	$ soit plutôt celle de l'équivalence \emph{selon les lignes}. Deux matrices représentant un système d'équations linéaires sont équivalentes selon les lignes si et seulement si elles ont le même $Ker$, c'est-à-dire que les systèmes \emph{homogènes} correspondants ont les mêmes solutions.
+
+\defn Deux matrices carrées $A$ et $B$ de taille $n \times n$ sont \emph{similaires} si et seulement si:
+\begin{itemize}
+	\item il existe une matrice $P$ de taille $n \times n$ telle que $B = P^{-1}AP$
+\end{itemize}
+Plus intuitivement, deux matrices similaires représentent la même application dans différentes bases.
 
 
 
