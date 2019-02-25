@@ -1,0 +1,188 @@
+\documentclass{report}
+
+\title{Analyse II \\ Anna Lachowska}
+\author{Benjamin Bovey}
+\date{Semestre de printemps 2019}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{cancel}
+\usepackage{url}
+
+\newtheorem{thm}{Théorème}
+\newtheorem{defn}{Définition}
+\newtheorem{exmp}{Exemple}
+
+\newcommand\important[1]{\noindent \quad {\large \underline{\textsc{#1}}} \ }
+
+\begin{document}
+
+\section*{Introduction}
+Résumé du cours d'Analyse II par Anna Lachowska. Retrouvez la page github contenant d'autres résumés et documents, à laquelle tout le monde peut participer: \url{https://github.com/arakniode/almighty-handbook-of-sleep-deprived-student}
+
+\chapter{Équations différentielles}
+
+\section{02 février 2019}
+Une équation différentielle ordinaire est une équation qui lie une fonction $y = y(x)$ à sa dérivée. Par exemple, l'équation
+\begin{equation}
+	y' + y = 0
+\end{equation}
+est une équation différentielle. 
+\\
+La solution d'une équation différentielle est une fonction ou un \textbf{ensemble de fonctions}, à la différence des équations "classiques" qui acceptent comme solution un nombre ou un ensemble de nombres. 
+
+\subsection{Équation à variables séparées (EDVS)}
+Une équation différentielle est dite "à variable séparées" lorsqu'on peut placer tous les termes en $x$ d'un côté de l'équation, et tous les termes en $y$ de l'autre (n'oublions pas que $x$ est la \emph{variable} de la fonction $y$). Par exemple, on peut réécrire l'équation différentielle présentée plus haut ainsi:
+
+\begin{align*}
+	y' + y &= 0 \\
+	y' &= -y \\
+\intertext{On employe la notation de Leibniz, qui permet notamment de séparer les variables:}
+	\dfrac{dy}{dx} &= -y \\
+	\dfrac{dy}{y} &= -dx \\
+\intertext{On peut désormais intégrer les deux côtés de l'équation, et résoudre pour $y$:}
+	\int \dfrac{dy}{y} &= -\int dx \\
+	log(y) + C_1 &= -x + C_2 \\
+	e^{\log(y) + C_1} &= e^{-x + C_2} \\
+	e^{C_1} \cdot y &= e^{C_2} \cdot e^{-x} \\
+	y &= e^{C_2 - C_1} \cdot e^{-x} \\
+\intertext{Renommons $e^{C_2 - C_1}$ (qui n'est qu'une constante) en $C$:}
+	y &= Ce^{-x}
+\end{align*}
+
+C'est la solution générale de l'équation différentielle. Ici, on voit qu'il existe une infinité de fonctions (pour chaque $C \in \mathbb{R}$) qui satisfont cette équation.
+
+\subsection{Terminologie de base} % A AMELIORER (degre, ordre)
+Ordre, degré, linéarité, solution générale, problème de Cauchy (conditions intiales) \\
+\begin{defn} le \textbf{degré} d'une équation différentielle est l'exposant le plus haut sur un terme $y^{(n)}$. Par exemple, l'équation $y^2 = y'$ est une équation différentielle de degré 2. 
+\end{defn}
+\begin{defn} l'\textbf{ordre} d'une équation différentielle est de $n$ si l'équation contient un terme en $y^{(n)}$, et pas plus. Par exemple, $y = y''$ est une équation différentielle d'ordre 2.
+\end{defn}
+\begin{defn} la \textbf{solution générale} d'une équation différentielle est l'ensemble de toutes les solutions qui satisfont l'équation (sans conditions initiales)
+\end{defn}
+\begin{defn} la \textbf{solution maximale} d'une équation différentielle avec la condition initiale $y(x_0) = b_0$ est une fonction y(x) satisfaisant l'équation et la condition initiale, et définie sur le plus grand intervalle possible.
+\end{defn}
+
+\section{05 février 2019}
+
+\subsection{Équation à variables séparées (EDVS) (suite)}
+\important{Théorème} existence et unicité d'une solution de EDVS \\
+Toute équation différentielle à variables séparées avec une condition initiale: $y(x_0) = b_0$ possède une unique solution $y$. \\
+\textbf{Attention}: la démonstration \underline{de l'existence} (à retrouver dans les notes) peut être demandée à l'examen! Idée: $f(y)y' = g(x) \iff f(y)\frac{dy}{dx} = g(x) \iff \int f(y)dy = \int f(x)dx \iff F(y) = G(x)$. Puis, remarquer que $F(y)$ est inversible sur l'intervalle de définition de $f(y)$ \\
+
+\begin{exmp}
+\begin{align*}
+	\dfrac{y'(x)}{y^2(x)} = 1 \implies \int \dfrac{dy}{y^2} = \int dx \implies -\dfrac1y = x + C \forall C \in \mathbb{R} \\
+	\implies y = -\dfrac{1}{x + C} \forall C \in \mathbb{R} \quad \text{(solution générale)} \\
+\intertext{Supposons qu'on cherche une solution telle que $y(0) = b_0 \in \mathbb{R}$}
+	\implies y(0) = -\dfrac1C = b_0 \implies C = -\dfrac{1}{b_0} \implies y(x) = -\dfrac{1}{x - \frac{1}{b_0}} \\
+	= \dfrac{b_0}{1 - xb_0} \\
+	\text{Si $b_0 > 0$}	\implies \dfrac{1}{b_0} > 0 \implies y(x) = -\dfrac{1}{x - \frac{1}{b_0}}
+\intertext{sur $]-\infty, \frac{1}{b_0}[ \ \ni 0$ (solution particulière, $b_0 > 0$)}
+\end{align*}
+On peut également calculer la solution particulière pour $b_0 < 0$, qui sera définie sur un autre intervalle.
+\end{exmp}
+
+\subsection{Equation différentielle linéaire de premier ordre (EDL1)}
+Une équation différentielle linéaire de premier ordre est une équation de la forme
+\begin{equation}
+	y'(x) + p(x)y(x) = f(x)
+\end{equation}
+
+Considérons l'équation:
+\begin{equation}
+	y'(x) + p(x)y(x) = 0
+\end{equation}
+Elle s'appelle l'\textbf{équation homogène associée} à l'EDL1 précédente. \\
+Tout d'abord, on voit que $y(x) = 0$ est une solution $\forall x \in \mathbb{R}$. Mettons de côté cette solution triviale en divisant par $y$. On se retrouve avec l'équation
+\begin{align*}
+	\dfrac{y'(x)}{y(x)} = -p(x) \\
+\intertext{qui est une EDVS, donc}
+	\int \dfrac{dy}{y} = -\int p(x)dx
+\end{align*}
+
+\subsection{Méthode de la variation de constante}
+On cherche une solution particulière de $y^(x) + p(x) y(x) = f(x), \ p, f : I \to \mathbb{R}$ sous la forme:
+\important{Ansatz} $v(x) = C(x) e^{-P(x)}$ \quad où $P(x)$ est une primitive de $p(x)$ sur $I$
+
+Si $v(x)$ est une solution de l'équation:
+\begin{align*}
+	\implies v'(x) + p(x)v(x) = f(x) \implies c'(x) e^{-P(x)} + c(x) e^{-P(x)}(-p(x)) + p(x)c(x)e^{-P(x)} = f(x) \\
+	\implies c'(x) = f(x)e^{P(x)} \implies c(x) = \int f(x) e^{P(x)} dx
+\end{align*}
+$\implies$ une solution particulière de l'équation $y'(x) + p(x) y(x) = f(x)$ est $v(x) = \bigr( \int f(x) e^{P(x)} dx \bigl)\cdot e^{-P(x)}$ où $P(x)$ est \underline{une} primitive de p(x) sur $I$.
+
+\important{Exemple}
+\begin{align*}
+	y' + y = 5x + 1, \quad p(x) = 1, f(x) = 5x + 1 \\
+	P(x) = \int 1 dx = x \quad \text{(une primitive, sans constante)} \\
+\intertext{La solution générale de l'équation homogène associée: $y' + y = 0$ est $y(x) = Ce^{-P(x)} = Ce^{-x} \forall C, x \in \mathbb{R}$}
+\intertext{pour trouver une solution particulière de l'équation $y' + y = 5x + 1$ on calcule}
+	c(x) = \int f(x) e^{P(x)} dx = \int (5x + 1) e^x dx = 5 \int x e^x dx + \int e^x dx \\
+	= 5xe^x - 5 \int e^x dx + \int e^x dx  = \underbrace{5xe^x - 4e^x + 1}_{\text{on ne peut choisir une constante arbitraire}} \\
+\intertext{Une solution particulière de $y' + y = 5x + 1$ est}
+	v(x) = (5xe^x - 4e^x - 1)e^{-x} = \underbrace{5x - 4 + e^{-x}}_{\text{une solution particulière}}
+\intertext{Vérification:}
+	v'(x) + v(x) = 5 - \cancel{e^{-x}} + 5x - 4 + \cancel{e^{-x}} = 5x + 1 = f(x)
+\end{align*}
+
+\important{Proposition} Soient $p, f \to \mathbb{R}$ deux fonction continues. Supposons que $v_0 : I \to \mathbb{R}$ est une solution particulière de l'équation $y'(x) + p(x)y(x) = f(x)$. Alors la solution générale de cette équation est
+\begin{equation}
+	v(x) = v_0(x) + Ce^{-P(x)}
+\end{equation}
+$\forall C \in \mathbb{R}$, \ où $P(x)$ est \underline{une} primitive de $p(x)$ sur $I$.
+
+\subsection{Solution générale d'une EDL1}
+La solution générale de l'EDL1 $y' + p(x)y = f(x)$ est:
+\begin{equation}
+	y(x) = C \cdot e^{-P(x)} + \bigl( f(x) e^{P(x)} dx\bigr) e^{-P(x)}
+\end{equation}
+où $P(x)$ est \underline{une} intégrale de $p(x)$ (donc pas besoin d'inclure la constante d'intégration).
+
+\section{25 février 2019}
+\subsection{Équation de Bernouilli}
+\begin{defn}
+Une équation différentielle de la forme $y' + p(x)y = q(x) y^\alpha$, où $p, q: I \to \mathbb R$ fonctions continues et $\alpha \in \mathbb R, \alpha \neq 0, 1$, est dite l'équation de Bernouilli.
+\end{defn}
+On peut la transformer en EDL1 par le changement de variable $z(x) = (y(x))^{1-\alpha}$. Cela nous permet d'arriver à l'EDL 1 $\frac{1}{1-\alpha}z'(x) + p(x)z(x) = q(x)$.
+
+\begin{exmp} $y'(x) = \frac4x y + x \sqrt{y} \iff y'(x) - \frac4x y = x\sqrt{y} \implies x \neq 0, y(x) \geq 0$.
+\begin{flalign*}
+\intertext{Changement de variable: $z(x) = (y(x))^{1-\alpha} = \sqrt y$}
+	&\implies z'(x) = \frac{1}{2 \sqrt y} \cdot y' = \frac12 \frac{y'}{\sqrt y} \implies \ldots 
+	\implies  z' - \underbrace{\frac 2x}_{p(x)} z = \underbrace{\frac x2}_{f(x)} \quad \text{(EDL1)} \\
+\intertext{On cherche la solution générale de l'équation homogène associée:}
+	&P(x) = -\int \frac{2dx}{x} = -2\log|x| = -\log(x^2), \quad x \neq 0 \quad \text{(pas de constante)} \\
+	&\implies z_{\text{hom}}(x) = Ce^{-P(x)} = Ce^{\log(x^2)} = Cx^2, \quad x \neq 0
+\intertext{On cherche une solution particulière de l'équation complète:}
+	&z' - \frac2x z = \underbrace{\frac x2}_{f(x)} \\
+	&\int f(x) e^{P(x)} dx = \ldots = \frac12 \log|x|, x \neq 0 \quad \text{(pas de constante)} \\
+	&\implies z_{\text{part}}(x) = \frac12 \log|x| \cdot e^{\log(x^2)} = \frac12 x^2 \log|x|, \quad x \neq 0
+\intertext{Solution générale de l'EDL1:}
+	& z(x) = \left \{ \begin{aligned}
+		&Cx^2 + \frac{x^2}{2} \log(x), & & x \in ]0, \infty[, C \in \mathbb R \\
+		&Cx^2 + \frac{x^2}{2} \log(-x), & & x \in ]-\infty, 0[, C \in \mathbb R
+	\end{aligned}
+	\right .
+\intertext{Solution générale de l'équation originale  avec $y(x) = z^2(x)$:}
+	&y(x) = \left\{ \begin{aligned}
+	&x^4(C + \frac12 \log(x))^2, & & x \in \mathopen]0, + \infty \mathclose[ \ , C \in \mathbb R \\
+	&x^4(C + \frac12 \log(-x))^2, & & x \in \mathopen]- \infty, 0 \mathclose[ \ , C \in \mathbb R \\
+	&0, & & x \in \mathopen]0, +\infty \mathclose[ \\
+	&0, & & x \in \mathopen]-\infty, 0 \mathclose[
+	\end{aligned}
+	\right .
+\end{flalign*}
+\end{exmp}
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

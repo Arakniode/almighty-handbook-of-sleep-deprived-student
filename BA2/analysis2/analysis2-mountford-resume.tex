@@ -1,0 +1,24 @@
+\documentclass{article}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathtools}
+
+\begin{document}
+
+\section*{Introduction}
+Summary of the Analysis II course given by Sir Thomas Mountford.
+
+\section{Notes}
+
+\begin{itemize}
+	\item A \emph{metric space} is a vector space equipped with a metric, that is a function that measures distance between every two elements of the space, whereas a norm space is simply a vector space equipped with a norm: all metric spaces are norm spaces, but the converse is not true.
+	\item BASIC CONCEPT OF TOPOLOGY: a \emph{neighborhood}, or \emph{open ball} of x $B(\vec x, r) = \{\vec y \ : \ d(\vec x, \vec y) < r\}$ is a "zone around a point" (a set of points) such that these points are less than a certain distance around $\vec x$ (actually it's not, it's "any set containing $B(\vec x, \epsilon)$ for some $\epsilon > 0$
+	\item OPEN SET: An open set $O \subseteq \mathbb{R}^n$ is a set such that $\forall \vec x \in O \exists \epsilon_x > 0$ such that $B(\vec x, \epsilon_x) \subset O$ (So $O$ is open $\iff$ $O$ is an ... for each of its points)
+	\item PROPERTIES: union over any collection of open sets is open; the intersection of two open sets is open
+	\item CLOSED SET: a set $F \subset \mathbb{R}^n$ is closed if $F^C = \{\vec x \ : \ \vec x \notin F\}$ is open. Intuitively, think of a disc from which you remove all points on the circle. Ex: $\overline{B} (\vec x, r) = \{\vec y \ : \ d(\vec x, \vec y) \leq r\}$ is closed. Ex: in one dimension, take $F = [0, 1]$. Then compute $F^C = ]-\infty, 0[ \cup ]1, \infty[$ is a union of open sets, and therefore is an open set. Therefore, $F$ is a closed set by definition. ($F^C$ means "$F$ complement")
+	\item BOUNDARY: Given $S \subset \mathbb{R}^n$, the boundary of $S$, that is, $\delta s$, is the collection $\{\vec x \ : \ \forall \epsilon > 0 \ B(\vec x, \epsilon) \cap S \neq \emptyset \land B(\vec x, \epsilon) \cap S^C \neq \emptyset\}$
+	\item given $S$, the closure (adherence) of $S$, $\overline S$, is $S \cup \delta S$
+\end{itemize}
+
+\end{document}
