@@ -6,14 +6,23 @@
 
 \usepackage{amsmath}
 \usepackage{amssymb}
+\usepackage{amsthm}
+
 \usepackage{cancel}
 \usepackage{url}
 
-\newtheorem{thm}{Théorème}
-\newtheorem{defn}{Définition}
-\newtheorem{exmp}{Exemple}
+\theoremstyle{plain}
+\newtheorem{thm}{Théorème}[section]
 
-\newcommand\important[1]{\noindent \quad {\large \underline{\textsc{#1}}} \ }
+\theoremstyle{definition}
+\newtheorem{defn}{Définition}[section]
+\newtheorem{exmp}{Exemple}[section]
+\newtheorem*{anz}{Ansatz}
+
+\theoremstyle{remark}
+\newtheorem*{attention}{Attention}
+
+%\newcommand\important[1]{\noindent \quad {\large \underline{\textsc{#1}}} \ }
 
 \begin{document}
 
@@ -66,9 +75,11 @@ Ordre, degré, linéarité, solution générale, problème de Cauchy (conditions
 \section{05 février 2019}
 
 \subsection{Équation à variables séparées (EDVS) (suite)}
-\important{Théorème} existence et unicité d'une solution de EDVS \\
+\begin{thm} existence et unicité d'une solution de EDVS \\
 Toute équation différentielle à variables séparées avec une condition initiale: $y(x_0) = b_0$ possède une unique solution $y$. \\
-\textbf{Attention}: la démonstration \underline{de l'existence} (à retrouver dans les notes) peut être demandée à l'examen! Idée: $f(y)y' = g(x) \iff f(y)\frac{dy}{dx} = g(x) \iff \int f(y)dy = \int f(x)dx \iff F(y) = G(x)$. Puis, remarquer que $F(y)$ est inversible sur l'intervalle de définition de $f(y)$ \\
+\begin{attention} la démonstration \underline{de l'existence} (à retrouver dans les notes) peut être demandée à l'examen! Idée: $f(y)y' = g(x) \iff f(y)\frac{dy}{dx} = g(x) \iff \int f(y)dy = \int f(x)dx \iff F(y) = G(x)$. Puis, remarquer que $F(y)$ est inversible sur l'intervalle de définition de $f(y)$
+\end{attention}
+\end{thm}
 
 \begin{exmp}
 \begin{align*}
@@ -103,7 +114,8 @@ Tout d'abord, on voit que $y(x) = 0$ est une solution $\forall x \in \mathbb{R}$
 
 \subsection{Méthode de la variation de constante}
 On cherche une solution particulière de $y^(x) + p(x) y(x) = f(x), \ p, f : I \to \mathbb{R}$ sous la forme:
-\important{Ansatz} $v(x) = C(x) e^{-P(x)}$ \quad où $P(x)$ est une primitive de $p(x)$ sur $I$
+\begin{anz} $v(x) = C(x) e^{-P(x)}$ \quad où $P(x)$ est une primitive de $p(x)$ sur $I$
+\end{anz}
 
 Si $v(x)$ est une solution de l'équation:
 \begin{align*}
@@ -112,7 +124,7 @@ Si $v(x)$ est une solution de l'équation:
 \end{align*}
 $\implies$ une solution particulière de l'équation $y'(x) + p(x) y(x) = f(x)$ est $v(x) = \bigr( \int f(x) e^{P(x)} dx \bigl)\cdot e^{-P(x)}$ où $P(x)$ est \underline{une} primitive de p(x) sur $I$.
 
-\important{Exemple}
+\begin{exmp}
 \begin{align*}
 	y' + y = 5x + 1, \quad p(x) = 1, f(x) = 5x + 1 \\
 	P(x) = \int 1 dx = x \quad \text{(une primitive, sans constante)} \\
@@ -125,19 +137,23 @@ $\implies$ une solution particulière de l'équation $y'(x) + p(x) y(x) = f(x)$ 
 \intertext{Vérification:}
 	v'(x) + v(x) = 5 - \cancel{e^{-x}} + 5x - 4 + \cancel{e^{-x}} = 5x + 1 = f(x)
 \end{align*}
+\end{exmp}
 
-\important{Proposition} Soient $p, f \to \mathbb{R}$ deux fonction continues. Supposons que $v_0 : I \to \mathbb{R}$ est une solution particulière de l'équation $y'(x) + p(x)y(x) = f(x)$. Alors la solution générale de cette équation est
+\begin{thm} Soient $p, f \to \mathbb{R}$ deux fonction continues. Supposons que $v_0 : I \to \mathbb{R}$ est une solution particulière de l'équation $y'(x) + p(x)y(x) = f(x)$. Alors la solution générale de cette équation est
 \begin{equation}
 	v(x) = v_0(x) + Ce^{-P(x)}
 \end{equation}
 $\forall C \in \mathbb{R}$, \ où $P(x)$ est \underline{une} primitive de $p(x)$ sur $I$.
+\end{thm}
 
 \subsection{Solution générale d'une EDL1}
+\begin{thm}
 La solution générale de l'EDL1 $y' + p(x)y = f(x)$ est:
 \begin{equation}
 	y(x) = C \cdot e^{-P(x)} + \bigl( f(x) e^{P(x)} dx\bigr) e^{-P(x)}
 \end{equation}
 où $P(x)$ est \underline{une} intégrale de $p(x)$ (donc pas besoin d'inclure la constante d'intégration).
+\end{thm}
 
 \section{25 février 2019}
 \subsection{Équation de Bernouilli}
@@ -160,8 +176,8 @@ On peut la transformer en EDL1 par le changement de variable $z(x) = (y(x))^{1-\
 	&\implies z_{\text{part}}(x) = \frac12 \log|x| \cdot e^{\log(x^2)} = \frac12 x^2 \log|x|, \quad x \neq 0
 \intertext{Solution générale de l'EDL1:}
 	& z(x) = \left \{ \begin{aligned}
-		&Cx^2 + \frac{x^2}{2} \log(x), & & x \in ]0, \infty[, C \in \mathbb R \\
-		&Cx^2 + \frac{x^2}{2} \log(-x), & & x \in ]-\infty, 0[, C \in \mathbb R
+		&Cx^2 + \frac{x^2}{2} \log(x), & & x \in \mathopen]0, \infty \mathclose[, C \in \mathbb R \\
+		&Cx^2 + \frac{x^2}{2} \log(-x), & & x \in \mathopen]-\infty, 0 \mathclose[, C \in \mathbb R
 	\end{aligned}
 	\right .
 \intertext{Solution générale de l'équation originale  avec $y(x) = z^2(x)$:}
@@ -175,7 +191,106 @@ On peut la transformer en EDL1 par le changement de variable $z(x) = (y(x))^{1-\
 \end{flalign*}
 \end{exmp}
 
+\section{Trucs vraiment utiles pour equa diff}
+\begin{defn}[EDL1]
+Une équation différentielle linéaire de degré 1 (EDL1) est une équation de la forme
+	\begin{equation*}
+		y' + p(x)y = f(x)
+	\end{equation*}
+Une équation différentielle linéaire homogène de degré 1 (EDLH1) est une équation de la forme
+	\begin{equation*}
+		y' + p(x)y = 0
+	\end{equation*}
+\end{defn}
 
+
+\begin{thm}[Solution particulière EDL1]
+	\begin{equation}
+		\Biggl( \int f(x)e^{P(x)} dx \Biggr) \cdot e^{-P(x)}
+	\end{equation}
+\end{thm}
+
+\begin{thm}[Solution générale EDLH1]
+	\begin{equation}
+		y = Ce^{-P(x)}
+	\end{equation}
+\end{thm}
+
+\begin{thm}[Solution générale EDL1]
+La solution générale d'une EDL1 est la somme de la solution particulière et de la solution générale de l'équation homogène associée.
+	\begin{equation}
+		y = Ce^{-P(x)} + \Biggl( \int f(x)e^{P(x)}dx \Biggr) \cdot e^{-P(x)}
+	\end{equation}
+\end{thm}
+
+\begin{defn}[EDL2]
+	Une équation différentielle linéaire de degré 2 (EDL2) est une équation de la forme
+	\begin{equation}
+		y'' + p(x)y' + q(x)y = f(x)
+	\end{equation}
+	Une équation différentielle linéaire homogène de degré 2 (EDLH2) est une équation de la forme
+	\begin{equation}
+		y'' + p(x)y' + q(x)y = 0
+	\end{equation}
+\end{defn}
+
+\begin{thm}[Solution générale EDLH2 à coefficients constants]
+	\begin{equation}
+		C_1 e^{ax} + C_2 e^{bx},
+	\end{equation}
+où $a, b \in \mathbb R$ sont les racines du polynôme $\lambda^2 + p\lambda + q = 0$.
+\end{thm}
+
+\section{4 mars 2019}
+
+\subsection{Lien avec l'algèbre linéaire}
+On peut parler de solutions linéairement indépendantes à l'EDLH2. Pour déterminer si deux solution d'une EDLH2 sont linéairement indépendantes, on peut utiliser l'outil mathématique suivant, qui utilise des notions d'algèbre linéaire.
+\begin{defn}
+On définit la fonction $W[v_1, v_2]$, où $v_1, v_2$ sont deux fonctions dérivables sur $I \subseteq \mathbb R$, par:
+	\begin{equation}
+		W[v_1, v_2] = \det \begin{pmatrix}
+			v_1(x) & v_2(x) \\
+			v_1'(x) & v_2'(x)
+		\end{pmatrix}
+	\end{equation}
+	Cette fonction s'appelle le \textbf{Wronskien} de $v_1$ et $v_2$.
+\end{defn}
+
+\begin{exmp}
+Considérons l'EDLH2 à coefficients constants suivante:
+	\begin{align*}
+		&y'' + 2y' + y = 0 \\
+	\intertext{La solution générale est de la forme:}
+		&C_1 e^{-x} + C_2 e^{-x} \quad \text{où } C_1, C_2 \in \mathbb R \\
+		&\implies W[e^{-x}, e^{-x}] = \det \begin{pmatrix}
+			e^{-x} & e^{-x} \\
+			-e^{-x} & -e^{-x}
+			\end{pmatrix} = e^{-2x} - \cancel{xe^{-2x}} + \cancel{xe^{-2x}} = e^{-2x}
+	\end{align*}
+\end{exmp}
+
+\begin{thm}[indépendance linéaire de deux solutions d'une EDL2]
+	Soient $v_1, v_2 : I \to \mathbb R$ deux solutions d'une EDL2. Alors
+	\begin{equation}
+		\underbrace{v_1(x) \text{ et } v_2(x) \text{ sont linéairement indépendantes}}_{P} \iff \underbrace{W[v_1, v_2](x) \neq 0 \ \forall x \in I}_{Q}
+	\end{equation}
+\end{thm}
+
+En réfléchissant un peu, on peut donner un argument assez intuitif quant à l'utilisation de cet outil étrange. En effet, l'algèbre linéaire permet de montrer que:
+\begin{enumerate}
+	\item le fait que les colonnes d'une matrices soient linéairement dépendantes est logiquement équivalent au fait que le noyau de la matrice n'est pas nul, et que
+	\item le fait que le noyau n'est pas nul est logiquement équivalent au fait que le déterminant est 0.
+\end{enumerate}
+ En gardant ceci en tête, considérons la double implication du théorème. \\
+Premièrement, si $\not Q$ est vrai, c'est-à-dire s'il existe un point sur $I$ tel que le déterminant est nul, alors $\not P$ est vrai, c'est-à-dire que $v_1(x)$ et $v_2(x)$ sont linéairement dépendantes ($\not Q \implies \not P \equiv P \implies Q$). \\ Deuxièmement, si $Q$ est vrai, c'est-à-dire que le déterminant n'est jamais 0, alors le noyau n'est pas nul, et donc les colonnes sont linéairement indépendantes, ce qui veut dire que $P$ est vrai ($Q \implies P$).
+
+\begin{thm}[solution générale d'une EDL2]
+	Soient $v_1, v_2 : I \to \mathbb R$ deux solutions linéairement indépendantes d'une EDL2. Alors la solution générale de cette équation est de la forme
+	\begin{equation}
+		v(x) = C_1 v_1(x) + C_2 v_2(x),
+	\end{equation}
+où $C_1, C_2 \in \mathbb R, x \in I$.
+\end{thm}
 
 
 
