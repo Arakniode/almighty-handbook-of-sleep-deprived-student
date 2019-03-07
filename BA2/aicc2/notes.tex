@@ -1,4 +1,4 @@
-\documentclass{article}
+\documentclass{report}
 
 \title{AICC II \\ Prof. Bixio Rimoldi}
 \author{Benjamin Bovey}
@@ -9,6 +9,7 @@
 \usepackage{mathtools}
 \usepackage{amssymb}
 \usepackage{amsthm}
+\usepackage{cancel}
 
 %utility packages
 \usepackage{soul}
@@ -26,8 +27,8 @@
 \newtheorem{thm}{Theorem}
 
 \theoremstyle{definition}
-\newtheorem{exmp}{Example}
-\newtheorem{defn}{Definition}
+\newtheorem{exmp}[thm]{Example}
+\newtheorem{defn}[thm]{Definition}
 \newtheorem*{summary}{Summary}
 
 \theoremstyle{remark}
@@ -101,15 +102,15 @@ The set of all possible values of $X$ is sometimes called the \emph{alphabet} of
 \end{defn}
 
 \begin{thm}[two random variables]
-Let $X: \Omega \to \mathbb{R}$ and $Y: \Omega \to \mathbb{R}$ be two random variables. \\
-The probability of the event $E = \{X = x\} \cap \{Y = y\}(= \{X = x \land Y = y\})$ is
-\begin{equation}
-	p_{X, Y}(x, y) = \sum_{\omega \in E} p(\omega)
-\end{equation}
-We can compute $p_X$ (or $p_Y$, similarly) from $p_{X, Y}$:
-\begin{equation}
-	p_X(x) = \sum_y p_{X, Y}(x, y)
-\end{equation}
+	Let $X: \Omega \to \mathbb{R}$ and $Y: \Omega \to \mathbb{R}$ be two random variables. \\
+	The probability of the event $E = \{X = x\} \cap \{Y = y\}(= \{X = x \land Y = y\})$ is
+	\begin{equation}
+		p_{X, Y}(x, y) = \sum_{\omega \in E} p(\omega)
+	\end{equation}
+	We can compute $p_X$ (or $p_Y$, similarly) from $p_{X, Y}$:
+	\begin{equation}
+		p_X(x) = \sum_y p_{X, Y}(x, y)
+	\end{equation}
 \end{thm}
 In one sense, we "fix in place" the value of $x$ and "scroll through" all possible values of $y$, and add their probabilities up. Here, $p_X$ is called the \textbf{marginal distribution} of $p_{X, Y}(x, y)$ with respect to $x$.
 
@@ -138,11 +139,15 @@ The notion of independent events extends to random variables. Recall that two ev
 
 Similarly, two random variables may be independent if the value taken by one does not influence the value taken by the other.
 
-\begin{defn}[independence of random variables]
-We say that two random variables $X, Y: \Omega \to \mathbb{R}$ are \textbf{independent} iff 
-\begin{equation}
-	p_{X, Y}(x,y) = p_X(x)p_Y(y)
-\end{equation}
+\begin{defn}[independent random variables]
+	We say that two random variables $X, Y: \Omega \to \mathbb{R}$ are \textbf{independent} iff 
+	\begin{equation}
+		p_{X, Y}(x,y) = p_X(x)p_Y(y)
+	\end{equation}
+	More generally, $n$ random variables are independent iff
+	\begin{equation}
+		p_{S_1, \ldots, S_n} = \prod_{i=1}^n p_{S_i}
+	\end{equation}
 \end{defn}
 
 From there, we can also extend the notion of conditional probability to random variables.
@@ -187,7 +192,8 @@ Indeed, the bigger the alphabet, the more information it can carry, as there are
 \end{equation*}
  There is a lot of entropy, it is unpredictable. It would therefore be hard to optimize the storage of this information better.
 San Diego:
-\begin{equation*}(\overbrace{0, 0, 0, \dots, 0}^{\text{24 zeros}}, 1, \overbrace{0, 0, 0, \dots, 0, 0}^{\text{340 zeros}}).
+\begin{equation*}
+	(\overbrace{0, 0, 0, \dots, 0}^{\text{24 zeros}}, 1, \overbrace{0, 0, 0, \dots, 0, 0}^{\text{340 zeros}}).
 \end{equation*}
  This is a very predictable sequence, which would allow us to just store $(24, 1, 340)$ rather than storing all 365 bits.
 \end{exmp}
@@ -219,7 +225,7 @@ Entropy extends to any number of random variables.
 \section{26th February 2019}
 We saw last time that a source can mathematically be modeled as one or more random variables, each being described by its probability mass function. We saw that the entropy is a number which represents the ultimate amount of bits (not necessarily, but generally, binary) needed to represent a random variable (and therefore a source).
 \begin{exmp}
-$ S \in \{0, 1\} = \mathcal A, p_S(0) = P$
+$S \in \{0, 1\} = \mathcal A, p_S(0) = P$
 \begin{align*}
 	H(S) &= - \sum_{s \in \mathcal A} p_S(0) \log_b \bigl(p_S(0)\bigr) \\
 	&= \underbrace{-p \log p - (1-p) \log(1-p)}_{h(p) \text{ function of $p$}}
@@ -346,41 +352,74 @@ Kraft's sum is only about lengths!
 
 \section{28th February 2019}
 
-Desired properties of an encoding map $\Gamma : \mathcal A \to \mathcal C$:
+These following properties are what we aim for with any encoding map $\Gamma : \mathcal A \to \mathcal C$, in order to optimize transmission and decoding speed:
 \begin{itemize}
 	\item $\mathcal C$ be uniquely decodable
 	\item $\mathcal C$ be prefix-free
+	\item $\mathcal C$ have its average codeword length be as small as possible
 \end{itemize}
 
 \begin{thm}[Kraft-McMillan 2]
 If $l_1, \ldots, l_m$ satisfy Kraft's inequality for some positive integer $D$, then there exists a $D$-ary prefix-free code that has codeword  lengths $l_1, \ldots, l_m$.
 \end{thm}
 
+This second part of the Kraft-McMillan theorem implies that any uniquely decodable code can be substituted by a prefix-free code of the same codeword lengths.
+\begin{summary}[Kraft-McMillan] The theorem is in 2 parts: \\
+	\begin{enumerate}
+		\item If a $D$-ary code is uniquely decodable, then its codeword lenghts $l_1, \ldots, l_M$ satisfy Kraft's inequality $D^{-l_1} + \dots + D^{-l_M} \leq 1$.
+		\item If the positive integers $l_1, \ldots, l_M$ satisfy Kraft's inequality for some integer $D$, then there exists a $D$-ary \ul{prefix-free} code that has those codeword lengths.
+	\end{enumerate}
+\end{summary}
+
 \begin{defn}
-We define the expected length $L(S, \Gamma)$ as
-	\begin{equation*}
+We define the \textbf{average length} $L(S, \Gamma)$ as
+	\begin{equation}
 		L(S, \Gamma) = \sum_{S \in \mathcal A} p_S(s) \underbrace{l \bigl(\Gamma(s)\bigr)}_{{\mathclap{\text{shorthand } l(s)}}}.
-	\end{equation*}
+	\end{equation}
 	Sometimes we write
-	\begin{equation*}
+	\begin{equation}
 		L(S, \Gamma) = \sum_i p_i l_i.
-	\end{equation*}
-This is a rather intuitive concept, as the expected length should indeed depend on the length of each codeword, and on its probability of appearing in the code.
+	\end{equation}
+This is rather intuitively defined, as the expected length should according to common sense indeed depend on the length of each codeword, and on its probability of appearing in the code. \\
+The units of the average length are \textbf{code symbols}. When $D = 2$, the units are \textbf{bits}.
 \end{defn}
 
-\begin{thm}
-	Let $\Gamma$ be the encoding map of a $D$-ary code for the source $S$. If the code is uniquely decodable, then
+\begin{question}
+An interesting question we may now ask ourselves is the following: is there a lower bound to the average length for uniquely decodable codes?
+\end{question}
+
+\begin{thm}[lower bound on average length]
+	Let $\Gamma$ be the encoding map of a $D$-ary code for the source $S$. If the $D$-ary code is uniquely decodable, then
 	\begin{equation}
 		H_D(S) \leq L(S, \Gamma).
 	\end{equation}
-	The entropy is a lower bound to the average length.
+	\ul{The entropy is a lower bound to the average length}.
 \end{thm}
+
+\begin{remark}
+	A key observation we may make is that the definition of the average length is somewhat similar to that of the entropy:
+	\begin{align*}
+		&L(S, \Gamma) = \sum_{s \in \mathcal A} p(s) l(\Gamma(s)) \\
+		&H_D(S) = \sum_{s \in \mathcal A} p(s) \log_D \left(\frac{1}{p_S(s)}\right)
+	\end{align*}
+In fact, the definitions are identical iff $l(\Gamma(s)) = \log_D \left(\frac{1}{p_S(s)}\right)$. Unfortunately this equality is often not possible (the $\log$ is often not an integer). But what if we chose $l(\Gamma(s)) = \left\lfloor \log_D \left(\frac{1}{p_S(s)}\right) \right\rfloor$? Is it a valid choice for a prefix-free code (is Kraft's inequality satisfied)?
+\end{remark}
+
+\begin{defn}[Shannon-Fano code]
+	A code $\mathcal C$ for which $l_i = \left\lceil -\log_D \bigl(P_S(s) \bigr) \right\rceil$ is called a \textbf{Shannon-Fano code}. Visually, it is constructed by going from the top down when creating the code tree.
+\end{defn}
+
+For all $s$ we $p_S(s)$
+\begin{remark}
+	The Shannon-Fano code is not optimal (WHY? COMPLETE THIS).
+\end{remark}
+
 
 \begin{defn}
 	We say that a probability distribution is \textbf{diadic} iff
-	\begin{equation*}
+	\begin{equation}
 		p_i = D^{-l_i}
-	\end{equation*}
+	\end{equation}
 \end{defn}
 
 \begin{thm}
@@ -393,46 +432,110 @@ CLEAR UP THE THING ABOUT THE -log(pi) THAT I DONT UNDERSTAND
 	Most probability distributions are not diadic. Then, $-\log(p_i)$ is not an integer, and we can't make the length equal that number.
 \end{remark}
 
-\begin{defn}[Shannon-Fano code]
-	A code $\mathcal C$ for which $l_i = \lceil -\log p_i \rceil$ is called a \textbf{Shannon-Fano code}.
-\end{defn}
-
-\begin{remark}
-	The Shannon-Fano code is not optimal (WHY? COMPLETE THIS).
-\end{remark}
-
 \begin{defn}[Huffman code]
-The Huffman code is the optimal code (there doesn't exist a better one). The Huffman code on $\mathcal A = \{\texttt a, \texttt b, \texttt c, \texttt d\}$ is:
+ Visually, the Huffman code on an alphabet is constructed by going from the bottom up when creating the code tree, and grouping together the least probable symbols.
+\end{defn}
+\begin{exmp} The Huffman code on $\mathcal A = \{\texttt a, \texttt b, \texttt c, \texttt d\}$ is:
 	\begin{center}
 	\begin{tabular}{r | l}
-		$\mathcal A$ & $\Gamma$ \\ \hline
+		$\mathcal A$ & $\Gamma_H$ \\ \hline
 		\texttt a & \texttt{000} \\
 		\texttt b & \texttt{001} \\
 		\texttt c & \texttt{01} \\
-		\texttt d & \texttt{1}	
+		\texttt d & \texttt{1}
 	\end{tabular}
 	\end{center}
  We can compute the expected length and the entropy (in bits):
-\begin{align*}
-	&L(S, \Gamma_H) = 0.15 + 0. 15 + 0.2 + 0.8 = 1.3 \\
-	&H_2(S) = \ldots = 1.022
-\end{align*}
+	\begin{align*}
+		&L(S, \Gamma_H) = 0.15 + 0. 15 + 0.2 + 0.8 = 1.3 \\
+		&H_2(S) = \ldots = 1.022
+	\end{align*}
+\end{exmp}
+
+\section{5th March 2019}
+
+\begin{thm}
+	The average length can also be computed by adding together the probabilities of all nodes on the code tree, except for the last leaves:
+	\begin{equation}
+		\underbrace{\sum_{\substack{i \in \\ \text{terminal} \\ \text{leaves}}}}_{L(S, \Gamma)} = \quad \sum_{\mathclap{\substack{j \in \\ \text{intermediate} \\ \text{nodes}}}} q_j.
+	\end{equation}
+\end{thm}
+
+\begin{thm}[optimality of Huffman codes]
+	Let $\Gamma_G$ be an encoder of a $D$-ary Huffman code for $S$, and let $\Gamma$ be another $D$-ary uniquely decodable encoder for $S$. Then
+	\begin{equation}
+		L(S, \Gamma_H) \leq L(S, \Gamma).
+	\end{equation}
+	Basically, the Huffman code on $S$ is the optimal code on $S$.
+\end{thm}
+
+
+\subsection{}
+
+\begin{defn}[IID source]
+	A source is said to be \textbf{IID (Independant and I... Decodable ?????)} iff COMPLETE THIS
+\end{defn}
+Most sources are not IDD.
+
+\begin{exmp}
+	Let $S_1, S_2 \in \{1, 2, \ldots, 6\}$. They are independant and uniformly distributed. Let $(L_1, L_2)$ be the first and second digit of the sum $S_1 + S_2$. We can compute $P_{L_1 | L_2} (1|1) = \frac{P_{L_1 | L_2}(1, 1)}{P_{L_1}(1)}$. We know that the event $(L_1, L_2) = (1, 1)$ is the same as the event $S_1 + S_2 = 11$, which is the same as saying $(S_1, S_2) \in \{(5, 6), (6, 5)\}$, which has probability $2/36$. Then the conditional probability that we wanted to compute is
+	\begin{align*}
+		\frac{2/36}{3/36 + 2/36 + 1/36} = \frac13
+	\end{align*}
+\end{exmp}
+
+\begin{defn}[conditional entropy]
+	Let $p_X$ be the probability distribution of a random variable $X$. We already know how to compute the entropy $H(x)$ from this probability distribution. Then $p_{X|Y=y}$, which is also a probability distribution, allows us to compute the \textbf{conditional entropy} $H(X|Y=y)$:
+	\begin{equation}
+		H_b(X|Y=y) = - \sum_{x \in X} p_{X|Y}(x|y) \log_b \bigl(p_{X|Y}(x|y)\bigr)
+	\end{equation} 	
 \end{defn}
 
+\begin{exmp}[continuation]
+COMPLETE THIS FROM THE NOTES :DDDDDDDDDDDDDDD I AM GOING INSANE AND 2 HOURS LEFT :DDDDDDDDDDD
+\end{exmp}
 
+\section{7th March 2019}
 
+IS THE ENTROPY EQUAL TO THE AVERAGE LENGTH IFF IT IS A HUFFMAN CODE?
 
+\begin{thm}
+	Let $X$ and $Y$ be two random variables. Then
+	\begin{equation}
+		H(X|Y) \leq H(x),
+	\end{equation}
+	with the equality iff $X$ and $Y$ are independent.
+\end{thm}
 
+\begin{thm}[chain rule of entropy]
+	Let $S_1, \ldots, S_n$ be random variables. Then
+	\begin{equation}
+		H(S_1, \ldots, S_n) = \sum_{i=1}^n H(S_1 | S_1, \ldots, S_{i-1})
+	\end{equation}
+\end{thm}
 
-
-
-
-
-
-
-
-
-
+ For this to make a bit more sense, recall that $P_{X, Y}(x, y) = P_X(x)P_{Y|X}(y|x)$ (this follows directly from the definition of conditional probability). More generally, $P_{S_1, \ldots, S_n}(s_1, \ldots, s_n) = \prod_{i=1}^n P_{S_i | S_1, \ldots, S_{i-1}}(s_i | s_1, \ldots, s_{i-1})$. The chain rule of entropy is very similar.
+ 
+ \begin{exmp}[continuation]
+ 	$H(l_1) = 0.65$ bits, $H(l_2) = 3.2188$ bits, $H(l_1, l_2) = 3.744$ bits, $H(l_2 | l_1) = H(l_1, l_2) - H(l_1) = 2.624$ bits (as obtained before).
+ \end{exmp}
+ 
+ \begin{exmp}[continuation]
+ 	We saw that $(S_1, S_2)$ determine $(l_1, l_2)$. Then what is $H(l_1, l_2 | S_1, S_2)$? We can know that $H(l_1, l_2 | (S_1, S_2) = (s_1, s_2)) = 0$. This is because $(S_1, S_2)$ fully determine $(l_1, l_2)$ (they are NOT independent). As such, when we know that $(S_1, S_2) = (s_1, s_2)$, we know exactly and can \emph{predict} the only possible digits $(l_1, l_2)$ of the sum of $s_1$ and $s_2$, which means that there is no entropy here. \\
+ 	Suppose we know $H(l_1, l_2)$ and $H(S_1, S_2)$. Then we can compute $H(S_1, S_2 | l_1, l_2)$:
+ 	\begin{align*}
+ 		&H(S_1, S_2, l_1, l_2) \overbrace{=}^{\substack{\text{chain} \\ \text{rule}}} \begin{cases} H(S_1, S_2) + \cancel{H(l_1, l_2 | S_1, S_2)} \\
+ 													  H(l_1, l_2) + H(S_1, S_2 | l_1, l_2)
+ 													  \end{cases} \\
+		&\implies H(S_1, S_2, | l_1, l_2) = H(S_1, S_2) - H(l_1, l_2), \quad \text{which we both know by supposition.}
+ 	\end{align*}
+ \end{exmp}
+ 
+ \begin{exmp}
+ 	Let's say we have a random variable $X$ which takes a value in $\{0, +1, -1, +2, \ldots, +13, -13\}$. Suppose $X$ is uniformly distributed. Any weighing strategy (not yet determined) is an encoding $\Gamma: \mathcal A \to \mathcal C$ ($|\mathcal C| = 3$, so this is a $3$-ary code). $\Gamma$ is a bijective function $x \leftrightarrow s_1 s_2\ldots s_L$. So $H_3(x) = H_3(S_1, S_2, \ldots S_L)$.
+ \end{exmp}
+NOTES: a negative number means "light" on the balance, a positive number means it is "heavy". At each step of the guessing process, he makes sure that the new balance is independent of previous knowledge, and that it is evenly distributed (even chances of going on each side). Actually the balls are billiard.
+ One coould be heavier or lighter, ut not the 0 ball. You have a balance for balls. How many times to weigh to determine if one bakk us fakse and if yes, which one and settle if it is heavier or lighter.
 
 
 
