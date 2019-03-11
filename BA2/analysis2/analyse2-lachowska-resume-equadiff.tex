@@ -1,20 +1,18 @@
-\documentclass{report}
+\documentclass{article}
 
-\title{Analyse II \\ Anna Lachowska}
+\title{Analyse II \\ Équations Différentielles \\ Anna Lachowska}
 \author{Benjamin Bovey}
 \date{Semestre de printemps 2019}
 
 \usepackage{amsmath}
-\usepackage{mathtools}
 \usepackage{amssymb}
 \usepackage{amsthm}
-\usepackage{accents}
 
 \usepackage{cancel}
 \usepackage{url}
 
 \theoremstyle{plain}
-\newtheorem{thm}{Théorème}[section]
+\newtheorem{thm}{Théorème}
 
 \theoremstyle{definition}
 \newtheorem{defn}[thm]{Définition}
@@ -25,53 +23,24 @@
 \newtheorem*{remark}{Remarque}
 \newtheorem*{attention}{Attention}
 
-\providecommand{\norm}[1]{\lVert#1\rVert}
-\providecommand{\abs}[1]{\lvert#1\rvert}
-\providecommand{\interior}[1]{\accentset{\circ}{#1}}
-\newcommand\eqdef{\; \stackrel{ \mathclap{ \normalfont\text{def.} } }{ = } \;} % for definitions
-
-\renewcommand{\chaptername}{Chapitre}
-
 \begin{document}
 
 \section*{Introduction}
-Résumé du cours d'Analyse II par Anna Lachowska. Retrouvez la page github contenant d'autres résumés et documents, à laquelle tout le monde peut participer: \url{https://github.com/arakniode/almighty-handbook-of-sleep-deprived-student}
+Résumé de la section sur les équations différentielles ordinaires, EDVS, EDL1 et EDL2 du cours d'Analyse II par Anna Lachowska. Retrouvez la page github contenant d'autres résumés et documents, accessibles et modifiables par toustes: \url{https://github.com/arakniode/almighty-handbook-of-sleep-deprived-student}
 
-\chapter{Équations différentielles}
-
-\section{02 février 2019}
+\section{Équation Différentielle}
+\begin{defn}\label{def:equadiff}
 Une équation différentielle ordinaire est une équation qui lie une fonction $y = y(x)$ à sa dérivée. Par exemple, l'équation
 \begin{equation}
 	y' + y = 0
 \end{equation}
 est une équation différentielle. 
-\\
-La solution d'une équation différentielle est une fonction ou un \textbf{ensemble de fonctions}, à la différence des équations "classiques" qui acceptent comme solution un nombre ou un ensemble de nombres. 
+\end{defn}
+La solution d'une équation différentielle est une fonction ou un \textbf{ensemble de fonctions}, à la différence des équations "classiques" qui acceptent comme solution un nombre ou un ensemble de nombres. La réponse exigée à une équation différentielle est une \textbf{fonction réelle} ainsi que l'intervalle sur lequel elle est définie en tant que solution de l'équation différentielle.
 
-\subsection{Équation à variables séparées (EDVS)}
-Une équation différentielle est dite "à variable séparées" lorsqu'on peut placer tous les termes en $x$ d'un côté de l'équation, et tous les termes en $y$ de l'autre (n'oublions pas que $x$ est la \emph{variable} de la fonction $y$).
-\begin{exmp}
-On peut réécrire l'équation différentielle présentée plus haut ainsi:
-
-\begin{align*}
-	y' + y &= 0 \\
-	y' &= -y \\
-\intertext{On employe la notation de Leibniz, qui permet notamment de séparer les variables:}
-	\dfrac{dy}{dx} &= -y \\
-	\dfrac{dy}{y} &= -dx \\
-\intertext{On peut désormais intégrer les deux côtés de l'équation, et résoudre pour $y$:}
-	\int \dfrac{dy}{y} &= -\int dx \\
-	log(y) + C_1 &= -x + C_2 \\
-	e^{\log(y) + C_1} &= e^{-x + C_2} \\
-	e^{C_1} \cdot y &= e^{C_2} \cdot e^{-x} \\
-	y &= e^{C_2 - C_1} \cdot e^{-x} \\
-\intertext{Renommons $e^{C_2 - C_1}$ (qui n'est qu'une constante) en $C$:}
-	y &= Ce^{-x}
-\end{align*}
-
-C'est la solution générale de l'équation différentielle. Ici, on voit qu'il existe une infinité de fonctions (pour chaque $C \in \mathbb{R}$) qui satisfont cette équation.
-
-\end{exmp}
+\begin{attention}
+	Parfois je noterai $y$ pour désigner la fonction $y(x)$.
+\end{attention}
 
 \subsection{Terminologie de base} % A AMELIORER (degre, ordre)
 Ordre, degré, linéarité, solution générale, problème de Cauchy (conditions intiales) \\
@@ -84,33 +53,61 @@ Ordre, degré, linéarité, solution générale, problème de Cauchy (conditions
 \begin{defn} la \textbf{solution maximale} d'une équation différentielle avec la condition initiale $y(x_0) = b_0$ est une fonction y(x) satisfaisant l'équation et la condition initiale, et définie sur le plus grand intervalle possible.
 \end{defn}
 
-\section{05 février 2019}
+%-------------------------------------------------------------------------------------
 
-\subsection{Équation à variables séparées (EDVS) (suite)}
-\begin{thm} existence et unicité d'une solution de EDVS \\
-Toute équation différentielle à variables séparées avec une condition initiale: $y(x_0) = b_0$ possède une unique solution $y$. \\
-\begin{attention} la démonstration \underline{de l'existence} (à retrouver dans les notes) peut être demandée à l'examen! Idée: $f(y)y' = g(x) \iff f(y)\frac{dy}{dx} = g(x) \iff \int f(y)dy = \int f(x)dx \iff F(y) = G(x)$. Puis, remarquer que $F(y)$ est inversible sur l'intervalle de définition de $f(y)$
-\end{attention}
-\end{thm}
+\section{Équation à variables séparées (EDVS)}
+\begin{defn}\label{def:edvs}
+Une équation différentielle est dite "à variable séparées" lorsqu'on peut placer tous les termes en $x$ d'un côté de l'équation, et tous les termes en $y$ de l'autre (n'oublions pas que $x$ est la \emph{variable} de la fonction $y$).
+\end{defn}
 
 \begin{exmp}
-\begin{align*}
-	\dfrac{y'(x)}{y^2(x)} = 1 \implies \int \dfrac{dy}{y^2} = \int dx \implies -\dfrac1y = x + C \forall C \in \mathbb{R} \\
-	\implies y = -\dfrac{1}{x + C} \forall C \in \mathbb{R} \quad \text{(solution générale)} \\
-\intertext{Supposons qu'on cherche une solution telle que $y(0) = b_0 \in \mathbb{R}$}
-	\implies y(0) = -\dfrac1C = b_0 \implies C = -\dfrac{1}{b_0} \implies y(x) = -\dfrac{1}{x - \frac{1}{b_0}} \\
-	= \dfrac{b_0}{1 - xb_0} \\
-	\text{Si $b_0 > 0$}	\implies \dfrac{1}{b_0} > 0 \implies y(x) = -\dfrac{1}{x - \frac{1}{b_0}}
-\intertext{sur $]-\infty, \frac{1}{b_0}[ \ \ni 0$ (solution particulière, $b_0 > 0$)}
+On peut réécrire l'équation différentielle de la définition \ref{def:equadiff} ainsi:
+	\begin{align*}
+		y' + y &= 0 \\
+		y' &= -y \\
+\intertext{On employe la notation de Leibniz, qui permet notamment de séparer les variables:}
+		\dfrac{dy}{dx} &= -y \\
+		\dfrac{dy}{y} &= -dx \\
+\intertext{On peut désormais intégrer les deux côtés de l'équation, et résoudre pour $y$:}
+		\int \dfrac{dy}{y} &= -\int dx \\
+		log(y) + C_1 &= -x + C_2 \\
+		e^{\log(y) + C_1} &= e^{-x + C_2} \\
+		e^{C_1} \cdot y &= e^{C_2} \cdot e^{-x} \\
+		y &= e^{C_2 - C_1} \cdot e^{-x} \\
+\intertext{Renommons $e^{C_2 - C_1}$ (qui n'est qu'une constante) en $C$:}
+		y &= Ce^{-x}
 \end{align*}
-On peut également calculer la solution particulière pour $b_0 < 0$, qui sera définie sur un autre intervalle.
+
+C'est la solution générale de l'équation différentielle. Ici, on voit qu'il existe une infinité de fonctions (pour chaque $C \in \mathbb{R}$) qui satisfont cette équation.
 \end{exmp}
 
-\subsection{Equation différentielle linéaire de premier ordre (EDL1)}
+\begin{thm}[existence et unicité d'une solution de EDVS]
+Toute équation différentielle à variables séparées avec une condition initiale: $y(x_0) = b_0$ possède une unique solution $y$.
+\end{thm}
+\begin{attention} la démonstration \underline{de l'existence} (à retrouver dans les notes) peut être demandée à l'examen! Idée: $f(y)y' = g(x) \iff f(y)\frac{dy}{dx} = g(x) \iff \int f(y)dy = \int f(x)dx \iff F(y) = G(x)$. Puis, remarquer que $F(y)$ est inversible sur l'intervalle de définition de $f(y)$
+\end{attention}
+
+\begin{exmp}
+	\begin{align*}
+		&\dfrac{y'(x)}{y^2(x)} = 1 \implies \int \dfrac{dy}{y^2} = \int dx \implies -\dfrac1y = x + C \ ,\forall C \in \mathbb{R} \\
+		&\implies y = -\dfrac{1}{x + C} \ ,\forall C \in \mathbb{R} \quad \text{(solution générale)} \\
+\intertext{Supposons qu'on cherche une solution telle que $y(0) = b_0 \in \mathbb{R}$}
+		&\implies y(0) = -\dfrac1C = b_0 \implies C = -\dfrac{1}{b_0} \implies y(x) = -\dfrac{1}{x - \frac{1}{b_0}} \\
+		&= \dfrac{b_0}{1 - xb_0} \\
+		&\text{Si $b_0 > 0$}	\implies \dfrac{1}{b_0} > 0 \implies y(x) = -\dfrac{1}{x - \frac{1}{b_0}} \text{ sur } \mathopen]-\infty, \frac{1}{b_0}\mathclose[
+	\end{align*}
+Il s'agit là de la solution particulière si $b_0 > 0$. On peut également calculer la solution particulière pour $b_0 < 0$, qui sera définie sur un autre intervalle.
+\end{exmp}
+
+%-------------------------------------------------------------------------------------
+
+\section{Equation différentielle linéaire de premier ordre (EDL1)}
+\begin{defn}
 Une équation différentielle linéaire de premier ordre est une équation de la forme
-\begin{equation}
-	y'(x) + p(x)y(x) = f(x)
-\end{equation}
+	\begin{equation}
+		y'(x) + p(x)y(x) = f(x)
+	\end{equation}
+\end{defn}
 
 Considérons l'équation:
 \begin{equation}
@@ -125,7 +122,7 @@ Tout d'abord, on voit que $y(x) = 0$ est une solution $\forall x \in \mathbb{R}$
 \end{align*}
 
 \subsection{Méthode de la variation de constante}
-On cherche une solution particulière de $y^(x) + p(x) y(x) = f(x), \ p, f : I \to \mathbb{R}$ sous la forme:
+On cherche une solution particulière de $y + p(x) y = f(x) \ , p, f : I \to \mathbb{R}$ sous la forme:
 \begin{anz} $v(x) = C(x) e^{-P(x)}$ \quad où $P(x)$ est une primitive de $p(x)$ sur $I$
 \end{anz}
 
@@ -137,17 +134,17 @@ Si $v(x)$ est une solution de l'équation:
 $\implies$ une solution particulière de l'équation $y'(x) + p(x) y(x) = f(x)$ est $v(x) = \bigr( \int f(x) e^{P(x)} dx \bigl)\cdot e^{-P(x)}$ où $P(x)$ est \underline{une} primitive de p(x) sur $I$.
 
 \begin{exmp}
-\begin{align*}
-	y' + y = 5x + 1, \quad p(x) = 1, f(x) = 5x + 1 \\
-	P(x) = \int 1 dx = x \quad \text{(une primitive, sans constante)} \\
-\intertext{La solution générale de l'équation homogène associée: $y' + y = 0$ est $y(x) = Ce^{-P(x)} = Ce^{-x} \forall C, x \in \mathbb{R}$}
+	\begin{align*}
+		&y' + y = 5x + 1, \quad p(x) = 1, f(x) = 5x + 1 \\
+		&P(x) = \int 1 dx = x \quad \text{(une primitive, sans constante)} \\
+\intertext{La solution générale de l'équation homogène associée: $y' + y = 0$ est $y(x) = Ce^{-P(x)} = Ce^{-x} \ ,\forall C, x \in \mathbb{R}$}
 \intertext{pour trouver une solution particulière de l'équation $y' + y = 5x + 1$ on calcule}
-	c(x) = \int f(x) e^{P(x)} dx = \int (5x + 1) e^x dx = 5 \int x e^x dx + \int e^x dx \\
-	= 5xe^x - 5 \int e^x dx + \int e^x dx  = \underbrace{5xe^x - 4e^x + 1}_{\text{on ne peut choisir une constante arbitraire}} \\
+		&c(x) = \int f(x) e^{P(x)} dx = \int (5x + 1) e^x dx = 5 \int x e^x dx + \int e^x dx \\
+		&= 5xe^x - 5 \int e^x dx + \int e^x dx  = \underbrace{5xe^x - 4e^x + 1}_{\substack{\text{on ne peut choisir} \\ \text{une constante arbitraire}}} \\
 \intertext{Une solution particulière de $y' + y = 5x + 1$ est}
-	v(x) = (5xe^x - 4e^x - 1)e^{-x} = \underbrace{5x - 4 + e^{-x}}_{\text{une solution particulière}}
+		&v(x) = (5xe^x - 4e^x - 1)e^{-x} = \underbrace{5x - 4 + e^{-x}}_{\substack{\text{une solution} \\ \text{particulière}}}
 \intertext{Vérification:}
-	v'(x) + v(x) = 5 - \cancel{e^{-x}} + 5x - 4 + \cancel{e^{-x}} = 5x + 1 = f(x)
+		&v'(x) + v(x) = 5 - \cancel{e^{-x}} + 5x - 4 + \cancel{e^{-x}} = 5x + 1 = f(x)
 \end{align*}
 \end{exmp}
 
@@ -368,110 +365,6 @@ où $C_1, C_2 \in \mathbb R, x \in I$.
 	y_{\text{part}}(x) = y_{\text{part, 1}}(x) + y_{\text{part, 2}}(x).
 \end{equation*}
 \end{remark}
-
-\chapter{Espace $\mathbb R^n$}
-
-"peut être que c'est pour ça qu'on vit dans la dimension trois, parce que c'est exceptionnel qu'on puisse multiplier des vecteurs"
-
-\section{L'espace $\mathbb R^n$ en tant qu'espace vectoriel normé}
-\begin{defn}[$\mathbb R^n$ en tant qu'ensemble]
-	$\mathbb R^n$ est l'\textbf{ensemble} de tous les $n$-tuples ordonnés $\bar x = (x_1, \ldots, x_n)$ de nombres réels. 
-\end{defn}
-
-\begin{defn}[$\mathbb R^n$ en tant qu'espace vectoriel]
-	On va ajouter de la \emph{structure} à l'ensemble $\mathbb R^n$ en définissant deux opérations:
-	\begin{enumerate}
-		\item l'\textbf{addition vectorielle}: $\bar x = (x_1, \ldots, x_n), \bar y = (y_1, \ldots, y_n) \implies$ \\ $\bar x + \bar y \eqdef (x_1 + y_1, \ldots, x_n + y_n)$.
-		\item la \textbf{multiplication par un réel}: $\lambda \bar x \eqdef (\lambda x_1, \ldots, \lambda x_n)$.
-	\end{enumerate}
-	On peut introduire la \textbf{base} $\{\bar e_i = (0, 0, \ldots, \underset{i}{1}, \ldots, 0)\}_{i=1}^n$, de telle façon à ce que
-	\begin{equation}
-		\bar x = \sum_{i=1}^n x_i \bar e_i
-	\end{equation}
-	Enfin, on introduit le \textbf{produit scalaire} dans $\mathbb R^n$:
-	\begin{equation}
-		\langle \bar x, \bar y \rangle \eqdef \sum_{i=1}^n x_i y_i
-	\end{equation}
-	L'ensemble $\mathbb R^n$, muni de ces opérations, devient un \textbf{espace vectoriel}.
-\end{defn}
-
-\begin{defn}[$\mathbb R^n$ en tant qu'espace vectoriel normé]
-	L'introduction du produit scalaire nous permet de définir une \textbf{norme} sur $\mathbb R^n$. Nous allons définir la norme euclidienne:
-	\begin{equation}
-		\norm{\bar x} \eqdef \bigl( \langle \bar x, \bar x \rangle \bigr)^{1/2}
-	\end{equation}
-	La norme euclidienne respecte la définition d'une norme (il faut le prouver!), c'est-à-dire
-	\begin{enumerate}
-		\item $\norm{\bar x} \geq 0 \quad \text{ et } \norm{\bar x} = 0 \iff \bar x = \bar 0$,
-		\item $\bar x \in \mathbb R^n, \lambda \in \mathbb R \implies \norm{\lambda \bar x} = \abs{\lambda}\norm{\bar x}$,
-		\item $\norm{\bar x + \bar y} \leq \norm{\bar x} + \norm{\bar y}$ (inégalité triangulaire).
-	\end{enumerate}
-	L'espace vectoriel $\mathbb R^n$, muni de la norme euclidienne, devient un \textbf{espace vectoriel normé}.
-\end{defn}
-
-\begin{defn}[$\mathbb R^n$ en tant qu'espace métrique]
-	À partir de la norme sur $\mathbb R^n$, on peut introduire la notion de \textbf{distance} entre deux éléments de $\mathbb R^n$. Nous allons définir la distance euclidienne ainsi:
-	\begin{equation}
-		d(\bar x, \bar y) \eqdef \norm{\bar x - \bar y}.
-	\end{equation}
-	La distance euclidienne respecte la définition d'une distance (il faut le prouver!), c'est-à-dire
-	\begin{enumerate}
-		\item $d(\bar x, \bar y) \geq 0 \quad \text{ et } d(\bar x, \bar y) = 0 \iff \bar x = \bar y$,
-		\item $d(\bar y, \bar x) = d(\bar x, \bar y)$,
-		\item $d(\bar x, \bar z) \leq d(\bar x, \bar y) + d(\bar y, \bar z)$.
-	\end{enumerate}
-	L'espace vectoriel normé $\mathbb R^n$, muni de la distance euclidienne, devient un \textbf{espace métrique}.
-\end{defn}
-
-\section{Topologie de $\mathbb R^n$}
-\begin{defn}
-	Pour tout $\bar x \in \mathbb R^n$ et tout nombre réel positif $\delta > 0$, soit $B(\bar x, \delta) = \{\bar y \in \mathbb R^n : \norm{\bar x - \bar y} < \delta\}$. Alors $B(\bar x, \delta) \subset \mathbb R^n$ est appelée la \textbf{boule ouverte} de centre $\bar x$ et de rayon $\delta$.
-\end{defn}
-
-\begin{defn}
-	Le sous-ensemble non-vide $E \subseteq \mathbb R^n$ est \textbf{ouvert} si et seulement si pour chaque point $\bar x \in E$, il existe $\delta > 0$ tel que $B(\bar x, \delta) \subset E$. L'ensemble vide $\varnothing$ est ouvert par définition.
-\end{defn}
-
-\begin{defn}
-	Soit $E \subset \mathbb R^n$ non-vide. Alors $\bar x \in E$ est un point intérieur de $E$ $\iff$ il existe $\delta > 0$ tel que $B(\bar x, \delta) \subset E$. L'ensemble des points intérieurs de $E$ est appelé l'intérieur de $E$ (notation: $\interior E$). Clairement, $\interior E \subseteq E$. \\
-\end{defn}
-
-\begin{thm}
-	Soit $E \subseteq \mathbb R^n$ non vide. Alors $E$ est ouvert $\iff \interior E = E$.
-\end{thm}
-
-\begin{thm}[propriétés des ensembles ouverts] Les ensembles ouverts possèdent quelques propriétés de base:
-	\begin{enumerate}
-		\item toute union (finie ou infinie) d'ensembles ouverts est un ensemble ouvert.
-		\item toute intersection finie d'ensembles ouverts est un ensemble ouvert.
-	\end{enumerate}
-\end{thm}
-
-\begin{exmp}
-	Une intersection infinie d'espaces ouverts n'est pas forcément ouverte:
-	\begin{equation*}
-		\bigcap_{k = 1}^\infty B(\bar 0, \frac1k) = \{\bar 0\}.
-	\end{equation*}
-\end{exmp}
-
-\begin{defn}
-	Soit le sous-ensemble $E \subseteq \mathbb R^n$. Alors $E$ est \textbf{fermé} dans $\mathbb R^n$ $\iff$ son complémentaire $\mathbb R^n \setminus E$ est ouvert.
-\end{defn}
-
-\begin{thm}[propriétés des ensembles fermés] Les ensembles fermés possèdent quelques propriétés de base, qui découlent des propriétés des ensembles ouverts.
-	\begin{enumerate}
-		\item toute intersection (finie ou infinie) d'ensembles fermés est un ensemble fermé.
-		\item toute union finie d'ensembles fermés est un ensemble fermé.
-	\end{enumerate}
-\end{thm}
-
-
-
-
-
-
-
-
 
 
 
