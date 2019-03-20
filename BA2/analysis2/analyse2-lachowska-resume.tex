@@ -14,7 +14,7 @@
 \usepackage{url}
 
 \theoremstyle{plain}
-\newtheorem{thm}{Théorème}[section]
+\newtheorem{thm}{Théorème}[chapter]
 
 \theoremstyle{definition}
 \newtheorem{defn}[thm]{Définition}
@@ -23,14 +23,23 @@
 
 \theoremstyle{remark}
 \newtheorem*{remark}{Remarque}
+\newtheorem*{idea}{Idée}
 \newtheorem*{attention}{Attention}
 
-\providecommand{\norm}[1]{\lVert#1\rVert}
-\providecommand{\abs}[1]{\lvert#1\rvert}
-\providecommand{\interior}[1]{\accentset{\circ}{#1}}
-\newcommand\eqdef{\; \stackrel{ \mathclap{ \normalfont\text{def.} } }{ = } \;} % for definitions
+\newcommand*\eqdef{\; \stackrel{ \mathclap{ \normalfont\text{def.} } }{ = } \;} % for definitions
+\newcommand*{\skol}[2][3]{{}\mkern#1mu\overline{\mkern-#1mu#2}} %https://tex.stackexchange.com/a/95084
+\newcommand*\conj[1]{\bar{#1}}
+\newcommand*\adh[1]{\skol{#1}}
+\newcommand*{\norm}[1]{\lVert#1\rVert}
+\newcommand*{\abs}[1]{\lvert#1\rvert}
+\newcommand*{\interior}[1]{\mathring{#1}}
+\newcommand*{\frontier}[1]{\partial #1}
 
 \renewcommand{\chaptername}{Chapitre}
+
+%margins
+\usepackage{geometry}
+\geometry{left=2cm, right=2cm, top = 2cm, bottom=2cm}
 
 \begin{document}
 
@@ -40,7 +49,7 @@ Résumé du cours d'Analyse II par Anna Lachowska. Retrouvez la page github cont
 \chapter{Équations différentielles}
 
 \section{02 février 2019}
-Une équation différentielle ordinaire est une équation qui lie une fonction $y = y(x)$ à sa dérivée. Par exemple, l'équation
+Une équation différentielle ordinaire est une équation qui lie une fonction $y = y(x)$ à sa ou ses dérivée(s). Par exemple, l'équation
 \begin{equation}
 	y' + y = 0
 \end{equation}
@@ -89,7 +98,7 @@ Ordre, degré, linéarité, solution générale, problème de Cauchy (conditions
 \subsection{Équation à variables séparées (EDVS) (suite)}
 \begin{thm} existence et unicité d'une solution de EDVS \\
 Toute équation différentielle à variables séparées avec une condition initiale: $y(x_0) = b_0$ possède une unique solution $y$. \\
-\begin{attention} la démonstration \underline{de l'existence} (à retrouver dans les notes) peut être demandée à l'examen! Idée: $f(y)y' = g(x) \iff f(y)\frac{dy}{dx} = g(x) \iff \int f(y)dy = \int f(x)dx \iff F(y) = G(x)$. Puis, remarquer que $F(y)$ est inversible sur l'intervalle de définition de $f(y)$
+\begin{attention} \underline{de l'existence} (à retrouver dans les notes) peut être demandée à l'examen! Idée: $f(y)y' = g(x) \iff f(y)\frac{dy}{dx} = g(x) \iff \int f(y)dy = \int f(x)dx \iff F(y) = G(x)$. Puis, remarquer que $F(y)$ est inversible sur l'intervalle de définition de $f(y)$
 \end{attention}
 \end{thm}
 
@@ -369,9 +378,13 @@ où $C_1, C_2 \in \mathbb R, x \in I$.
 \end{equation*}
 \end{remark}
 
-\chapter{Espace $\mathbb R^n$}
+\chapter{L'espace $\mathbb R^n$}
 
-"peut être que c'est pour ça qu'on vit dans la dimension trois, parce que c'est exceptionnel qu'on puisse multiplier des vecteurs"
+\begin{center}
+"Peut être que c'est pour ça qu'on vit dans la dimension trois, parce qu'il est exceptionnel qu'on puisse multiplier des vecteurs" - Lachowska
+\end{center}
+
+Afin d'étudier des fonctions à plusieurs variables, il nous faut d'abord réviser notre vision de l'ensemble $\mathbb R^n$: nous allons y définir une structure algébrique, puis topologique, qui permettront de définir élégamment des fonctions dans l'espace $\mathbb R^n$. La structure algébrique (celle d'un espace métrique) sera nécessaire si l'on veut pouvoir définir des fonctions comme on veut, et servira également à la définition de la structure topologique. Cette dernière sera utile lors de la rigorisation de certains concepts considérés comme acquis sur $\mathbb R$, mais qui requièrent plus de structure si l'on veut pouvoir les utiliser dans $\mathbb R^n, n > 1$, comme celui de limite. (À REVOIR QUAND ON A FINI CE CHAPITRE)
 
 \section{L'espace $\mathbb R^n$ en tant qu'espace vectoriel normé}
 \begin{defn}[$\mathbb R^n$ en tant qu'ensemble]
@@ -414,7 +427,7 @@ où $C_1, C_2 \in \mathbb R, x \in I$.
 	\begin{equation}
 		d(\bar x, \bar y) \eqdef \norm{\bar x - \bar y}.
 	\end{equation}
-	La distance euclidienne respecte la définition d'une distance (il faut le prouver!), c'est-à-dire
+	La distance euclidienne respecte la définition d'une distance (il faut le prouver!), c'est-à-dire que $\forall \bar x, \bar y, \bar z \in \mathbb R^n$, on a:
 	\begin{enumerate}
 		\item $d(\bar x, \bar y) \geq 0 \quad \text{ et } d(\bar x, \bar y) = 0 \iff \bar x = \bar y$,
 		\item $d(\bar y, \bar x) = d(\bar x, \bar y)$,
@@ -423,10 +436,23 @@ où $C_1, C_2 \in \mathbb R, x \in I$.
 	L'espace vectoriel normé $\mathbb R^n$, muni de la distance euclidienne, devient un \textbf{espace métrique}.
 \end{defn}
 
+\begin{thm}
+	La norme euclidienne possède également les propriétés suivantes:
+	\begin{itemize}
+		\item $\abs{\langle \bar x, \bar y \rangle} \leq \norm{\bar x} \cdot \norm{\bar y}$ \quad (inégalité de Cauchy-Schwartz)
+		\item $\norm{\bar x - \bar y} \geq \abs{\norm{\bar x} - \norm{\bar y}}$ \quad (inégalité triangulaire inversée)
+	\end{itemize}
+\end{thm}
+
+Nous avons défini une structure algébrique stable et intuitive sur $\mathbb R^n$, valable pour tout $n \geq 1$. Il est désormais temps de définir également une structure topologique.
+
 \section{Topologie de $\mathbb R^n$}
+Le préfixe "topo" du mot "topologie" signifie "local" ou "proche". C'est là l'intuition des concepts que nous allons voir: ajouter une structure topologique sur un ensemble consiste à définir des liens de proximité et de connectivité entre les éléments de cet ensemble. La définition à la section précédente de la notion de norme et de distance sur $\mathbb R^n$ va grandement nous simplifier la tâche, mais sachez qu'il est également possible de définir une structure topologique sur un ensemble dégénéré, c'est-à-dire qui ne possède aucune structure algébrique ou métrique\footnote{Pour ceux intéressés par la topologie, je recommande le livre gratuit de Sydney Morris à ce sujet, qui peut être trouvé en format PDF à l'adresse \url{www.topologywithouttears.net}, ainsi que les vidéos de Ben1994 sur YouTube pour ce qui est de l'intuition.}! \par
+
 \begin{defn}
 	Pour tout $\bar x \in \mathbb R^n$ et tout nombre réel positif $\delta > 0$, soit $B(\bar x, \delta) = \{\bar y \in \mathbb R^n : \norm{\bar x - \bar y} < \delta\}$. Alors $B(\bar x, \delta) \subset \mathbb R^n$ est appelée la \textbf{boule ouverte} de centre $\bar x$ et de rayon $\delta$.
 \end{defn}
+\begin{remark}La boule ouverte est un concept très utile pour définir les concepts suivants.\end{remark}
 
 \begin{defn}
 	Le sous-ensemble non-vide $E \subseteq \mathbb R^n$ est \textbf{ouvert} si et seulement si pour chaque point $\bar x \in E$, il existe $\delta > 0$ tel que $B(\bar x, \delta) \subset E$. L'ensemble vide $\varnothing$ est ouvert par définition.
@@ -437,10 +463,10 @@ où $C_1, C_2 \in \mathbb R, x \in I$.
 \end{defn}
 
 \begin{thm}
-	Soit $E \subseteq \mathbb R^n$ non vide. Alors $E$ est ouvert $\iff \interior E = E$.
+	Soit $E \subseteq \mathbb R^n$ non vide. Alors $E$ est ouvert si et seulement si $\interior E = E$.
 \end{thm}
 
-\begin{thm}[propriétés des ensembles ouverts] Les ensembles ouverts possèdent quelques propriétés de base:
+\label{thm:propouverts}\begin{thm}[propriétés des ensembles ouverts] Les ensembles ouverts possèdent quelques propriétés de base:
 	\begin{enumerate}
 		\item toute union (finie ou infinie) d'ensembles ouverts est un ensemble ouvert.
 		\item toute intersection finie d'ensembles ouverts est un ensemble ouvert.
@@ -448,34 +474,256 @@ où $C_1, C_2 \in \mathbb R, x \in I$.
 \end{thm}
 
 \begin{exmp}
-	Une intersection infinie d'espaces ouverts n'est pas forcément ouverte:
+	Une intersection infinie d'espaces ouverts peut ne pas être ouverte:
 	\begin{equation*}
 		\bigcap_{k = 1}^\infty B(\bar 0, \frac1k) = \{\bar 0\}.
 	\end{equation*}
 \end{exmp}
 
 \begin{defn}
-	Soit le sous-ensemble $E \subseteq \mathbb R^n$. Alors $E$ est \textbf{fermé} dans $\mathbb R^n$ $\iff$ son complémentaire $\mathbb R^n \setminus E$ est ouvert.
+	Soit le sous-ensemble $E \subseteq \mathbb R^n$. Alors $E$ est \textbf{fermé} dans $\mathbb R^n$ si et seulement si son complémentaire $\mathbb R^n \setminus E$ est ouvert.
 \end{defn}
 
-\begin{thm}[propriétés des ensembles fermés] Les ensembles fermés possèdent quelques propriétés de base, qui découlent des propriétés des ensembles ouverts.
+\begin{thm}[propriétés des ensembles fermés] Les ensembles fermés possèdent quelques propriétés de base, qui découlent directement des propriétés des ensembles ouverts \eqref{thm:propouverts}.
 	\begin{enumerate}
 		\item toute intersection (finie ou infinie) d'ensembles fermés est un ensemble fermé.
 		\item toute union finie d'ensembles fermés est un ensemble fermé.
 	\end{enumerate}
 \end{thm}
 
+\begin{defn}
+	Soit $E \subseteq \mathbb R^n$ un sous-ensemble non-vide. Alors l'intersection de tous les sous-ensembles fermés contenant $E$ est appelée l'\textbf{adhérence} de $E$. On écrit $\adh E$.
+\end{defn}
+\begin{remark} L'adhérence de $E$ est donc le plus petit ensemble fermé contenant $E$. Par définition donc, $E$ est fermé si et seulement si $E = \adh E$.\end{remark}
 
+\begin{defn}
+	Soit $E \subseteq \mathbb R^n$ un sous-ensemble non-vide. Un point $\bar x \in \mathbb R^n$ est un \textbf{point de frontière} de $E$ si et seulement si toute boule ouverte de centre $\bar x$ contient au moins un point de $E$ et au moins un point de $\mathbb R^n \setminus E$. L'ensemble des points de frontière de $E$ est appelée la \textbf{frontière} de $E$ (notation: $\frontier E$).
+\end{defn}
 
+\begin{exmp}
+	Soit $E = \{\bar x \in \mathbb R^n : x_i > 0, 1 \leq i \leq n\}$. Alors $\frontier E = \{\bar x \in \mathbb R^n : \exists i \neq j : x_i = 0, x_j \geq 0\}$.
+\end{exmp}
 
+\begin{thm}
+	Soit $E \subseteq \mathbb R^n$ un sous-ensemble non-vide. Alors
+	\begin{enumerate}
+		\item $\frontier E \cap \interior E = \varnothing$ (par déf.)
+		\item $\frontier E = \adh E \setminus \interior E = \adh E \cap (\mathbb R^n \setminus \interior E)$
+		\item $\interior E \cup \frontier E = \adh E$
+		\item $\frontier \varnothing = \varnothing, \delta \mathbb R^n = \varnothing$
+	\end{enumerate}
+\end{thm}
 
+\section{Concepts d'analyse dans $\mathbb R^n$}
+Après cette masse informe de définitions obscures, la question s'impose: pourquoi faut-il distinguer les sous-ensembles ouverts et les sous-ensembles fermés de $\mathbb R^n$? Il s'avère que l'on peut utiliser ces définitions afin de définir la limite d'une suite d'éléments de $\mathbb R^n$, ce qui va nous fournir la base nécessaire pour faire de l'analyse sur $\mathbb R^n$.
 
+\begin{defn}
+	Une \textbf{suite} d'éléments de $\mathbb R^n$ est une application $f : \mathbb N \to \mathbb R^n$:
+	\begin{equation}
+		k \to \bar x_k = \{x_k???? COMPLETER CECI
+	\end{equation}
+\end{defn}
 
+\begin{defn}
+	$\{\bar x_n\}_{k=0}^\infty$ est convergente et admet pour limite $\bar x \in \mathbb R^n$ si et seulement si $\forall\epsilon > 0$ il existe $k_0 \in \mathbb N$ tel que $\forall k \geq k_0, \norm{\bar x_k - \bar x} \leq \epsilon$. Proposition équivalente: $\bar x_k \in \adh{B(\bar x, \epsilon)}$.
+\end{defn}
+\begin{remark}
+	Chaque coordonnée de $\bar x_n$ peut être considérée comme une suite réelle:
+	\begin{equation}
+		\lim_{k \to \infty} \bar x_n = \bar x \iff \lim_{k \to \infty} x_{j, k} = x_j \quad \text{pour tout } 1 \leq j \leq n.
+	\end{equation} (il faudrait prouver ceci!)
+\end{remark}
 
+\begin{thm}
+	Les suites dans $\mathbb R^n$ possèdent des propriétés similaires aux suites dans $\mathbb R$:
+	\begin{itemize}
+		\item La limite d'une suite dans $\mathbb R^n$, si elle existe, est unique
+		\item Toute suite convergente est bornée
+		\item Le théorème de Bolzano-Weierstrass tient également: pour toute suite bornée dans $\mathbb R^n$, il existe une sous-suite convergente.
+	\end{itemize}
+\end{thm}
 
+Le théorème suivant propose une équivalence entre la notion de convergence d'une limite dans $E$ et le fait que $E$ soit fermé.
+\begin{thm}
+	Un sous-ensemble non-vide $E \subseteq \mathbb R^n$ est fermé si et seulement si toute suite convergente d'éléments de $E$ a pour limite un élément de $E$.
+\end{thm}
+\begin{attention}
+La démonstration de ce théorème peut être demandée à l'examen! Voir notes du cours 7, 13 mars 2019.
+\end{attention}
 
+\begin{thm}
+	Pour construire l'adhérence $\adh E$ d'un sous-ensemble non vide $E \subseteq \mathbb R^n$, il suffit d'ajouter les limites de toutes les suites convergentes d'éléments de $E$.
+\end{thm}
 
+\begin{defn}
+	Un sous-ensemble non-vide $E \subseteq \mathbb R^n$ est dit \textbf{compact} si et seulement si il est fermé et borné.
+\end{defn}
 
+\begin{exmp}
+	La boule $\adh{B(\bar x, \delta)} = \{\bar y \in \mathbb R^n : d(\bar x, \bar y) \leq \delta\}$ est un sous-ensemble fermé. C'est également un sous-ensemble borné car $\adh{B(\bar x, \delta)} \subseteq \adh{B(\bar 0, \norm{\bar x} + \delta)}$.
+\end{exmp}
+
+\begin{thm}[Heine-Borel-Lebesgue]
+	Soit $E \subseteq \mathbb R^n$ un sous-ensemble non-vide. Alors $E$ est compact si et seulement si \underline{pour tout} recouvrement de $E$ par des sous-ensembles \underline{ouverts} dans $\mathbb R^n$:
+	\begin{equation}
+		E \subseteq \bigcup_{i \in I} A_i \ , A_i \subseteq \mathbb R^n \text{ ouverts } \forall i \in I,
+	\end{equation}
+	on peut extraire une famille \underline{finie} d'ensembles qui forment un recouvrement de $E$:
+	\begin{equation}
+		E \subseteq \bigcup_{i \in I} A_i \ , A_i \subseteq \mathbb R^n \text{ ouverts } \forall i \in I \implies \exists\{A_{i_j}\}_{j=1}^m : E \subseteq \bigcup_{j=1}^m A_{i_j}.
+	\end{equation}
+\end{thm}
+\begin{remark} Ici, le \underline{pour tout} est très important: $I$ peut être fini, dénombrable ou indénombrable! C'est théorème très fort, car il s'agit en plus d'une double implication. \end{remark}
+
+\section{Courbes paramétrées dans $\mathbb R^n$}
+\begin{defn}
+	Soit $I \subseteq \mathbb R$ un intervalle ouvert. Alors une courbe paramétrée dans $\mathbb R^n, n \geq 2$ est une application $f : I \to \mathbb R^n$ de la forme
+	\begin{equation}
+		\adh{f(t)} = \bigl(f_1(t), f_2(t), \ldots, f_n(t)\bigr),
+	\end{equation}
+	telle que $f_i(t)$ sont des fonctions continues sur $I$ pour tout $1 \leq i \leq n$.
+\end{defn}
+
+\begin{exmp}
+	Soit $\bar f : I \to \mathbb R^3$ telle que $\bar f(t) = (\cos(t), \sin(t), t)$. Alors le graphe de $\bar f$ forme une hélice circulaire.
+\end{exmp}
+
+\begin{defn}
+	La courbe $\adh f : I \to \mathbb R^n$ est dite \textbf{dérivable} en $t_0 \in I$ si et seulement si chaque composante $f_i : I \to \mathbb R$ est dérivable en $t_0$. \par
+	Le vecteur $\adh f'(t_0)$ est appelé le \emph{vecteur tangent} (ou vecteur vitesse) de $\adh f'(t)$ en $t_0$. \par
+	La vitesse est définie comme $\norm{\adh f'(t_0)}$.
+\end{defn}
+
+\begin{defn}
+	Soit une courbe $\adh f : I \to \mathbb R^n$ de classe $C'$ ($f_i'(t)$ sont continues sur $I$) et $\mathopen[a, b \mathclose] \subseteq I, a < b$. \par 
+	La longueur de l'arc de la courbe $\adh f : \mathopen[a, b \mathclose] \to \mathbb R^n$ est définie par
+	\begin{equation}
+		L_{\mathopen[a, b \mathclose]}(\adh f) \eqdef \int_a^b \norm{\adh f'(t)} dt.
+	\end{equation}
+\end{defn}
+\begin{idea}
+	Dans $\mathbb R^2$:
+	\begin{align*}
+		&dl \approx \sqrt{(dx)^2 + (dy)^2} = \sqrt{\left(\frac{dx}{dt}\right)^2 + \left(\frac{dy}{dt}\right)^2}dt = \sqrt{\bigl(f_1'(t)\bigr)^2 + \bigl(f_2'(t)\bigr)^2}dt \\
+		&= \norm{\adh f'(t)}dt
+	\end{align*}
+\end{idea}
+
+\chapter{Fonctions réelles de plusieurs variables réelles}
+
+\begin{defn}
+	Soit $E \subseteq \mathbb R^n$ non-vide, $n \geq 1$. Une fonction $f : E \to \mathbb R$ est une application qui envoie chaque point $\bar x = (x_1, x_2, \ldots, x_n) \in E$ dans $\mathbb R$. $E$ est le domaine de définition de $f$, et $f(E) \subseteq \mathbb R$ est l'ensemble image.
+\end{defn}
+
+\begin{exmp}
+	Soit $f(x,y) = \sqrt{1 - (x^2 + y^2)}$. Alors $E = \{(x, y) \in \mathbb R^2 : x^2 + y^2 \leq 1\}$ (disque de rayon 1 et de centre $(0, 0)$. \par
+	Pour représenter cette fonction sur un graphe, on procède ainsi: (???? pourquoi c'est un hémisphère si c'est un disque????)
+	\begin{align*}
+		&z = \sqrt{1 - (x^2 + y^2)} \iff 
+		\begin{cases}
+			z^2 = 1 - (x^2 + y^2) \\
+			z \geq 0		
+		\end{cases} \iff
+		\begin{cases}
+			x^2 + y^2 + z^2 = 1 \\
+			z \geq 0
+		\end{cases}
+	\end{align*}
+	Cela représente l'hémisphère de rayon 1 et de centre $(0, 0, 0)$. INCLURE GRAPHE ICI
+\end{exmp}
+
+\begin{defn}
+	Soit $f : E \to \mathbb R$ et $c \in f(E)$. Alors 
+	\begin{equation}
+	\mathcal N_f(c) = \{\bar x \in E : f(\bar x) = c\} \subseteq E
+	\end{equation}
+	est appelé l'\textbf{ensemble de niveau} de $f$ pour $c$.
+\end{defn}
+Intuitivement, l'ensemble de niveau est l'ensemble des points dont la cordonnée $z$ est égale à $c$ sur le graphe de $f$, ou encore l'intersection entre le plan horizontal de coordonnée $z = c$ et le graphe de la fonction. INCLURE GRAPHE ICI
+
+\begin{defn}
+	Une fonction $f : E \to \mathbb R$ est \textbf{définie au voisinage de $x_0$} ssi
+	\begin{equation}
+		\exists \delta > 0 : B(\bar x, \delta) \subseteq E \cup \{\bar x_0\}.
+	\end{equation}
+\end{defn}
+
+\begin{defn}
+	Une fonction définie au voisinage de $\bar x_0$ (mais pas nécessairement en $\bar x_0$) admet le nombre réel $l$ pour \textbf{limite lorsque $\bar x$ tend vers $\bar x_0$} ssi 
+	\begin{equation}
+	\forall \epsilon > 0, \exists \delta > 0 : \forall \bar x \in E : 0 < \norm{\bar x - \bar x_0} \leq \delta \implies \abs{f(\bar x) - l} \leq \epsilon.
+	\end{equation}
+	\begin{equation*}
+		\text{Notation: } \lim_{\bar x \to \bar x_0} f(\bar x) = l. 
+	\end{equation*}
+\end{defn} 
+\begin{remark}
+	La définition paraît plus effrayante que celle de la limite d'une fonction réelle d'une variable réelle, mais l'intuition est exactement la même.
+\end{remark}
+
+\begin{defn}
+	Soit $x_0 \in E$ un point intérieur. Alors $f : E \to \mathbb R$ est \textbf{continue} en $\bar x = \bar x_0$ ssi $\lim_{\bar x \to \bar x_0} f(\bar x) = f(\bar x_0)$.
+\end{defn}
+
+\begin{thm}[opérations algébriques sur les limites]
+	Soient $f, g : E \to \mathbb R$ telles que $\lim_{\bar x \to \bar x_0} f(\bar x) = l_1, \lim_{\bar x \to \bar x_0} g(\bar x) = l_2$. Alors
+	\begin{enumerate}
+		\item $\lim\limits_{\bar x \to \bar x_0} (\alpha f + \beta g)(\bar x) = \alpha l_1 + \beta l_2 \quad \forall \alpha, \beta \in \mathbb R$
+		\item $\lim\limits_{\bar x \to \bar x_0} (f \cdot g)(\bar x) = l_1 \cdot l_2$
+		\item Si $l_2 \neq 0$, alors $\lim\limits_{\bar x \to \bar x_0} \left(\dfrac{f}{g}\right)(\bar x) = \dfrac{l_1}{l_2}$.
+	\end{enumerate}
+\end{thm}
+
+\begin{thm}[caractérisation de la limite à partir des suites convergentes]
+	Une fonction $f : E \to \mathbb R$ définie au voisinage de $\bar x_0$ admet pour limite $l \in \mathbb R$ lorsque $\bar x$ tend vers $\bar x_0$ ssi pour \emph{toute} suite d'éléments $\{\bar a_k\}$ de $E \setminus \{\bar x_0\}$ qui converge vers $\bar x_0$, la suite $\{f(\bar a_k)\}$ converge vers $l$.
+\end{thm}
+\begin{attention} La démonstration de ce théorème peut être demandée à l'examen! Voir notes du cours 9, 18 mars 2019. \end{attention}
+
+\begin{remark} On ne peut pas calculer la limite d'une fonction de plusieurs variables en considérant des limites consécutives par rapport à chaque variable.
+\begin{align*}
+	&f(x, y) = \begin{cases}\begin{aligned}
+		&\frac{xy}{x^2 + y^2} & &(x, y) \neq (0, 0) \\
+		&0 & &(x, y) = (0, 0)
+		\end{aligned}\end{cases} \\
+\intertext{Soit $x \neq 0$}
+	&\implies \lim_{y \to 0} \frac{xy}{x^2 + y^2} = 0 \implies \lim_{x \to 0} \Bigl( \lim_{y \to 0} \frac{xy}{x^2 + y^2} \Bigr) = \lim_{x \to 0} 0 = 0. \\
+\intertext{De même,}
+	&\lim_{y \to 0} \Bigl( \lim_{x \to 0} \frac{xy}{x^2 + y^2} \Bigr) = \lim_{y \to 0} 0 = 0.
+\end{align*}
+	Mais $\lim\limits_{(x, y) \to (0, 0)} \dfrac{xy}{x^2 + y^2}$ n'existe pas!
+\end{remark}
+
+\begin{thm}
+	Soit $f, g, h : E \to \mathbb R$, telles que
+	\begin{itemize}
+		\item $\lim\limits_{\bar x \to \bar x_0} f(\bar x) = \lim\limits_{\bar x \to \bar x_0} g(\bar x) = l$
+		\item $\exists \alpha > 0$ tel que $\forall \bar x \in \{\bar x \in E : 0 < \norm{\bar x - \bar x_0} \leq \alpha\}$, on a $f(\bar x) \leq h(\bar x) \leq g(\bar x)$.
+	\end{itemize}
+	Alors $\lim\limits_{\bar x \to \bar x_0} h(\bar x) = l$.
+\end{thm}
+
+\begin{thm}[continuité d'une fonction composée] Supposons qu'on a deux fonctions $g$ et $f$:
+	\begin{equation*}
+		\underset{\subseteq \mathbb R^n}{A} \overset{\bar g}{\longrightarrow} \underset{\subseteq \mathbb R^m}{B} \overset{f}{\longrightarrow} \mathbb R
+	\end{equation*}
+	Alors, si $g_1(\bar x), \ldots, g_m(\bar x)$ sont continues en $\bar a \in A$, et $f(\bar y)$ est continue en $(g_1(\bar a), \ldots, g_m(\bar a))$, alors $f \circ g(\bar x)$ est continue en $\bar x = \bar a$.
+\end{thm}
+
+\begin{defn}
+	Soit $f : E \to \mathbb R$. Alors si $M \in \mathbb R$ et $m \in \mathbb R$ satisfont
+	\begin{enumerate}
+		\item $f(\bar x) \leq M, f(\bar x) \geq m \quad \forall \bar x \in E$,
+		\item $M, m \in f(E)$,
+	\end{enumerate}
+	$M$ est le \textbf{maximum}, et $m$ est le \textbf{minimum} de la fonction $f$ sur $E$.
+\end{defn}
+
+\begin{thm}
+	Une fonction continue sur un sous-ensemble \underline{compact} $E \subset \mathbb R^n$ atteint son maximum et son minimum ($\iff \exists \max_{\bar x \in E} f(\bar x), \exists \min_{\bar x \in E} f(\bar x)$).
+\end{thm}
+\begin{attention}
+	La démonstration de ce théorème peut être demandée à l'examen! Voir notes du cours 10, 20 mars 2019.
+\end{attention}
 
 
 \end{document}

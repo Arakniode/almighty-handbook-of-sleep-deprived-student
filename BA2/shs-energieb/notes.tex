@@ -1,8 +1,14 @@
-\documentclass{Article}
+\documentclass{article}
 
 \title{Énergie B \\ François Maréchal}
 \author{Benjamin Bovey}
 
+% the next 3 lines are for removing section numbering. You may want to comment them out.
+\makeatletter
+\renewcommand{\@seccntformat}[1]{}
+\makeatother
+
+\usepackage[utf8]{inputenc}
 
 \begin{document}
 \maketitle
@@ -32,7 +38,7 @@ L'électricité est principalement produit par charbon (40\%). On chauffe de l'e
 
 Maintenant que nous connaissons le système énergéntique actuel, on peu s'interroger sur le futur.
 
-\subsection{Comment la Suisse peut devenir énergiquement autonome?}
+\subsection{Comment la Suisse peut-elle devenir énergiquement autonome?}
 
 On a environ 47\% de consommation énergétique pour les habitations, 36\% pour les transports, et le reste pour ?. La ville représente environ 75\% de la population (truc avec déchets?). On estime que la population mondiale va plafonner à 11 milliards. Il faut comprendre où on perd de l'énergie (rénovation de l'habitat, minergie vs maison années 70). Cependant en raison du nombre de personnes + le nombre de metres carrés demandé par chaque individu, on va avoir beaucoup de couts de rénovation. Peut-on améliorer les chaudières? Selon Carnot, théoriquement, on devrait utiliser 1 énergie artificielle et 9 de l'environnement pour chauffer une maison à 25 degrés si l'extérieur est à 0 degrés (vérifier chiffres). L'énergie du soleil sur 1 année suffirait pour tous nos besoins en énergie pendant 6500 ans (si exploitée parfaitement). Elle varie cependant de l'heure, du lieu sur la planète, des conditions climatiques et météorologiques, de la saison... On peut designer les maisons de telle sorte à ce qu'elle fasse face au soleil en hiver, coté vitres ==> effet de serre, et moins en été. On peut concentrer l'énergie du soleil avec paraboles et autres ==> fermes solaires, cependant cela prend BEAUCOUP de surface (==> désert). Les panneaux solaires photovoltaïques sont de plus en plus efficaces (44\% rendement aujourd'hui en conditions idéales). Le photovoltaïque est aujourd'hui de loin le moyen le moins cher de poroduire de l'électricité dans le monde, avec des désavantages cités plus haut. L'émission de CO2 par panneau solaire: 40 à 50g CO2/kWhe, à comparer avec 1000g pour charbon. On ne peut pas stocker l'énergie en excès temporaire dans une batterie (il faudrait une batterie de la même taille que la maison). On peut utiliser un système à petits tuyaux où on échange du CO2 avec de la vapeur d'eau, refroidissement dans lacs naturels / eaux usées. Permet de chauffer / refroidir / récupérer de la chaleur résiduelle. L'électricité pour pompes à chaleur peut être produite par photovoltaïque. \\
 
@@ -80,13 +86,153 @@ The 3rd one is technology. We always pride it: it promises us future! But it has
 What does this mean? Technology can be good, technology can be bad. The way that AI is being developed today is wrong. We have to draw the red line. We have to only use it for the truly essential tasks.
 
 
+\section{12 mars 2019 Fusion nucléaire et véhicules électriques}
+\subsection{L'énergie de fusion, ou comment créer une étoile sur terre.}
+La recherche sur la fusion s'inscrit dans l'idée de la compatibilité avec le développement durable: ne pas mettre d'hypothèque sur les générations futures.
+Plan:
+\begin{enumerate}
+	\item Energie du noyau (fission et fusion, $E = mc^2$)
+	\item Fusion (inertielle, à confinement magnétique)
+	\item Le tokamak (principe de fonctionnement)
+	\item Le futur: ITER et DEMO
+\end{enumerate}
+
+\textbf{Fission}: La fission consiste à briser un gros atome (donc relativement instable et énergétique) en le bombardant d'électrons, afin qu'il devienne plus stable après en relâchant de l'énergie. \par
+\textbf{Fusion}: La fusion consiste à mettre ensemble (fusionner) des petits noyaux d'atomes. Les produits finaux sont plus légers et relâchent de l'énergie ($E = mc^2$) pendant leur transformation (??? pourquoi) \par 
+Une grande énergie cinétique est nécessaire pour fusionner deux noyaux, dû à la force de Coulomb (je crois) qui fait que les particules de même charge se repoussent (les protons dans ce cas). \par
+À 100'000'000 degrés celsius, la matière est à l'état plasmique (le quatrième état de la matière). La plupart de l'univers connu est en fait composé de plasma. Il peut être utilisé dans des tonnes de domaines: lumière, moteurs de fusées, médecine, etc. Le potentiel du plasma dans le domaine de l'énergie est énorme:
+\begin{enumerate}
+	\item la densité d'énergie est immense. Là où les combustibles "classiques" (charbon, pétrole) peuvent émettre 20 à 40 MJ/kg, la fusion deutérium-tritium donne 350'000'000 (l'énergie totale donnée selon $E = mc^2$ est de 90'000'000'000).
+	\item Utilise des ressources pratiquement inépuisables (l'eau).
+	\item Pas de déchets radioactifs de longue durée, pas d'émission de gaz à effet de serre.
+	\item Pas de risque de perte de contrôle des réactions (pas de réactions en chaîne), quantité minime de combustile dans le réacteur (environ 1g), et pas de lien avec la prolifération d'armement nucléaire.
+	\item Énergie concentrée, donc pas dépendante de facteurs naturels.
+\end{enumerate}
+
+La question se pose cependant du confinement du plasma: les étoiles le conservent en leur centre par l'énorme force gravitationnelle due à leur masse. Sur Terre, c'est impossible. Cependant, on a pensé principalement à deux solutions: \par
+\textbf{Confinement inertiel}:  Il consiste à garder le plasma uniquement pour de très courtes durées, et d'exploiter au mieux l'énergie pendant cette fenêtre très courte. On "tape" avec des lasers très puissants sur des pilules de matière. Il vont élever cette masse au-dessus de la température critique de 100'000'000 de degrés. Cela crée effectivement une miniscule étoile/bombe, durant quelques milliardièmes de secondes (environ 20). Pour l'instant, il semble difficile de créer un réacteur avec cette technologie, comme il faudrait répéter ce processus environ 10 fois par seconde, et chaque pilule coûte actuellement 40'000 dollars. Cependant, on pourrait très bien voir cette technologie utilisée dans l'armement, les départements de la défense autour du monde soutenant d'ailleurs ces recherches. \par
+\textbf{Confinement magnétique}: Ici, l'idée est de garder le plasma sur place pendant longtems (on parle de durées de plusieurs secondes, ou plus????). Sur Terre, le champ magnétique nous protège des plasmas spatiaux (aux pôles, le champ magnétique est plus faible ce qui engendre parfois des aurores boréales). On peut donc utiliser ce même méchanisme afin de confiner du plasma. On le piège dans un tore avec un champ magnétique "s'enroulant" autour du tore (le plasma est un excellent conducteur). Ce type de système a été nommé "Tokamak", qui est un nom russe, et il existe actuellement une quarantaine de tokamaks autour du monde, en utilisation ou en construction. Le concept est né à la fin des années 50, et le développement a été rapide depuis. Actuellement, on atteint un rendement d'énergie de 1 pour 1 (donc pas encore compétitif). \par
+ Le futur s'appelle ITER ou DEMO. ITER est la preuve de la faisabilité scientifique et technologique de la fusion. Il est actuellement en construction au sud de la France. Le projet ITER a été annoncé à la fin de la guerre froide par Reagan et l'autre russe là. Il est le résultat d'une collaboration globale, où chaque parti de l'accord fournit une partie de l'appareillage. Un des projets les ambitieux faits sur Terre, se plaçant en 3e place derrière l'ISS (1er) et Apollo (2e). \par
+ Cependant, si ITER démontre la faisabilité de la fusion nucléaire, c'est DEMO qui faira le dernier pas vers la commercialisation. \par
+ Les défis scientifiques sont:
+\begin{itemize}
+	\item Manteau pour la génération de tritium
+	\item Robotique: remote handling
+	\item Aimants supraconducteurs (qui sont sensés être à extrêmement basse température pour fonctionner, et se trouvent juste à côté d'une zone à température plus haute que celle du soleil!)
+	\item Chauffage du plasma et conditions stationnaires
+	\item Confinement du plasma et turbulence
+	\item Contrôle du plasma et ses instabilités
+	\item Bord du plasma et interactions plasma-parois
+\end{itemize}
+ 
+PS: il y a une raison au vent chaud à l'entrée des magasins en hiver: ça permet d'empêcher une trop grande fuite de chaleur (étonamment)!
 
 
+\subsection{Véhicules électriques: tendances et défis}
+Le véhicule électrique n'est pas quelque chose de nouveau. Déjà, ils séduisaient au début du 20e siècle car ils ne requiéraient pas de démarrage à la manivelle. General Motors on retiré dans les années 2000 tous leurs véhicules électriques du marché sous pression des marchés pétroliiers (à voir: "Who killed the electric car?"). Ce mode de transport on donc déjà connu deux morts, mais la génération apparue dans les années 2008 sera-t-elle la bonne? \par
+À partir de 2010, de nouveaux modèles arrivent sur le marché: Mitsubishi, Renault, Ford, Mercedes, la première Tesla (Roadster), tous rejoignent la nouvelle course. Sur le marché, une cinquantaine de véhicules sont actuellement en vente autour du monde. Le nombre de bornes de rechargement a grandement augmenté, ce qui est un facteur important à la propagation des voitures elles-mêmes (les prises c'est le bordel cependant: par exemple les voitures Tesla peut aller chez tout le monde, mais personne ne peut aller chez Tesla). \par
+ Mais qu'est-ce qui a changé depuis la dernière mort de la voiture électrique? 
+\begin{itemize}
+	\item Le contexte macro-économique (passage du Oil Peak, inquiétudes croissantes quant à la sécurité énergétique)
+	\item Le progrès technologique (grandes améliorations dans le domaine des batteries)
+	\item Le contexte de la prise de conscience autour du réchauffement climatique (conclusions de l'IPCC, problématique des NOX et particules au niveau de la santé publique). Au niveau national, c'est probablement le facteur le plus important (le plus grand vendeur autour du monde est en Chine, leader mondial dans le domaine).
+\end{itemize}
+ Aujourd'hui, les PHEV (hybdides) couvrent les 40km de déplacement journaliers demandés en suisse, mais restent très onéreux. Les BEV (totalement électriques) représentent tout de même 2/3 de la part totale de marché (à vérifier???). Aujourd'hui, le véhicule électrique représente globalement 5\% de la part du marché automobile. La Chine a doublé cette part du marché chaque année depuis environ 2010. \par
+ La question aujourd'hui semble donc ne plus être la survie de ces véhicules sur le marché, mais plutôt la façon dont ils vont se propager. 
+ \begin{enumerate}
+ 	\item Drivers for OEMs (fleet CO2 target values, strategic positioning)
+ 	\item Policy driver (Decarbonisation, pollution reduction, Energy efficiency, energy security, Balance of payment)
+ 	\item Drivers for owners (ecologic awareness, appeal of the new, vehicle performances, TCO?)
+ \end{enumerate}
+ Les véhicules électriques tiennent-ils leurs promesses? 
+\begin{enumerate}
+	\item PHEV/BEV (hybride/électrique) 	
+ 	\item Les constructeurs veulent absolument aller vers l'hybride, car cela leur permet de continuer à produire des composants qu'ils savent déjà faire.
+ 	\item Les biocarburants sont en concurrence directe avec l'agriculture nourricière, et ils ont un potentiel de décarbonisation faible, car les émissions de CO2 à la consommation sont largement déséquilibrés par l'énergie grise à la production. Pour l'instant, rien de convaincant (peut-être la génération 3 des algues et synthétiques?)
+ 	\item Hydrogène (piles à combustible) ? pas convaincant apparemment, mais déjà sur le marché. Peut-être?
+\end{enumerate}
 
+\textbf{L'électrification ne va pas de soi!} L'empreinte carbone des véhicules électriques n'est pas nulle: émissions lors de la génération d'électricité et de la manufacture de batterie (en Chine, où on a 80\% de charbon, c'est pas gagné). En suisse, on est à peu près à 160g, donc c'est actuellement pertinent de rouler à l'électrique. En Chine, rouler électrique n'est pas pertinenent d'un point de vue purement CO2, à cause de la pollution due au charbon, mais dans l'idée de sanité des centre-villes, cela fait du sens. L'important, partout autour du monde, est d'abaisser l'empreinte CO2 de la fabrication de batteries. \par
+ En moyenne, un moteur thermique est autour de 18\% de rendement (dans conditions réalistes de start-stop, donc). Pour l'électrique, on est à une efficacité de 29\%. Ces deux chiffres sont pris par rapport à toute la chaîne (extraction de carburant, distribution du carburant, stockage, efficacité du moteur...). Les comparaisons 20\% contre 90\% c'est donc du bullshit. Pour ce qui est du prix, les companies de manufacture de voitures thermiques calculent leurs intérêts et paient les amendes plutôt que le développement si les sanctions ne sont pas assez élevées. Les véhicules thermiques et hybrides ont la particularité de nécessiter beaucoup plus de coûts post-achat, comparé aux voitures électriques dont les coûts post-achat sont presques nuls. Ils reviennent donc moins cher sur le long terme. Cependant, il faut penser que les taxes sur les carburants minéraux, qui représentent une certaine source de revenu pour l'(??????? état?) au niveau des taxes, et il faut s'attendre à ce qu'(ils) ne laissent pas passer ce revenu lors de la migration vers l'électrique. \par
+ On peut penser à une synergie entre batterie électrique de la maison et celle de la voiture (qui reste parquée une bonne partie du temps).
 
+\section{19 mars 2019 Energies: Approches des Sciences Sociales et Humaines}
+Le but de cette séance est de donner un survol des questions non-techniques des questions énergétiques. \par
+\textbf{Écologie Industrielle}: l'écologie = étude scientifique des écosystèmes, Industriel = ensemble des activités humaines dans la société technologique moderne. Ensemble, cela veut dire appliquer l'écologie à l'entier du système économique dit "industriel", qui est celui dans lequel on vit. \par
+ Aujourd'hui, le système industriel est en pleine expansion. Cela s'illustre dans la quantité de matière et d'énergie utilisée à l'échelle globale. On voit également le début de l'"industrie 4.0" - terme marketing douteux: numérisation, intelligence artificielle, convergence NBIC (?). L'application de l'écologie est particulièrement importante dans ce système. \par
+ Le message à retirer de cette discussion est:
+ \begin{center}
+ 	Les enjeux énergétiques dépassent les questions techniques; la quasi-totalité des sciences sociales et humaines sont concernées par les enjeux énergétiques, tant l'énergie est une ressource importante aujourd'hui. \par
+ 	Les sciences sociales et humaines jouent un rôle croissant dans l'évolution du système énergétique; les méthodologies qualitatives ont aussi leur righeur et leur pertinence, en complément des méthodes quantitatives. \par
+ 	\textbf{Essentiellement}, il y a un grand intérêt à intégrer les paramètres non-techniques dans les projets d'ingénieurie.
+ \end{center}
+ \textbf{L'abondance énergétique} est l'élément clé qui rend possible la société industrielle: l'individu n'a plus besoin de se soucier de sa propre survie (dans la société industrielle occidentale bien sûr). On peut lier le début de cette abondance à l'invention de la machine à vapeur de James Watt (1781), qui a permit de pomper en grande quantité de l'eau, ce qui a permit l'extraction de quantités inimaginables de charbon -> acier -> machines... (Georgescu-Roegen, "inventeur de la décroissance": "une invention prométhéenne). \par
+ Ceci a donné naissance notamment à un domaine confirmé: l'histoire de l'énergie. Mathieu Arnoux a montré que la nécessité d'extraire de l'eau dans certaines zones est probablement la source de la disparition des systèmes féodaux en faveur des systèmes d'accords entre "pays". On a également noté que le tourisme (lustre électrique de l'hôtel Beau-Rivage) a grandement propulsé l'électrification de l'arc lémanique. Autour de 1918-1939, on pouvait voir des mines de charbon et puits de pétrole à Oron-La-Ville et Servion, respectivement. \par
+ Pour revenir à l'importance croissante des SHS dans la thématique énergétique, on peut noter que de nombreuses revues sur le thème de l'énergie, considéré du point de vue des sciences humaines et sociales, sont également apparues dans la dernière décennie. Elles traitent notamment de problématiques comme l'acceptation sociale des nouvelles sources d'énergie. Ici, l'enjeu appartient à la sociologie. Une autre question intéressante, considérée notamment par des archéologues et sémiologues, est celle du marquage à long terme des zones de stockage des déchets nucléaire: comment avertir les générations du futur qu'il ne faut pas construire de villes sur ces zones? \par
+ On touche ici à un autre domaine en développement: celui de la psychologie sociale appliquée aux questions de durabilité. On a par exemple le \emph{story telling} (communication narrative), dont l'idée est de partir du postulat que la majorité n'est pas intéressée/capable de s'intéresser à la transition énergétique, et qu'il faut donc les attaquer aux tripes. On peut également noter les domaines de la communication engageante, la dissonance cognitive, les \emph{nudge} ("coups de coude") (il y a plus de chance que quelqu'un installe des panneaux solaires sur son toit si son voisin en possède également), la "réactance" (une personne normalement constituée finit par resister activement face à des messages moralisateurs ou culpabilisateurs (\emph{backfire effect})), le \emph{moral disengagement} ("moi je mange moins viande, mais du coup embêtez-moi pas pour mes voyages en avion"), etc. Un exemple de communication narrative lié à la question esthétique est celle de l'installation d'éoliennes. L'idée générale rassemblant ces trucs est celle de la prioritisation des sentiments sur les idées rationnelles (!). \par
+ Mais tout ceci n'implique-t-il pas un risque de manipulation important? C'est ce qu'on nomme les enjeux de "gouvernementalité". La gouvernementalité est l'analyse des rationalités des pratiques de gouvernement, en tant que "coduite des conduites". La gouvernementalité est une manière "douce" d'influencer les comportements, d'exercer un pouvoir diffus sur les populations (pourquoi nous brossons-nous les dents tous les jours, nous douchons-nous? -> gnégné idéalisme de propreté je sais plus le nom). Des sociologues ont montré qu'il y a de tels facteurs positifs et négatifs influençant le recyclage des batteries de véhicules électriques (A COMPLETER). \par
+ Ce qui intéresse de plus en plus les producteurs et les distributeurs d'énergie, notamment l'électricité, est le comportement des consommateurs. Ces companies engagent depuis quelque temps des sociologues, anthropologues, etc. pour étudier comment les gens (A COMPLETER). Le genre est un domaine qui a explosé dans les dernières années: question de la spécificité homme-femme. S'il existe bien un domaine où il existe des barrières de genre très claires, c'est celui de l'énergie (femmes qui transportent l'eau en Afrique p. ex). (DETAILS SUR PDF MOODLE).\par
+ L'immense majorité se contrefout de l'énergie en tant que telle. Ce qui intéresse les gens, ce sont les services énergétiques: qu'est-ce qu'on peut faire avec l'énergie (communiquer, transporter, être en bonne santé...). Par exemple, le genre de questions qu'on se pose est:
+ \begin{itemize}
+ 	\item Comment et dans quel but les personnes utilisent de l'énergie / différents types d'énergies?
+ 	\item Quelles sont les différentes conceptions culturelles de l'énergie et de son utilisation?
+ 	\item Comment ces concetpions (par exemple les conventions, les normes liées au confort, à la propreté etc.) changent-elles dans le temps? (aujourd'hui on est en T-shirt à la maison, il y a un siècle on se couvrait chez soi)
+ \end{itemize}
+En suisse, dans le cadre de la stratégie énergétique 2050, on a deux projets nationaux de recherche (PNR): PNR 70 et PNR 71 (COMPLETER LES NOMS DES PROGRAMMES). \par
+Les approches diffèrent selon la manière de se représenter la société:
+\begin{itemize}
+	\item Les théories orientées sur la raison individuelle: l'organisation de la société résulte de l'action cumulée d'individus, agissant indépendamment, se comportant de manière rationnelle, pour satisfaire leurs intérêts. Échelle micro, concernant l'action hunmaine.
+	\item Théories orientées sur l'action collective (COMPLETER)
+	\item Théories orientées sur les oppositions "individus" contre "structures". Troisème voie, médiane et unificatrice. (COMPLETER)
+\end{itemize}
+ Le paradigme dominant de la consommmation: la responsabilité individuelle (Be a Hero! Aide Battery-Man et rapporte tes piles usagées.). On a remarqué que mettre un poids sur l'individu ne fonctionne que très mal. On se tourne donc vers les pratiques sociales: ce sont là des pratiques que l'on a apprises (de ses parents, de ses connaissances et amis...), afin de pouvoir franchir ce qu'on dénomme le \emph{value-action gap} ou \emph{information-action gap}, ou même \emph{word-action gap}. 
+ "Pratiques-entités" vs "pratiques-performances": La lessive en tant que pratique sociale: aujourd'hui, on jette indifféremment un vêtement à la lessive après l'avoir porté une fois (pas moi hehehe). Apparemment, la plupart des gens ne veulent pas utiliser le bouton "économique" sur la machine, car ils pensent que ça lavera moins bien (problème de communication). Dans le cadre de la lessive, le "jeans challenge" proposait aux participants de porter le même jeans pendant 4 semaines sans le laver, afin de faire réaliser aux gens qu'il est parfaitement possible (et c'est là même l'utilité du jeans) de porter une paire de pantalons sans les laver tous les trois jours.\par
+ Trois stratégies
+ \begin{itemize}
+ 	\item Reconfiguer tout ou partie des éléments (A COMPLETER)
+ 	\item Substitution d'une pratique cible par une pratique alternative. Ex (mobilité) A COMPLETER
+ 	\item Réarrangement de complexes de pratiques. Ex (lutte contre l'obésité, Oklahoma City): réaménagements urbains, défi collectif. Ex (promotion des produits locaux de saison), Restaurant Les Mangeurs (Genève): comment préparer les topinambours, salsifis, apprendre à cuisiner local.
+ \end{itemize}
+ Il y a un rôle structurant des technologies / pratiques de la communication et de l'information (ICT): la plupart  des pratiques passent désormais par Internet (COMPLETER). Un aspect intéressant est celui de l'articulation de la technologie avec les pratiques. \par
+ Émergence de nouveaux modèles d'affaires: le déclin de la "rigidité de l'offre" ("mes clients peuvent choisir la couleur de leur voiture, pour autant qu'elle soit noire" - Ford). L'idée est qu'on va plutôt vendre la performance, le résultat que la matière (voir idée du \emph{chemical leasing}, acheter de la "surface peinte" plutôt que de la peinture (vendre la performance plutôt que la matière première), ou exemple de la chaudière dont on paye le confort thermique, mais pas la propriété (le propriétaire, c'est à dire le producteur, veut donc la faire durer aussi longtemps que possible)). Vendre une performance et de la satisfaction plutôt que de la matière est un \emph{business system} émergent (PSS). \par
+ Si l'on veut résumer par un mot toutes les branches de la "durabilité", on pourrait utiliser le terme "découpler": garder/augmenter le confort en utilisant moins. La clé, selon l'ingénieur, est l'\textbf{efficacité}. Mais l'efficacité est-elle efficace?
+ \begin{itemize}
+ 	\item Plus d'output par unité d'input
+ 	\item Moins d'input par unit d'output
+ \end{itemize}
+ Faire augmenter l'efficacité ne mène pas, contrairement à ce que beaucoup pensent, à une baisse de la consommation: c'est même inverse! Lorsqu'on vend des voitures hybrides, les gens déculpabilisent et plus de personnes vont conduire, et conduire plus. Autre exemple: le E-Commerce. Les livraisons rapides ont fait augmenter les embouteillages plutôt que de les faires baisser. \par
+ Définition de l'effet rebond:
+ \begin{itemize}
+ 	\item Avec un prix d'énergie fixe, les gains en efficacité énergétique vont augmenter la consommation (A COMPLETER)
+ \end{itemize}
+ Le paradoxe de Jevons: "It is wholly a confusion of ideas to suppose that the exonomical use of fuel is equivalent to a diminished consumption. The very contrary is the truth. As a new rule, ..... A COMPLETER". Ex: on met chez nous des ampoules qui consomment moins. Cela coûte moins cher, donc on en achète plus, on les laisse plus allumées. Ou: on achète une pompe à chaleur, donc on chauffe plus et plus longtemps. Bref, c'est assez évident quand on y pense, l'effet rebond. \par
+ Une question hérétique vient ici à l'esprit: ne faudrait-il donc pas accroître l'efficacité? Le hummer: "Big is the new small." S'il y avait uniquement des voitures qui consomment plus de 60l/100km, moins de personnes utiliseraient-elles moins la voiture? (ce n'est probablement pas une bonne idée, mais plutôt)
+ Il ne faut pas renoncer à l'efficacité, mais il ne faut pas non plus ce voiler la face: il est important d'arrêter de croire que l'efficacité technique seule peut améliorer la situation. Elle doit être accompagnée de mesures sociales, économiques, politiques, etc (surtout sociales). \par
+ À voir: l'échelle de Kardashev (sur wikipedia):
+ \begin{enumerate}
+ 	\item A COMPLETER trois types de civilisations
+ 	\item 
+ 	\item 
+ \end{enumerate}
+Rapport spécial du GIEC: publié en octobre 2018. A proposé plusieurs approches pour maintenir le réchauffement global en-dessous de 1.5 degrés Celsius:
+\begin{enumerate}
+	\item Carbon Dioxyde Removal (CDR): capture and storage (CCS), capture and utilization (CCU). CCS: Problème d'acceptation du public: lac Nyos (Cameroun). CCU: valoriser le CO2 avec: réseaux urbains pour thermie urbaine, chimie (recherches en cours, déjà prometteuses), voir site de CO$_2$ Value Europe.
+	\item Solar Radiation Management (SRM)
+\end{enumerate}
 
+Questions délicates:
+\begin{itemize}
+	\item À qui appartient le CO$_2$ anthropogénique atmosphérique? Il n'a aujourd'hui pas de statut juridique, n'étant pas une "chose" (condition nécessaire à avoir un tel statut).
+	\item Acceptabilité sociale du CCU
+	\item Selon quel \emph{business model} l'exploiter?
+	\item Comment distribuer la richesse carbonée globale?
+	\item Comment éviter une surexploitation?
+	\item Une stratégie pour le développement régional?
+	\item Enjeux éthiques (responsabilités)
+\end{itemize}
 
-
+ (note sans rapport: www.climatechangenews.com) \par
+ Symbioses ou synergies (éco-)industrielles: faire des optimisations au niveau du système; le déchet d'une entreprise devient la matière première d'une autre. Ceci demande une analyse de tous les flux dans un système d'entreprises, qui doivent se mettre ensemble pour profiter mutuellement. Ex: site industriel de Dunkerque, ou encore Kalundborg, au Danemark.
 
 
 

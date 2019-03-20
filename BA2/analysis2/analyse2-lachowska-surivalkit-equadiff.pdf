@@ -1,0 +1,46 @@
+\documentclass{article}
+
+\title{Analyse II - Kit de survie pour équations différentielles \\ Anna Lachowska}
+\author{Benjamin Bovey}
+\date{Semestre de printemps 2019}
+
+\usepackage{amsmath}
+\usepackage{mathtools}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{accents}
+
+\usepackage{cancel}
+\usepackage{url}
+
+\theoremstyle{plain}
+\newtheorem{thm}{Théorème}[chapter]
+
+\theoremstyle{definition}
+\newtheorem{defn}[thm]{Définition}
+\newtheorem{exmp}[thm]{Exemple}
+\newtheorem*{anz}{Ansatz}
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remarque}
+\newtheorem*{idea}{Idée}
+\newtheorem*{attention}{Attention}
+
+\newcommand*\eqdef{\; \stackrel{ \mathclap{ \normalfont\text{def.} } }{ = } \;} % for definitions
+\newcommand*{\skol}[2][3]{{}\mkern#1mu\overline{\mkern-#1mu#2}} %https://tex.stackexchange.com/a/95084
+\newcommand*\conj[1]{\bar{#1}}
+\newcommand*\adh[1]{\skol{#1}}
+\newcommand*{\norm}[1]{\lVert#1\rVert}
+\newcommand*{\abs}[1]{\lvert#1\rvert}
+\newcommand*{\interior}[1]{\mathring{#1}}
+\newcommand*{\frontier}[1]{\partial #1}
+
+\begin{document}
+
+
+
+
+
+
+
+\end{document}
