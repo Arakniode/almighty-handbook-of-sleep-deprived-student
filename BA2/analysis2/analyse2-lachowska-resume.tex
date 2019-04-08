@@ -7,24 +7,27 @@
 \usepackage{amsmath}
 \usepackage{mathtools}
 \usepackage{amssymb}
-\usepackage{amsthm}
-\usepackage{accents}
 
+\usepackage{amsthm}
+\usepackage{thmtools}
+%\usepackage{thmbox}
+%\usepackage{shadethm}
+
+\usepackage[dvipsnames]{xcolor}
+
+\usepackage{accents}
 \usepackage{cancel}
 \usepackage{url}
+%thmbox={style=L, bodystyle=\normalfont}
+\declaretheorem[name=Théorème, within=chapter, style=plain, shaded={rulecolor=Lavender, rulewidth=2pt, bgcolor={rgb}{1,1,1}}]{thm}
 
-\theoremstyle{plain}
-\newtheorem{thm}{Théorème}[chapter]
+\declaretheorem[name=Définition, sibling=thm, style=definition]{defn}
+\declaretheorem[name=Exemple, sibling=thm, style=definition]{exmp}
 
-\theoremstyle{definition}
-\newtheorem{defn}[thm]{Définition}
-\newtheorem{exmp}[thm]{Exemple}
-\newtheorem*{anz}{Ansatz}
-
-\theoremstyle{remark}
-\newtheorem*{remark}{Remarque}
-\newtheorem*{idea}{Idée}
-\newtheorem*{attention}{Attention}
+\declaretheorem[name=Ansatz, numbered=no, style=remark]{anz}
+\declaretheorem[name=Remarque, numbered=no, style=remark]{remark}
+\declaretheorem[name=Idée, numbered=no, style=remark]{idea}
+\declaretheorem[name=Attention, numbered=no, style=remark]{attention}
 
 \newcommand*\eqdef{\; \stackrel{ \mathclap{ \normalfont\text{def.} } }{ = } \;} % for definitions
 \newcommand*{\skol}[2][3]{{}\mkern#1mu\overline{\mkern-#1mu#2}} %https://tex.stackexchange.com/a/95084
@@ -724,6 +727,126 @@ Intuitivement, l'ensemble de niveau est l'ensemble des points dont la cordonnée
 \begin{attention}
 	La démonstration de ce théorème peut être demandée à l'examen! Voir notes du cours 10, 20 mars 2019.
 \end{attention}
+
+\begin{remark}
+	Pour assurer que $f$ atteint aussi toute valeur intermédiaire entre $m$ et $M$, il suffit que l'ensemble compact $E$ soit aussi connexe par chemins.
+\end{remark}
+
+
+
+
+\chapter{Calcul différentiel de fonctions de plusieurs variables}
+
+\section{Dérivées partielles et gradient}
+
+\begin{defn}
+	Soit $f : E \to \mathbb R$, où $E \subseteq \mathbb R^n$ est un ensemble ouvert. Définissons $g$ comme une fonction d'une seule variable réelle $s$: $g(s) = f(a_1, \ldots, a_{k-1}, s, a_{k+1}, \ldots, a_n)$, où $\bar a = (a_1, \ldots, a_n) \in E$. L'ensemble de définition de $g$ est $D_g = \{s \in \mathbb R : (a_1, \ldots, a_{k-1}, s, a_{k+1}, \ldots, a_n) \in E\}$. Alors si $g$ est dérivable en $a_k \in D$, on dit que la $k$-ième dérivée partielle de $f$ en $\bar a \in E$ existe et est égale à $g'(a_k)$.
+	\begin{equation}
+		\text{Notation: } \frac{\partial f}{\partial x_k}(\bar a) = D_k f(\bar a) \eqdef g'(a_k)
+	\end{equation}
+	On a
+	\begin{equation}
+		\frac{\partial f}{\partial x_k}(\bar a) \eqdef \lim_{t \to 0} \frac{g(a_k + t) - g(a_k)}{t} \eqdef \lim_{t \to 0} \frac{f(\bar a + t \bar e_k) - f(\bar a)}{t},
+	\end{equation}
+	où $e_k = (0, \ldots, \underset{k}{1}, \ldots, 0)$.
+\end{defn}
+
+\begin{defn}
+	Si toutes les dérivées partielles existent en $\bar a \in E$, on définit le \textbf{gradient} de $f$ en $\bar a$ comme le vecteur
+	\begin{equation}
+		\nabla f(\bar a) = \left( \frac{\partial f}{\partial x_1}(\bar a), \frac{\partial f}{\partial x_2}(\bar a), \ldots, \frac{\partial f}{\partial x_n}(\bar a) \right).
+	\end{equation}
+\end{defn}
+
+\begin{defn}
+	Soit $E \subseteq \mathbb R^n$ un sous-ensemble ouvert, $\bar a \in E$, $\bar v \in \mathbb R^n$, $\bar v \neq \bar 0$. La droite passant par $\bar a$ en direction de $\bar v$ admet la paramétrisation $\bar a + t\bar v \ \forall t \in \mathbb R$. Considérons la fonction $f : E \to \mathbb R$ et soit $g(t) = f(\bar a + t\bar v)$ une fonction d'une variable $t \in \mathbb R$. \par
+	Si $g$ est dérivable en $t = 0$, on dit qu'il existe la \textbf{dérivée directionnelle} de $f(\bar a)$ en direction de $\bar v$ (suivant le vecteur $\bar v$):
+	\begin{equation}
+		D f(\bar a, \bar v) = \frac{\partial f}{\partial \bar v}(\bar a) \eqdef \lim_{t \to 0} \frac{g(t) - g(0)}{t} \eqdef \lim_{t \to 0} \frac{f(\bar a + t\bar v) - f(\bar a)}{t}.
+	\end{equation}
+\end{defn}
+
+\begin{remark}
+	\begin{itemize}	
+		\item Si $\bar v = \bar e_k$, alors on retrouve la définition de la $k$-ième dérivée partielle de $f$ en $\bar a$. Si toutes les dérivées directionnelles existent en $\bar a$, alors toutes les dérivées partielles existent en $\bar a$. La réciproque est fausse.
+		\item On peut montrer facilement que $D f(\bar a, \lambda \bar v) = \lambda \cdot D f(\bar a, \bar v) \ \forall \lambda \in \mathbb R, \lambda \neq 0$. Donc, si la dérivée directionnelle de $f$ en $\bar a$ suivant $\bar v$ existe, alors la dérivée directionnelle de $f$ en $\bar a$ suivant $\lambda \bar v$ existe $\forall \lambda \in \mathbb R, \lambda \neq 0$. Il suffit donc de calculer les dérivées suivant les vecteurs unitaires, $\norm{\bar v} = 1$.
+	\end{itemize}
+\end{remark}
+
+\section{Dérivabilité et la Différentielle}
+
+\begin{defn}
+	Soit $f : E \to \mathbb R$, $E \subseteq \mathbb R^n$ ouvert, $\bar a \in E$. On dit que $f$ est \textbf{dérivable} au point $\bar a$ ssi il existe une application linéaire $L_{\bar a} : \mathbb R^n \to \mathbb R$ et une fonction $r : E \to \mathbb R$ telles que
+	\begin{equation}
+		f(\bar x) = f(\bar a) + L_{\bar a}(\bar x - \bar a) + r(\bar x) \quad \forall x \in E
+	\end{equation}
+	et $\lim\limits_{\bar x \to \bar a} \frac{r(\bar x)}{\norm{\bar x - \bar a}} = 0$. \par
+	$L_{\bar a}$ s'appelle la \textbf{différentielle} de $f$ en $\bar a$.
+	\begin{equation}
+		\textit{Notation: } L_{\bar a} = d f(\bar a).
+	\end{equation}
+\end{defn}
+\begin{remark}
+	La dérivabilité en un point est une propriété assez forte. Elle implique que toutes les dérivées directionnelles existent en ce point, et donc que toutes les dérivées partielles existent en ce point. La réciproque est en général fausse, sauf si l'on impose certaines conditions sur les dérivées partielles (voir théorème \ref{thm:derivabilite2}).
+\end{remark}
+
+\begin{thm}
+	Soit $f : E \to \mathbb R^n$ telle que $f$ dérivable en $\bar a$ et de différentielle $L_{\bar a}: \mathbb R^n \to \mathbb R$. Alors
+	\begin{enumerate}
+		\item $f$ est continue en $\bar a$.
+		\item Pour tout $\bar v \in \mathbb R^n, \bar v \neq \bar 0$, la dérivée directionnelle $D f(\bar a, \bar v)$ existe et
+		\begin{equation}
+			D f(\bar a, \bar v) = L_{\bar a}(\bar v).
+		\end{equation}
+		\item Toutes les dérivées partielles de $f$ en $\bar a$ existent et		
+		\begin{equation}
+			\frac{\partial f}{\partial x_k}(\bar a) = L_{\bar a}(\bar e_k).
+		\end{equation}
+		Le gradient de $f$ en $\bar a$ existe et
+		\begin{equation}
+			\nabla f(\bar a) = \bar l = (L_{\bar a}(\bar e_1), \ldots, L_{\bar a}(\bar e_n))
+		\end{equation}
+		\item Pour tout $\bar v \in \mathbb R^n, \bar v \neq \bar 0$, on a
+		\begin{equation}
+			L_{\bar a}(\bar v) = D f(\bar a, \bar v) = \langle \nabla f(\bar a), \bar v \rangle
+		\end{equation}
+		\item Pour tout $\bar v \in \mathbb R^n, \norm{\bar v} = 1$ on a
+		\begin{equation}
+			D f(\bar a, \bar v) \leq \norm{\nabla f(\bar a)}
+		\end{equation}
+		et
+		\begin{equation}
+			D f\left(\bar a, \frac{\nabla f(\bar a)}{\norm{\nabla f(\bar a)}}\right) = \norm{\nabla f(\bar a)}.
+		\end{equation}
+		Le gradient donne la direction de la plus grande pente de $f$ en $\bar a$ (si $\nabla f(\bar a) \neq \bar 0$).
+	\end{enumerate}
+\end{thm}
+
+\begin{thm}[dérivabilité 2]\label{thm:derivabilite2}
+	Soient $E \subseteq \mathbb R^n$ ouvert, $f : E \to \mathbb R$, $\bar a \in E$. S'il existe $\delta > 0$ tel que toutes les dérivées partielles $\frac{\partial f}{\partial x_k}(\bar x)$ existent sur $B(\bar a, \delta)$ et sont continues en $\bar a$, alors $f$ est dérivable en $\bar a$.
+\end{thm}
+
+\begin{thm}[Schwartz]
+	Soient $f : E \to \mathbb R$, $\bar a \in E$ tels que les dérivées partielles secondes $\frac{\partial^2 f}{\partial x_i \partial x_j}$ et $\frac{\partial^2 f}{\partial x_j \partial x_i}$ existent dans un voisinage de $\bar a$ et sont continues en $\bar a$. Alors
+	\begin{equation}
+		\frac{\partial^2 f}{\partial x_i \partial x_j} = 		\frac{\partial^2 f}{\partial x_j \partial x_i}
+	\end{equation}
+\end{thm}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 \end{document}
