@@ -1,0 +1,664 @@
+\documentclass{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\newcommand\eqdef{\; \stackrel{ \mathclap{ \normalfont\text{def.} } }{ = } \;} % for definitions
+\newcommand\eqbl{\; \stackrel{ \mathclap{ \normalfont\text{BL} } }{ = } \;} % for applications of Bernouilli-l'Hospital's theorem
+\newcommand\eqsmile{\; \stackrel{ \mathclap{ \underbracket[0.8pt]{\circ \, \circ} } }{ = } \;} % for equations that make you smile :)
+\newcommand\equwu{\stackrel{\textsf{uwu}}{=}}
+%\numberwithin{equation}{subsection}
+\usepackage{centernot}
+
+\usepackage{array}
+\newcolumntype{L}{>{$}l<{$}} %math-mode version of "l" column type
+\newcolumntype{C}{>{$}c<{$}} %math-mode version of "c" ctolumn type
+%the column types above were found on https://tex.stackexchange.com/a/112585
+
+\usepackage{hyperref}
+
+%margins
+\usepackage{geometry}
+\geometry{left=1.5cm, right=1.5cm, top = 1.5cm, bottom=1.5cm}
+
+\title{Analyse 1 -  Anna Lachowska \\ Résumé}
+\author{Benjamin Bovey - EPFL IC}
+\date{November 2018}
+
+\begin{document}
+
+\maketitle
+
+\section*{Introduction}
+Ce document est destiné à résumer les certainement laborieux cours d'Analyse 1 présentés par Mme Lachowska, afin d'en présenter uniquement les aspects les plus cruciaux quand à la résolution d'exercices. Il fait partie d'un projet auquel vous pouvez participer! Plus d'informations sur \href{https://github.com/Arakniode/almighty-handbook-of-sleep-deprived-student}{le GitHub du projet} (\url{https://github.com/Arakniode/almighty-handbook-of-sleep-deprived-student}). \\
+Ce résumé est pour l'instant incomplet par rapport à l'ensemble des notions couvertes par le cours d'analyse 1, ce cours n'ayant pas encore touché à sa fin. \\
+
+\textbf{N.B.}: avant que vous commenciez à lire ce document, j'aimerais vous rediriger vers \href{https://www.youtube.com/playlist?list=PLZHQObOWTQDMsr9K-rj53DwVRMYO3t5Yr}{l'excellente série de 3Blue1Brown sur l'analyse (\emph{calculus} en anglais)}. Regarder ces vidéos vous donnera sans aucun doute une bien meilleure compréhension intuitive et générale de l'analyse que l'entier de la matière formelle du cours (qui est, bien entendu, tout de même un "mal nécessaire"). De plus, la série est vraiment passionnante, comme le sont toutes les vidéos de la chaîne 3Blue1Brown sur les maths. Je vous recommande donc d'explorer un peu ses créations!
+
+%-----------------------------------------------------------------------------------------------------------------------------------------------
+
+\section{Identités}
+Ces quelques identités de base permettent de transformer des expressions, ce qui est souvent utile lorsqu'on cherche leur limite et que l'expression qu'on a donne une forme indéterminée. Il faut les connaître, mais surtout savoir les \emph{reconnaître} et les dénicher. N'oublions pas que les rédacteurs d'exercices aiment bien cacher les solutions sous ce genre d'identités simples, mais parfois bien camouflées.
+\subsection{Identités algébriques}
+\subsubsection{Polynômes} 
+\(x,y \in \mathbb{R}\):
+\begin{align*}
+	&(x+y)^2 = x^2 + 2xy + y^2 				& 	&x^2 - y^2 = (x - y)(x + y) \\
+	&(x-y)^2 = x^2 - 2xy + y^2 					& 	&x^3 - y^3 = (x - y)(x^2 + xy + y^2) \\
+	&(x+y)^3 = x^3 + 3x^2y + 3xy^2 + y^3 	& 	&x^3 + y^3 = (x + y)(x^2 - xy + y^2) \\
+	&(x-y)^3 = x^3 - 3x^2y + 3xy^2 - y^3 
+\end{align*}
+\emph{N.B}: Il est utile de se souvenir que \(1^2 = 1^3 = 1\), ce qui peut aider à dénicher des expressions de la forme \(x^3 \pm y^3\). Par exemple:
+\vspace{-0.2cm}
+\begin{align*}
+	1 - a^3 	&= 1^3 - a^3 \\
+				&= (1-a)(1+a+a^2)
+\end{align*}
+Dans le cas, par exemple, d'une limite fraction de polynômes, dans lequel l'expression de base donnerait une limite indéterminée, on pourrait peut-être utiliser cette identité pour simplifier le calcul de la limite, en faisant apparaître des facteurs communs au numérateur et au dénominateur:
+\begin{align*}
+	\lim_{n \to \infty} \frac{1 - n}{1 - n^3} &= \frac{\infty}{\infty} \quad \text{forme indéterminée} \\
+	&= \lim_{n \to \infty} \frac{1 - n}{(1 - n)(1 + n + n^2)} \\
+	&= \lim_{n \to \infty} \frac{1}{1 + n + n^2} \\
+	&= \frac{1}{\infty} \\
+	&= 0
+\end{align*}
+\emph{N.B}: ici la limite peut être résolue directement comme le degré du polynôme au dénominateur est plus grand que celui du polynôme au numérateur. Ce n'est qu'un exemple.
+
+\subsubsection{Exponentielles}
+\(a, b \in \mathbb{R}_{>0}, \; x, y \in \mathbb{R}\)
+\begin{align*}
+	a^x \cdot a^y 		&= a^{x+y} 			&	(a^x)^y 							&= a^{x \cdot y} \\
+	\dfrac{a^x}{a^y} 	&= a^{x-y}  			&	\sqrt[n]{a}						&= a^{\frac1n}, \quad n \in \mathbb{N}_{>0} \\
+	(ab)^x 				&= a^x \cdot b^x 	&	\left (\dfrac{a}{b} \right )^x 	&= \dfrac{a^x}{b^x} \\
+	a^0 					&= 1 					& 	a^1 								&= a
+\end{align*}
+
+\subsubsection{Logarithmes}
+On assume que la notation \(\log\) sans indice précisé dénote le logarithme naturel, car c'est la convention utilisée par Mme Lachowska dans son cours. \\
+\(a, b \in \mathbb{R}_{>0}, \; c \in \mathbb{R}\)
+\begin{align*}
+	&\log(ab) = \log(a) + \log(b) 
+		& &\log{\left (\dfrac{a}{b}\right )} = \log (a) - \log (b) 
+			& &\log(a^c) = c \cdot \log(a) \\
+	&\log_a(1) = 0 
+		& &\log(e) = 1 
+			& &\log_a(a)	= 1, \; a \neq 1 \\
+	&\log_a(b) = \frac{\log(b)}{\log(a)}
+\end{align*}
+L'identité de changement de base est applicable avec toute autre base réelle, pas juste base \(e\).
+
+\subsubsection{Trigonométrie}
+\emph{N.B: quelques identités des fonctions trigonométriques peuvent être retrouvées dans les \hyperref[sec:hypertrigo]{annexes}.}
+\begin{align}
+	\label{eq:anglesum}
+	&\sin(x \pm y) 	= \sin(x) \cos(y) \pm \cos(x) \sin(y)	& &\cos(x \pm y) 	= \cos(x) \cos(y) \mp \sin(x)\sin(y) \\
+	\label{eq:doubleangle}
+	&\begin{cases}
+		\begin{aligned}	
+			\sin(2x) = 2\cos(x)\sin(x)
+		\end{aligned} 
+	\end{cases} & &\begin{cases}
+		\begin{aligned}
+			\cos(2x) 	&= 1 - 2\sin^2(x) \\
+						&= -1 + 2\cos^2(x)  \\
+						&= \cos^2(x) - \sin^2(x)
+		\end{aligned}
+	\end{cases} \\
+	&\cos^2(x) + \sin^2(x) = 1 \\
+	&\tan(x) = \frac{\sin(x)}{\cos(x)} & &\frac{1}{\cos^2(x)} = 1 + \tan^2(x) \\
+	&\sin(-x) = -\sin(x) \quad \text{(impaire)}		& &\cos(-x) = \cos(x) \quad \text{(paire)}
+\end{align}
+Souvenons-nous que l'on peut parfois "compliquer nos équations pour les simplifier": par exemple, l'identité \(\cos^2(x) + \sin^2(x) = 1\) peut être retrouvée à partir de l'identité \ref{eq:anglesum} par les observations suivantes: 
+\vspace{-0.2cm}
+\begin{align*}
+	\cos(0) 	&= 1 \quad \text{(\emph{se référer au tableau des valeurs de \(\cos(x)\) et \(\sin(x)\) ci-dessous})}
+\end{align*}
+\vspace{-0.2cm}
+mais aussi: 
+\begin{align*}
+	\cos(0)	&= \cos(x-x) \\
+				&= \cos^2(x) + \sin^2(x) 
+\end{align*}
+Donc, \(\cos^2(x) + \sin^2(x) = 1\). \\
+Il est toujours plus simple de trouver une limite lorsque le facteur de \(x\) dans \(\sin(x)\) ou \(cos(x)\) est simplement \(1\). Les identités \ref{eq:doubleangle}, appelées "\emph{identités de l'angle double}", sont donc très utiles dans la recherche de limite. \\
+Il n'y a malheureusement pas d'autre façon que de s'entraîner par des exercices afin d'apprendre à connaître quand et comment utiliser ces identités. Cependant, dans les exercices de recherche de limites comportant des expressions, par exemple, du type \(\sin(3x)\), on peut généralement assumer qu'il faudra transformer l'expression en \(\sin(2x + x)\), puis utiliser les identités \ref{eq:anglesum} et \ref{eq:doubleangle} pour simplifier.
+
+\subsubsection{Quelques valeurs de \(\cos(x)\) et \(\sin(x)\)}
+\begin{center}
+	\def\arraystretch{1.5}
+	\begin{tabular}{| C | C | C | C |} %https://tex.stackexchange.com/questions/112576/math-mode-in-tabular-without-having-to-use-everywhere
+		\hline
+		x 						& \sin(x) 							& \cos(x)						& \tan(x) \\ \hline
+		0 						& 0								& 1							& 0\\
+		\frac{\pi}{6}			& \frac12 					& \frac{\sqrt{3}}{2}			& \frac{\sqrt{3}}{3} \\
+		\frac{\pi}{4}			& \frac{\sqrt{2}}{2} 			& \frac{\sqrt{2}}{2}			& 1 \\
+		\frac{\pi}{3}			& \frac{\sqrt{3}}{2} 			& \frac12					& \sqrt{3} \\
+		\frac{\pi}{2}			& 1								& 0							& \infty \\
+		\hline
+	\end{tabular}
+\end{center}
+Pour se souvenir de ces valeurs importantes, on peut observer que les valeurs de \(\sin(x)\) croissent avec l'angle, et décroissent pour \(\cos(x)\) (penser aux graphes des fonctions!). Il existe une symmétrie verticale entre la colonne \(\sin(x)\) et la colonne \(\cos(x)\).
+
+%-----------------------------------------------------------------------------------------------------------------------------------------------
+
+\section{Suites et séries}
+
+\subsection{Propriétés des suites et séries}
+Voici des propriétés utiles lors de QCM et de vrai-faux:
+\begin{align*}
+\intertext{Soit \(a_n\) une suite réelle:} 
+	&\lim_{n\to\infty} a_n = 0 \iff \lim_{n\to\infty} |a_n| = 0 \\
+	&\lim_{n\to\infty} a_n = L \implies \lim_{n\to\infty} |a_n| = |L| \\
+	&\text{Si \(a_n\) est croissante:} \begin{cases}
+		\text{Si \(a_n\) est majorée} &\implies \lim_{n\to\infty} a_n = \sup(a_n) \\
+		\text{Si \(a_n\) n'est pas majorée} &\implies \text{\(a_n\) diverge}
+	\end{cases} \text{(resp. décroissante, minorée)}\\
+\intertext{Soit \(b_n\) une suite réelle définie par récurrence}
+	&b_{n+1} = qb_n + c \implies \lim_{n\to\infty} b_n = \frac{c}{1-q} \quad (q \leq 1, c \in \mathbb{R}) \\
+\end{align*}
+Si la relation de récurrence n'est pas linéaire, il faut regarder si la suite est croissante/décroissante et majorée/minorée ou non. On peut essayer de tirer des conclusions à partir de là.
+
+\subsection{Limites utiles}
+Ces limites ont été définies lors du cours, parfois dans le cadre des suites, et parfois dans celui des fonctions. Généralement, les limites de suites et les séries sont exprimées par rapport à \(n\), et les limites de fonctions par rapport à \(x\). Elles s'appliquent cependant dans la majorité des cas, et selon le bon sens, de la même façon dans les deux cas.
+
+\begingroup\allowdisplaybreaks[1] %to avoid all the equations creating page jumps everywhere, we need to allow them to separate within the align environment
+\begin{flalign}
+	&\lim_{n\to\infty} \dfrac{1}{n^p} = 0 \quad \forall p \in \mathbb{R}_+^* \\
+	&\lim_{n\to\infty} \sqrt[n]{a} = 1 \quad \forall a \in \mathbb{R}_+^* \\
+	&\lim_{n\to\infty} \dfrac{p^n}{n!} = 0 \quad \forall p \in \mathbb{R}_+^* \\
+\intertext{Soient \(P_n\) et \(Q_n\) deux suites polynomiales:}
+	&\lim_{n\to\infty} \dfrac{P_n}{Q_n} = 
+		\begin{cases}
+			0, 						&\text{si } \deg{P_n} < \deg{Q_n} \\
+			\frac{p_n}{q_n},	&\text{si } \deg{P_n} = \deg{Q_n}, \; \text{avec \(p_n\) et \(q_n\) les coefficients du terme de plus haut degré}\\
+			\infty , 				&\text{si } \deg{P_n} > \deg{Q_n}
+		\end{cases} \\
+	&\lim_{n\to\infty} \frac{\sin{\frac1n}} {\frac1n} = 1 \\
+	&\lim_{n\to\infty} \sin{\frac1n} = 0 \\
+	&\lim_{n\to\infty} \left (1 + \frac1n \right )^n = e  \\
+	&\lim_{n\to\infty} \left (1 - \frac1n \right )^n = \frac{1}{e} = e^{-1} \\
+	&\lim_{n\to\infty} \frac{n!}{n^n} = 0 \\
+	&\sum_{k=0}^{\infty} r^k = \begin{cases}
+										\dfrac{1}{1-r}, &|r| < 1 \\
+										\text{diverge, } &|r| \geq 1
+									   	\end{cases}\quad r \in \mathbb{R} \\
+	&\sum_{n=1}^{\infty} \frac{1}{n^p} \text{ converge } \forall p \in \mathbb{R}_{>1} \\
+	&\sum_{n=1}^{\infty} \frac1n \text{ diverge. } \\
+	&\sum_{n=0}^{\infty} |a_n| \text{ converge } \implies \sum_{k=0}^{\infty} a_n \text{ converge. } ( \centernot\impliedby)\\
+	&\lim_{x \to 0} \dfrac{\sin{x}}{x} = 1 \\
+	&\lim_{x \to 0} \sin{\frac1x} \quad \text{n'existe pas.} \\
+	&\lim_{x \to 0} x \cdot \sin{\frac1x} = \lim_{x \to 0} x \cdot \cos{\frac1x} = 0 \\
+	&e^x \eqdef \sum_{n=0}^{\infty} \dfrac{x^n}{n!} \\
+	&\lim_{x \to 0} \dfrac{e^x-1}{x} = 1 \\
+	&\lim_{x \to \infty} \frac{\log(x)}{x^\alpha} = 0, \; \alpha > 0
+\end{flalign}
+\allowdisplaybreaks[0]\endgroup
+
+\subsection{Formes indéterminées}
+Voici toutes les formes indéterminées qui peuvent être rencontrées lors du calcul de limite:
+\begin{align*}
+	&\infty - \infty, \quad \dfrac{\infty}{\infty}, \quad \dfrac{0}{0}, \quad 0 \cdot \infty, \quad 0^0, \quad \infty^0, \quad 1^\infty
+\end{align*}
+Pour les valeurs des limites de puissances avec \(0, 1, \text{ ou } \infty\) en base ou en exposant, il y a trois cas d'indétermination. Ces cas sont soulignés ci-dessous. \\ Dans les cas déterminés, la valeur de la limite sera la valeur de la base.
+\begin{align*}
+	&\underline{0^0	}		& &0^1					& &0^\infty \\
+	&\underline{\infty^0}	& &\infty^1				& &\infty^\infty \\
+	&1^0						& &1^1					& &\underline{1^\infty}
+\end{align*}
+
+\subsection{Critères de convergence}
+Ces critères permettent de déterminer si une \textbf{série} de la forme \(\sum^\infty a_n\) converge ou non. Souvenons-nous que \(\lim_{x \to 0} a_n = 0\) est une \emph{condition nécessaire} à la convergence, mais n'implique pas la convergence. \\
+
+\subsubsection{Critère d'Alembert}
+\begin{equation*}
+	\lim_{n \to \infty} \left | \dfrac{a_{n+1}}{a_n} \right | = \rho \in \mathbb{R} 
+	\begin{cases}
+		\rho < 1 \implies \sum_{n=0}^\infty a_n \ \text{converge absolument.} \\
+		\rho > 1 \implies \sum_{n=0}^\infty a_n \ \text{diverge.} \\
+		\rho = 1 \quad \text{ne nous indique rien sur la convergence de la série.}
+	\end{cases}
+\end{equation*}
+
+\subsubsection{Critère de Cauchy}
+\begin{equation*}
+	\lim_{n \to \infty} \left | a_n \right |^{\frac1n} = \rho \in \mathbb{R}
+	\begin{cases}
+		\rho < 1 \implies \sum_{n=0}^\infty a_n \ \text{converge absolument.} \\
+		\rho > 1 \implies \sum_{n=0}^\infty a_n \ \text{diverge.} \\
+		\rho = 1 \quad \text{ne nous indique rien sur la convergence de la série.}
+	\end{cases}
+\end{equation*}
+
+\subsubsection{Critère de comparaison}
+Soient \(a_n\) et \(b_n\) deux suites telles que \(\exists k : \forall n \geq k, b_n \geq a_n\):
+\begin{equation*}
+	\begin{cases}
+		\sum_{n=0}^\infty b_n \text{converge} \implies \sum_{n=0}^\infty a_n \ \text{converge} \\
+		\sum_{n=0}^\infty a_n \text{diverge} \implies \sum_{n=0}^\infty b_n \ \text{diverge}
+	\end{cases}
+\end{equation*}
+
+\subsubsection{Critère de Leibniz}
+\begin{equation*}
+	\begin{rcases} %rcases environment from the mathtools package, bracket to the right of cases
+		\exists p \in \mathbb{N} : \forall n \geq p \quad |a_{n+1}| \leq |a_n| \\
+		\exists p \in \mathbb{N} : \forall n \geq p \quad a_{n+1} \cdot a_n \leq 0 \\
+		\lim_{n \to \infty} a_n = 0
+	\end{rcases}
+	\implies \sum_{n=0}^\infty (-1)^n \, a_n \: \text{converge.}
+\end{equation*}
+Cela revient, en langage non-mathématique, à dire que si:
+\begin{itemize}
+	\item la suite \( (|a_n|) \) est décroissante
+	\item la suite \( (a_n) \) est alternée
+	\item \( \lim_{n \to \infty} a_n = 0 \)
+\end{itemize}
+alors, \(\sum_{n=0}^\infty (-1)^n \, a_n\) converge.
+
+\subsubsection{Conclusion sur les critères de convergence}
+Il est généralement optimal d'appliquer ces critères dans cet ordre précis (sauf si la suite est alternée, auquel cas on préférera Leibniz) pour plusieurs raisons:
+\begin{itemize}
+	\item ils sont classés par ordre de difficulté d'application (encore une fois, la difficulté dépend de la suite et certaines suites appellent à l'utilisation de certains critères). %TODO: note de bas de page pour exemple suite puissance n?
+	\item Le critère d'Alembert est souvent plus facile à appliquer, cependant il existe des cas où le critère d'Alembert ne donne aucun information (\(\rho = 1\)), mais où le critère de Cauchy nous en donne. Le cas inverse n'existe pas.
+\end{itemize}
+
+%-----------------------------------------------------------------------------------------------------------------------------------------------
+
+\section{Dérivées}
+
+\subsection{Définition}
+La dérivée d'une fonction \(f(x)\) en \(x=x_0\) est définie par la limite suivante:
+\begin{equation*}
+	f'(x_0) = \lim_{x \to x_0} \dfrac{f(x) - f(x_0)}{x - x_0}
+\end{equation*}
+On peut également utiliser cette définition, qui est équivalente:
+\begin{equation*}
+	f'(x_0) = \lim_{h \to 0} \dfrac{f(x_0 + h) - f(x_0)}{h}
+\end{equation*}
+Cette seconde définition est peut-être plus facile à lier à une représentation graphique de la dérivée: on prend deux points sur la fonction, \(x_0\) et \(x_0 + h\), on regarde la différence verticale entre les deux \(\left (f(x_0 + h) - f(x_0)\right )\) et on la divise par la différence horizontale entre les deux \(\left (\frac{f(x_0 + h) - f(x_0)}{h}\right )\). Ici, nous avons retrouvé la formule de la pente d'un graphe linéaire, ou de l'estimation de la pente d'un graphe courbe. Tout ce que la dérivée ajoute à la formule, c'est une limite afin d'améliorer la précision de cette estimation. On accomplit cela en "pinçant" les deux points ensemble, c'est à dire en réduisant la distance \(h\) qui les sépare en la faisant tendre vers 0. On se retrouve donc non plus avec une estimation, mais avec la valeur exacte de la pente du graphe en ce point.
+
+\subsection{Dérivées utiles}
+\begin{align*}
+	&(\sin(x))' = \cos(x)
+		& &(\cos(x))' = -\sin(x)
+			& &(\tan(x))' = \frac{1}{\cos^2(x)} \\
+	&(x^2)' = 2x
+		& &(x^3)' = 3x^2
+			& &(x^n)' = n \cdot x^{n-1} \\
+	&(e^x)' = e^x
+		& &(\log(x))' = \frac1x
+			& &(a^x)' = \log(a) \cdot a^x \\
+	&(\log_a(x))' = \frac{1}{x \cdot \log(a)}
+\end{align*}
+
+\subsection{Opérations sur les dérivées}
+Soient les applications \(f: \mathbb{R} \to \mathbb{R}\) et \(g: \mathbb{R} \to \mathbb{R}\) et les réels \(\alpha, \beta \in \mathbb{R}\):
+\begin{align*}
+	&(\alpha f + \beta g)' = \alpha f' + \beta g' 
+		& &(f \cdot g)' = f' \cdot g + f \cdot g' 
+			& &\left (\frac{f}{g}\right ) = \frac{f' \cdot g - f \cdot g'}{g^2} \\ 
+	&(f \circ g)'(x) = g'(f(x)) \cdot f'(x) \\
+	&(f^{-1})' (f(x_0))  = \frac{1}{f'(x_0)} %should I really include this (used only for proofs of other derivatives)
+\end{align*}
+
+%-----------------------------------------------------------------------------------------------------------------------------------------------
+
+\section{Théorèmes utiles}
+
+\subsection{Théorème de la valeur intermédiaire}
+Soit \(f : \ [a, b] \to \mathbb{R}\) une fonction continue. Alors: \\
+\(f\) atteint son \(\sup_{[a, b]}\), son \(\inf_{[a, b]}\), et toutes les valeurs comprises entre \(f(a)\) et \(f(b)\).
+
+\subsubsection{Corollaire 1}
+Soit \(f : \ [a, b] \to F\) une fonction continue telle que \(f(a) \cdot f(b) < 0\) (\(\iff\) soit \(f(a)\) soit \(f(b)\) est négatif, pas les deux). Alors: \\
+\(\exists c \in \ [a, b] \ : f(c) = 0\).
+
+\subsection{Théorème de Rolle}
+Soit \(f : \ [a, b] \to \mathbb{R}\) continue sur \([a, b]\) et dérivable sur \(]a, b[\):
+\begin{equation*}
+	f(a) = f(b) \implies \exists c \in \ ]a, b[ \ : f'(c) = 0
+\end{equation*}
+
+\subsubsection{Corollaire 1: bornes à l'infini}
+Soit \(f : \ [a, b] \to \mathbb{R}\) continue sur \([a, b]\) et dérivable sur \(]a, b[\):
+\begin{equation*}
+	\lim\limits_{x \to a^+} f(x) = \lim\limits_{x \to b^-} f(x) = \pm \infty \implies \exists c \in \ ]a, b[ \ : f'(c) = 0
+\end{equation*}
+
+\subsection{Théorème des accroissements finis (TAF)}
+Soit \(f : \ [a, b] \to \mathbb{R}\) continue sur \([a, b]\) et dérivable sur \(]a, b[\):
+\begin{equation*}
+	\exists c \in \ ]a, b[ \ : f'(x) = \frac{f(b) - f(a)}{b - a}
+\end{equation*}
+
+\subsubsection{Corollaire 1: fonction constante}
+Soit \(f : [a, b] \to \mathbb{R}\) continue sur \([a, b]\) et dérivable sur \(]a, b[\):
+\begin{equation*}
+	f'(x) = 0 \ \forall x \in \ [a, b] \ \implies f(x) \text{ est constante sur } [a, b]
+\end{equation*}
+
+\subsubsection{Corollaire 2: fonctions avec dérivées identiques}
+Soit \(f, g : [a, b] \to \mathbb{R}\) continues sur \([a, b]\) et dérivables sur \(]a, b[\):
+\begin{equation*}
+	f'(x) = g'(x) \forall x \in \ ]a, b[ \ \implies f(x) = g(x) + C \text{ où } C \in \mathbb{R}
+\end{equation*}
+
+\subsubsection{Corollaire 3: fonction croissante/décroissante}
+Soit \(f : \ [a, b] \to \mathbb{R}\) continue sur \([a, b]\) et dérivable sur \(]a, b[\):
+\begin{equation*}
+	\begin{cases}
+		f \text{ est croissante sur } [a, b] \ &\iff f'(x) \geq 0 \ \forall x \in \ ]a, b[ \\
+		f \text{ est décroissante sur } [a, b] \ &\iff f'(x) \leq 0 \ \forall x \in \ ]a, b[
+	\end{cases}
+\end{equation*}
+Les cas de croissance (resp. décroissance) stricte tiennent aussi avec \(f'(x) > 0\) (resp. \(f'(x) < 0\)).
+
+\subsubsection{Corollaire (à vérifier)}
+Soit \(f : \ [a, b] \to \mathbb{R}\) continue sur \([a, b]\) et dérivable sur \(]a, b[\):
+\begin{equation*}
+	f(x + h) = f(x) + h \cdot f'(x + \alpha h)
+\end{equation*} % check why this is true (other github repo)
+
+\subsection{Théorème de Bernouilli-l'Hospital}
+Le théorème de Bernouilli-l'Hospital est utile lors de la recherche de limite d'une fonction rationnelle qui est a première vue indéterminée. \\
+
+Il dit que la limite lorsque \(x\) tend vers \(a\) du quotient de deux fonctions dérivables en \(a\) est égale à la limite du quotient des dérivées de ces deux fonctions:
+\begin{equation*}
+	\lim_{x \to a} \dfrac{f(x)}{g(x)} = \lim_{x \to a} \dfrac{f'(x)}{g'(x)}
+\end{equation*}
+Cette identité peut être utilisée plusieurs fois si les fonction sont plusieurs fois dérivables en \(a\). \\
+
+Le théorème de Bernouilli-l'Hospital peut souvent être utilisé sur des fonctions qui n'ont pas l'air rationnelles à première vue; par exemple, la fonction \(x \cdot \log(x)\) peut être écrite \(\frac{\log(x)}{\frac1x}\).
+\begin{align*}
+	\lim_{x \to 0} x \cdot \log(x) &= \lim_{x \to 0} \frac{\log(x)}{\frac1x} 
+	\eqbl \lim_{x \to 0} \frac{\frac1x}{- \frac{1}{x^2}} 
+	= - \lim_{x \to 0} \frac{x^2}{x} 
+	= - \lim_{x \to 0} x = 0
+\end{align*}
+
+\textbf{Attention}: la proposition converse n'est pas vraie:
+\begin{center}
+	la limite de \(\dfrac{f'(x)}{g'(x)}\) n'existe pas \(\centernot\implies\) la limite de \(\dfrac{f(x)}{g(x)}\) n'existe pas.
+\end{center}
+
+%-----------------------------------------------------------------------------------------------------------------------------------------------
+
+\section{Séries entières, séries de Taylor et développements limités}
+Stop! Avant quoique ce soit, allez voir \href{https://www.youtube.com/watch?v=3d6DsjIBzJ4}{la vidéo de 3Blue1Brown sur le sujet des séries de Taylor} (appelées \emph{Taylor teries}, \emph{Taylor expansions} ou \emph{Taylor approximations} en anglais). Cela vous donnera une excellente compréhension de ce que sont les séries de Taylor, et pourquoi elles sont construites de la manière définie en classe. Je me limiterai ici à résumer le contenu de cette vidéo, et à apporter une ou deux notions vues en cours qui n'y sont pas présentées. \\
+
+Le terme de série entière utilisé en cours est un peu étrange; je préfère l'appellation anglaise "power series". Essentiellement, une série entière est une série de la forme:
+\begin{equation*}
+	\sum_{n = 0}^\infty c_n (x-a)^n
+\end{equation*}
+où \(c_n\) est un coefficient dépendant (quasiment dans tous les cas que nous verrons) de \(n\). \\
+Cependant, cette définition générale ne nous intéresse que peu. Notre objectif sont d'étudier les séries de Taylor, qui sont des cas spécifiques de séries entières possédant des qualités intéressantes. \\
+
+Une série de Taylor est, dans son essence, un polynôme. Plus particulièrement, c'est un polynôme dont le but est d'approximer une fonction autour d'un certain point. On va construire ce polynôme en étudiant les valeurs de la fonction et de ces dérivées en ce point. Le terme de "série" vient uniquement du fait que l'on construit ce polynôme avec le plus de termes possibles, afin d'affiner la précision de l'estimation; au final, comme l'analyse aime les infinis, on se retrouve avec une somme infinie de termes, c'est-à-dire: une série. \\
+
+Voici la formule générale de la série de Taylor d'une fonction \(f\):
+\begin{equation}
+	\boxed{ \sum_{k=0}^\infty \dfrac{f^{(k)}(a)}{k!} \cdot (x-a)^k }
+\end{equation}
+
+On appelle "série de MacLaurin" de \(f\) la série de Taylor construite autour de 0:
+\begin{equation}
+	\boxed{ \sum_{k=0}^\infty \dfrac{f^{(k)}(0)}{k!} \cdot x^k }
+\end{equation}
+Notez qu'il s'agit simplement de la formule de Taylor générale avec \(a = 0\).
+
+\subsection{Rayon de convergence}
+On parle souvent du rayon de convergence d'une série entière. Si vous vous souvenez, on avait utilisé des critères comme Cauchy ou d'Alembert pour évaluer si une série convergeait ou non; entre 0 et 1, elle converge, à 1 on ne peut rien conclure, et à plus que 1 elle diverge. Imaginez que ce nombre donné par les critères est une sorte de "mesure" de la convergence de la série: plus cette mesure est proche de 0, plus la série est convergente. On définit le rayon de convergence \(r\) comme étant l'inverse de cette mesure. Donc, plus elle est petite (donc plus la série est convergente), plus \(r\). Intuitivement, ça fait du sens. Encore une fois, je vous redirige vers la vidéo référencée au début de ce chapitre sur les séries de Taylor, qui contient une animation utile à la compréhension de ce concept. \\
+
+Le \emph{domaine de convergence} est le "disque" de rayon \(r\) qui représente les valeurs de la variable pour lesquelles la série converge. Le terme de "disque" fait plus de sens en analyse complexe, sur le plan; en analyse réelle, c'est en fait un intervalle de rayon \(r\). \\
+
+Dans le cas des séries de Taylor, on évalue la fonction autour d'un point \(x_0\). Le domaine de convergence est donc l'intervalle allant de \(x_0-r\) à \(x_0+r\). Pour chacune des valeurs \(x_0-r\) et \(x_0+r\), la convergence doit être testée "manuellement" en appliquant encore une fois un critère pour voir si la valeur est inclue ou non dans l'intervalle.
+
+%-----------------------------------------------------------------------------------------------------------------------------------------------
+
+\section{Étude de fonctions}
+Lorsqu'on étudie une fonction, on tente de connaître un maximum de ses propriétés. La liste des étapes à suivre lors de l'étude d'une fonction est généralement du type:
+\begin{itemize}
+	\item domaine de définition
+	\item signe de la fonction
+	\item extremums
+	\item points d'inflexion, convexité et concavité
+	\item asymptotes
+	\item ... %TODO: completer
+\end{itemize}
+
+Dans cette section du document, pour des raisons de simplicité, nous appellerons "\(f(x)\)" la fonction réelle à étudier. Nous assumerons que ses dérivées existent lorsque nous les utiliserons. \\
+Ce qui est entendu par les "zéros" d'une fonction est les valeurs de \(x\) pour lesquelles la valeur de la fonction est nulle. Graphiquement, ce sont les points sur l'axe des abscisses où cet axe est touché ou traversé par le graphe de la fonction. \\
+Il y a donc deux types de zéros d'une fonction: 
+\begin{itemize}
+	\item ceux où le graphe effleure simplement l'axe de la variable et repart ensuite dans la direction d'où il est venu (sans inversion de signe), que nous appellerons \textbf{zéros faibles};
+	\item ceux où le graphe traverse l'axe des abscisses et continue de l'autre côté (ce qui signifie que le signe de la fonction est inversé), que nous appelerons \textbf{zéros forts}.
+\end{itemize}
+\emph{N.B: les termes "zéro faible" et "zéro fort" sont uniquement définis dans ce document à des fins explicatives, et ne sont pas officiellement définis dans le cours en général.}
+
+\subsection{Étude de la fonction originale}
+
+\subsubsection{Domaine de définition}
+Pour trouver le domaine de définition d'une fonction réelle \(f\), il faut éliminer de \(\mathbb{R}\) toutes les valeurs pour lesquelles la fonction n'est pas définie. Il faut donc faire en sorte qu'aucune division par zéro ne puisse arriver, que les racines n'entourent pas de nombre négatif, que les logarithmes n'entourent pas de valeur négative ou nulle, etc. Après avoir déterminé ces valeurs / intervalles "interdites", on écrit le domaine de définition de la fonction \(f\) ainsi:
+\begin{equation*}
+	D_f = \mathbb{R} \setminus \{ x \in \mathbb{R} : x \text{ est une valeur "interdite"} \}
+\end{equation*}
+
+\(D_f\) est donc l'ensembles des valeurs pour lesquelles la fonction est \emph{bien définie}.
+
+\subsubsection{Signe de la fonction}
+Étudier le signe de la fonction \(f\) signifie déterminer sur quels intervalles la fonction est positive ou négative. La meilleure façon de procéder est de déterminer les zéros de la fonction, et de regarder quel est le signe de la fonction sur les intervalles délimités par les zéros. Comme défini plus haut, les zéros forts sont les zéros qui marquent un changement de signe de la fonction, et les zéros faibles sont ceux où le signe ne change pas.
+
+\subsection{Étude des dérivées de la fonction}
+
+\subsubsection{Extremums locaux}
+Mathématiquement, les extremums locaux sont des points où \(f'\) est nulle. Attention, un point où \(f'\) est nulle \emph{n'est pas forcément un extremum local}: seuls les zéros forts sont des extremums locaux. \\
+
+La condition proposée ci-dessous est suffisante à l'existence d'un extremum local de \(f\) en \(x = c\):
+Soit \(c \in I\), et soit \(n\) pair, tels que:
+\begin{align*}
+	&f'(c) = f''(c) = f^{(3)}(c) = ... = f^{(n-1)}(c) = 0, \\ 
+	&\text{ mais } f^{(n)}(c) \neq 0, \text{ alors:} \\
+	& &\begin{cases}
+		f \text{ admet un minimum local en } x = c \text{ si } \quad f^{(n)}(c) > 0  \\
+		f \text{ admet un maximum local en } x = c \text{ si } \quad f^{(n)}(c) < 0  
+	\end{cases}
+\end{align*}
+Cette condition est ici définie de façon très générale, mais il suffit généralement d'étudier les première et seconde dérivées de \(f\), voire les troisième et quatrième dans le pire des cas, afin de définir s'il existe un extremum local en \(x = c\). \\
+Afin de se souvenir pourquoi on a un minimum lorsque la \(n^\text{eme}\) dérivée est positive, et vice-versa, on peut penser par exemple:
+\begin{itemize}
+	\item au graphe de \(x^2\), dont la \(2^\text{nde}\) dérivée est \(2 > 0\), et qui admet un minimum en \(x = 0\).
+	\item au graphe de \(-x^2\), dont la \(2^\text{nde}\) dérivée est  \(-2 < 0\), et qui admet un maximum en \(x = 0\).
+\end{itemize}
+
+Une autre méthode pour déterminer les extremums locaux consiste à trouver les zéros forts de \(f'\), qui seront donc les points où \(f'\) change de signe, et donc les extremums locaux. Il faut donc d'abord déterminer tous les zéros de \(f'\), puis étudier le signe de \(f'\) autour de ces points, afin de déterminer quels zéros sont forts/faibles, et, pour les zéros forts, s'il s'agit de maximums ou de minimums de \(f\).
+
+\subsubsection{Points d'inflexion, convexité et concavité}
+Les points d'inflexion, la convexité et la concavité sont étudiées avec l'aide de la dérivée seconde de la fonction. \\
+
+Sur un intervalle \(I\), on définit qu'une fonction est:
+\begin{itemize}
+	\item \textbf{convexe} \( \iff \forall x \in I, f''(x) \geq 0\)
+	\item \textbf{concave} \( \iff \forall x \in I, f''(x) \leq 0\)
+\end{itemize}
+On peut observer que lorsque \(\forall x \in I f''(x) = 0\), le graphe est à la fois convexe et concave: autrement dit, le graphe est linéaire sur cet intervalle.
+
+Graphiquement, "convexe" signifie que le graphe est "plié vers le haut" (un peu comme un bol), et concave signifie à l'inverse "plié vers le bas". Cependant, la convexité/concavité n'est pas toujours aussi évidente lorsqu'on observe simplement le graphe d'une fonction. \\
+
+Les points d'inflexions sont les points où la fonction passe de concave à convexe, ou inversément. De manière analogue aux extremums, les points de flexions sont des points ou \(f''\) est nulle. Encore une fois, un point ou \(f''\) est nulle \emph{n'est pas nécessairement un point d'inflexion}: seuls les zéros forts sont des points d'inflexion.
+
+%-----------------------------------------------------------------------------------------------------------------------------------------------
+
+\section{Calcul intégral}
+Encore une fois, avant quoique ce soit, je vous redirige vers \href{https://www.youtube.com/playlist?list=PLZHQObOWTQDMsr9K-rj53DwVRMYO3t5Yr}{l'excellente série de 3Blue1Brown sur l'analyse}. Elle est passionnante et vous servira plus à la compréhension intuitive et générale du sujet que toutes les définitions formelles vues en cours. 
+
+\subsection{Théorème fondamental du calcul intégral}
+\begin{equation}
+	\boxed{ \int_a^b f(x) \, dx = F(b) - F(a) }
+\end{equation}
+
+Ce théorème lie les primitives d'une fonction \(f\) à l'aire sous le graphe de \(f\). C'est fou. 3Blue1Brown a fait deux vidéos sur ce sujet, qui peut aider les plus curieux à comprendre en quoi l'aire sous un graphe est liée à la pente du graphe: \href{https://www.youtube.com/watch?v=rfG8ce4nNh0}{1}, \href{https://www.youtube.com/watch?v=FnJqaIESC2s}{2}.
+
+\subsection{Propriétés basiques}
+\begin{align*}
+	\int_a^b f(x) \, dx &= F(b) - F(a) \\
+	\text{Si } b < a, \; \int_a^b f(x) \, dx &\eqdef -\int_b^a f(x) \, dx \\
+	\text{Soit } b \in \left[a, c\right] \implies \int_a^c f(x) \, dx &= \int_a^b f(x) \, dx + \int_b^c f(x) \, dx \\
+	\int_a^a f(x) \, dx &= 0
+\end{align*}
+
+\textbf{Note importante}: l'intégrale de \(-a\) à \(a\) d'une fonction \underline{impaire} est égale à 0 (cela fait beaucoup de sens si l'on réfléchit à ce qu'est une fonction impaire).
+Souvenons-nous également qu'une fonction impaire multipliée par une fonction paire donne une fonction impaire.
+
+\subsection{Primitives communes}
+\begin{center}
+	\def\arraystretch{1.5}
+	\begin{tabular}{| C | C |} %https://tex.stackexchange.com/questions/112576/math-mode-in-tabular-without-having-to-use-everywhere
+		\hline
+		f(x) 						& F(x) \\
+		\hline
+		e^x 						& e^x + C \\
+		a^x \ (a > 0, a \neq 1)	& \frac{1}{\log(a)} a^x + C \\
+		\sin(x)						& -\cos(x) + C \\
+		\cos(x) 					& \sin(x) + C \\
+		\tan(x)					& -\log|\cos(x)| + C \\
+		\cot(x)						& \log|\sin(x)| + C \\
+		\tan^2(x)					& \tan(x) - x + C \\
+		\cot^2(x)					& -\cot(x) - x + C \\
+		\sinh(x)					& \cosh(x) + C \\
+		\cosh(x) 					& \sinh(x) + C \\
+		\frac{1}{\cos^2(x)} 	& \tan(x) + C \\
+		\frac{1}{\sin^2(x)}		& -\cot(x) + C \\
+		\frac{1}{1+x^2}			& \arctan(x) + C \\
+		\frac{1}{\sqrt{1-x^2}} & \arcsin(x) + C \\
+		\frac1x				& \log|x| + C \\
+		\frac{1}{\sqrt{x}}		& 2\sqrt{x} + C \\
+		x^r \ (r \neq -1)			& \frac{1}{r+1} x^{r+1} + C \\
+		\log(x)						& x(\log(x) - 1) + C \\
+		\hline
+	\end{tabular}
+\end{center}
+
+\subsection{Techniques d'intégration}
+Parfois, l'intégration directe ne marche pas. Ne vous inquiétez pas; des professionnels de la santé ont déjà imaginé des solutions à votre problème. En voici une collection des plus compétitives sur le marché.
+
+\subsubsection{Changement de variable}
+\begin{equation}
+	\boxed{ \int_{\varphi(\alpha)}^{\varphi(\beta)} f(x) \, dx = \int_\alpha^\beta f(\varphi(t)) \cdot \phi'(t) \, dt } \: \text{ où } x= \varphi(t)
+\end{equation}
+L'intégration par changement de variable peut être particulièrement utile lorsqu'on remarque que l'intégrale consiste d'une fonction multipliée par sa propre dérivée. Par exemple: 
+\begin{align*}
+	\int \dfrac{\sin(x)}{\cos^3(x)} \, dx 	&= \int \dfrac{\sin(x)}{\cos(x)} \cdot \dfrac{1}{\cos^2(x)} \, dx \\
+												&= \int \tan(x) \cdot \dfrac{1}{\cos^2(x)} \, dx \\
+\end{align*}
+On remarque (\emph{trivial}) que \(\frac{1}{\cos^2(x)}\) est simplement la dérivée de \(\tan(x)\). On peut donc faire le changement de variable \(u = \tan(x)\), et donc \(\frac{du}{dx} = \tan'(x) = \frac{1}{\cos^2(x)} \implies du = \frac{1}{\cos^2(x)} \, dx\):
+\begin{align*}
+	\int \tan(x) \cdot \dfrac{1}{\cos^2(x)} \, dx 	&= \int u \, du \\
+															&= \dfrac{1}{2}u^2 + C \\
+\end{align*}
+On réimplante alors le \(x\) sachant que \(u = \tan(x)\):
+\begin{align*}
+	\frac12u^2 + C &= \dfrac{1}{2}\tan^2(x) + C \\
+	\implies \int \dfrac{\sin(x)}{\cos^3(x)} \, dx &= \dfrac{1}{2}\tan^2(x) + C
+\end{align*}
+Voici les amis! L'intégration est réussie! Youpi! \\
+
+\subsubsection{Intégration par parties}
+\begin{center}
+	\emph{"Before you jump, have you tried integrating by parts?" \\ \qquad \qquad - Anna Lachowska}
+\end{center}
+\begin{equation}
+	\boxed{ \int_a^b f \, dg = f \cdot g \, \bigg|_a^b - \int_a^b g\, df }
+\end{equation}
+
+On peut aussi utiliser cette notation, plus lourde:
+\begin{equation*}
+	\int_a^b f(x) \cdot g'(x) \, dx = f(x) \cdot g(x) \, \bigg|_a^b - \int_a^b g(x) \cdot f'(x) dx
+\end{equation*}
+Pour comprendre l'équivalence entre les deux notations, remarquez que comme \(f'(x) = \tfrac{df}{dx}\), alors \(f'(x) \, dx = df\). Il en va de même pour \(g(x)\), bien sûr.
+
+\subsection{Intégrales généralisées}
+Si on tente de calculer l'intégrale d'une fonction sur un intervalle où elle est discontinue en certains points, il nous faut faire attention: par exemple, l'intégrale suivante:
+\begin{equation*}
+	\int_{-2}^1 \dfrac{1}{x^2} \, dx
+\end{equation*}
+ne peut pas être calculée sans faire attention à l'asymptote verticale en \(x = 0\) (résolution de cette intégrale en vidéo par blackpenredpen \href{https://www.youtube.com/watch?v=bEWIdRu4ctM}{ici}). \\
+
+Continuons avec l'exemple de l'intégrale ci-dessus: pour pouvoir la calculer, il faut additionner l'intégrale sur \([-2, 0[\) avec l'intégrale sur \(]0, 1]\), qui sont deux intervalles où la fonction est continue. Cependant, comme ce sont des intervalles ouverts (à droite pour le premier, à gauche pour le second) il y a encore une spécificité: il faut remplacer la borne non-comprise dans l'intégrale par un limite d'une variable qui tend vers cette borne (depuis la droite pour le premier, depuis la gauche pour le second), c'est-à-dire:
+\begin{equation*}
+	\int_{-2}^1 \dfrac{1}{x^2} \, dx = \lim_{\alpha \to 0^-} \int_{-2}^{\alpha} \dfrac{1}{x^2} \, dx + \lim_{\beta \to 0^+} \int_{\beta}^1 \dfrac{1}{x^2} \, dx
+\end{equation*}
+Dans ce cas, calculer la première des deux intégrales nous donne déjà un résultat de \(+\infty\). Cela nous indique, sans même devoir calculer la seconde, que cette intégrale diverge. \\
+
+Référencez-vous au cours 26 sur les intégrales généralisées pour plus d'exemples.
+
+\subsection{Intégrales utiles}
+\begin{align}
+\int_0^1 \dfrac{1}{x^\alpha} &= 
+	\begin{cases} \begin{aligned}
+		&\dfrac{1}{1-\alpha} \; &\text{si } \alpha < 1 \\
+		&\text{divergente} \; &\text{si } \alpha \geq 1
+	\end{aligned}\end{cases} \\
+\int_1^{+\infty} \dfrac{1}{x^\beta} &= 
+	\begin{cases} \begin{aligned}
+		&\dfrac{1}{\beta-1} \; &\text{si } \beta > 1 \\
+		&\text{divergente} \; &\text{si } \beta \leq 1
+	\end{aligned}\end{cases}
+\end{align}
+
+%-----------------------------------------------------------------------------------------------------------------------------------------------
+
+\section{Annexes} \label{sec:annexes}
+
+\subsection{Identités des fonctions trigonométriques hyperboliques} \label{sec:hypertrigo}
+
+\begin{align*}
+\intertext{Définitions:}
+	&\sinh(x) = \frac{e^x - e^{-x}}{2} & &\cosh(x) = \frac{e^x + e^{-x}}{2} \\
+	&\tanh(x) = \frac{\sinh(x)}{\cosh(x)} = \frac{e^x - e^{-x}}{e^x + e^{-x}} \\
+\intertext{Identités:}
+	&\sinh(x \pm y) \equwu \sinh(x)\cosh(y) \pm \cosh(x)\sinh(y) & &\cosh(x \pm y) = \cosh(x)\cosh(y) \pm \sinh(x)\sinh(y) \\
+	&\begin{cases}
+		\sinh(2x) = 2\sinh(x)\cosh(x)
+	\end{cases} & &\begin{cases}
+		\begin{aligned}
+			\cosh(2x) &= \cosh^2(x) + \sinh^2(x) \\
+						&= 2\cosh^2(x) - 1 \\
+						&= 1 + 2\sinh^2(x) 
+		\end{aligned}
+	\end{cases} \\
+	&\cosh^2(x) - \sinh^2(x) = 1 \\
+	&\tanh(x) = \frac{\sinh(x)}{\cosh(x)} \\
+	&\sinh(-x) = -\sin(x) \quad \text{(impaire)} & &\cosh(-x) = \cosh(x) \quad \text{(paire)}
+\end{align*}
+
+%-----------------------------------------------------------------------------------------------------------------------------------------------
+
+\section{Références}
+
+\subsection{Chaînes YouTube}
+Parce qu'une bonne vidéo vaut bien mieux que mille mots.
+\begin{itemize}
+	\item \href{https://www.youtube.com/channel/UCYO_jab_esuFRV4b17AJtAw}{3Blue1Brown} est l'amour de ma vie. Ses vidéos sont basées sur l'intuition et non la formalisation et elles peuvent sauver des vies ainsi que des passions pour les maths.
+	\item \href{https://www.youtube.com/user/blackpenredpen}{blackpenredpen} intègre des machins et fait des vidéos intéressantes, qui incluent plus le côté formel mais un peu moins d'intuition.
+	\item \href{https://www.youtube.com/channel/UCtAIs1VCQrymlAnw3mGonhw}{Papa Flammy} intègre des trucs bizarres et fait des vidéos sur des sujets intéressants. Si vous voulez un aperçu de ce qu'est l'analyse complexe, c'est le bon endroit.
+\end{itemize}
+
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

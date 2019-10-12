@@ -1,0 +1,852 @@
+\documentclass{report}
+
+\title{Analyse II \\ Anna Lachowska}
+\author{Benjamin Bovey}
+\date{Semestre de printemps 2019}
+
+\usepackage{amsmath}
+\usepackage{mathtools}
+\usepackage{amssymb}
+
+\usepackage{amsthm}
+\usepackage{thmtools}
+%\usepackage{thmbox}
+%\usepackage{shadethm}
+
+\usepackage[dvipsnames]{xcolor}
+
+\usepackage{accents}
+\usepackage{cancel}
+\usepackage{url}
+%thmbox={style=L, bodystyle=\normalfont}
+\declaretheorem[name=Théorème, within=chapter, style=plain, shaded={rulecolor=Lavender, rulewidth=2pt, bgcolor={rgb}{1,1,1}}]{thm}
+
+\declaretheorem[name=Définition, sibling=thm, style=definition]{defn}
+\declaretheorem[name=Exemple, sibling=thm, style=definition]{exmp}
+
+\declaretheorem[name=Ansatz, numbered=no, style=remark]{anz}
+\declaretheorem[name=Remarque, numbered=no, style=remark]{remark}
+\declaretheorem[name=Idée, numbered=no, style=remark]{idea}
+\declaretheorem[name=Attention, numbered=no, style=remark]{attention}
+
+\newcommand*\eqdef{\; \stackrel{ \mathclap{ \normalfont\text{def.} } }{ = } \;} % for definitions
+\newcommand*{\skol}[2][3]{{}\mkern#1mu\overline{\mkern-#1mu#2}} %https://tex.stackexchange.com/a/95084
+\newcommand*\conj[1]{\bar{#1}}
+\newcommand*\adh[1]{\skol{#1}}
+\newcommand*{\norm}[1]{\lVert#1\rVert}
+\newcommand*{\abs}[1]{\lvert#1\rvert}
+\newcommand*{\interior}[1]{\mathring{#1}}
+\newcommand*{\frontier}[1]{\partial #1}
+
+\renewcommand{\chaptername}{Chapitre}
+
+%margins
+\usepackage{geometry}
+\geometry{left=2cm, right=2cm, top = 2cm, bottom=2cm}
+
+\begin{document}
+
+\section*{Introduction}
+Résumé du cours d'Analyse II par Anna Lachowska. Retrouvez la page github contenant d'autres résumés et documents, à laquelle tout le monde peut participer: \url{https://github.com/arakniode/almighty-handbook-of-sleep-deprived-student}
+
+\chapter{Équations différentielles}
+
+\section{02 février 2019}
+Une équation différentielle ordinaire est une équation qui lie une fonction $y = y(x)$ à sa ou ses dérivée(s). Par exemple, l'équation
+\begin{equation}
+	y' + y = 0
+\end{equation}
+est une équation différentielle. 
+\\
+La solution d'une équation différentielle est une fonction ou un \textbf{ensemble de fonctions}, à la différence des équations "classiques" qui acceptent comme solution un nombre ou un ensemble de nombres. 
+
+\subsection{Équation à variables séparées (EDVS)}
+Une équation différentielle est dite "à variable séparées" lorsqu'on peut placer tous les termes en $x$ d'un côté de l'équation, et tous les termes en $y$ de l'autre (n'oublions pas que $x$ est la \emph{variable} de la fonction $y$).
+\begin{exmp}
+On peut réécrire l'équation différentielle présentée plus haut ainsi:
+
+\begin{align*}
+	y' + y &= 0 \\
+	y' &= -y \\
+\intertext{On employe la notation de Leibniz, qui permet notamment de séparer les variables:}
+	\dfrac{dy}{dx} &= -y \\
+	\dfrac{dy}{y} &= -dx \\
+\intertext{On peut désormais intégrer les deux côtés de l'équation, et résoudre pour $y$:}
+	\int \dfrac{dy}{y} &= -\int dx \\
+	log(y) + C_1 &= -x + C_2 \\
+	e^{\log(y) + C_1} &= e^{-x + C_2} \\
+	e^{C_1} \cdot y &= e^{C_2} \cdot e^{-x} \\
+	y &= e^{C_2 - C_1} \cdot e^{-x} \\
+\intertext{Renommons $e^{C_2 - C_1}$ (qui n'est qu'une constante) en $C$:}
+	y &= Ce^{-x}
+\end{align*}
+
+C'est la solution générale de l'équation différentielle. Ici, on voit qu'il existe une infinité de fonctions (pour chaque $C \in \mathbb{R}$) qui satisfont cette équation.
+
+\end{exmp}
+
+\subsection{Terminologie de base} % A AMELIORER (degre, ordre)
+Ordre, degré, linéarité, solution générale, problème de Cauchy (conditions intiales) \\
+\begin{defn} le \textbf{degré} d'une équation différentielle est l'exposant le plus haut sur un terme $y^{(n)}$. Par exemple, l'équation $y^2 = y'$ est une équation différentielle de degré 2. 
+\end{defn}
+\begin{defn} l'\textbf{ordre} d'une équation différentielle est de $n$ si l'équation contient un terme en $y^{(n)}$, et pas plus. Par exemple, $y = y''$ est une équation différentielle d'ordre 2.
+\end{defn}
+\begin{defn} la \textbf{solution générale} d'une équation différentielle est l'ensemble de toutes les solutions qui satisfont l'équation (sans conditions initiales)
+\end{defn}
+\begin{defn} la \textbf{solution maximale} d'une équation différentielle avec la condition initiale $y(x_0) = b_0$ est une fonction y(x) satisfaisant l'équation et la condition initiale, et définie sur le plus grand intervalle possible.
+\end{defn}
+
+\section{05 février 2019}
+
+\subsection{Équation à variables séparées (EDVS) (suite)}
+\begin{thm} existence et unicité d'une solution de EDVS \\
+Toute équation différentielle à variables séparées avec une condition initiale: $y(x_0) = b_0$ possède une unique solution $y$. \\
+\begin{attention} \underline{de l'existence} (à retrouver dans les notes) peut être demandée à l'examen! Idée: $f(y)y' = g(x) \iff f(y)\frac{dy}{dx} = g(x) \iff \int f(y)dy = \int f(x)dx \iff F(y) = G(x)$. Puis, remarquer que $F(y)$ est inversible sur l'intervalle de définition de $f(y)$
+\end{attention}
+\end{thm}
+
+\begin{exmp}
+\begin{align*}
+	\dfrac{y'(x)}{y^2(x)} = 1 \implies \int \dfrac{dy}{y^2} = \int dx \implies -\dfrac1y = x + C \forall C \in \mathbb{R} \\
+	\implies y = -\dfrac{1}{x + C} \forall C \in \mathbb{R} \quad \text{(solution générale)} \\
+\intertext{Supposons qu'on cherche une solution telle que $y(0) = b_0 \in \mathbb{R}$}
+	\implies y(0) = -\dfrac1C = b_0 \implies C = -\dfrac{1}{b_0} \implies y(x) = -\dfrac{1}{x - \frac{1}{b_0}} \\
+	= \dfrac{b_0}{1 - xb_0} \\
+	\text{Si $b_0 > 0$}	\implies \dfrac{1}{b_0} > 0 \implies y(x) = -\dfrac{1}{x - \frac{1}{b_0}}
+\intertext{sur $]-\infty, \frac{1}{b_0}[ \ \ni 0$ (solution particulière, $b_0 > 0$)}
+\end{align*}
+On peut également calculer la solution particulière pour $b_0 < 0$, qui sera définie sur un autre intervalle.
+\end{exmp}
+
+\subsection{Equation différentielle linéaire de premier ordre (EDL1)}
+Une équation différentielle linéaire de premier ordre est une équation de la forme
+\begin{equation}
+	y'(x) + p(x)y(x) = f(x)
+\end{equation}
+
+Considérons l'équation:
+\begin{equation}
+	y'(x) + p(x)y(x) = 0
+\end{equation}
+Elle s'appelle l'\textbf{équation homogène associée} à l'EDL1 précédente. \\
+Tout d'abord, on voit que $y(x) = 0$ est une solution $\forall x \in \mathbb{R}$. Mettons de côté cette solution triviale en divisant par $y$. On se retrouve avec l'équation
+\begin{align*}
+	\dfrac{y'(x)}{y(x)} = -p(x) \\
+\intertext{qui est une EDVS, donc}
+	\int \dfrac{dy}{y} = -\int p(x)dx
+\end{align*}
+
+\subsection{Méthode de la variation de constante}
+On cherche une solution particulière de $y^(x) + p(x) y(x) = f(x), \ p, f : I \to \mathbb{R}$ sous la forme:
+\begin{anz} $v(x) = C(x) e^{-P(x)}$ \quad où $P(x)$ est une primitive de $p(x)$ sur $I$
+\end{anz}
+
+Si $v(x)$ est une solution de l'équation:
+\begin{align*}
+	\implies v'(x) + p(x)v(x) = f(x) \implies c'(x) e^{-P(x)} + c(x) e^{-P(x)}(-p(x)) + p(x)c(x)e^{-P(x)} = f(x) \\
+	\implies c'(x) = f(x)e^{P(x)} \implies c(x) = \int f(x) e^{P(x)} dx
+\end{align*}
+$\implies$ une solution particulière de l'équation $y'(x) + p(x) y(x) = f(x)$ est $v(x) = \bigr( \int f(x) e^{P(x)} dx \bigl)\cdot e^{-P(x)}$ où $P(x)$ est \underline{une} primitive de p(x) sur $I$.
+
+\begin{exmp}
+\begin{align*}
+	y' + y = 5x + 1, \quad p(x) = 1, f(x) = 5x + 1 \\
+	P(x) = \int 1 dx = x \quad \text{(une primitive, sans constante)} \\
+\intertext{La solution générale de l'équation homogène associée: $y' + y = 0$ est $y(x) = Ce^{-P(x)} = Ce^{-x} \forall C, x \in \mathbb{R}$}
+\intertext{pour trouver une solution particulière de l'équation $y' + y = 5x + 1$ on calcule}
+	c(x) = \int f(x) e^{P(x)} dx = \int (5x + 1) e^x dx = 5 \int x e^x dx + \int e^x dx \\
+	= 5xe^x - 5 \int e^x dx + \int e^x dx  = \underbrace{5xe^x - 4e^x + 1}_{\text{on ne peut choisir une constante arbitraire}} \\
+\intertext{Une solution particulière de $y' + y = 5x + 1$ est}
+	v(x) = (5xe^x - 4e^x - 1)e^{-x} = \underbrace{5x - 4 + e^{-x}}_{\text{une solution particulière}}
+\intertext{Vérification:}
+	v'(x) + v(x) = 5 - \cancel{e^{-x}} + 5x - 4 + \cancel{e^{-x}} = 5x + 1 = f(x)
+\end{align*}
+\end{exmp}
+
+\begin{thm} Soient $p, f \to \mathbb{R}$ deux fonction continues. Supposons que $v_0 : I \to \mathbb{R}$ est une solution particulière de l'équation $y'(x) + p(x)y(x) = f(x)$. Alors la solution générale de cette équation est
+\begin{equation}
+	v(x) = v_0(x) + Ce^{-P(x)}
+\end{equation}
+$\forall C \in \mathbb{R}$, \ où $P(x)$ est \underline{une} primitive de $p(x)$ sur $I$.
+\end{thm}
+
+\subsection{Solution générale d'une EDL1}
+\begin{thm}
+La solution générale de l'EDL1 $y' + p(x)y = f(x)$ est:
+\begin{equation}
+	y(x) = C \cdot e^{-P(x)} + \bigl( f(x) e^{P(x)} dx\bigr) e^{-P(x)}
+\end{equation}
+où $P(x)$ est \underline{une} intégrale de $p(x)$ (donc pas besoin d'inclure la constante d'intégration).
+\end{thm}
+
+\section{25 février 2019}
+\subsection{Équation de Bernouilli}
+\begin{defn}
+Une équation différentielle de la forme $y' + p(x)y = q(x) y^\alpha$, où $p, q: I \to \mathbb R$ fonctions continues et $\alpha \in \mathbb R, \alpha \neq 0, 1$, est dite l'équation de Bernouilli.
+\end{defn}
+On peut la transformer en EDL1 par le changement de variable $z(x) = (y(x))^{1-\alpha}$. Cela nous permet d'arriver à l'EDL 1 $\frac{1}{1-\alpha}z'(x) + p(x)z(x) = q(x)$.
+
+\begin{exmp} $y'(x) = \frac4x y + x \sqrt{y} \iff y'(x) - \frac4x y = x\sqrt{y} \implies x \neq 0, y(x) \geq 0$.
+\begin{flalign*}
+\intertext{Changement de variable: $z(x) = (y(x))^{1-\alpha} = \sqrt y$}
+	&\implies z'(x) = \frac{1}{2 \sqrt y} \cdot y' = \frac12 \frac{y'}{\sqrt y} \implies \ldots 
+	\implies  z' - \underbrace{\frac 2x}_{p(x)} z = \underbrace{\frac x2}_{f(x)} \quad \text{(EDL1)} \\
+\intertext{On cherche la solution générale de l'équation homogène associée:}
+	&P(x) = -\int \frac{2dx}{x} = -2\log|x| = -\log(x^2), \quad x \neq 0 \quad \text{(pas de constante)} \\
+	&\implies z_{\text{hom}}(x) = Ce^{-P(x)} = Ce^{\log(x^2)} = Cx^2, \quad x \neq 0
+\intertext{On cherche une solution particulière de l'équation complète:}
+	&z' - \frac2x z = \underbrace{\frac x2}_{f(x)} \\
+	&\int f(x) e^{P(x)} dx = \ldots = \frac12 \log|x|, x \neq 0 \quad \text{(pas de constante)} \\
+	&\implies z_{\text{part}}(x) = \frac12 \log|x| \cdot e^{\log(x^2)} = \frac12 x^2 \log|x|, \quad x \neq 0
+\intertext{Solution générale de l'EDL1:}
+	& z(x) = \left \{ \begin{aligned}
+		&Cx^2 + \frac{x^2}{2} \log(x), & & x \in \mathopen]0, \infty \mathclose[, C \in \mathbb R \\
+		&Cx^2 + \frac{x^2}{2} \log(-x), & & x \in \mathopen]-\infty, 0 \mathclose[, C \in \mathbb R
+	\end{aligned}
+	\right .
+\intertext{Solution générale de l'équation originale  avec $y(x) = z^2(x)$:}
+	&y(x) = \left\{ \begin{aligned}
+	&x^4(C + \frac12 \log(x))^2, & & x \in \mathopen]0, + \infty \mathclose[ \ , C \in \mathbb R \\
+	&x^4(C + \frac12 \log(-x))^2, & & x \in \mathopen]- \infty, 0 \mathclose[ \ , C \in \mathbb R \\
+	&0, & & x \in \mathopen]0, +\infty \mathclose[ \\
+	&0, & & x \in \mathopen]-\infty, 0 \mathclose[
+	\end{aligned}
+	\right .
+\end{flalign*}
+\end{exmp}
+
+\section{Trucs vraiment utiles pour equa diff}
+\begin{defn}[EDL1]
+Une équation différentielle linéaire de degré 1 (EDL1) est une équation de la forme
+	\begin{equation*}
+		y' + p(x)y = f(x)
+	\end{equation*}
+Une équation différentielle linéaire homogène de degré 1 (EDLH1) est une équation de la forme
+	\begin{equation*}
+		y' + p(x)y = 0
+	\end{equation*}
+Une équation différentielle linéaire de degré 1 \textbf{à coefficients constants} est une équation de la forme
+	\begin{equation*}
+		y' + py = f(x), \text{ où } p \in \mathbb R
+	\end{equation*}
+\end{defn}
+
+
+\begin{thm}[Solution particulière EDL1]
+	\begin{equation}
+		\Biggl( \int f(x)e^{P(x)} dx \Biggr) \cdot e^{-P(x)}
+	\end{equation}
+\end{thm}
+
+\begin{thm}[Solution générale EDLH1]
+	\begin{equation}
+		y = Ce^{-P(x)}
+	\end{equation}
+\end{thm}
+
+\begin{thm}[Solution générale EDL1]
+La solution générale d'une EDL1 est la somme d'une solution particulière et de la solution générale de l'équation homogène associée.
+	\begin{equation}
+		y = Ce^{-P(x)} + \Biggl( \int f(x)e^{P(x)}dx \Biggr) \cdot e^{-P(x)}
+	\end{equation}
+\end{thm}
+
+\begin{defn}[EDL2]
+	Une équation différentielle linéaire de degré 2 (EDL2) est une équation de la forme
+	\begin{equation*}
+		y'' + p(x)y' + q(x)y = f(x)
+	\end{equation*}
+	Une équation différentielle linéaire homogène de degré 2 (EDLH2) est une équation de la forme
+	\begin{equation*}
+		y'' + p(x)y' + q(x)y = 0
+	\end{equation*}
+	Une équation différentielle linéaire de degré 2 à coefficients constantes est une équation de la forme
+	\begin{equation*}
+		y'' + py' + qy = f(x), \text{ où } p, q \in \mathbb R
+	\end{equation*}
+\end{defn}
+
+\begin{thm}[Solution générale EDLH2 à coefficients constants]
+	\begin{equation}
+		C_1 e^{ax} + C_2 e^{bx},
+	\end{equation}
+où $a, b \in \mathbb R$ sont les racines du polynôme $\lambda^2 + p\lambda + q = 0$.
+\end{thm}
+
+\section{4 mars 2019}
+
+\subsection{Lien avec l'algèbre linéaire}
+On peut parler de solutions linéairement indépendantes à l'EDLH2. Pour déterminer si deux solution d'une EDLH2 sont linéairement indépendantes, on peut utiliser l'outil mathématique suivant, qui utilise des notions d'algèbre linéaire.
+\begin{defn}
+On définit la fonction $W[v_1, v_2]$, où $v_1, v_2$ sont deux fonctions dérivables sur $I \subseteq \mathbb R$, par:
+	\begin{equation}
+		W[v_1, v_2] = \det \begin{pmatrix}
+			v_1(x) & v_2(x) \\
+			v_1'(x) & v_2'(x)
+		\end{pmatrix}
+	\end{equation}
+	Cette fonction s'appelle le \textbf{Wronskien} de $v_1$ et $v_2$.
+\end{defn}
+
+\begin{exmp}
+Considérons l'EDLH2 à coefficients constants suivante:
+	\begin{align*}
+		&y'' + 2y' + y = 0 \\
+	\intertext{La solution générale est de la forme:}
+		&C_1 e^{-x} + C_2 e^{-x} \quad \text{où } C_1, C_2 \in \mathbb R \\
+		&\implies W[e^{-x}, e^{-x}] = \det \begin{pmatrix}
+			e^{-x} & e^{-x} \\
+			-e^{-x} & -e^{-x}
+			\end{pmatrix} = e^{-2x} - \cancel{xe^{-2x}} + \cancel{xe^{-2x}} = e^{-2x}
+	\end{align*}
+\end{exmp}
+
+\begin{thm}[indépendance linéaire de deux solutions d'une EDL2]
+	Soient $v_1, v_2 : I \to \mathbb R$ deux solutions d'une EDL2. Alors
+	\begin{equation}
+		\underbrace{v_1(x) \text{ et } v_2(x) \text{ sont linéairement indépendantes}}_{P} \iff \underbrace{W[v_1, v_2](x) \neq 0 \ \forall x \in I}_{Q}
+	\end{equation}
+\end{thm}
+
+En réfléchissant un peu, on peut donner un argument assez intuitif quant à l'utilisation de cet outil étrange. En effet, l'algèbre linéaire permet de montrer que:
+\begin{enumerate}
+	\item le fait que les colonnes d'une matrices soient linéairement dépendantes est logiquement équivalent au fait que le noyau de la matrice n'est pas nul, et que
+	\item le fait que le noyau n'est pas nul est logiquement équivalent au fait que le déterminant est 0. Donc:
+	\item les colonnes d'une matrice sont linéairement dépendantes $\iff$ le déterminant de la matrice est 0
+\end{enumerate}
+ En gardant ceci en tête, considérons la double implication du théorème. \\
+Premièrement, si $\neg Q$ est vrai, c'est-à-dire s'il existe un point sur $I$ tel que le déterminant est nul, alors $\neg P$ est vrai, c'est-à-dire que $v_1(x)$ et $v_2(x)$ sont linéairement dépendantes ($\neg Q \implies \neg P \equiv P \implies Q$). \\ Deuxièmement, si $Q$ est vrai, c'est-à-dire que le déterminant n'est jamais 0, alors le noyau n'est pas nul, et donc les colonnes sont linéairement indépendantes, ce qui veut dire que $P$ est vrai ($Q \implies P$). \\
+Il s'agit ici bien sûr uniquement d'un argument et non d'une preuve, mais je considère cet argument bien plus parlant que la preuve formelle présentée en cours. \par
+L'élément qui reste peut-être étrange est l'inclusion des dérivées de $v_1$ et $v_2$. Pour comprendre ceci, il faut se rappeler du fait que la différentiation est en fait un opérateur linéaire, et donc qui préserve l'indépendance/dépendance linéaire. Donc, afin de pouvoir faire une matrice carrée et donc pouvoir calculer son déterminant, on inclut également les dérivées des fonctions. Le Wronskien étant un outil, et non un théorème, il faut se rendre compte qu'il a été \emph{conçu} (et non pas découvert au sens plus général du terme) pour bien \emph{fonctionner}, et que les choix faits lors de sa construction ne sont pas toujours les plus intuitifs, mais plutôt les plus pratiques.
+
+\begin{thm}[solution générale d'une EDL2]
+	Soient $v_1, v_2 : I \to \mathbb R$ deux solutions linéairement indépendantes d'une EDL2. Alors la solution générale de cette équation est de la forme
+	\begin{equation}
+		v(x) = C_1 v_1(x) + C_2 v_2(x),
+	\end{equation}
+où $C_1, C_2 \in \mathbb R, x \in I$.
+\end{thm}
+
+\begin{thm}
+	Soient $v$ une solution d'une EDL2, et $u$ une solution de l'EDLH2 associée. Alors
+	\begin{equation}
+		v(x) + u(x)
+	\end{equation}
+	est une solution générale de l'EDL2.
+\end{thm}
+
+\section{6 mars 2019}
+
+\begin{defn}
+	La \textbf{méthode de variation des constantes} est une méthode qui permet souvent de trouver une solution particulière à une EDLH2.
+\end{defn}
+
+\begin{defn}
+	La \textbf{méthode des coefficients indéterminés} est une méthode qui permet parfois de trouver une solution particulière à une EDL2 à coefficients constants. \textbf{ATTENTION} Il y a presque toujours une EDL2 à coeff constant "piège" à l'exa où il faut utiliser cette méthode.
+\end{defn}
+
+\begin{exmp}[méthode des coefficients indéterminés]
+\begin{align*}
+	&2y'' - y' - y = 100xe^{2x}
+\intertext{Equation homogène associée:}
+	&y'' - \frac12 y' - \frac12 y = 0 \implies \lambda^2 - \frac12 \lambda - \frac12 = 0 \implies \lambda_1 = 1, \lambda_2 = -\frac12 \\
+\intertext{Solution générale de l'équation homogène:}
+	&y_{\text{hom}} = C_1e^x + C_2e^{-\frac{x}{2}}, C_1, C_2 \in \mathbb R, x \in \mathbb R. \\
+\intertext{Solution particulière de l'équation complète (méthode des coefficients indéterminés):}
+	&y'' - \frac12 y' - \frac12 y = 50xe^{2x} \implies f(x) = 50xe^{2x} \text{ de la forme } e^{ax}P_n(x), \text{ où } n = 1. \\
+\intertext{La méthode s'applique. $a = 2$ est-il une solution de l'équation caractéristique? Non. Alors l'Ansatz est:}
+	&y_{\text{part}} = (Ax + B)e^{2x} \implies \text{remplacer dans l'équation} \\
+	&y_p' = Ae^{2x} + 2(Ax + B)e^{2x}; \quad y_p'' = 2Ae^{2x} + 2Ae^{2x} + 4(Ax + B)e^{2x} \\
+	&\implies \underbrace{5Ae^{2x} + 4(Ax + B)e^{2x}}_{y_p''}
+			 	- \frac12 \underbrace{Ae^{2x} - (Ax + B)e^{2x}}_{y_p'}
+				- \frac12 \underbrace{(Ax + B)e^{2x} = 50xe^{2x}}_{y_p} \\
+	&\implies xe^{2x}(\frac52 A) + e^{2x}(\frac72 A + \frac52 B) = 50xe^{2x} \\
+	&\implies \begin{cases}
+					\frac52 A = 50 \\
+					\frac72 A + \frac52 B = 0
+				\end{cases} \implies \begin{cases}
+					A = 20 \\
+					B = -28
+				\end{cases} \\
+	&\implies y_{\text{part}}(x) = (20x - 28)e^{2x} \\
+\intertext{La solution générale de $2y'' - y' - y = 100xe^{2x}$ est}
+	&\boxed{y(x) = C_1e^x + C_2e^{-\frac{x}{2}} + (20x - 28)e^{2x}} \quad, C_1, C_2 \in \mathbb R, x \in \mathbb R
+\end{align*}
+\end{exmp}
+
+\begin{remark}
+	Si $f(x) = f_1(x) + f_2(x)$, où $f_1(x)$ est de la forme $e^{ax} P_n(x)$ et $f_2(x)$ est de la forme $e^{ax}(P_n(x) cos(bx) + Q_m(x) sin(bx))$, alors on utilise la méthode pour $f_1(x)$ et $f_2(x)$ séparément, obtenir $y_{\text{part, 1}}(x)$ et $y_{\text{part, 2}}(x)$, et utiliser le principe de superposition des solutions:
+\begin{equation*}
+	y_{\text{part}}(x) = y_{\text{part, 1}}(x) + y_{\text{part, 2}}(x).
+\end{equation*}
+\end{remark}
+
+\chapter{L'espace $\mathbb R^n$}
+
+\begin{center}
+"Peut être que c'est pour ça qu'on vit dans la dimension trois, parce qu'il est exceptionnel qu'on puisse multiplier des vecteurs" - Lachowska
+\end{center}
+
+Afin d'étudier des fonctions à plusieurs variables, il nous faut d'abord réviser notre vision de l'ensemble $\mathbb R^n$: nous allons y définir une structure algébrique, puis topologique, qui permettront de définir élégamment des fonctions dans l'espace $\mathbb R^n$. La structure algébrique (celle d'un espace métrique) sera nécessaire si l'on veut pouvoir définir des fonctions comme on veut, et servira également à la définition de la structure topologique. Cette dernière sera utile lors de la rigorisation de certains concepts considérés comme acquis sur $\mathbb R$, mais qui requièrent plus de structure si l'on veut pouvoir les utiliser dans $\mathbb R^n, n > 1$, comme celui de limite. (À REVOIR QUAND ON A FINI CE CHAPITRE)
+
+\section{L'espace $\mathbb R^n$ en tant qu'espace vectoriel normé}
+\begin{defn}[$\mathbb R^n$ en tant qu'ensemble]
+	$\mathbb R^n$ est l'\textbf{ensemble} de tous les $n$-tuples ordonnés $\bar x = (x_1, \ldots, x_n)$ de nombres réels. 
+\end{defn}
+
+\begin{defn}[$\mathbb R^n$ en tant qu'espace vectoriel]
+	On va ajouter de la \emph{structure} à l'ensemble $\mathbb R^n$ en définissant deux opérations:
+	\begin{enumerate}
+		\item l'\textbf{addition vectorielle}: $\bar x = (x_1, \ldots, x_n), \bar y = (y_1, \ldots, y_n) \implies$ \\ $\bar x + \bar y \eqdef (x_1 + y_1, \ldots, x_n + y_n)$.
+		\item la \textbf{multiplication par un réel}: $\lambda \bar x \eqdef (\lambda x_1, \ldots, \lambda x_n)$.
+	\end{enumerate}
+	On peut introduire la \textbf{base} $\{\bar e_i = (0, 0, \ldots, \underset{i}{1}, \ldots, 0)\}_{i=1}^n$, de telle façon à ce que
+	\begin{equation}
+		\bar x = \sum_{i=1}^n x_i \bar e_i
+	\end{equation}
+	Enfin, on introduit le \textbf{produit scalaire} dans $\mathbb R^n$:
+	\begin{equation}
+		\langle \bar x, \bar y \rangle \eqdef \sum_{i=1}^n x_i y_i
+	\end{equation}
+	L'ensemble $\mathbb R^n$, muni de ces opérations, devient un \textbf{espace vectoriel}.
+\end{defn}
+
+\begin{defn}[$\mathbb R^n$ en tant qu'espace vectoriel normé]
+	L'introduction du produit scalaire nous permet de définir une \textbf{norme} sur $\mathbb R^n$. Nous allons définir la norme euclidienne:
+	\begin{equation}
+		\norm{\bar x} \eqdef \bigl( \langle \bar x, \bar x \rangle \bigr)^{1/2}
+	\end{equation}
+	La norme euclidienne respecte la définition d'une norme (il faut le prouver!), c'est-à-dire
+	\begin{enumerate}
+		\item $\norm{\bar x} \geq 0 \quad \text{ et } \norm{\bar x} = 0 \iff \bar x = \bar 0$,
+		\item $\bar x \in \mathbb R^n, \lambda \in \mathbb R \implies \norm{\lambda \bar x} = \abs{\lambda}\norm{\bar x}$,
+		\item $\norm{\bar x + \bar y} \leq \norm{\bar x} + \norm{\bar y}$ (inégalité triangulaire).
+	\end{enumerate}
+	L'espace vectoriel $\mathbb R^n$, muni de la norme euclidienne, devient un \textbf{espace vectoriel normé}.
+\end{defn}
+
+\begin{defn}[$\mathbb R^n$ en tant qu'espace métrique]
+	À partir de la norme sur $\mathbb R^n$, on peut introduire la notion de \textbf{distance} entre deux éléments de $\mathbb R^n$. Nous allons définir la distance euclidienne ainsi:
+	\begin{equation}
+		d(\bar x, \bar y) \eqdef \norm{\bar x - \bar y}.
+	\end{equation}
+	La distance euclidienne respecte la définition d'une distance (il faut le prouver!), c'est-à-dire que $\forall \bar x, \bar y, \bar z \in \mathbb R^n$, on a:
+	\begin{enumerate}
+		\item $d(\bar x, \bar y) \geq 0 \quad \text{ et } d(\bar x, \bar y) = 0 \iff \bar x = \bar y$,
+		\item $d(\bar y, \bar x) = d(\bar x, \bar y)$,
+		\item $d(\bar x, \bar z) \leq d(\bar x, \bar y) + d(\bar y, \bar z)$.
+	\end{enumerate}
+	L'espace vectoriel normé $\mathbb R^n$, muni de la distance euclidienne, devient un \textbf{espace métrique}.
+\end{defn}
+
+\begin{thm}
+	La norme euclidienne possède également les propriétés suivantes:
+	\begin{itemize}
+		\item $\abs{\langle \bar x, \bar y \rangle} \leq \norm{\bar x} \cdot \norm{\bar y}$ \quad (inégalité de Cauchy-Schwartz)
+		\item $\norm{\bar x - \bar y} \geq \abs{\norm{\bar x} - \norm{\bar y}}$ \quad (inégalité triangulaire inversée)
+	\end{itemize}
+\end{thm}
+
+Nous avons défini une structure algébrique stable et intuitive sur $\mathbb R^n$, valable pour tout $n \geq 1$. Il est désormais temps de définir également une structure topologique.
+
+\section{Topologie de $\mathbb R^n$}
+Le préfixe "topo" du mot "topologie" signifie "local" ou "proche". C'est là l'intuition des concepts que nous allons voir: ajouter une structure topologique sur un ensemble consiste à définir des liens de proximité et de connectivité entre les éléments de cet ensemble. La définition à la section précédente de la notion de norme et de distance sur $\mathbb R^n$ va grandement nous simplifier la tâche, mais sachez qu'il est également possible de définir une structure topologique sur un ensemble dégénéré, c'est-à-dire qui ne possède aucune structure algébrique ou métrique\footnote{Pour ceux intéressés par la topologie, je recommande le livre gratuit de Sydney Morris à ce sujet, qui peut être trouvé en format PDF à l'adresse \url{www.topologywithouttears.net}, ainsi que les vidéos de Ben1994 sur YouTube pour ce qui est de l'intuition.}! \par
+
+\begin{defn}
+	Pour tout $\bar x \in \mathbb R^n$ et tout nombre réel positif $\delta > 0$, soit $B(\bar x, \delta) = \{\bar y \in \mathbb R^n : \norm{\bar x - \bar y} < \delta\}$. Alors $B(\bar x, \delta) \subset \mathbb R^n$ est appelée la \textbf{boule ouverte} de centre $\bar x$ et de rayon $\delta$.
+\end{defn}
+\begin{remark}La boule ouverte est un concept très utile pour définir les concepts suivants.\end{remark}
+
+\begin{defn}
+	Le sous-ensemble non-vide $E \subseteq \mathbb R^n$ est \textbf{ouvert} si et seulement si pour chaque point $\bar x \in E$, il existe $\delta > 0$ tel que $B(\bar x, \delta) \subset E$. L'ensemble vide $\varnothing$ est ouvert par définition.
+\end{defn}
+
+\begin{defn}
+	Soit $E \subset \mathbb R^n$ non-vide. Alors $\bar x \in E$ est un point intérieur de $E$ $\iff$ il existe $\delta > 0$ tel que $B(\bar x, \delta) \subset E$. L'ensemble des points intérieurs de $E$ est appelé l'intérieur de $E$ (notation: $\interior E$). Clairement, $\interior E \subseteq E$. \\
+\end{defn}
+
+\begin{thm}
+	Soit $E \subseteq \mathbb R^n$ non vide. Alors $E$ est ouvert si et seulement si $\interior E = E$.
+\end{thm}
+
+\label{thm:propouverts}\begin{thm}[propriétés des ensembles ouverts] Les ensembles ouverts possèdent quelques propriétés de base:
+	\begin{enumerate}
+		\item toute union (finie ou infinie) d'ensembles ouverts est un ensemble ouvert.
+		\item toute intersection finie d'ensembles ouverts est un ensemble ouvert.
+	\end{enumerate}
+\end{thm}
+
+\begin{exmp}
+	Une intersection infinie d'espaces ouverts peut ne pas être ouverte:
+	\begin{equation*}
+		\bigcap_{k = 1}^\infty B(\bar 0, \frac1k) = \{\bar 0\}.
+	\end{equation*}
+\end{exmp}
+
+\begin{defn}
+	Soit le sous-ensemble $E \subseteq \mathbb R^n$. Alors $E$ est \textbf{fermé} dans $\mathbb R^n$ si et seulement si son complémentaire $\mathbb R^n \setminus E$ est ouvert.
+\end{defn}
+
+\begin{thm}[propriétés des ensembles fermés] Les ensembles fermés possèdent quelques propriétés de base, qui découlent directement des propriétés des ensembles ouverts \eqref{thm:propouverts}.
+	\begin{enumerate}
+		\item toute intersection (finie ou infinie) d'ensembles fermés est un ensemble fermé.
+		\item toute union finie d'ensembles fermés est un ensemble fermé.
+	\end{enumerate}
+\end{thm}
+
+\begin{defn}
+	Soit $E \subseteq \mathbb R^n$ un sous-ensemble non-vide. Alors l'intersection de tous les sous-ensembles fermés contenant $E$ est appelée l'\textbf{adhérence} de $E$. On écrit $\adh E$.
+\end{defn}
+\begin{remark} L'adhérence de $E$ est donc le plus petit ensemble fermé contenant $E$. Par définition donc, $E$ est fermé si et seulement si $E = \adh E$.\end{remark}
+
+\begin{defn}
+	Soit $E \subseteq \mathbb R^n$ un sous-ensemble non-vide. Un point $\bar x \in \mathbb R^n$ est un \textbf{point de frontière} de $E$ si et seulement si toute boule ouverte de centre $\bar x$ contient au moins un point de $E$ et au moins un point de $\mathbb R^n \setminus E$. L'ensemble des points de frontière de $E$ est appelée la \textbf{frontière} de $E$ (notation: $\frontier E$).
+\end{defn}
+
+\begin{exmp}
+	Soit $E = \{\bar x \in \mathbb R^n : x_i > 0, 1 \leq i \leq n\}$. Alors $\frontier E = \{\bar x \in \mathbb R^n : \exists i \neq j : x_i = 0, x_j \geq 0\}$.
+\end{exmp}
+
+\begin{thm}
+	Soit $E \subseteq \mathbb R^n$ un sous-ensemble non-vide. Alors
+	\begin{enumerate}
+		\item $\frontier E \cap \interior E = \varnothing$ (par déf.)
+		\item $\frontier E = \adh E \setminus \interior E = \adh E \cap (\mathbb R^n \setminus \interior E)$
+		\item $\interior E \cup \frontier E = \adh E$
+		\item $\frontier \varnothing = \varnothing, \delta \mathbb R^n = \varnothing$
+	\end{enumerate}
+\end{thm}
+
+\section{Concepts d'analyse dans $\mathbb R^n$}
+Après cette masse informe de définitions obscures, la question s'impose: pourquoi faut-il distinguer les sous-ensembles ouverts et les sous-ensembles fermés de $\mathbb R^n$? Il s'avère que l'on peut utiliser ces définitions afin de définir la limite d'une suite d'éléments de $\mathbb R^n$, ce qui va nous fournir la base nécessaire pour faire de l'analyse sur $\mathbb R^n$.
+
+\begin{defn}
+	Une \textbf{suite} d'éléments de $\mathbb R^n$ est une application $f : \mathbb N \to \mathbb R^n$:
+	\begin{equation}
+		k \to \bar x_k = \{x_k???? COMPLETER CECI
+	\end{equation}
+\end{defn}
+
+\begin{defn}
+	$\{\bar x_n\}_{k=0}^\infty$ est convergente et admet pour limite $\bar x \in \mathbb R^n$ si et seulement si $\forall\epsilon > 0$ il existe $k_0 \in \mathbb N$ tel que $\forall k \geq k_0, \norm{\bar x_k - \bar x} \leq \epsilon$. Proposition équivalente: $\bar x_k \in \adh{B(\bar x, \epsilon)}$.
+\end{defn}
+\begin{remark}
+	Chaque coordonnée de $\bar x_n$ peut être considérée comme une suite réelle:
+	\begin{equation}
+		\lim_{k \to \infty} \bar x_n = \bar x \iff \lim_{k \to \infty} x_{j, k} = x_j \quad \text{pour tout } 1 \leq j \leq n.
+	\end{equation} (il faudrait prouver ceci!)
+\end{remark}
+
+\begin{thm}
+	Les suites dans $\mathbb R^n$ possèdent des propriétés similaires aux suites dans $\mathbb R$:
+	\begin{itemize}
+		\item La limite d'une suite dans $\mathbb R^n$, si elle existe, est unique
+		\item Toute suite convergente est bornée
+		\item Le théorème de Bolzano-Weierstrass tient également: pour toute suite bornée dans $\mathbb R^n$, il existe une sous-suite convergente.
+	\end{itemize}
+\end{thm}
+
+Le théorème suivant propose une équivalence entre la notion de convergence d'une limite dans $E$ et le fait que $E$ soit fermé.
+\begin{thm}
+	Un sous-ensemble non-vide $E \subseteq \mathbb R^n$ est fermé si et seulement si toute suite convergente d'éléments de $E$ a pour limite un élément de $E$.
+\end{thm}
+\begin{attention}
+La démonstration de ce théorème peut être demandée à l'examen! Voir notes du cours 7, 13 mars 2019.
+\end{attention}
+
+\begin{thm}
+	Pour construire l'adhérence $\adh E$ d'un sous-ensemble non vide $E \subseteq \mathbb R^n$, il suffit d'ajouter les limites de toutes les suites convergentes d'éléments de $E$.
+\end{thm}
+
+\begin{defn}
+	Un sous-ensemble non-vide $E \subseteq \mathbb R^n$ est dit \textbf{compact} si et seulement si il est fermé et borné.
+\end{defn}
+
+\begin{exmp}
+	La boule $\adh{B(\bar x, \delta)} = \{\bar y \in \mathbb R^n : d(\bar x, \bar y) \leq \delta\}$ est un sous-ensemble fermé. C'est également un sous-ensemble borné car $\adh{B(\bar x, \delta)} \subseteq \adh{B(\bar 0, \norm{\bar x} + \delta)}$.
+\end{exmp}
+
+\begin{thm}[Heine-Borel-Lebesgue]
+	Soit $E \subseteq \mathbb R^n$ un sous-ensemble non-vide. Alors $E$ est compact si et seulement si \underline{pour tout} recouvrement de $E$ par des sous-ensembles \underline{ouverts} dans $\mathbb R^n$:
+	\begin{equation}
+		E \subseteq \bigcup_{i \in I} A_i \ , A_i \subseteq \mathbb R^n \text{ ouverts } \forall i \in I,
+	\end{equation}
+	on peut extraire une famille \underline{finie} d'ensembles qui forment un recouvrement de $E$:
+	\begin{equation}
+		E \subseteq \bigcup_{i \in I} A_i \ , A_i \subseteq \mathbb R^n \text{ ouverts } \forall i \in I \implies \exists\{A_{i_j}\}_{j=1}^m : E \subseteq \bigcup_{j=1}^m A_{i_j}.
+	\end{equation}
+\end{thm}
+\begin{remark} Ici, le \underline{pour tout} est très important: $I$ peut être fini, dénombrable ou indénombrable! C'est théorème très fort, car il s'agit en plus d'une double implication. \end{remark}
+
+\section{Courbes paramétrées dans $\mathbb R^n$}
+\begin{defn}
+	Soit $I \subseteq \mathbb R$ un intervalle ouvert. Alors une courbe paramétrée dans $\mathbb R^n, n \geq 2$ est une application $f : I \to \mathbb R^n$ de la forme
+	\begin{equation}
+		\adh{f(t)} = \bigl(f_1(t), f_2(t), \ldots, f_n(t)\bigr),
+	\end{equation}
+	telle que $f_i(t)$ sont des fonctions continues sur $I$ pour tout $1 \leq i \leq n$.
+\end{defn}
+
+\begin{exmp}
+	Soit $\bar f : I \to \mathbb R^3$ telle que $\bar f(t) = (\cos(t), \sin(t), t)$. Alors le graphe de $\bar f$ forme une hélice circulaire.
+\end{exmp}
+
+\begin{defn}
+	La courbe $\adh f : I \to \mathbb R^n$ est dite \textbf{dérivable} en $t_0 \in I$ si et seulement si chaque composante $f_i : I \to \mathbb R$ est dérivable en $t_0$. \par
+	Le vecteur $\adh f'(t_0)$ est appelé le \emph{vecteur tangent} (ou vecteur vitesse) de $\adh f'(t)$ en $t_0$. \par
+	La vitesse est définie comme $\norm{\adh f'(t_0)}$.
+\end{defn}
+
+\begin{defn}
+	Soit une courbe $\adh f : I \to \mathbb R^n$ de classe $C'$ ($f_i'(t)$ sont continues sur $I$) et $\mathopen[a, b \mathclose] \subseteq I, a < b$. \par 
+	La longueur de l'arc de la courbe $\adh f : \mathopen[a, b \mathclose] \to \mathbb R^n$ est définie par
+	\begin{equation}
+		L_{\mathopen[a, b \mathclose]}(\adh f) \eqdef \int_a^b \norm{\adh f'(t)} dt.
+	\end{equation}
+\end{defn}
+\begin{idea}
+	Dans $\mathbb R^2$:
+	\begin{align*}
+		&dl \approx \sqrt{(dx)^2 + (dy)^2} = \sqrt{\left(\frac{dx}{dt}\right)^2 + \left(\frac{dy}{dt}\right)^2}dt = \sqrt{\bigl(f_1'(t)\bigr)^2 + \bigl(f_2'(t)\bigr)^2}dt \\
+		&= \norm{\adh f'(t)}dt
+	\end{align*}
+\end{idea}
+
+\chapter{Fonctions réelles de plusieurs variables réelles}
+
+\begin{defn}
+	Soit $E \subseteq \mathbb R^n$ non-vide, $n \geq 1$. Une fonction $f : E \to \mathbb R$ est une application qui envoie chaque point $\bar x = (x_1, x_2, \ldots, x_n) \in E$ dans $\mathbb R$. $E$ est le domaine de définition de $f$, et $f(E) \subseteq \mathbb R$ est l'ensemble image.
+\end{defn}
+
+\begin{exmp}
+	Soit $f(x,y) = \sqrt{1 - (x^2 + y^2)}$. Alors $E = \{(x, y) \in \mathbb R^2 : x^2 + y^2 \leq 1\}$ (disque de rayon 1 et de centre $(0, 0)$. \par
+	Pour représenter cette fonction sur un graphe, on procède ainsi: (???? pourquoi c'est un hémisphère si c'est un disque????)
+	\begin{align*}
+		&z = \sqrt{1 - (x^2 + y^2)} \iff 
+		\begin{cases}
+			z^2 = 1 - (x^2 + y^2) \\
+			z \geq 0		
+		\end{cases} \iff
+		\begin{cases}
+			x^2 + y^2 + z^2 = 1 \\
+			z \geq 0
+		\end{cases}
+	\end{align*}
+	Cela représente l'hémisphère de rayon 1 et de centre $(0, 0, 0)$. INCLURE GRAPHE ICI
+\end{exmp}
+
+\begin{defn}
+	Soit $f : E \to \mathbb R$ et $c \in f(E)$. Alors 
+	\begin{equation}
+	\mathcal N_f(c) = \{\bar x \in E : f(\bar x) = c\} \subseteq E
+	\end{equation}
+	est appelé l'\textbf{ensemble de niveau} de $f$ pour $c$.
+\end{defn}
+Intuitivement, l'ensemble de niveau est l'ensemble des points dont la cordonnée $z$ est égale à $c$ sur le graphe de $f$, ou encore l'intersection entre le plan horizontal de coordonnée $z = c$ et le graphe de la fonction. INCLURE GRAPHE ICI
+
+\begin{defn}
+	Une fonction $f : E \to \mathbb R$ est \textbf{définie au voisinage de $x_0$} ssi
+	\begin{equation}
+		\exists \delta > 0 : B(\bar x, \delta) \subseteq E \cup \{\bar x_0\}.
+	\end{equation}
+\end{defn}
+
+\begin{defn}
+	Une fonction définie au voisinage de $\bar x_0$ (mais pas nécessairement en $\bar x_0$) admet le nombre réel $l$ pour \textbf{limite lorsque $\bar x$ tend vers $\bar x_0$} ssi 
+	\begin{equation}
+	\forall \epsilon > 0, \exists \delta > 0 : \forall \bar x \in E : 0 < \norm{\bar x - \bar x_0} \leq \delta \implies \abs{f(\bar x) - l} \leq \epsilon.
+	\end{equation}
+	\begin{equation*}
+		\text{Notation: } \lim_{\bar x \to \bar x_0} f(\bar x) = l. 
+	\end{equation*}
+\end{defn} 
+\begin{remark}
+	La définition paraît plus effrayante que celle de la limite d'une fonction réelle d'une variable réelle, mais l'intuition est exactement la même.
+\end{remark}
+
+\begin{defn}
+	Soit $x_0 \in E$ un point intérieur. Alors $f : E \to \mathbb R$ est \textbf{continue} en $\bar x = \bar x_0$ ssi $\lim_{\bar x \to \bar x_0} f(\bar x) = f(\bar x_0)$.
+\end{defn}
+
+\begin{thm}[opérations algébriques sur les limites]
+	Soient $f, g : E \to \mathbb R$ telles que $\lim_{\bar x \to \bar x_0} f(\bar x) = l_1, \lim_{\bar x \to \bar x_0} g(\bar x) = l_2$. Alors
+	\begin{enumerate}
+		\item $\lim\limits_{\bar x \to \bar x_0} (\alpha f + \beta g)(\bar x) = \alpha l_1 + \beta l_2 \quad \forall \alpha, \beta \in \mathbb R$
+		\item $\lim\limits_{\bar x \to \bar x_0} (f \cdot g)(\bar x) = l_1 \cdot l_2$
+		\item Si $l_2 \neq 0$, alors $\lim\limits_{\bar x \to \bar x_0} \left(\dfrac{f}{g}\right)(\bar x) = \dfrac{l_1}{l_2}$.
+	\end{enumerate}
+\end{thm}
+
+\begin{thm}[caractérisation de la limite à partir des suites convergentes]
+	Une fonction $f : E \to \mathbb R$ définie au voisinage de $\bar x_0$ admet pour limite $l \in \mathbb R$ lorsque $\bar x$ tend vers $\bar x_0$ ssi pour \emph{toute} suite d'éléments $\{\bar a_k\}$ de $E \setminus \{\bar x_0\}$ qui converge vers $\bar x_0$, la suite $\{f(\bar a_k)\}$ converge vers $l$.
+\end{thm}
+\begin{attention} La démonstration de ce théorème peut être demandée à l'examen! Voir notes du cours 9, 18 mars 2019. \end{attention}
+
+\begin{remark} On ne peut pas calculer la limite d'une fonction de plusieurs variables en considérant des limites consécutives par rapport à chaque variable.
+\begin{align*}
+	&f(x, y) = \begin{cases}\begin{aligned}
+		&\frac{xy}{x^2 + y^2} & &(x, y) \neq (0, 0) \\
+		&0 & &(x, y) = (0, 0)
+		\end{aligned}\end{cases} \\
+\intertext{Soit $x \neq 0$}
+	&\implies \lim_{y \to 0} \frac{xy}{x^2 + y^2} = 0 \implies \lim_{x \to 0} \Bigl( \lim_{y \to 0} \frac{xy}{x^2 + y^2} \Bigr) = \lim_{x \to 0} 0 = 0. \\
+\intertext{De même,}
+	&\lim_{y \to 0} \Bigl( \lim_{x \to 0} \frac{xy}{x^2 + y^2} \Bigr) = \lim_{y \to 0} 0 = 0.
+\end{align*}
+	Mais $\lim\limits_{(x, y) \to (0, 0)} \dfrac{xy}{x^2 + y^2}$ n'existe pas!
+\end{remark}
+
+\begin{thm}
+	Soit $f, g, h : E \to \mathbb R$, telles que
+	\begin{itemize}
+		\item $\lim\limits_{\bar x \to \bar x_0} f(\bar x) = \lim\limits_{\bar x \to \bar x_0} g(\bar x) = l$
+		\item $\exists \alpha > 0$ tel que $\forall \bar x \in \{\bar x \in E : 0 < \norm{\bar x - \bar x_0} \leq \alpha\}$, on a $f(\bar x) \leq h(\bar x) \leq g(\bar x)$.
+	\end{itemize}
+	Alors $\lim\limits_{\bar x \to \bar x_0} h(\bar x) = l$.
+\end{thm}
+
+\begin{thm}[continuité d'une fonction composée] Supposons qu'on a deux fonctions $g$ et $f$:
+	\begin{equation*}
+		\underset{\subseteq \mathbb R^n}{A} \overset{\bar g}{\longrightarrow} \underset{\subseteq \mathbb R^m}{B} \overset{f}{\longrightarrow} \mathbb R
+	\end{equation*}
+	Alors, si $g_1(\bar x), \ldots, g_m(\bar x)$ sont continues en $\bar a \in A$, et $f(\bar y)$ est continue en $(g_1(\bar a), \ldots, g_m(\bar a))$, alors $f \circ g(\bar x)$ est continue en $\bar x = \bar a$.
+\end{thm}
+
+\begin{defn}
+	Soit $f : E \to \mathbb R$. Alors si $M \in \mathbb R$ et $m \in \mathbb R$ satisfont
+	\begin{enumerate}
+		\item $f(\bar x) \leq M, f(\bar x) \geq m \quad \forall \bar x \in E$,
+		\item $M, m \in f(E)$,
+	\end{enumerate}
+	$M$ est le \textbf{maximum}, et $m$ est le \textbf{minimum} de la fonction $f$ sur $E$.
+\end{defn}
+
+\begin{thm}
+	Une fonction continue sur un sous-ensemble \underline{compact} $E \subset \mathbb R^n$ atteint son maximum et son minimum ($\iff \exists \max_{\bar x \in E} f(\bar x), \exists \min_{\bar x \in E} f(\bar x)$).
+\end{thm}
+\begin{attention}
+	La démonstration de ce théorème peut être demandée à l'examen! Voir notes du cours 10, 20 mars 2019.
+\end{attention}
+
+\begin{remark}
+	Pour assurer que $f$ atteint aussi toute valeur intermédiaire entre $m$ et $M$, il suffit que l'ensemble compact $E$ soit aussi connexe par chemins.
+\end{remark}
+
+
+
+
+\chapter{Calcul différentiel de fonctions de plusieurs variables}
+
+\section{Dérivées partielles et gradient}
+
+\begin{defn}
+	Soit $f : E \to \mathbb R$, où $E \subseteq \mathbb R^n$ est un ensemble ouvert. Définissons $g$ comme une fonction d'une seule variable réelle $s$: $g(s) = f(a_1, \ldots, a_{k-1}, s, a_{k+1}, \ldots, a_n)$, où $\bar a = (a_1, \ldots, a_n) \in E$. L'ensemble de définition de $g$ est $D_g = \{s \in \mathbb R : (a_1, \ldots, a_{k-1}, s, a_{k+1}, \ldots, a_n) \in E\}$. Alors si $g$ est dérivable en $a_k \in D$, on dit que la $k$-ième dérivée partielle de $f$ en $\bar a \in E$ existe et est égale à $g'(a_k)$.
+	\begin{equation}
+		\text{Notation: } \frac{\partial f}{\partial x_k}(\bar a) = D_k f(\bar a) \eqdef g'(a_k)
+	\end{equation}
+	On a
+	\begin{equation}
+		\frac{\partial f}{\partial x_k}(\bar a) \eqdef \lim_{t \to 0} \frac{g(a_k + t) - g(a_k)}{t} \eqdef \lim_{t \to 0} \frac{f(\bar a + t \bar e_k) - f(\bar a)}{t},
+	\end{equation}
+	où $e_k = (0, \ldots, \underset{k}{1}, \ldots, 0)$.
+\end{defn}
+
+\begin{defn}
+	Si toutes les dérivées partielles existent en $\bar a \in E$, on définit le \textbf{gradient} de $f$ en $\bar a$ comme le vecteur
+	\begin{equation}
+		\nabla f(\bar a) = \left( \frac{\partial f}{\partial x_1}(\bar a), \frac{\partial f}{\partial x_2}(\bar a), \ldots, \frac{\partial f}{\partial x_n}(\bar a) \right).
+	\end{equation}
+\end{defn}
+
+\begin{defn}
+	Soit $E \subseteq \mathbb R^n$ un sous-ensemble ouvert, $\bar a \in E$, $\bar v \in \mathbb R^n$, $\bar v \neq \bar 0$. La droite passant par $\bar a$ en direction de $\bar v$ admet la paramétrisation $\bar a + t\bar v \ \forall t \in \mathbb R$. Considérons la fonction $f : E \to \mathbb R$ et soit $g(t) = f(\bar a + t\bar v)$ une fonction d'une variable $t \in \mathbb R$. \par
+	Si $g$ est dérivable en $t = 0$, on dit qu'il existe la \textbf{dérivée directionnelle} de $f(\bar a)$ en direction de $\bar v$ (suivant le vecteur $\bar v$):
+	\begin{equation}
+		D f(\bar a, \bar v) = \frac{\partial f}{\partial \bar v}(\bar a) \eqdef \lim_{t \to 0} \frac{g(t) - g(0)}{t} \eqdef \lim_{t \to 0} \frac{f(\bar a + t\bar v) - f(\bar a)}{t}.
+	\end{equation}
+\end{defn}
+
+\begin{remark}
+	\begin{itemize}	
+		\item Si $\bar v = \bar e_k$, alors on retrouve la définition de la $k$-ième dérivée partielle de $f$ en $\bar a$. Si toutes les dérivées directionnelles existent en $\bar a$, alors toutes les dérivées partielles existent en $\bar a$. La réciproque est fausse.
+		\item On peut montrer facilement que $D f(\bar a, \lambda \bar v) = \lambda \cdot D f(\bar a, \bar v) \ \forall \lambda \in \mathbb R, \lambda \neq 0$. Donc, si la dérivée directionnelle de $f$ en $\bar a$ suivant $\bar v$ existe, alors la dérivée directionnelle de $f$ en $\bar a$ suivant $\lambda \bar v$ existe $\forall \lambda \in \mathbb R, \lambda \neq 0$. Il suffit donc de calculer les dérivées suivant les vecteurs unitaires, $\norm{\bar v} = 1$.
+	\end{itemize}
+\end{remark}
+
+\section{Dérivabilité et la Différentielle}
+
+\begin{defn}
+	Soit $f : E \to \mathbb R$, $E \subseteq \mathbb R^n$ ouvert, $\bar a \in E$. On dit que $f$ est \textbf{dérivable} au point $\bar a$ ssi il existe une application linéaire $L_{\bar a} : \mathbb R^n \to \mathbb R$ et une fonction $r : E \to \mathbb R$ telles que
+	\begin{equation}
+		f(\bar x) = f(\bar a) + L_{\bar a}(\bar x - \bar a) + r(\bar x) \quad \forall x \in E
+	\end{equation}
+	et $\lim\limits_{\bar x \to \bar a} \frac{r(\bar x)}{\norm{\bar x - \bar a}} = 0$. \par
+	$L_{\bar a}$ s'appelle la \textbf{différentielle} de $f$ en $\bar a$.
+	\begin{equation}
+		\textit{Notation: } L_{\bar a} = d f(\bar a).
+	\end{equation}
+\end{defn}
+\begin{remark}
+	La dérivabilité en un point est une propriété assez forte. Elle implique que toutes les dérivées directionnelles existent en ce point, et donc que toutes les dérivées partielles existent en ce point. La réciproque est en général fausse, sauf si l'on impose certaines conditions sur les dérivées partielles (voir théorème \ref{thm:derivabilite2}).
+\end{remark}
+
+\begin{thm}
+	Soit $f : E \to \mathbb R^n$ telle que $f$ dérivable en $\bar a$ et de différentielle $L_{\bar a}: \mathbb R^n \to \mathbb R$. Alors
+	\begin{enumerate}
+		\item $f$ est continue en $\bar a$.
+		\item Pour tout $\bar v \in \mathbb R^n, \bar v \neq \bar 0$, la dérivée directionnelle $D f(\bar a, \bar v)$ existe et
+		\begin{equation}
+			D f(\bar a, \bar v) = L_{\bar a}(\bar v).
+		\end{equation}
+		\item Toutes les dérivées partielles de $f$ en $\bar a$ existent et		
+		\begin{equation}
+			\frac{\partial f}{\partial x_k}(\bar a) = L_{\bar a}(\bar e_k).
+		\end{equation}
+		Le gradient de $f$ en $\bar a$ existe et
+		\begin{equation}
+			\nabla f(\bar a) = \bar l = (L_{\bar a}(\bar e_1), \ldots, L_{\bar a}(\bar e_n))
+		\end{equation}
+		\item Pour tout $\bar v \in \mathbb R^n, \bar v \neq \bar 0$, on a
+		\begin{equation}
+			L_{\bar a}(\bar v) = D f(\bar a, \bar v) = \langle \nabla f(\bar a), \bar v \rangle
+		\end{equation}
+		\item Pour tout $\bar v \in \mathbb R^n, \norm{\bar v} = 1$ on a
+		\begin{equation}
+			D f(\bar a, \bar v) \leq \norm{\nabla f(\bar a)}
+		\end{equation}
+		et
+		\begin{equation}
+			D f\left(\bar a, \frac{\nabla f(\bar a)}{\norm{\nabla f(\bar a)}}\right) = \norm{\nabla f(\bar a)}.
+		\end{equation}
+		Le gradient donne la direction de la plus grande pente de $f$ en $\bar a$ (si $\nabla f(\bar a) \neq \bar 0$).
+	\end{enumerate}
+\end{thm}
+
+\begin{thm}[dérivabilité 2]\label{thm:derivabilite2}
+	Soient $E \subseteq \mathbb R^n$ ouvert, $f : E \to \mathbb R$, $\bar a \in E$. S'il existe $\delta > 0$ tel que toutes les dérivées partielles $\frac{\partial f}{\partial x_k}(\bar x)$ existent sur $B(\bar a, \delta)$ et sont continues en $\bar a$, alors $f$ est dérivable en $\bar a$.
+\end{thm}
+
+\begin{thm}[Schwartz]
+	Soient $f : E \to \mathbb R$, $\bar a \in E$ tels que les dérivées partielles secondes $\frac{\partial^2 f}{\partial x_i \partial x_j}$ et $\frac{\partial^2 f}{\partial x_j \partial x_i}$ existent dans un voisinage de $\bar a$ et sont continues en $\bar a$. Alors
+	\begin{equation}
+		\frac{\partial^2 f}{\partial x_i \partial x_j} = 		\frac{\partial^2 f}{\partial x_j \partial x_i}
+	\end{equation}
+\end{thm}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

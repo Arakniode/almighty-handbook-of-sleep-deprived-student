@@ -1,0 +1,727 @@
+\documentclass{report}
+
+\title{AICC II \\ Prof. Bixio Rimoldi}
+\author{Benjamin Bovey}
+\date{Semester of Spring 2019}
+
+%math packages
+\usepackage{amsmath}
+\usepackage{mathtools}
+\usepackage{amssymb}
+\usepackage{amsthm}
+
+\usepackage{thmtools}
+%\usepackage{thmbox}
+%\usepackage{shadethm}
+
+\usepackage[dvipsnames]{xcolor}
+
+%utility packages
+\usepackage{cancel}
+\usepackage{soul}
+
+%margins
+\usepackage{geometry}
+\geometry{left=2cm, right=2cm, top = 2cm, bottom=2cm}
+
+
+\newcommand\important[1]{\noindent {\underline{\textsc{#1}}} \ }
+\DeclareMathOperator{\supp}{supp}
+
+\declaretheorem[name=Theorem, style=plain, shaded={rulecolor=Lavender, rulewidth=2pt, bgcolor={rgb}{1,1,1}}]{thm}
+
+\declaretheorem[name=Definition, sibling=thm, style=definition, shaded={rulecolor={blue!30}, rulewidth=2pt, bgcolor={rgb}{1,1,1}}]{defn}
+\declaretheorem[name=Example, sibling=thm, style=definition]{exmp}
+\declaretheorem[name=Summary, numbered=no, style=definition]{summary}
+
+
+\declaretheorem[name=Remark, numbered=no, style=remark]{remark}
+
+%\theoremstyle{plain}
+%\newtheorem{thm}{Theorem}
+%
+%\theoremstyle{definition}
+%\newtheorem{exmp}[thm]{Example}
+%\newtheorem{defn}[thm]{Definition}
+%\newtheorem*{summary}{Summary}
+%
+%\theoremstyle{remark}
+%\newtheorem*{remark}{Remark}
+%\newtheorem*{question}{Question}
+%\newtheorem*{answer}{Answer}
+
+% the next 3 lines are for removing section numbering. You may want to comment them out.
+\makeatletter
+\renewcommand{\@seccntformat}[1]{}
+\makeatother
+
+\begin{document}
+\maketitle
+
+
+\section{19th February 2019}
+As opposed to the first AICC course, where we were mostly presented with tools, we will now see more applications of these tools for communication and computation. Mainly, we will see 3 applications in the first part of the semester:
+\begin{itemize}
+	\item \textbf{Source coding} (compressing information)
+	\item \textbf{Cryptography} (authentication / privacy / integrity of information)
+	\item \textbf{Channel Coding} (dealing with noise and loss of information / protecting the information from natural damages)
+\end{itemize}
+What these three have in common is the idea of storing and communicating information. The notion of entropy, which will come up quite often, will also be important.
+
+\subsection{Basic probability review}
+\textbf{Special case first}: \underline{finite} sample space $\Omega$ and \underline{uniform distribution}. $\Omega = \{\omega_1, \omega_2, \dots, \omega_n\}$. Events: $E \subseteq \Omega$. Then:
+\begin{equation}
+	P(E) = \dfrac{|E|}{|\Omega|} \qquad \text{(uniform distribution)}
+\end{equation}
+
+\begin{defn}[conditional probability]
+Let $E, F$ be two events. Then, the probability that event $E$ occurs knowing that $F$ has occured:
+\begin{equation}
+	P(E|F) = \dfrac{|E \cap F|}{|F|}
+\end{equation}
+\end{defn}
+Intuitively, you restrict the sample space to $F$ only, because you \emph{know} that $F$ has happened: this translates to the division by the cardinality of $F$ instead of the cardinality of $\Omega$. The intersection of $E$ and $F$ follows from the fact that the sample space is restricted to $F$: if there exists elements that are in $E$ but not in $F$, they are outside of the new sample space $F$, which means that these elements CANNOT occur in conjunction with $F$. Therefore, we take the intersection of $E$ and $F$ to assure that these elements are not taken into account in the computation.
+
+\begin{thm}[Law of total probability]
+Let $E$ and $F$ be two events in $\Omega$, and let $F^C$ denote the complement of $F$. Then:
+\begin{equation}
+	P(E) = P(E|F)P(F) + P(E|F^C)P(F^C)
+\end{equation}
+This follows quite directly from the fact that $E = (E \cap F) \cup (E \cap F^C)$, so $P(E) = P(E \cap F) + P(E \cap F^C)$ \dots 
+\end{thm}
+
+\begin{remark}[divide and conquer] You can sometimes create a partition of your sample space, in a way that allows you to better apply the numbers you are given (p.27-28). This method is called \emph{divide and conquer}.
+\end{remark}
+
+\begin{thm}[Bayes]
+Bayes' theorem allows you to compute $p(F|E)$, given that you know $p(E|F), p(E)$ and $p(F)$:
+\begin{equation}
+	p(F|E) = \dfrac{p(E|F)p(F)}{p(E)}
+\end{equation}
+\end{thm}
+
+\begin{remark}[application] This is useful, in real scenarios, when either one of $p(E|F)$ and $p(F|E)$ is easily observable, but the other isn't. For example, policemen may observe how many people are driving drunk knowing that they have had an accident (they just test the driver after the accident), but they cannot observe how many people are having an accident knowing that they are driving drunk (they can not really test drivers, and then let them drive drunk just to check if they have an accident or not).
+\end{remark}
+
+\begin{defn}
+A \textbf{random variable} $X$ is a function $X: \Omega \to \mathbb{R}$. It is attached a \emph{probability distribution function} $p_X(x)$, which represents the probability that $X$ will take on the value $x$, that is, that the following event $E$ occurs:
+\begin{equation}
+	E = \{\omega \in \Omega : X(\omega) = x\}
+\end{equation}
+Hence,
+\begin{equation}
+	p_X(x) = p(E) = \sum_{\omega \in E} p(\omega)
+\end{equation}
+The set of all possible values of $X$ is sometimes called the \emph{alphabet} of $X$, written with more curly letters like $\mathcal A$.
+\end{defn}
+
+\begin{defn}[two random variables]
+	Let $X: \Omega \to \mathbb{R}$ and $Y: \Omega \to \mathbb{R}$ be two random variables. \\
+	The probability of the event $E = \{\omega \in \Omega : X(\omega) = x \land Y(\omega) = y\}$, or, more shortly written, $\{X = x \land Y = y\}$, is
+	\begin{equation}
+		p_{X, Y}(x, y) = \sum_{\omega \in E} p(\omega)
+	\end{equation}
+	We can compute $p_X$ (or $p_Y$, similarly) from $p_{X, Y}$:
+	\begin{equation}
+		p_X(x) = \sum_y p_{X, Y}(x, y)
+	\end{equation}
+\end{defn}
+In one sense, we "fix in place" the value of $x$ and "scroll through" all possible values of $y$, and add their probabilities up. Here, $p_X$ is called the \textbf{marginal distribution} of $p_{X, Y}(x, y)$ with respect to $x$.
+
+\section{21st February 2019}
+
+\begin{defn}[expected value]
+The \textbf{expected value}, or \textbf{mean} of a random variable $X: \Omega \to \mathbb{R}$, can be computed as
+\begin{equation}
+	E[X] = \sum_{x \in \mathcal A(X)} x \cdot p_X(x) \quad \text{(requires $p_X$)},
+\end{equation}
+or as
+\begin{equation}
+	E[X] = \sum_{\omega \in \Omega} X(\omega) \cdot p(\omega).
+\end{equation}
+\end{defn}
+One could say that the first way is ``calculating over the codomain'', and the second way is ``calculating over the domain'' (of $X$). 
+
+\begin{remark} The expected value is a linear operation. Let $X_1, X_2, \dots, X_n$ be random variables from $\Omega$ to $\mathbb{R}$, and let $\lambda_1, \lambda_2, \dots, \lambda_n$ be real numbers. Then
+\begin{equation}
+	E\underbrace{\Bigr[\sum_{i=1}^n \lambda_i X_i\Bigl]}_{\text{random variable}} = \sum_{i=1}^n \lambda_i E[X_i]
+\end{equation}
+\end{remark}
+
+\subsection{Extending notions from events to random variables}
+The notion of independent events extends to random variables. Recall that two events $E$ and $F$ are independent iff $p(E|F) = p(E)$, which is equivalent to saying that $p(E \cap F) = p(E)p(F)$. 
+
+Similarly, two random variables are independent iff the value taken by one does not influence the value taken by the other.
+
+\begin{defn}[independent random variables]
+	We say that two random variables $X, Y: \Omega \to \mathbb{R}$ are \textbf{independent} iff 
+	\begin{equation}
+		p_{X, Y}(x,y) = p_X(x)p_Y(y)
+	\end{equation}
+	More generally, $n$ random variables are independent iff
+	\begin{equation}
+		p_{S_1, \ldots, S_n} = \prod_{i=1}^n p_{S_i}
+	\end{equation}
+\end{defn}
+
+\noindent From there, we can also extend the notion of conditional probability to random variables.
+\begin{defn}
+We define the \textbf{conditional probability of two random variables} $X, Y: \Omega \to \mathbb{R}$ as
+\begin{equation}
+	p(X=x | Y=y) = \dfrac{p(X=x \land Y=y)}{p(Y=y)},
+\end{equation}
+or, with simpler notation,
+\begin{equation}
+	p_{X|Y} = \dfrac{p_{X, Y}(x, y)}{p_Y(y)}
+\end{equation}
+\end{defn}
+
+\begin{remark} The following statements are all equivalent to the statement ``$X$ and $Y$ are independent'':
+\begin{align}
+	p_{X, Y}(x, y) = p_X(x) \\
+	\label{eq:condprobtip1}
+	p_{X|Y}(x|y) = p_X(x) \\
+	\label{eq:condprobtip2}
+	p_{Y|X}(y|x) = p_Y(y)
+\end{align}
+\end{remark}
+
+\begin{remark}[useful trick] If you are asked to check the independence of $X$ and $Y$, you don't have to check the equality of \eqref{eq:condprobtip1} or \eqref{eq:condprobtip2}. You just have to find the expression for the left-hand side function, and see if it depends on the other variable ($\implies$ they are NOT independent), or if it is just a function of one variable ($\implies$ they are independent).
+\end{remark}
+
+\begin{thm}[consequence of the independence of random variables] In all cases, $E[X+Y] = E[X] + E[Y]$. However, if $X$ and $Y$ are \emph{independent}, we also have that
+\begin{equation}
+	E[XY] = E[X]E[Y]
+\end{equation}
+\end{thm}
+
+\subsection{Source \& Entropy}
+The main object that will interest us when studying source coding is the source itself. The question of the definition of a source took mathematicians and computer scientists a while to answer. We can loosely model a source as a black box that outputs \emph{information}: we are not really interested in its inner mechanisms, but rather in the information that comes out of it. This information could take many forms, for example sequences of symbols: since we are considering sources from a computer science point of view, we will be interested in sources that shite out sequences of numbers. \\
+ The notion of \emph{entropy} comes into the frame when we realize that a symbol that can be \emph{predicted} before it comes out of the source provides no new information. For example, if the sequence of numbers coming out of the source is \texttt{1, 1, 5, 5, 3, 3, 19, 19, 5, ...}, we quickly realize that we do not need to store the second number of each pair, as it brings no new information to the table. \\
+ An important observation that we can make at this point (it was initially made by Hartley in 1929) is that this link between information and entropy can be modeled very elegantly by random variables! If we think about it, the core idea of a random variable is that it gives you a value that you cannot certainly predict until you actually do the experiment that it models and observe its outcome (hence, in fact, the name of \emph{random} variable). If we choose to use this model, a source can be viewed as outputting a sequence of random variables, where each random variable represents one (or more, as we'll see later) symbol(s) in the sequence of symbols. \\
+Let us now consider a source outputting a sequence of random variables, call them $S_1, S_2, S_3, \dots, S_n$. Another fundamental question we may ask ourselves is: \ul{how much information is actually conveyed by each individual symbol?} A partial answer was given by Hartley, that is, that this must depend on the \textbf{alphabet} of the random variable.
+\begin{defn}
+	The \textbf{alphabet} of a random variable is the codomain of the random variable, that is, the set of all values that the random variable may take.
+\end{defn}
+Indeed, the bigger the alphabet, the more information it can carry, as there are more possibilities for each symbol, and therefore less predictability. With basic combinatorics, we can see that there are $|\mathcal A|^n$ possible length-$n$ sequences $(s_1, s_2, \dots, s_n)$. Therefore, the amount of information carried by $S_i$ is $\log_b |\mathcal A|$ \footnote{We will see later that the value of $b$ determines the unit of information used. Most often, it is 2, which means that the bit is the unit.}.
+\begin{exmp} Imagine this is the sequence of good days (1) and bad days (0) in London during a year:
+\begin{equation*}
+	(s_1, s_2, \dots, s_{365}) = (0, 1, 1, 0, 1, 0, 0, 0, 1, 0, \dots, 0, 0, 1).
+\end{equation*}
+ This sequence of numbers is very unpredictable, as there is no constant pattern underlying it. It would therefore be hard to find a better way of storing this information (without losing any) than just storing all the 365 bits individually. When this happens, we will see that what we shall soon define as the \textbf{entropy} of this random variable is very high. \par
+Now imagine that in San Diego, the sequence looks like this:
+\begin{equation*}
+	(\overbrace{0, 0, 0, \dots, 0}^{\text{24 zeros}}, 1, \overbrace{0, 0, 0, \dots, 0, 0}^{\text{340 zeros}}).
+\end{equation*}
+ This is a very predictable sequence: we could, for example, just store $(24, 1, 340)$ rather than storing all 365 bits. This means we can shrink down how we represent this information without losing any information! Here, the amount of information is much lower than in the case of London, and the entropy is very low.
+\end{exmp}
+
+\subsection{Entropy redefined by Shannon}
+Shannon, in 1948, gave a new formula for the amount of information carried by a random variable $S$. He found out that the amount of information \emph{is} in fact the entropy itself\footnote{Like we saw with the example of London and San Diego weather, when the entropy is very low (which means that the source is very predictable), we can shrink down the information to store it easier. What that really means is that we can cut out unnecessary bits that do not bring any new information. This allows us to observe that when entropy is low, the actual amount of information is low. Similar observations can be made with high entropy and high amounts of information.}, and gave this formula for the entropy $H(S)$:
+\begin{equation}
+	H(S) = -\sum_{\mathclap{s \in \supp (p_S)}} p_S(s) \cdot \log_b \bigl( p_S(s) \bigr)
+\end{equation}
+
+\begin{remark} We may observe some things:
+	\begin{itemize}
+		\item The rather heavy notation $s \in \supp (S)$ is needed because $\log(0)$ is undefined. However, if we accept the common convention $0 \cdot \log(0) = 0$, then we can simplify the notation to this: \begin{equation*}H(S) = - \sum_{s \in \mathcal A} p_S(s) \log_b \bigl(p_S(s)\bigr); \end{equation*}
+		\item when $b=2$ then the unit is the bit. By default, $H(S) = H_2(S)$;
+		\item we may rewrite the formula as
+		\begin{equation*}
+		H(S) = \sum\limits_{s \in \mathcal A} p_S(s) \underbrace{\Bigr(-\log_b \bigl(p_S(s)\bigl) \Bigl)}_{\text{rand. var. $X$}} = E[X],
+		\end{equation*}
+		because this is the expression of the expected value of a random variable $X$.
+		\item Since the sources that we will study are most often sequences of random variables, it is important to know that \ul{entropy can extend to any number of random variables}.
+	\end{itemize}
+\end{remark}
+
+\begin{exmp}
+	Let us try and give an intuitive example of entropy applied to a sequence of random variables. Let $S_1, S_2, \ldots, S_n$ be a sequence of coin flips. Then $S_i \in \{0, 1\} = \mathcal A$, and $P_S(s) = \frac12$. \\
+Intuitively, we are flipping $n$ coins, and it should take $n$ bits to describe the result (a length-$n$ bitstring).
+\begin{align*}
+	&\underbrace{P_{S_1, S_2, \ldots, S_n}(s_1, s_2, \ldots, s_n)}_{\text{abbreviate as } P(s_1, \ldots, s_n)} = \prod_{i=1}^n P(s_i) = \left(\frac12 \right)^n \\
+	&H(S_1, S_2, \ldots, S_n) = \log\left(|\mathcal A|^n \right) = n \log 2 = n
+\end{align*}
+
+Recall that when we write $P(s_1, s_2, \ldots, s_n)$, we mean the probability of getting the sequence $(s_1, s_2, \ldots, s_n) \in \mathcal A^n$. The cardinality of the alphabet is $|\mathcal A^n| = |\mathcal A|^n$.
+\end{exmp}
+
+
+
+\section{26th February 2019}
+We saw last time that a source can mathematically be modeled as one or more random variables, each being described by its probability mass function. We saw that the entropy is a number which represents the ultimate amount of bits (not necessarily, but generally, binary) needed to represent a random variable (and therefore a source).
+
+\begin{defn}[binary entropy function] When the random variable $S \in \{0, 1\} = \mathcal A$ with $p_S(0) = P$ represents a Bernouilli trial, that is, its alphabet is of size 2, we may compute the entropy as
+\begin{align*}
+	H(S) &= - \sum_{s \in \mathcal A} p_S(0) \log_b \bigl(p_S(0)\bigr) \\
+	&= \underbrace{-P \log P - (1-P) \log(1-P)}_{h(P) \text{ function of } P}
+\end{align*}
+This function $h(P)$ is called the \textbf{binary entropy function}. 
+\end{defn}
+
+Many results in information theory are the consequence of the following inequality \ref{thm:it-inequality}.
+\begin{thm}[IT inequality]\label{thm:it-inequality}
+Let $r > 0$. Then
+\begin{equation}
+	\log_b(r) \leq (r-1) \log_b (e) % WHAT IS e
+\end{equation}
+with the equality iff r = 1.
+\end{thm}
+
+\begin{thm}[Entropy bounds]
+Let $s \in \mathcal A$. Then
+\begin{equation}
+	0 \leq H(s) \leq \log_b |\mathcal A|
+\end{equation}
+with the first inequality holding iff $S=\text{const.}$, and the second inequality holding iff $p_S(s)=\frac{1}{|\mathcal A|}$.
+\end{thm}
+
+\begin{exmp}
+	Let $S$ be your 4-digit lock number. Then $S = \{0, 1, \ldots, 9999\}$. Let's say you choose your lock number at random: then $H(S) = \log 10^4$. However, if your grandma \ul{always} chooses $0000$, then $S$ is a constant, and $H(S) = 0$. A random (least predictable) choice has the most entropy possible ($\log_b |\mathcal A|$), and a constant (most predictable) choice has the least entropy (zero). This makes sense, and it also means that the random lock number carries the most information, and the constant one carries the least information.
+\end{exmp}
+
+\noindent Let's apply this to sources.
+
+\subsection{Source coding}
+The setup we have is the following: let's say we have a source emitting $S_i \in \mathcal A$ towards an encoder with an \emph{encoding map} (a function $\mathcal A \to \mathcal C$) called $\Gamma$. We're going to map each element of the alphabet into a codeword, for example, each letter of the word \texttt{dinner}. For example: d$\to 000$, i$\to 010$, \dots \\
+The encoder is specified by
+\begin{itemize}
+	\item an input alphabet $\mathcal A$, which is the alphabet of the source
+	\item an output alphabet $\mathcal C$
+	\item the encoding map $\Gamma : \mathcal A \to \mathcal C$
+\end{itemize}
+The code is a set of codewords, which are the output of the $\Gamma$ map. The $\Gamma$ map is always one-to-one and onto (bijective), but this doesn't mean that we can necessarily go back from the code words to the words, since we usually concatenate the output.
+
+\begin{exmp}
+ Let $\mathcal A = \{\texttt H, \texttt E, \texttt L, \texttt O\}$ and $\mathcal C = \{01, 10, 0, 11\}$ ($\Gamma$ maps them in the written order). Then $\Gamma : \mathcal A \to \mathcal C$ encodes the word \texttt{HELLO} to the bitstring \texttt{01100011}. The conversion is easy in this direction, but when trying to decode the message, we run into a difficulty: the bitstring could either be interpreted as \texttt{01,10,0,0,11}, which would give back the correct message \texttt{HELLO}, or as \texttt{0,11,0,0,0,11}, which would give the incorrect message \texttt{LOLLLO}.
+\end{exmp}
+
+\begin{defn}
+	We say that a code is \textbf{uniquely decodable} if each concatenation of codewords has a unique parsing into codewords, that is, if we can be sure of getting the correct message when decoding a sequence of codewords. The kinds of encodings that give uniquely decodable codes are the ones that are most interesting in information encoding. 
+\end{defn}
+
+\begin{exmp}\label{exmp:first-codes}
+Let's have a look at a few different $\Gamma$ mappings, and check whether they are uniquely decodable or not:
+\begin{center}
+	\begin{tabular}{l | l l l l}
+		$\mathcal A$ & $\Gamma_O$ & $\Gamma_A$ & $\Gamma_B$ & $\Gamma_C$ \\ \hline
+		\texttt a & 00 & 0 & 0 & 0 \\
+		\texttt b & 01 & 01 & 10 & 01 \\
+		\texttt c & 10 & 10 & 110 & 011 \\
+		\texttt d & 11 & 11 & 1110 & 0111
+	\end{tabular}
+\end{center}
+The code $\Gamma_O$ \textbf{is} uniquely decodable because of its constant codeword length: we will always group symbols two by two, which means that there is a single possible decoding. \par
+ \noindent The code $\Gamma_A$ \textbf{is not} uniquely decodable: for example, if we have the sequence \texttt{0110}, we could either decode it as \texttt{01,10} which would mean ``\texttt{bc}'', or as \texttt{0,11,0} which would mean ``\texttt{ada}''. \par
+ \noindent The code $\Gamma_B$ \textbf{is} uniquely decodable, since 0 acts as a delimiter between codewords (suffix). \par
+ \noindent The code $\Gamma_C$ \textbf{is} uniquely decodable, since 0 acts as a delimiter between codewords (prefix). 
+\end{exmp}
+
+ Example \ref{exmp:first-codes} showed us two cases of codes that have either a suffix or a prefix, and that are uniquely decodable. In fact, using prefixes and suffixes are a way to guarantee that a code is uniquely decodable; however, prefixes do come with a problem which we shall now discover.
+
+\begin{defn}
+	A code is said to be \textbf{prefix-free} if no codeword is the prefix of a longer codeword. Prefix-free codes are preferred in encoding information. They are also called \textbf{instantaneous codes}, since they allow instantaneous decoding.
+\end{defn}
+
+ Indeed, prefixes may seem like a good idea since they guarantee uniquely-decodable codes. The issue, however, with codes that are not prefix-free, is they are not ``instantaneously'' decodable: if you have only received part of the sequence of codewords, you cannot decode it, since there may be ambiguities. This is illustrated by the next example \ref{exmp:prefixes-are-not-so-great}.
+
+\begin{exmp}\label{exmp:prefixes-are-not-so-great} Here's an example of why prefix codes are not the best in terms of decoding. The following code is uniquely decodable, but it uses a prefix:
+\begin{center}
+	\begin{tabular}{l | l} 
+		$\mathcal A$ & $\Gamma$ \\ \hline
+		\texttt a & 0 \\
+		\texttt b & 00001
+	\end{tabular}
+\end{center}
+If the decoder receives the sequence \texttt{00}, it cannot instantaneously determine whether this is the start of a \texttt{b} or two concatenated \texttt{a}, and so it has to wait until it has the full string of bits to be able guarantee correct decoding. \par
+ In real life, this sort of problem shows up, for example, when streaming video or audio from the Internet, where it may cause unwanted delays. 
+\end{exmp}
+
+Theorem \ref{thm:kraft-mcmillan-1} comes in very handy when trying to determine whether a code is uniquely decodable or not.
+
+\begin{thm}[Kraft-McMillan 1]\label{thm:kraft-mcmillan-1}
+	If a $D$-ary code is uniquely decodable, then its codeword lengths $l_1, l_2, \ldots, l_M$ satisfy the following inequality:
+\begin{equation}
+	D^{-l_1} + \dots + D^{-l_M} \leq 1 \quad \text{(Kraft's inequality)}
+\end{equation}
+\begin{remark}
+Kraft's sum is only about the lengths of the codewords!
+\end{remark}
+\end{thm}
+Do be wary that this theorem is an ``if-then'' theorem, which means that the converse may not be true! Such a case is illustrated by example \ref{exmp:kraft-mcmillan-1-converse}.
+
+\begin{exmp}\label{exmp:kraft-mcmillan-1-converse}
+Let's look at the following code:
+\begin{center}
+	\begin{tabular}{l | r}
+	$\mathcal A$ & $\mathcal C$ \\ \hline
+	\texttt a & \texttt{01} \\
+	\texttt b & \texttt{0101}	
+	\end{tabular}
+\end{center}
+	This is a 2-ary (binary) code with lengths 2 and 4, so Kraft's sum gives
+	\begin{equation*}
+		2^{-2} + 2^{-4} = \frac14 + \frac{1}{16} = \frac{5}{16} \leq 1,
+	\end{equation*}
+	and Kraft's inequality is satisfied, however the code is clearly \textbf{not} uniquely decodable.
+\end{exmp}
+
+\section{28th February 2019}
+
+These following properties are what we aim for with any encoding map $\Gamma : \mathcal A \to \mathcal C$, in order to optimize transmission and decoding speed:
+\begin{itemize}
+	\item $\mathcal C$ be uniquely decodable
+	\item $\mathcal C$ be prefix-free
+	\item $\mathcal C$ have its average codeword length be as small as possible
+\end{itemize}
+
+\begin{thm}[Kraft-McMillan 2]
+If $l_1, \ldots, l_m$ satisfy Kraft's inequality for some positive integer $D$, then there exists a $D$-ary prefix-free code that has codeword  lengths $l_1, \ldots, l_m$.
+\end{thm}
+
+This second part of the Kraft-McMillan theorem guarantees that \emph{any} uniquely decodable code can be substituted by a prefix-free code of the same codeword lengths.
+\begin{summary}[Kraft-McMillan] The theorem is in 2 parts:
+	\begin{enumerate}
+		\item If a $D$-ary code is uniquely decodable, then its codeword lenghts $l_1, \ldots, l_M$ satisfy Kraft's inequality
+		\begin{equation*}
+		D^{-l_1} + \dots + D^{-l_M} \leq 1.
+		\end{equation*}
+		\item If the positive integers $l_1, \ldots, l_M$ satisfy Kraft's inequality for some integer $D$, then there exists a $D$-ary \ul{prefix-free} code that has those codeword lengths.
+	\end{enumerate}
+\end{summary}
+
+\begin{defn}
+We define the \textbf{average length} $L(S, \Gamma)$ as
+	\begin{equation}
+		L(S, \Gamma) = \sum_{S \in \mathcal A} p_S(s) \underbrace{l \bigl(\Gamma(s)\bigr)}_{{\mathclap{\text{shorthand } l(s)}}}.
+	\end{equation}
+	Sometimes we write
+	\begin{equation}
+		L(S, \Gamma) = \sum_i p_i l_i.
+	\end{equation}
+This is rather intuitively defined, as the expected length should according to common sense indeed depend on the length of each codeword, and on its probability of appearing in the code. \\
+The units of the average length are \textbf{code symbols}. When $D = 2$, the units are \textbf{bits}.
+\end{defn}
+
+An interesting question we may now ask ourselves is the following: is there a lower bound to the average length for uniquely decodable codes?
+
+\begin{thm}[lower bound on average length]
+	Let $\Gamma$ be the encoding map of a $D$-ary code for the source $S$. If the $D$-ary code is uniquely decodable, then
+	\begin{equation}
+		H_D(S) \leq L(S, \Gamma).
+	\end{equation}
+	\textbf{The entropy is a lower bound to the average length}.
+\end{thm}
+
+\begin{remark}
+	A key observation we may make is that the definition of the average length is somewhat similar to that of the entropy:
+	\begin{align*}
+		&L(S, \Gamma) = \sum_{s \in \mathcal A} p(s) l(\Gamma(s)) \\
+		&H_D(S) = \sum_{s \in \mathcal A} p(s) \log_D \left(\frac{1}{p_S(s)}\right)
+	\end{align*}
+In fact, the definitions are identical iff $l(\Gamma(s)) = \log_D \left(\frac{1}{p_S(s)}\right)$. Unfortunately this equality is often not possible (the $\log$ is often not an integer). But what if we chose $l(\Gamma(s)) = \left\lceil \log_D \left(\frac{1}{p_S(s)}\right) \right\rceil$? Is it a valid choice for a prefix-free code (is Kraft's inequality satisfied)?
+\end{remark}
+
+\begin{defn}[Shannon-Fano code]
+	A code $\mathcal C$ for which $l_i = \left\lceil -\log_D \bigl(P_S(s) \bigr) \right\rceil$ is called a \textbf{Shannon-Fano code}. Visually, it is constructed by going from the top down when creating the code tree.
+\end{defn}
+\begin{remark}
+	The Shannon-Fano code is not always optimal, in the sense that its average codeword length is not always the best. This means that it is a lot less used than the Huffman code which we will see later, and which always gives optimal codes.
+\end{remark}
+
+
+\begin{defn}
+	We say that a probability distribution is \textbf{diadic} iff
+	\begin{equation}
+		p_i = D^{-l_i}
+	\end{equation}
+\end{defn}
+
+\begin{thm}
+	It is possible to make the codewords lengths $l_i$ equal the entropy iff the code is diadic.
+\end{thm}
+
+CLEAR UP THE THING ABOUT THE $-\log_D(p_i)$ THAT I DONT UNDERSTAND
+
+\begin{remark}
+	Most probability distributions are not diadic. Then, $-\log_D(p_i)$ is not an integer, and we can't make the length equal that number. \par
+	The only cases where a Shannon-Fano code is optimal is when the probability distribution is diadic (CHECK IF THIS IS CORRECT).
+\end{remark}
+
+\begin{defn}[Huffman code]
+ Visually, the Huffman code on an alphabet is constructed by going from the bottom up when creating the code tree, and grouping together the least probable symbols.
+\end{defn}
+
+\begin{exmp} (COMPLETE WITH THE PROBABILITY DISTRIBUTION) The Huffman code on $\mathcal A = \{\texttt a, \texttt b, \texttt c, \texttt d\}$ is:
+	\begin{center}
+	\begin{tabular}{r | l}
+		$\mathcal A$ & $\Gamma_H$ \\ \hline
+		\texttt a & \texttt{000} \\
+		\texttt b & \texttt{001} \\
+		\texttt c & \texttt{01} \\
+		\texttt d & \texttt{1}
+	\end{tabular}
+	\end{center}
+ We can compute the expected length and the entropy (in bits):
+	\begin{align*}
+		&L(S, \Gamma_H) = 0.15 + 0. 15 + 0.2 + 0.8 = 1.3 \\
+		&H_2(S) = \ldots = 1.022
+	\end{align*}
+\end{exmp}
+
+\section{5th March 2019}
+
+\begin{thm}
+	The average length can also be computed by adding together the probabilities of all nodes on the code tree, except for the last leaves:
+	\begin{equation}
+		\underbrace{\sum_{\substack{i \in \\ \text{terminal} \\ \text{leaves}}}}_{L(S, \Gamma)} = \quad \sum_{\mathclap{\substack{j \in \\ \text{intermediate} \\ \text{nodes}}}} q_j.
+	\end{equation}
+\end{thm}
+
+\begin{thm}[optimality of Huffman codes]
+	Let $\Gamma_H$ be an encoder of a $D$-ary Huffman code for $S$, and let $\Gamma$ be another $D$-ary uniquely decodable encoder for $S$. Then
+	\begin{equation}
+		L(S, \Gamma_H) \leq L(S, \Gamma).
+	\end{equation}
+	Basically, the Huffman code on $S$ is the optimal code on $S$.
+\end{thm}
+
+
+\subsection{}
+
+\begin{defn}[IID source]
+	A source is said to be \textbf{IID} (Independant and Identically Distributed) iff all random variables are mutually independent and have the same probability distribution. 
+\end{defn}
+Most sources are not IDD.
+
+\begin{exmp}
+	A sequence of coin flips is an IID source.
+\end{exmp}
+
+\begin{exmp}
+	Let $S_1, S_2 \in \{1, 2, \ldots, 6\}$ represent dice throws. They are independant and uniformly distributed. Let $(L_1, L_2)$ be the first and second digit of the sum $S_1 + S_2$. We can compute $P_{L_1 | L_2} (1|1) = \frac{P_{L_1 | L_2}(1, 1)}{P_{L_1}(1)}$. We know that the event $(L_1, L_2) = (1, 1)$ is the same as the event $S_1 + S_2 = 11$, which is the same as saying $(S_1, S_2) \in \{(5, 6), (6, 5)\}$, which has probability $2/36$. Then the conditional probability that we wanted to compute is
+	\begin{align*}
+		\frac{2/36}{3/36 + 2/36 + 1/36} = \frac13
+	\end{align*}
+\end{exmp}
+
+\begin{defn}[conditional entropy]
+	Let $p_X$ be the probability distribution of a random variable $X$. We already know how to compute the entropy $H(x)$ from this probability distribution. Then $p_{X|Y=y}$, which is also a probability distribution, allows us to compute the \textbf{conditional entropy} $H(X|Y=y)$:
+	\begin{equation}
+		H_b(X|Y=y) = - \sum_{x \in X} p_{X|Y}(x|y) \log_b \bigl(p_{X|Y}(x|y)\bigr)
+	\end{equation} 	
+\end{defn}
+
+\begin{exmp}[continuation]
+COMPLETE THIS FROM THE NOTES :DDDDDDDDDDDDDDD I AM GOING INSANE AND 2 HOURS LEFT :DDDDDDDDDDD
+\end{exmp}
+
+\section{7th March 2019}
+
+IS THE ENTROPY EQUAL TO THE AVERAGE LENGTH IFF IT IS A HUFFMAN CODE?
+
+\begin{thm}
+	Let $X$ and $Y$ be two random variables. Then
+	\begin{equation}
+		H(X|Y) \leq H(X),
+	\end{equation}
+	with the equality iff $X$ and $Y$ are independent.
+\end{thm}
+
+\begin{thm}[chain rule of entropy]
+	Let $S_1, \ldots, S_n$ be random variables. Then
+	\begin{equation}
+		\boxed{H(S_1, \ldots, S_n) = \sum_{i=1}^n H(S_1 | S_1, \ldots, S_{i-1})}
+	\end{equation}
+\end{thm}
+
+ For this to make a bit more sense, recall that $P_{X, Y}(x, y) = P_X(x)P_{Y|X}(y|x)$ (this follows directly from the definition of conditional probability). More generally, 
+ \begin{equation*}
+ P_{S_1, \ldots, S_n}(s_1, \ldots, s_n) = \prod_{i=1}^n P_{S_i | S_1, \ldots, S_{i-1}}(s_i | s_1, \ldots, s_{i-1}).
+ \end{equation*}
+ The chain rule of entropy is very similar. \par
+ This equality will help us in proving many theorems.
+ 
+ \begin{exmp}[continuation]
+ 	$H(l_1) = 0.65$ bits, $H(l_2) = 3.2188$ bits, $H(l_1, l_2) = 3.744$ bits, $H(l_2 | l_1) = H(l_1, l_2) - H(l_1) = 2.624$ bits (as obtained before).
+ \end{exmp}
+ 
+ \begin{exmp}[continuation]
+ 	We saw that $(S_1, S_2)$ determine $(l_1, l_2)$. Then what is $H(l_1, l_2 | S_1, S_2)$? We can know that $H(l_1, l_2 | (S_1, S_2) = (s_1, s_2)) = 0$. This is because $(S_1, S_2)$ fully determine $(l_1, l_2)$ (they are NOT independent). As such, when we know that $(S_1, S_2) = (s_1, s_2)$, we know exactly and can \emph{predict} the only possible digits $(l_1, l_2)$ of the sum of $s_1$ and $s_2$, which means that there is no entropy here. \\
+ 	Suppose we know $H(l_1, l_2)$ and $H(S_1, S_2)$. Then we can compute $H(S_1, S_2 | l_1, l_2)$:
+ 	\begin{align*}
+ 		&H(S_1, S_2, l_1, l_2) \overbrace{=}^{\substack{\text{chain} \\ \text{rule}}} \begin{cases} H(S_1, S_2) + \cancel{H(l_1, l_2 | S_1, S_2)} \\
+ 													  H(l_1, l_2) + H(S_1, S_2 | l_1, l_2)
+ 													  \end{cases} \\
+		&\implies H(S_1, S_2, | l_1, l_2) = H(S_1, S_2) - H(l_1, l_2), \quad \text{which we both know by supposition.}
+ 	\end{align*}
+ \end{exmp}
+ 
+ \begin{exmp}
+ 	Let's say we have a random variable $X$ which takes a value in $\{0, +1, -1, +2, \ldots, +13, -13\}$. Suppose $X$ is uniformly distributed. Any weighing strategy (not yet determined) is an encoding $\Gamma: \mathcal A \to \mathcal C$ ($|\mathcal C| = 3$, so this is a $3$-ary code). $\Gamma$ is a bijective function $x \leftrightarrow s_1 s_2\ldots s_L$. So $H_3(x) = H_3(S_1, S_2, \ldots S_L)$.
+ \end{exmp}
+NOTES: a negative number means "light" on the balance, a positive number means it is "heavy". At each step of the guessing process, he makes sure that the new balance is independent of previous knowledge, and that it is evenly distributed (even chances of going on each side). Actually the balls are billiard.
+ One coould be heavier or lighter, ut not the 0 ball. You have a balance for balls. How many times to weigh to determine if one bakk us fakse and if yes, which one and settle if it is heavier or lighter.
+
+\section{12th March 2019}
+So far, we have assumed that we have a random variable over the alphabet $\mathcal A$, an encoding function $\Gamma$ which is a map $\mathcal A \to \mathcal C$, from the alphabet to the code (which was assumed to be uniquely decodable), and a source outputting a sequence of $n$ random variables. We saw that if this source is IID, then the total length divided by $n$ will tend to $L(S, \Gamma)$ as $n \to \infty$. We saw that the entropy is a lower bound to the average length. \par
+We will now drop the assumption that the source is IID: this is very common, for example, when you try to compress voice, or video, or any kind of "natural" information. 
+
+\begin{exmp}
+	We reuse the example of the coin flip source: $S_i \in \{H, T\}$. $S_1, S_2, \ldots, S_n$ are IID. Therefore 
+	\begin{equation*}
+	p_{S_1, S_2, \ldots, S_n}(s_1, s_2, \ldots, s_n) = \prod_{i=1}^n p_{S_i}(s_i) = \bigl(\frac12\bigr)^n
+	\end{equation*}
+\end{exmp}
+
+\begin{defn}
+	The source $\mathcal S = S_1 S_2 \ldots S_n$ is said to be \textbf{regular} iff
+	\begin{enumerate}
+		\item $H(\mathcal S) = \lim_{i \to \infty} H(S_i)$ (the entropy per symbol) exists, and
+		\item $H^*(\mathcal S) = \lim_{i \to \infty} H(S_i | S_1, \ldots, S_{i-1})$ (the entropy rate) exists.
+	\end{enumerate}
+\end{defn}
+
+\begin{exmp}[cont.]
+	The coin flip source is regular:
+	\begin{equation*}
+		H(\mathcal S) = 1 = H^*(\mathcal S)
+	\end{equation*}
+\end{exmp}
+
+\label{exmp:sunnyrainymarkov}\begin{exmp}[Sunny-Rainy source]
+	$S_i \in \{S, R\}$ represents the weather on day $i$. $S_i$ is uniformly distributed. If the weather one way one day, it will stay the same tomorrow with probability $q$, and change with probability $1-q$.
+	\begin{equation*}
+		p_{S_1, \ldots, S_n} (s_1, \ldots, s_n) =  p_{S_1}(s_1) \cdot \prod_{i = 2}^n p_{S_i | S_{i-1}}(s_i | s_{i-1}).
+	\end{equation*}
+	For example, $p_{S_1, S_2, S_3, S_4} (RRSR) = \frac12 \cdot q \cdot (1-q) \cdot (1-q)$. More generally, $p_{S_1, \ldots, S_n}(s_1, \ldots, s_n) = \frac12 \cdot (1-q)^c \cdot q^{n-1-c}$, where $c$ is the number of transitions. \par
+	We may also check whether the source is regular or not. $H(S_i) = H(S_1) = 1$, therefore the entropy per symbol exists and equals $1$. Let us also compute $H(S_i | S_{i-1})$. We know that $H(S_i | S_{i-1} = R) = h(q)$ and $H(S_i | S_{i-1} = S) = h(1-q) = h(q)$ (where $h$ is the binary entropy function, that is, the entropy function adapted to binary bernouilli trials, which is intuitively symmetrical with regards to $1/2$). Finally $H(S_i | S_{i-1}) = h(q) = H(S_1 | S_{i-1}, \ldots, S_1)$ (the outcomes before the previous day do not have any effect). Therefore the entropy rate exists, and is equal to $h(q)$.
+\end{exmp}
+
+\begin{defn}
+	A Markov chain is the simplest kind of source which has some memory: each random variable depends only on the state of the one immediately preceding it.
+\end{defn}
+\begin{remark}
+	The source in example \ref{exmp:sunnyrainymarkov} is a Markov chain.
+\end{remark}
+
+\begin{defn}
+	A source $S_1,  S_2 \ldots, S_i \in \mathcal A$, is \textbf{stationary} if for every $n, k$ positive integers, the statistic of $(S_1, \ldots, S_n)$ is the same as the statistic of $(S_{k+1}, \ldots, S_{k+n})$. Formally,
+	\begin{equation}
+		p_{S_1, \ldots, S_n}(s_1, \ldots, s_n) = P_{S_{k+1}, \ldots, S_{k+n}}(s_1, \ldots, s_n).
+	\end{equation}
+\end{defn}
+
+\begin{thm}
+	A stationary source is always regular.
+\end{thm}
+
+\begin{thm}
+	For a stationary source $\mathcal S$,
+	\begin{equation}
+		H^*(\mathcal S) \leq H(\mathcal S),
+	\end{equation}
+	with equality iff the symbols are independent.
+\end{thm}
+
+\section{14th March 2019}
+	What if, instead of encoding codewords one at a time, we encoded concatenations of codewords?
+
+\begin{equation}
+	\boxed{H_D(S) \leq L(S, \Gamma_H) \leq L(S, \Gamma_{SF}) < H_D(S) + 1}
+\end{equation}
+This inequation is not directly related but muchho importanto in source coding. We can tho adapt it to block-encoding (idk how it's called):
+\begin{equation}
+	H_D(S_1 \ldots S_n) \leq L(\mathcal S, \Gamma_H) \leq L(\mathcal S, \Gamma_{SF}) < H_D(S_1 \ldots S_n) + 1
+\end{equation}
+If we divide everything by $n$ to get the average codeword length per symbol:
+\begin{equation}
+	\frac{H_D(S1 \ldots S_n)}{n} \leq \frac{L(\mathcal S, \Gamma_H)}{n} < \frac{H_D(S_1 \ldots S_n)}{n} + \frac1n
+\end{equation}
+The $\frac1n$ goes to 0 as $n$ grows large. \par
+Our goals: study the behavior of $\frac{H_D(S_1 \ldots S_n)}{n}$ as $n$ grows large and try to relate it to $H_D^*(\mathcal S)$ (entropy rate).
+
+\begin{exmp}
+	Consider a monkey source $S$ that randomly picks one letter at a time from a French book. $H(S) = 3.95$ bit2	s, so a Huffman code $\Gamma_H$ approaches $L(S, \Gamma_H) \approx 4$ bits/letter when encoding French monkey text. \par 
+	However, a Lempel-Ziv code (used by various compression programs) approaches 1 bit per letter when compressing French text. This is due to the fact that letters in a French text are not completely random, therefore the entropy goes down by quite a bit, and beat the Huffman code. \par
+	This means that as $n$ grows large, $\frac{H_D(S_1 \ldots S_n)}{n} \to 1$. This, rather than $H(S)$, is the important quantity for us. \par
+	If $S_1 \ldots S_n$ were IID, then
+	\begin{equation*}
+		\frac{H_D(S_1 \ldots S_n)}{n} = \frac{H_D(S_1) \cdot H_D(S_2) \ldots H_D(S_n)}{n} = H(S_1) \quad \forall 1 \leq i \leq n
+	\end{equation*}
+	Imagine you start with the text from a book, and take the alphabet of that book (all symbols that appear in it). You put these in a table and assign an integer to each (the position in the table), in binary. You then start looking for groups of 2 letters, and if you find some, you add them to the dictionary, so $n$ increases (it has a limit). Same thing for 3 symbols, or groups that appear often. 
+\end{exmp}
+
+\begin{thm}[Cesàro mean]
+	Consider a source of real-valued numbers $a_1 \ldots a_n$. If $\lim_{n \to \infty} a_n = A$, then if $c_n = \frac{a_1 + a_n}{n}$, we have that $\lim_{n \to \infty} c_n = A$.
+\end{thm}
+
+\begin{thm} Let $S$ be a source. Then
+	\begin{enumerate}
+		\item if $S$ is stationary, then $S$ is regular,
+		\item $\frac{H_D(S_1 \ldots S_n)}{n}$ is non-increasing in $n$,
+		\item $\lim_{n \to \infty} \frac{H_D(S_1 \ldots S_n)}{n} = H_D^*(S)$.
+	\end{enumerate}
+\end{thm}
+
+\begin{summary}
+	Let $S$ be a stationary source outputting an infinite sequence of symbols $S_1 \ldots S_n$. By encoding blocks of $n$ keywords at a time using a $D$-ary code, the average codeword length per symbol approaches $H^*(S)$ as $n$ grows large. No uniquely decodable $D$-ary code can do better than $H^*(S)$.
+\end{summary}
+
+
+\begin{exmp}[The 20 Questions Game]
+	Was a very popular game on UK and US TV. You ask questions where the answers are yes or no. Equivalent to a binary search (akinator). \par
+	Let $X$ be a random variable. Question: how many YES/NO questions do we need to find the realization of $X$, how should we ask the questions? \par
+	The idea is to build a binary code $\Gamma$ for $X$. Once $\Gamma$ is fixed, identify the realization of $X (= \bar X)$, which is equivalent to finding $\Gamma(\bar X)$. The $i$-th question should reveal the $i$-th bit of $\Gamma(\bar X)$. The average number of questions should be the average codeword length of $\Gamma$. If $\Gamma$ is $\Gamma_H$, we cannot do better in terms of the average number of questions. \par
+	Let us consider a random variable $X$ with $\mathcal A = \{a, b, c, d, e\}$, $p(a) = 0.1, p(b) = 0.1, p(c) = 0.2, p(d) = 0.2, p(e) = 0.4$. After its construction, the Huffman code is $a = 000, b = 001, c = 010, d = 011, e = 1$. Let's ask some questions from the top of the tree:
+	\begin{enumerate}
+		\item is $X = e$ ? NO $\Rightarrow$ the first bit of $X$ is 0.
+		\item is $X \in \{c, d\}$ ? NO $\Rightarrow$ the second bit of $X$ is 0.
+		\item is $X = b$ ? YES $\Rightarrow$ the third bit of $X$ is 1.
+	\end{enumerate}
+	Therefore, $X = 001 = b$. \par
+	Let us now discuss the optimality of this strategy. We have seen that a binary code (prefix-free) implies a question strategy, and that $\Gamma_H$ gave the best strategy, since the average number of questions is equal to the average codeword length of $\Gamma$. \par
+	Question: does a questioning strategy (YES/NO) as above always lead to a prefix-free code? \par
+	We start with the root: let $X \in \mathcal X$ be a random variable. Split $\mathcal X$ into $\mathcal A$ and $\mathcal A^c$ (complement) and suppose that $X \in \mathcal A$. When we ask the question, we will know in which of the two it is. Suppose that the answer is yes: then $X \in \mathcal A$. Continue by splitting $\mathcal A$ into $\mathcal B$ and $\mathcal B^c$ and repeat the process. By construction, we obtain a prefix-free code.
+\end{exmp}
+
+ENCODING OF INTEGERS: we saw that the Lempel-Ziv code needed to encode integers. Let's think about some binary prefix-free codes for positive integers. \par
+The first one is the "natural" way, that is, encoding each number into its binary representation. However, this is not good, because it is not prefix-free, and has $l(n) = \lfloor \log(n) \rfloor + 1$. \par
+ The next try (elias code 1) would be adding $l(n) - 1$ zeros in front of each codeword $n$. This is prefix-free, but it is pretty long: $l(n) = 2 \lfloor \log(n) \rfloor + 1$. \par
+ The next try (elias code 2) would be replacing the leading zeros and the following one by $c_1(l(n)$ ($c_1 =$ elias code 1). Then we get a ITS PI DAY PEOPLE \par
+3.141592653589793238462643383279502884197169399375105820974944592307816406286208998628034825342117\\ 0679821480132823066470
+
+\begin{summary}[Source Coding]
+\begin{itemize}
+	\item If a $D$-ary code is UD for source $S$,
+	\begin{equation*}
+		H_D(S) \leq L(S, \Gamma) < H_D(S) + 1
+	\end{equation*}
+	The first inequality comes from Kraft's sum and the IT inequality. \\
+	This also applies to $\bar S = S_1S_2\ldots S_n$:
+	\begin{align*}
+		&H_D(\bar S) \leq L(\bar S, \Gamma) < H_D(\bar S) + 1 \\
+		&\iff \\
+		&\frac{H_D(\bar S)}{n} \leq \frac{L(\bar S, \Gamma)}{n} < \frac{H_D(\bar S)}{n} + \frac1n
+	\end{align*}
+	(we divided by $n$ to get the entropy per symbol). The second and last terms (without $\frac1n$, which tends to 0 as $n \to \infty$) tend to $H^*(\bar S)$ if the source is stationary.
+	\item For encoding integers, we saw the Elias code (UD), which encodes $n \in \mathbb N$ with $\approx \log_2 n + 1$ bits. 
+	\item Among other things, we have left out what's called "universal source coding" (example in the notes), for example Lempel-Ziv and Elias-Willens.
+\end{itemize}
+\end{summary}
+
+\chapter{Cryptography}
+\section{19th March 2019}
+The two main goals of Cryptography are \textbf{authenticity} and \textbf{privacy}. Authenticity means we should be assured that we are indeed sharing information with the correct person/computer. Privacy means that no other party should be able to see the shared information. \\
+ Until just about when the internet was invented, criptography was basically only used by generals and diplomats. The advent of public Internet made cryptography into a branch/tool that was used universally and constantly by every person and/or machine on the Internet.
+
+\subsection{Setup for privacy}
+The idea is the following: We have two "private spaces", one for Alice and one for Bob. Alice wants to send some plain text, call it $t$, to Bob. It goes through an encryption device, which requires a key $k_A$, and which is located in Alice's "private space". The encrypted message, $c$, also called cryptogram or ciphertext. is then sent to Bob's private space, but has to go through an unprotected zone called the public channel. \\
+ The public channel is being eavesdropped by Eve. We cannot block Eve from accessing $c$, therefore our only way of guaranteing privacy is by making $c$ undecryptable by Eve, or rather, only decryptable by Bob.
+ 
+\section{Rudiments of Number Theory}
+The RSA encryption system relies on number theory. We want to work with a finite set of numbers, since this will make everything much easier on a computer. \par
+
+Actually, on second thought, fuck cryptography. I'll meet you again when we're doing channel coding.
+
+\end{document}

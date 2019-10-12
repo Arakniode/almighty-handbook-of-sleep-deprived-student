@@ -1,0 +1,315 @@
+\documentclass{article}
+
+\title{Algèbre Linéaire 1 - Scherer}
+\author{Benjamin Bovey -  EPFL IC}
+\date{Année 2018-2019}
+
+\usepackage[utf8]{inputenc}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage{hyperref}
+
+\usepackage{geometry}
+\geometry{left=1.5cm, right=1.5cm, top=1.5cm, bottom=1.5cm}
+
+\numberwithin{equation}{section}
+
+\newcommand\defn{\vspace{4px}\noindent \quad {\large \underline{\textsc{Définition }}: }}
+\newcommand\thm[1]{\vspace{4px}\noindent \quad {\large \underline{\textsc{Théorème #1}}: }}
+\newcommand\meth[1]{\vspace{4px}\noindent \quad {\large \underline{\textsc{Méthode : #1}} }}
+
+\providecommand{\abs}[1]{\lvert#1\rvert} 
+\providecommand{\norm}[1]{\lVert#1\rVert}
+
+% TODO check if we can override \Im and \Ker
+\DeclareMathOperator{\rang}{rang}
+\DeclareMathOperator{\im}{Im}
+\DeclareMathOperator{\ke}{Ker}
+\DeclareMathOperator{\lign}{Lign}
+\DeclareMathOperator{\mult}{mult}
+\DeclareMathOperator{\proj}{proj}
+\DeclareMathOperator{\vect}{Vect}
+
+%---------------------------------------------------------------------------------------------------------------------
+
+\begin{document}
+
+\maketitle
+
+%---------------------------------------------------------------------------------------------------------------------
+
+\section*{Introduction}
+Ce document est destiné à résumer les cours d'algèbre linéaire 1 donnés par Mr. Jérôme Scherer. Pour l'instant il regroupe la matière à partir du cours 16. Voici le \href{https://github.com/Arakniode/almighty-handbook-of-sleep-deprived-student}{GitHub du projet}.
+
+%---------------------------------------------------------------------------------------------------------------------
+
+\section{Inversibilité}
+Les propositions suivantes sont équivalentes:
+\begin{itemize}
+	\item La matrice \(A\) est inversible
+	\item L'application représentée par \(A\) est bijective (\(\Rightarrow\) injective et surjective)
+	\item Les colonnes de \(A\) forment une base de \(\mathbb{R}^n\)
+	\item \(\im(A) = \mathbb{R}^n\)
+	\item \(\dim \im(A) = n\)
+	\item \(\rang(A) = n\)
+	\item \(\ke(A) = \{0\}\)
+	\item \(\dim \ke(A) = 0\)
+\end{itemize}
+
+%---------------------------------------------------------------------------------------------------------------------
+
+\section{Vecteurs propres et valeurs propres}
+Les propositions suivantes sont équivalentes:
+\begin{itemize}
+	\item \(0\) est valeur propre de \(A\)
+	\item \(\ke(A) \neq 0\)
+	\item \(\rang(A) < n\)
+	\item \(A\) n'est pas injective
+	\item \(A\) n'est pas inversible
+\end{itemize}
+Les valeurs propres d'une matrice \textbf{triangulaire} sont les coefficients diagonaux de la matrice. Cette propriété tient donc bien sûr pour les matrices \textbf{diagonales}, qui sont des cas particuliers de matrices triangulaires.
+\subsection{Le polynôme caractéristique}
+Le polynôme caractéristique d'une matrice n'existe que pour les matrices carrées, car le déterminant est uniquement défini sur les matrices carrées. \\
+Soit \(A\) une matrice \(n \times n\), et soit \(\chi_A(\lambda)\) son polynôme caractéristique. Alors
+\begin{equation}
+	\chi_A(\lambda) = \det(A-\lambda I_n)
+\end{equation}
+Une valeur propre de \(A\) est une racine du polynôme caractéristique \(\chi_A(\lambda)\). 
+
+\subsection{Espace propre associé à une valeur propre}
+Soit \(\lambda\) une valeur propre de \(A\). Alors l'espace propre associé à \(\lambda\) est
+\begin{equation}
+	E_\lambda = \ke(A-\lambda I_n)
+\end{equation}
+
+\subsection{Similitude}
+\defn
+\begin{center}
+	\emph{Deux matrices carrées de taille \(n \times n\) sont \textbf{semblables} \\ s'il existe une matrice inversible \(P\) de taille \(n \times n\) \\ telle que \(A = P^{-1}BP\).}
+\end{center}
+
+En gros, deux matrices sont semblables si elles représentent la même application exprimée dans deux bases différentes. \\
+Ce qui est important, c'est que:
+\begin{center}
+	\emph{Deux matrices semblables ont le même polynôme caractéristique, \\ et donc les mêmes valeurs propres.}
+\end{center}
+\textbf{Attention:} le fait que deux matrices aient les mêmes valeurs propres n'implique pas qu'elles sont semblables.
+
+\subsection{Multiplicité des valeurs propres}
+On fait la différence entre la multiplicité \textbf{algébrique} d'une valeur propre et sa multiplicité \textbf{géométrique}.
+\textbf{Définition:}
+\begin{center}
+	La \textbf{multiplicité algébrique} d'une valeur propre \\ est sa multiplicité en tant que racine de \(\chi_A(\lambda)\). \\ \vspace{10pt}
+	La \textbf{multiplicité géométrique} d'une valeur propre \\ est la dimension de l'espace propre qui lui est associé.
+\end{center}
+On écrira d'ailleurs \(\mult(\lambda)\) pour la multiplicité algébrique de \(\lambda\) et \(\dim(E_\lambda)\) pour la multiplicité géométrique de \(\lambda\).
+
+\subsection{Diagonalisabilité}
+\thm{} une matrice $A$ de taille $n$ est diagonalisable si et seulement si:
+\begin{itemize}
+	\item \(\chi_A(\lambda)\) est scindé
+	\item \(\forall \lambda\), on a \(\dim(E_\lambda) = \mult(\lambda)\)
+\end{itemize}
+Autrement dit:
+\begin{center}
+	Une matrice carrée $A$ de taille $n$ est diagonalisable si et seulement si \\ la somme des multiplicités géométriques de ses valeurs propres \\ est égale à $n$.
+\end{center}
+Une condition suffisante \emph{mais pas nécessaire} est la suivante:
+\begin{center}
+	Une matrice $A$ est diagonalisable \\ si elle possède $n$ valeurs propres \underline{distinctes}.
+\end{center}
+
+%---------------------------------------------------------------------------------------------------------------------
+
+\section{Orthogonalité}
+
+\subsection{Idées générales}
+
+Soit $A$ une matrice de taille $m \times n$. Alors $A^T$ est de taille $n \times m$.
+\begin{itemize}
+	\item Les lignes de $A^T$ sont les colonnes $\vec a_i$ de $A$
+	\item $A^T\vec x = \vec 0 \iff \vec x \perp \im A$
+	\item Les coefficients $(A^TA)_{ij}$ sont les produits scalaires $\vec a_i \cdot \vec a_j$
+	\item Les colonnes de $A$ sont orthogonales $\iff A^TA$ est diagonale
+	\item Les coefficients de $AA^T$ sont les produits scalaires des lignes de $A$
+	\item Les lignes de A sont orthogonales $\iff AA^T$ est diagonale
+\end{itemize}
+
+\begin{align}
+\shortintertext{Soit \(A\) une matrice de taille \(m \times n\):}
+	&\ke A = (\lign A)^\perp \\
+	&\ke A^T = 	(\im A)^\perp \\
+\shortintertext{Preuve:}
+	\nonumber &A \cdot \vec x \iff \vec x \perp \text{chaque ligne de } A \\
+	\nonumber &\im A = \lign A^T
+\end{align}
+
+\subsection{Base orthogonale}
+Soit \(W\) un sous-espace de \(\mathbb{R}^n\) et \((\vec u_1, \dots, \vec u_k)\) une base \emph{orthogonale} de \(W\). Alors
+\begin{align}
+	\proj_W \vec v \in \mathbb{R}^n = \alpha_1\vec u_1 + \dots + \alpha_k\vec u_k, \\
+\intertext{et on calcule les $\alpha_j$ de la manière suivante:}
+	\label{eq:orthoproj} \alpha_j = \dfrac{\vec w \cdot \vec u_j}{\norm{\vec u_j}^2}
+\end{align}
+
+\subsection{Matrice orthogonale}
+\thm{} matrices orthogonales \\
+Soit $U$ une matrice carrée de taille $n$. Alors les propositions suivantes sont équivalentes:
+\begin{itemize}
+	\item $U$ est orthogonale.
+	\item Les colonnes et lignes de $U$ sont \textbf{orthonormées} (par définition)
+	\item $U^TU = I_n$
+	\item $U^{-1} = U^T$
+\end{itemize}
+Une matrice orthogonale représente une transformation linéaire qui préserve les distances et l'orthogonalité (isométrie, p. ex rotation ou symétrie). \\
+
+\thm{} préservation des longueurs et des angles \\
+Soit $U$ une matrice orthogonale. Alors:
+\begin{enumerate}
+	\item $\norm{U\vec x} = \norm{\vec x} \quad \forall \vec x \in \mathbb{R}^n$
+	\item $U\vec x \cdot U\vec y = \vec x \cdot \vec y$
+	\item $U\vec x \perp U\vec y \iff \vec x \perp \vec y$
+\end{enumerate}
+
+\subsection{Projection orthogonale}
+\thm{} projection d'un vecteur sur un sous-espace \\
+Soit $(\vec u_1, \dots, \vec u_k)$ une base orthogonale de $W$, sous-espace de $\mathbb{R}^n$. 
+\begin{center}
+	$\forall \vec y \in \mathbb{R}^n, \vec y = \hat y + \vec z$
+	où $\hat y \in W$ et $\vec z \in W^\perp$.
+\end{center}
+Cette décomposition est unique. On peut calculer $\hat y = \proj_W \vec y$ à l'aide de \ref{eq:orthoproj}. \\
+
+La meilleure méthode pour construire la projection est la suivante:
+\begin{enumerate}
+	\item Vérifier que la base de $W$ est orthogonale (c'est la base de la base!)
+	\item Calculer les normes au carré des vecteurs de base $\vec u_i$
+	\item Calculer les produits scalaires $\vec y \cdot \vec u_i$
+	\item Appliquer \ref{eq:orthoproj} pour chaque $u_i$
+	\item Calculer $\vec z = \vec y - \hat y$ et vérifier que $\vec z \perp W$
+\end{enumerate}
+
+\thm{} projection d'un vecteur sur un sous-espace, cas d'une base orthonormée \\
+\begin{center}
+	Soit $U$ la matrice dont les colonnes sont les vecteurs $\vec u_1, \dots, \vec u_k$ \\ d'une base \emph{orthonormée} de $W$. Alors \\ $\boxed{ \proj_W \vec y = UU^T\vec y }$
+\end{center}
+
+\subsection{Méthode des moindres carrés}
+\textbf{Idée}: On veut approximer une solution (appelée \emph{solution au sens des moindres carrés}) d'un système incompatible de la forme $A\vec x = \vec b$, où $A\vec x \in \im A$, mais $\vec b \notin \im A$. On va donc vouloir résoudre le système en remplaçant $\vec b$ par $\proj_{\im A} \vec b = \hat b$. Comme $\hat b \in \im A$, on obtient le système compatible $A\hat x = \hat b$ qui permet d'obtenir 'approximation la plus proche de la solution. \\
+Cependant, on n'aimerait pas devoir calculer $\hat b$. On peut trouver une équation, appelée l'équation normale du système, qui permet de trouver la solution au sens des moindres carrés sans calculer $\hat b$.
+
+\thm{} équation normale 
+\begin{equation}
+	\boxed{ A\hat x = \hat b \iff A^TA \hat x = A^T\vec b }
+\end{equation}
+On appelle $\hat x$ la \emph{solution au sens des moindres carrés} du système. \\
+
+\textbf{Remarque}: Il existe généralement une infinité de solutions au sens des moindres carrés. \\ La solution est unique $\iff A$ est injective $\iff A$ est inversible.
+
+\textbf{Remarque}: On appelle $\norm{\vec z} = \norm{\vec b - \hat b}$ l'\emph{erreur quadratique} ou \emph{écart quadratique}. Graphiquement, c'est la distance entre le vecteur $\vec b$ et la solution au sens des moindres carrés $\vec x$, donc la différence entre la solution "idéale" et la solution approximée.
+
+\textbf{Méthode}:
+\begin{enumerate}
+	\item Calculer $A^TA$
+	\item Calculer $A^T\vec b$
+	\item Résoudre le système $A^TA\hat x = A^T\vec b$ pour obtenir la solution au sens des moindres carrés $\hat x$
+	\item (Calculer $\norm{\vec b - \hat b}$ pour obtenir l'écart quadratique)
+\end{enumerate}
+
+\subsubsection{Méthode de Gram-Schmidt}
+\textbf{But}: Trouver une base \emph{orthogonale ou orthonormée} d'un sous-espace $W$ de $\mathbb{R}^n$. \\
+\textbf{Idée}: Partir d'une base quelconque, et utiliser les projections orthogonales pour créer une base orthonormée.
+
+\subsection{Matrices symétriques}
+\defn
+\begin{center}
+	Une matrice carrée $A$ est \emph{symétrique} $\iff A^T = A$, i.e. $a_{ij} = a_{ji}$.
+\end{center}
+
+\thm{}
+\begin{center}
+	Les espaces propres d'une matrice symétrique sont orthogonaux entre eux.
+\end{center}
+
+\defn
+\begin{center}
+	Une matrice carrée $A$ est diagonalisable par un changement de base orthonormée ou \emph{orthodiagonalisable} \\ s'il existe une matrice $P$ orthogonale \\ telle que $P^TAP$ est diagonale.
+\end{center}
+
+\thm{}
+\begin{center}
+	$A$ est orthodiagonalisable $\iff A$ est symétrique.
+\end{center}
+
+\thm{spectral}
+\begin{center}
+	Soit $A$ une matrice symétrique. Alors, $A$ \textbf{est orthodiagonalisable}.
+\end{center}
+
+On peut également faire les remarques suivantes sur $A$:
+\begin{enumerate}
+	\item $A$ admet $n$ valeurs propres réelles, compte tenu de leur multiplicité
+	\item Pour toute valeur propre $\lambda$ on a $\mult(\lambda) = \dim E_\lambda$
+	\item Les espaces propres de $A$ sont perpendiculaires 2 à 2 ($\iff$ si $\lambda \neq \mu$, alors $E_\lambda \perp E_\mu$)
+\end{enumerate}
+
+\meth{orthodiagonalisation}
+\begin{enumerate}
+	\item Vérifier que $A$ est symétrique
+	\item Calculer $\chi_A(t)$ et en extraire les valeurs propres
+	\item Calculer les espaces propres. Trouver une base orthonormée pour chaque espace propre par le procédé de Gram-Schmidt
+	\item Assembler les bases orthonormées des espaces propres, on obtient une base orthonormée $B$ de $\mathbb{R}^n$
+	\item La matrice $P$ dont les colonnes sont les vecteurs $\vec b_i$ de $B$ est orthogonale et $D = P^TAP$ est diagonale
+\end{enumerate}
+\textbf{Remarque}: comme $P$ est orthogonale, $P^{-1} = P^T$!
+
+\subsection{Matrice de projection}
+\defn 
+\begin{center}
+	Soit $\vec u$ un vecteur unitaire. Alors $A = \vec u \vec u^T$ est la matrice de la projection orthogonale sur $W = \vect(\vec u)$. \\ On a $A \vec x = \proj_{\vec u} \vec x$. 
+\end{center}
+\textbf{Remarque}: $\vec u$ est un vecteur propre de $A$ pour la valeur propre 1 car $A\vec u = (\vec u \vec u^T)\vec u = \vec u (\vec u^T \vec u) = \vec u (\vec u \cdot \vec u) = \vec u$. \\
+\textbf{Remarque}: Si $W = \vect(\vec u)$, alors $W^\perp = \ke A$. \\
+\textbf{Remarque}: Cette matrice de projection construite à partir d'un vecteur unitaire est un cas particulier de ce que nous avons vu avec les matrices de projection de la forme $UU^T$, où les colonnes de $U$ forment une base orthonormée.
+
+\subsection{Décomposition spectrale}
+\defn
+\begin{center}
+	L'ensemble des valeurs propres de $A$ est appelé \emph{spectre} de $A$.
+\end{center}
+
+\thm{}
+\begin{align}
+\shortintertext{Comme $D = U^TAU$,}
+	A = UDU^T = \overbrace{\dots}^{\text{cours 25}} = \lambda_1 \vec u_1 \vec u_1^T + \dots + \lambda_n \vec u_n \vec u_n^T
+\end{align}
+
+\defn
+\begin{center}
+	$A = \lambda_1 \vec u_1 \vec u_1^T + \dots + \lambda_n \vec u_n \vec u_n^T$ est la \emph{décomposition spectrale} de la matrice symétrique $A$.
+\end{center}
+\textbf{Remarque}: c'est la somme de matrices contenant chacune une valeur propre dans sa diagonale. $A$ est décomposée en une combinaison linéaire de matrices de projection orthogonale!
+
+
+\section{Autres}
+
+\subsection{Terminologie: relations entre matrices}
+Les trois relations qui suivent sont classée de la moins restrictive à la plus restrictive.
+\defn Deux matrices rectangulaires de taille $m \times n$ sont \emph{équivalentes} si et seulement si:
+\begin{itemize}
+	\item on peut passer de l'une à l'autre par des opérations élémentaires sur les lignes et colonnes
+	\item elles ont le même rang
+\end{itemize}
+\textbf{Cependant}, il semble que dans le cours, la relation dénotée par le symbole $\sim	$ soit plutôt celle de l'équivalence \emph{selon les lignes}. Deux matrices représentant un système d'équations linéaires sont équivalentes selon les lignes si et seulement si elles ont le même $Ker$, c'est-à-dire que les systèmes \emph{homogènes} correspondants ont les mêmes solutions.
+
+\defn Deux matrices carrées $A$ et $B$ de taille $n \times n$ sont \emph{similaires} si et seulement si:
+\begin{itemize}
+	\item il existe une matrice $P$ de taille $n \times n$ telle que $B = P^{-1}AP$
+\end{itemize}
+Plus intuitivement, deux matrices similaires représentent la même application dans différentes bases.
+
+
+
+\end{document}
+
+

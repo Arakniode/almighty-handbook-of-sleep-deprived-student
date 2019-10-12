@@ -1,0 +1,765 @@
+%TODO: general stuff that needs to be added
+% - section about solving differential equations
+
+\documentclass{article}
+%maths
+\usepackage{amsmath}
+\usepackage{amssymb}
+\numberwithin{equation}{section}
+
+%utility
+\usepackage[hidelinks]{hyperref}
+\usepackage[utf8]{inputenc}
+
+%margins
+\addtolength{\oddsidemargin}{-2.5cm}
+\addtolength{\evensidemargin}{-2.5cm}
+\addtolength{\textwidth}{4.5cm}
+\addtolength{\topmargin}{-2.5cm}
+\addtolength{\textheight}{4.5cm}
+
+\title{\vspace{-1.5cm} Physique 1 - Jean-Marie Fuerbringer \\ Résumé}
+\author{Benjamin Bovey - IC}
+\date{November 2018}
+
+\setcounter{section}{-1}
+
+\begin{document}
+
+\maketitle
+
+\subsection*{Introduction} \label{sec:introduction}
+Ce document est destiné à résumer les certainement laborieux cours de Physique 1 présentés par Mr Fuerbringer, afin d'en présenter uniquement les aspects les plus cruciaux quand à la résolution d'exercices. Il fait partie d'un projet auquel vous pouvez participer! Plus d'informations sur \href{https://github.com/Arakniode/almighty-handbook-of-sleep-deprived-student}{le GitHub du projet} (\url{https://github.com/Arakniode/almighty-handbook-of-sleep-deprived-student}). \\
+Ce résumé est pour l'instant incomplet par rapport à l'ensemble des notions couvertes par le cours de Physique 1, ce cours n'ayant pas encore touché à sa fin. 
+
+\section{Notions mathématiques - I}
+
+\subsection{Vecteurs}
+
+\subsubsection{Produit vectoriel}
+
+Le produit vectoriel est une opération prenant deux vecteurs de \(\mathbb{R}^3\) comme input et donnant un troisième vecteur comme output. \\ %changer le voc: input, output
+Mathématiquement, il est défini ainsi:
+\begin{equation}
+	\vec a \wedge \vec b = \begin{pmatrix}a_2b_3 - a_3b_2 \\ a_3b_1 - a_1b_3 \\ a_1b_2 - a_2b_1\end{pmatrix}
+\end{equation}
+La formule suivante, qui concerne les normes, est plus souvent utile en pyhsique:
+\begin{equation}
+	\boxed{ ||\vec a \wedge \vec b|| = ||\vec a|| \cdot ||\vec b|| \cdot \sin(\theta) }
+\end{equation}
+Le vecteur résultant d'un produit vectoriel a la propriété d'être perpendiculaire au plan formé par les deux vecteurs d'input (orthogonalité). \\
+
+\underline{Si deux vecteurs sont parallèles, leur produit vectoriel est nul.} \\
+
+Le produit vectoriel possède les propriétés algébriques suivantes: \textbf{anti-commutativité} et \textbf{distributivité}.
+
+\subsubsection{Produit scalaire}
+Le produit scalaire est une opération prenant deux vecteurs comme input et donnant un scalaire, c'est-à-dire un nombre réel, comme output. \\
+Mathématiquement, il est défini ainsi:
+\begin{equation}
+	\vec a \cdot \vec b = a_1b_1 + a_2b_2 + a_3b_3
+\end{equation}
+Cette formule est cependant plus souvent utilisée en physique:
+\begin{equation}
+	\boxed{ \vec a \cdot \vec b = ||\vec a|| \cdot ||\vec b|| \cdot \cos(\theta) }
+\end{equation}
+
+\underline{Si deux vecteurs sont perpendiculaires, leur produit scalaire est nul.} \\
+
+Le produit scalaire possède les propriétés suivantes: \textbf{commutativité} et \textbf{distributivité}. Si on calcule le produit vectoriel d'un vecteur avec lui-même, le résultat sera toujours le vecteur nul: \(\vec v \wedge \vec v = \vec 0\).
+
+\subsubsection{Produit mixte et double produit vectoriel}
+Quelques propriétés des combinations du produit vectoriel et du produit scalaire:
+\begin{itemize}
+	\item \((\vec a \wedge \vec b) \cdot \vec c = (\vec c \wedge \vec a) \cdot \vec b\)
+	\item \((\vec a \wedge \vec b) \cdot \vec c = 0 \Leftrightarrow \vec a, \vec b \text{ et } \vec c \text{ sont coplanaires.}\)
+	\item \(\vec a \wedge (\vec b \wedge \vec c) = (\vec a \cdot \vec c) \vec b - (\vec a \cdot \vec b) \vec c\)
+\end{itemize}
+
+\subsection{Dérivée}
+Visuellement, la dérivée d'une fonction \(f(x)\) est la fonction qui représente la pente du graphe de la fonction \(f(x)\). \\
+
+\textbf{Notations:}
+\begin{itemize}
+	\item Leibniz: la dérivée première de \(f(x)\) par rapport à \(t\) est \(\frac{df(x)}{dt}\), \\
+		la dérivée seconde est \(\frac{d^2f(x)}{dt^2}\) \\
+		(parfois \(\frac{d}{dt}f(x)\) et \(\frac{d^2}{dt^2}f(x)\))
+	\item Lagrange: la dérivée première de \(f(x)\) est \(f'(x)\), \\
+		la dérivée seconde est \(f''(x)\)
+	\item Autre: lorsqu'on dérive \emph{par rapport au temps}, en physique, on désigne souvent la dérivée première par \(\dot f(x)\), et la dérivée seconde par \(\ddot f(x)\).
+\end{itemize}
+
+Pour sa simplicité, la notation utilisée sera le plus souvent la troisième. On désignera donc, par exemple, la position sur \(\hat x\) par \(x\), la vitesse par \(\dot x\) et l'accélération par \(\ddot x\).
+
+\subsection{Systèmes de coordonnées}
+Pour modéliser certains problèmes physiques, il est souvent pratique d'utiliser différents systèmes de coordonnées. Trois d'entre eux nous sont proposés: cartésien, cylindrique et sphérique. Voici leur histoire. \\
+
+\emph{Nota Bene}: \\
+Il est important de se souvenir que, même si les systèmes de coordonnées alternatifs peuvent paraître attrayants (ou non), il est toujours mieux de vérifier si il n'existe pas d'autres méthodes plus simples de résoudre les problèmes, car les systèmes de coordonnées cylindriques et sphériques résultent souvent en de longues et fastidieuses équations différentielles. Prenons un exemple: dans le cas d'un problème avec une piste de luge sans frottement composée de plusieurs portions de cercle, où l'on doit déterminer la vitesse de la luge à différents points de la piste, on peut être tenté de sauter sur nos formules du système de coordonnées cylindriques afin d'écrire les équations du mouvement de la luge sur chacune des différentes portions. Cependant, en prenant un peu de recul, il est sans aucun doute plus simple d'appliquer ici le théorème de la conservation de l'énergie mécanique (\textit{ce problème est apparu dans le second test blanc d'hiver 2018-2019 du cours de Mr Fuerbringer}).
+
+\subsubsection{Système cartésien}
+Il s'agit du système de coordonnées "basique", qui est assez pratique pour la résolution d'exercices en général (ballistique, chocs à une ou deux dimensions, etc.) Lorsque la géométrie du problème est plus complexe, on préférera choisir parmis les systèmes de coordonnées suivants:
+
+\subsubsection{Système de coordonnées cylindriques}
+Les axes utilisés sont \(\hat e_\rho, \hat e_\phi\) et \(\hat e_z\). \\
+%TODO: schema du système
+
+Position projetée sur les axes:
+\begin{equation}
+	\boxed{\vec r = \rho \hat e_\rho + z \hat e_z}
+\end{equation}
+Vitesse projetée sur les axes:
+\begin{equation}
+	\boxed{\vec v = \dot{\vec{r}} = \dot \rho \hat e_\rho + \rho \dot \phi \hat e_\phi + \dot z \hat e_z}
+\end{equation}
+Accélération projetée sur les axes:
+\begin{equation}
+	\boxed{\begin{cases}
+			a_\rho = \ddot \rho - \rho \dot \phi^2 \\
+			a_\phi = \rho \ddot \phi + 2 \dot \rho \dot \phi \\
+			a_z = \ddot z 
+		\end{cases}}
+\end{equation}
+
+\subsubsection{Système de coordonnées sphériques}
+Les axes utilisés sont \(\hat e_r, \hat e_\phi\) et \(\hat e_\theta\). \\
+%TODO: schema du système
+Position projetée sur les axes:
+\begin{equation}
+	\boxed{\vec r = r \hat e_r}
+\end{equation}
+Vitesse projetée sur les axes:
+\begin{equation}
+	\boxed{\vec v = \dot{\vec r} = \dot r \hat e_r + r \dot \theta \hat e_\theta + r \dot \phi \sin(\theta) \hat e_\phi}
+\end{equation}
+Accélération projetée sur les axes:
+\begin{equation}
+	\boxed{\begin{cases}
+	a_r 		= \ddot r - r \dot \theta^2 - r \dot \phi^2 \sin^2(\theta) \\
+	a_\theta	= r \ddot \theta + 2 \dot r \dot \theta - r \dot \phi^2 \cos(\theta)\sin(\theta) \\
+	a_\phi		= r \ddot \phi \sin(\theta) + 2r \dot \phi \dot \theta \cos(\theta) + 2 \dot r \dot \phi \sin(\theta)
+	\end{cases}}
+\end{equation}
+
+\section{Mécanique du point}
+Cette section contient des équations et théorèmes généraux par rapport aux premiers éléments de cinématique vus en cours (ballistique, oscillateur harmonique...). De l'aide serait appréciée dans l'insertion d'explications au formules, qui sont actuellement présentées sans contexte, et pour compléter les éléments du cours manquants (voir les commentaires dans le code source du document). Si vous désirez aider, référez-vous à la section \hyperref[sec:introduction]{introduction}.
+
+\subsection{Les 3 lois de Newton}
+
+\subsubsection{Loi d'inertie}
+\begin{center}
+	\emph{"Tout corps persévère dans l'état de repos ou de mouvement uniforme en ligne droite, \\
+	 à moins qu'une force n'agisse sur lui et ne le contraigne à changer d'état."}
+\end{center}
+\begin{equation}
+	\boxed{\vec F = \vec 0 \Leftrightarrow \text{MRU}}
+\end{equation}
+(MRU = Mouvement Rectiligne Uniforme)
+
+\subsubsection{Principe fondamental de la dynamique (\emph{Lex Secunda})}
+\begin{center}
+	\emph{"Les changements dans le mouvement d'un corps \\ sont proportionnels à la force et se font dans la direction de la force."}
+\end{center}
+\begin{equation} \label{eq:lexsecunda}
+	\boxed{\vec F = m \vec a}
+\end{equation}
+On a aussi la formule plus universelle, qui prend en compte les éventuels changements de masse du système:
+\begin{equation*}
+	\boxed{ \vec F = \dot{\vec p} }
+\end{equation*}
+où \(\vec p\) est la quantité de mouvement (concept abordé plus tard dans le cours, \ref{eq:defquantitemouvement}). Cette formule est équivalente à la précédente dans des systèmes fermés (où la masse ne change pas). \\
+
+Il est intéressant, à partir de ce principe fondamental de la dynamique, de faire les observations suivantes:
+\begin{itemize}
+	\item La force peut être considérée comme la grandeur physique qui \emph{modifie la vitesse d'un système} (l'accélération étant le changement de vitesse).
+	\item La masse, elle, peut être vue comme la grandeur physique qui \emph{résiste à cette modification de vitesse}.
+\end{itemize}
+Ces observations peuvent paraître relativement évidentes, voire inutiles, lorsqu'elles sont présentées dans le seul cadre de la dynamique. Ce qui est particulièrement remarquable, cependant, c'est que l'on peut retrouver de telles grandeurs ailleurs en physique: par exemple, en électricité, on voit que la résistance est la 
+
+\subsubsection{Loi d'action-réaction} \label{sec:actionreaction}
+\begin{center}
+	\emph{"A chaque action, il y a toujours une réaction égale et opposée; si un corps exerce une force sur un autre, cet autre corps exerce une force égale et opposée sur le premier."}
+\end{center}
+\begin{equation}
+	\boxed{\vec F_{1 \to 2} = - \vec F_{2 \to 1}}
+\end{equation}
+
+\subsection{Ballistique}
+\subsubsection{Chute libre}
+Équation horaire, sans frottement:
+\begin{equation}
+	\boxed{z(t) = \frac{1}{2} gt^2 + v_0t + z_0}
+\end{equation}
+
+\subsubsection{Tir ballistique}
+Équations horaires, sans frottement:
+\begin{equation}
+	\boxed{\begin{cases}
+		x(t) = v_{0x}t + x_0 \\
+		y(t) = 0 \\
+		z(t) = -\frac{1}{1}gt^2 + v_{0z}t + z_0
+	\end{cases}}
+\end{equation}
+
+Hauteur maximale:
+\begin{equation}
+	\boxed{h = \dfrac{v_{0,z}^2}{2g}}
+\end{equation}
+\(v_{0,z}\) est la vitesse projetée sur l'axe \emph{vertical}.
+
+Portée:
+La portée est maximale pour \(\theta = \frac{\pi}{4}\):
+\begin{equation}
+	x_{\text{max}} = 2h = \dfrac{v_0^2}{g}
+\end{equation}
+
+Angles symmétriques à \(\frac{\pi}{4}\):
+\begin{center}
+	Deux lancers avec la même vitesse \\ sur des angles symmétriques par rapport à \(\frac{\pi}{4}\) \\ auront la même portée.
+\end{center}
+
+Parabole de sûreté:
+\begin{equation}
+	\boxed{z = h - \dfrac{x^2}{4h}}
+\end{equation}
+
+%TODO: avec frottement
+
+\subsection{Oscillateur harmonique}
+\subsubsection{Loi de Hooke}
+Force exercée par un ressort:
+\begin{equation}
+	\boxed{\vec F = - k \vec x}
+\end{equation}
+\(\vec x\) est la différence entre la longueur actuelle et la longueur au repos du ressort. Le signe \(-\) indique que la force est dirigée vers le "centre du ressort" (sa longueur au repos).
+
+\subsubsection{Oscillateur harmonique non-amorti}
+On modélise le système d'un oscillateur harmonique par une équation différentielle de la forme:
+\begin{equation} \label{eq:osciharmo}
+	\boxed{ m \ddot x = - kx = - \omega^2 x }
+\end{equation}
+\(\omega\) est la vitesse angulaire du mouvement.
+
+La solution générale de l'équation \ref{eq:osciharmo} est:
+\begin{equation}
+	\boxed{ x(t) = A \cos(\omega_0 t) + B \sin(\omega_0 t) }
+\end{equation}
+
+On peut aussi utiliser cette seconde solution:
+\begin{equation}
+	\boxed{ x(t) = C \sin(\omega_0 t + \phi) }
+\end{equation}
+La constante \(C\) est l'amplitude du mouvement.
+
+\subsubsection{Oscillateur harmonique amorti}
+On rajoute une force de frottement proportionnelle à la vitesse. On se retrouve avec l'équation différentielle suivante:
+\begin{equation}
+	\boxed{ m \ddot x = - k(x - x_0) - b \dot x }
+\end{equation}
+%TODO: image des graphes des amortissements sous-critique, critique, sur-critique
+
+%TODO: solution de l'oscillateur harmonique amorti
+
+%TODO: oscillateur harmonique forcé
+
+\section{Travail et énergie}
+
+\subsection{Forces de frottement}
+La force de frottement s'oppose au mouvement du corps.
+
+\subsubsection{Frottement sec statique}
+La force de frottement statique s'oppose à la force parallèle à la surface, et est proportionnelle à la force normale et à un coefficient de frottement spécifique aux deux surfaces:
+\begin{equation*}
+	\vec F_s = - \vec F_\parallel
+\end{equation*}
+
+La force dépend des deux matériaux en contact, mais pas des surfaces:
+\begin{equation}
+	\boxed{ ||\vec F_s|| \leq \mu_s||\vec N|| }
+\end{equation}
+
+Lorsque la force de frottement maximale \( || \vec F_{s, \text{max}} || = \mu_s || \vec F_\parallel ||\) est atteinte, l'objet commence à glisser. 
+
+\subsubsection{Frottement sec cinétique}
+La force de frottement cinétique s'oppose à la vitesse, et est proportionnelle à la force normale:
+\begin{equation}
+	\boxed{ \vec F_d = - \mu_c ||\vec N|| \hat v }
+\end{equation}
+
+\subsection{Impulsion, quantité de mouvement et lien avec la force}
+
+\subsubsection{Impulsion}
+On définit l'impulsion de la force appliquée d'un point 1 à un point 2 comme:
+\begin{equation}
+	\boxed{ \vec I_{12} = \vec p_2 - \vec p_1 }
+\end{equation}
+
+\begin{equation}
+	\boxed{ \vec I_{12} = \int_1^2 \vec F \, d \vec t }
+\end{equation}
+
+La première définition est la version qu'il faut en général appliquer dans les exercices. La seconde version est une version plus formelle et précise, car elle utilise une intégrale, cependant elle est également beaucoup moins pratique à appliquer lors de calculs qui ne prennent en compte que des trajectoires simples (rectilignes). \\
+
+Il est également utile de se souvenir que la proposition suivante est équivalente:
+\begin{equation}
+	\boxed{ \dot{\vec{I}} = \vec F }
+\end{equation}
+
+\subsubsection{Quantité de mouvement}
+On définit la quantité de mouvement \(\vec p\):
+\begin{equation} \label{eq:defquantitemouvement}
+	\boxed{ \vec p = m \vec v }
+\end{equation}
+
+\begin{center}
+	\emph{La variation de la quantité de mouvement est égale \\ à l'impulsion de la force résultante.}
+\end{center}
+
+Force et quantité de mouvement sont directements liées par la \emph{Lex Secunda} de Newton (\ref{eq:lexsecunda}). La quantité de mouvement d'un système ne change pas tant que la somme des forces extérieures est nulle.
+
+\subsection{Travail et énérgie cinétique}
+
+On peut définir le travail entre deux points de manière infinitésimale (sur une très courte distance, de manière précise):
+\begin{equation}
+	\boxed{ W_{12} = \int_1^2 \vec F \, d \vec r }
+\end{equation}
+Ce type de définition infinitésimale est utile lorsqu'on veut appliquer la notion de travail à des trajectoires curvilignes. Le calcul est plus simple pour des trajectoires rectilignes:
+\begin{equation}
+	\boxed{ W = ||\vec F|| \cdot \Delta x }
+\end{equation}
+où \(\Delta x\) est la distance parcourue.
+
+\subsubsection{Énergie cinétique}
+Définition de l'énergie cinétique:
+\begin{equation}
+	\boxed{ K = E_\text{cin} = \frac{1}{2} m ||\vec v||^2 }
+\end{equation}
+
+\begin{center}
+	\emph{"La variation de l'énergie cinétique \\ est égale au travail de la somme des forces"}
+\end{center}
+
+%MAYBE: inclure intégrale curviligne?
+
+\subsubsection{Puissance d'une force}
+La puissance d'une force est la quantité d'énergie fournie par la force (\emph{le travail}) par unité de temps:
+\begin{equation}
+	\boxed{ P = \frac{\delta W}{dt} = \frac{\vec F \cdot d \vec r}{dt} = \vec F \cdot \vec v }
+\end{equation}
+La formule suivante est souvent plus pratique:
+\begin{equation}
+	\boxed{ P = \dfrac{W}{\Delta t} }
+\end{equation}
+
+\subsubsection{Théorème de l'énergie cinétique}
+\begin{center}
+	\emph{"Dans un référentiel galiléen, pour un corps ponctuel de masse m constante parcourant un chemin reliant un point A à un point B, la variation d'énergie cinétique est égale à la somme des travaux W des forces extérieures et intérieures qui s'exercent sur le solide considéré."}
+\end{center}
+Pour un point matériel:
+\begin{equation}
+	\boxed{ W_{12} = K_2 - K_1 \Leftrightarrow \frac{dK}{dt} = P = \vec F \cdot \vec v }
+\end{equation}
+%TODO: ajouter explications
+
+\subsubsection{Conservation de l'énergie mécanique, forces conservatives}
+Une force conservative est une force qui dérive d'un potentiel et ne dépend que de la position. Avec les forces conservatives, on peut introduire la notion de "potentiel d'une force" \(V(\vec r)\). \\
+
+La pesanteur est un exemple commun de force conservative: elle ne dépend que de la hauteur de l'objet, et non pas de la trajectoire que parcourt ou qu'a parcourue l'objet. Elle dérive d'un champ, le champ gravitationnel, représenté par \(g\) dans la formule suivante:
+\begin{equation}
+	W_{12} = mgz_2 - mgz_1
+\end{equation}
+On représente typiquement l'énergie potentielle gravitationnelle d'un système par \(mgh\), ou \(mgz\), où \(z/h\) représentent la hauteur du système, \(m\) sa masse et \(g\) l'accélération gravitationnelle terrestre. On peut y penser comme "le travail qu'il faudrait fournir pour élever le système à cette hauteur". \\
+
+Lorsque les seules forces agissant sur le système sont conservatives, on peut postuler que l'énergie mécanique totale (\(K + V\)) est constante. Quand on rencontre de telles situations dans un problème, on peut utiliser ce postulat pour déduire les vitesses maximales du système (lorsque \(V\) est nul, \(K\) est maximale), et tirer bien d'autres conclusions utiles. \\
+
+Voici quelques exemples de forces conservatives:
+\begin{itemize}
+	\item La pesanteur
+	\item La force exercée par un ressort
+	\item La gravitation
+	\item La force centrale %TODO: pas encore discutée
+\end{itemize}
+Et une force non-conservative bien commune, et dont l'apparition dans un problème supprime tout espoir de pouvoir utiliser les énergies à son avantage:
+\begin{itemize}
+	\item La force de frottement
+\end{itemize}
+
+Des observations faites ci-dessus, on peut transitionner vers le Théorème de l'énergie.
+
+\subsubsection{Théorème de l'énergie}
+Le théorème est le suivant:
+\begin{equation} \label{eq:thmenergie}
+	\boxed{ E_2 - E_1 = W_{12}^\text{NC} }
+\end{equation}
+Ce qui revient à dire:
+\begin{center}
+	\emph{"La variation de l'énergie mécanique du système est égale au travail des forces non-conservatives."}
+\end{center}
+Cette observation découle assez directement de celle qui précède, ç.à.d que les forces conservatives ne modifient pas l'énergie totale du système. Les seules forces qui peuvent la modifier sont donc les forces non-conservatives. \\
+
+Une expression équivalente du théorème est:
+\begin{equation}
+	\boxed{ \frac{dE}{dt} = P^\text{NC} = \vec F^\text{NC} \cdot \vec v }
+\end{equation}
+Autrement dit,
+\begin{center}
+	\emph{"La dérivée de l'énergie mécanique est égale à la puissance des forces non-conservatives."}
+\end{center}
+
+\subsubsection{L'énergie mécanique en tant qu'intégrale première du mouvement}
+On dit que l'énergie mécanique, si elle est conservée (\(\Leftrightarrow\) si seules des forces conservatives entrent en jeu, \ref{eq:thmenergie}), est une \textbf{intégrale première du mouvement}. \\
+
+Nous n'inclurons pas ici le procédé mathématique un poil longuet, mais sachez qu'en dérivant l'énergie mécanique \(E = K + V\), on peut retomber sur le principe fondamental de la dynamique, la \emph{Lex Secunda} (\ref{eq:lexsecunda}). \\
+Le processus est simplifié si l'on considère non pas le cas général mais celui d'un oscillateur harmonique:
+\begin{align*}
+	E &= \frac{1}{2} m \dot x^2 + \frac{1}{2} k x^2 + C \\
+	\frac{d}{dt}\left ( \frac{1}{2} m \dot x^2 + \frac{1}{2} k x^2 + C \right ) &= m \dot x \ddot x + k x \dot x = 0 \\
+	&= m \ddot x + k x = 0 \\
+	m \ddot x &= -k x \\
+	\Rightarrow \ddot x &= -\frac{k}{m} x,
+\end{align*}
+ce qui est effectivement l'équation du mouvement d'un oscillateur harmonique. \\
+(On a posé \(\frac{dE}{dt} = 0\), car seules des forces conservatives entrent en jeu.)
+
+\subsubsection{Points d'équilibre}
+\begin{center}
+	\emph{"Un point d'équilibre est une position d'un système physique \\ à laquelle le système restera immobile s'il est placé sans vitesse initiale. \\ Un point \(x_0\) est un point d'équilibre si \(F(x_0) = 0\) ou si \(\left . \frac{dV}{dx} \right \rvert_{x=x_0} = 0\)."} % the \left . is to put an invisible bracket on the left so that you can match it on the right: https://tex.stackexchange.com/a/40162
+\end{center}
+On étudie la fonction \(V(x)\) (fonction potentiel) afin de déterminer les points d'équilibre et les fréquences des petites oscillations autour des points d'équilibre stable; \(\left . \frac{dV}{dx} \right \rvert_{x=x_0} = 0\) signifie que la dérivée du potentiel au point \(x_0\) est nulle. C'est une condition suffisante pour que le point \(x_0\) soit un point d'équilibre. On effectue un développement limité autour d'un point d'équilibre pour déterminer la nature de l'équilibre (stable = minimum local, instable = maximum local). (ou alors on procède en regardant des valeurs de \(V(x)\) autour de \(x_0\), et on détermine selon leur valeurs si il s'agit d'un minimum ou d'un maximum local. Cette méthode est très efficace si vous êtes pressés et n'avez pas trop envie de faire le développement limité de \(V(x)\).)
+
+\section{Introduction aux mouvements rotatifs}
+A partir d'ici, dans le cours, nous allons souvent travailler avec des mouvements rotatifs, en plus des mouvements translationnels que nous avons vus jusqu'ici. C'est pour cela que la notion de moment est introduite. Cependant, il est important de réaliser, pour faciliter la compréhension, que les "grandeurs-moments" que nous allons voir sont souvent analogues à des grandeurs que nous avons déjà vues dans les mouvements translationnels: les moments sont simplement une façon de considérer ces grandeurs translationnelles par rapport à un point de rotation. Ils sont plus adaptée à l'étude de mouvements rotationnels. \\
+
+On peut lier, par exemple, les grandeurs suivantes entre les mouvements translationnels et rotatifs:
+\begin{itemize}
+	\item Force \(\leftrightarrow\) Moment de force
+	\item Quantité de mouvement \(\leftrightarrow\) Moment cinétique
+	\item Masse \(\leftrightarrow\) Moment d'inertie
+	\item ...
+\end{itemize}
+Je tenterai d'exposer, après la présentation de chacun de ces concepts, leur concept analogue dans l'étude des mouvements translationnels.
+
+\subsection{Moment}
+En physique, le moment est une quantité qui rend compte de la distribution spatiale d'une quantité physique. En gros, on va considérer cette quantité physique non pas en tant que telle, mais plutôt dans un contexte spatial, c'est à dire par rapport à une origine \(O\), et selon à sa position \(\vec r\) par rapport à cette origine. On appelle souvent cette origine le \emph{pivot}, et on peut considérer ce point comme le centre de la rotation. \\ Il est important de bien comprendre que les moments ne sont pas des grandeurs physiques objectives dans un système: on peut choisir l'origine, c.à.d. le point de pivot, comme cela nous arrange (p. ex problème de l'échelle contre un mur). Il s'agit plutôt d'outils mathématiques qui s'adaptent mieux à l'étude des mouvements rotatifs. \\
+
+\begin{center}
+	\emph{"Lorsque la quantité physique à laquelle on s'intéresse est un vecteur, \\ l'angle entre le vecteur position \(\vec r\) et la quantité physique est pris en compte \\ grâce au produit vectoriel entre \(r\) et le vecteur de cette quantité."}
+\end{center}
+
+Les moments sont exprimés selon une position \(\vec r\) par rapport à l'origine, et ce vecteur \(\vec r\) est élevé à différentes puissance pour calculer différents moments. Par exemple, le moment cinétique est en \(r\), mais le moment d'inertie est en \(r^2\).
+
+\subsubsection{Moment de force}
+\begin{equation}
+	\boxed{ \vec M_O ( \vec F ) = \vec r \wedge \vec F }
+\end{equation}
+On peut imaginer ce moment de force comme "l'aptitude d'une force à faire tourner un système autour du point \(O\)". Comme on le disait dans le paragraphe précédent, il dépend de l'endroit où on applique la force; pensez à un bras de levier, et à la raison pour laquelle il est plus facile d'activer un levier lorsqu'on applique la force à son extrémité plutôt qu'à son début. \\
+
+Le moment de force est l'analogue rotatif de la force.
+
+\subsubsection{Moment cinétique}
+\begin{equation}
+	\boxed{ \vec L_O = \vec r \wedge \vec p = \vec r \wedge m \vec v }
+\end{equation}
+Le moment cinétique est l'analogue rotatif de la quantité de mouvement.
+
+\subsubsection{Théorème du moment cinétique}
+La dérivée du moment cinétique est égale au moment de la somme des forces:
+\begin{equation} \label{eq:thmmomentcinetique}
+	\boxed{ \frac{d \vec L_O }{dt} = \vec M_O }
+\end{equation}
+On peut interpréter ce théorème comme l'analogue rotatif de la Lex Secunda (\ref{eq:lexsecunda}): le moment de force (analogue à la force) modifie le moment cinétique (analogue à la quantité de mouvement), et modifie donc la vitesse du système si la masse est constante (ce qui est le cas dans la grande majorité des problèmes).
+
+\subsection{Mouvement central}
+\begin{center}
+	\emph{"Un point \(p\) de masse \(m\) et de position \(\vec r\) effectue un mouvement central si la droite portant son accélération passe toujours par le même point \(O\) (le pivot)."}
+\end{center}
+Autrement dit, un mouvement est central si les seules forces internes ou externes appliquées sur le système sont centrales. Voici quelques exemples de mouvement centraux:
+\begin{itemize} 
+	\item Un mouvement circulaire uniforme d'une balle retenue par une ficelle, où la seule force est la tension de la ficelle, qui est parallèle au rayon et donc centrale.
+	\item La rotation elliptique des planètes autour du soleil, où la seule force est la force gravitationnelle entre le soleil et les planètes (si on ne considère pas les forces entre les planètes), qui est centrale également (vu plus bas). \\
+\end{itemize}
+Lorsqu'un mouvement est central, la loi des aires est respectée: l'aire balayée par le vecteur position sera toujours la même pour un même intervalle de temps (troisième loi de Kepler). \\
+
+On a une équivalence entre ces propositions:
+\begin{itemize}
+	\item Le mouvement est central
+	\item \(\Leftrightarrow\) Les seules forces internes et externes appliquées sur le système sont centrales
+	\item \(\Leftrightarrow\) Le moment des forces internes et externes est nul
+	\item \(\Leftrightarrow\) Le moment cinétique \(\vec L_O\) est constant
+	\item \(\Leftrightarrow\) La loi des aires est respectée et le mouvement est plan
+\end{itemize}
+
+\subsection{Loi de la gravitation universelle}
+Force gravitationnelle entre deux corps:
+\begin{equation}
+	\boxed{ \vec F = -G \dfrac{m_1m_2}{r^2} \hat e_r }
+\end{equation}
+C'est une force centrale: on voit qu'elle agit sur \(\hat e_r\), c.à.d. parallèlement au rayon. C'est également une force conservative, on peut donc lui assigner une fonction potentiel:
+\begin{equation}
+	\boxed{ V(r) = -G \dfrac{m_1m_2}{r} }
+\end{equation}
+
+\subsection{La vitesse angulaire}
+La vitesse angulaire est une grandeur extrêmement importante à l'étude des mouvements rotatifs. Elle représente, comme son nom l'indique, l'angle couvert en un certain temps, et est souvent désignée par la lettre \(\omega\) (parfois \(\Omega\)). Une équation basique mais importante lorsqu'on parle de la norme de la vitesse angulaire est la suivante:
+\begin{equation}
+	\boxed{ \omega = \frac{d\phi}{dt} = \dfrac{v_\perp}{r} }
+\end{equation}
+où \(v_\perp\) est la vitesse \emph{perpendiculaire au rayon}. Cette équation vient du fait que le périmètre d'un cercle est égal à \(2 \pi r\); \(v_\perp\) est obtenue en divisant cette distance par le temps: \(\frac{2 \pi r}{\Delta t}\). Enfin, en divisant par \(r\), on obtient: \(\frac{2 \pi}{t} = \omega\), qui est bien ici exprimée en angle par seconde. \\
+
+En vérité, \(\omega\) est une grandeur vectorielle, mais abstraite: c'est un vecteur perpendiculaire au plan de rotation, et il est plus généralement relié au rayon et à la vitesse par la formule suivante:
+\begin{equation}
+	\boxed{ \vec v_\perp = \vec \omega \wedge \vec r }
+\end{equation}
+
+En tant que vecteur, il est important de savoir que l'on peut additionner deux vitesses angulaires pour obtenir la véritable vitesse angulaire d'un point. Si un vecteur était soumis à deux rotations dont les vecteurs de vitesse angulaire seraient \(\vec \omega\) et \(\vec \Omega\), on aurait:
+\begin{equation}
+	\vec v_\perp = (\vec \omega + \vec \Omega) \wedge \vec r
+\end{equation}
+
+
+\section{Systèmes de points matériels}
+Dans ce chapitre, nous nous intéresserons à des systèmes composés de plusieurs points matériels \textbf{non-liés} (en opposition aux \hyperref[sec:solideindeformable]{solides indéformables}).
+
+\subsection{Système isolé}
+\begin{center}
+	\emph{"Un système de points matériels est isolé si les somme des forces extérieures au système \\ est nulle"}
+\end{center}
+\begin{equation*}
+	\boxed{ \begin{cases} 
+		\vec F^{\text{ext}} = 0 \\
+		\vec M_O^{\text{ext}} = 0 
+	\end{cases} }
+\end{equation*}
+
+\subsubsection{Forces internes et externes}
+Par la loi d'\hyperref[sec:actionreaction]{action-réaction}, on a que:
+\begin{center}
+	\emph{"La somme des forces internes est nulle. \\ Le moment de la somme des forces internes est nul."}
+\end{center}
+Si le moment est nul, on peut selon le théorème du moment cinétique \ref{eq:thmmomentcinetique} déduire que le moment cinétique est constant.
+De cela, on peut tirer que:
+\begin{center}
+	\emph{"Seules les forces extérieures au système \\ déterminent l'évolution de la quantité de mouvement totale \\ et du moment cinétique total."}
+\end{center}
+
+\subsubsection{Conclusions sur les systèmes isolés}
+Un système isolé possède donc les propriétés suivantes:
+\begin{equation}
+	\begin{cases}
+		\vec F^{\text{ext}} = 0 \\
+		\vec M_O^{\text{ext}} = 0 \\
+		\text{Moment cinétique total = cst.} \\
+		\text{Quantité de mouvement totale = cst.}
+	\end{cases}
+\end{equation}
+Les propriétés 3 et 4 sont équivalentes aux propriétés 1 et 2 par le théorème du moment cinétique (\ref{eq:thmmomentcinetique}) et le principe fondamental de la dynamique (\ref{eq:lexsecunda}).
+
+\subsubsection{Système à l'équilibre}
+Dans un système de points matériels à l'équilibre, chaque point matériel a une vitesse nulle (\( \vec v = 0 \Rightarrow \vec p = 0  \)). \\
+Un système est à l'équilibre si il est isolé et que les conditions suivantes sont également respectées:
+\begin{equation}
+	\begin{cases}
+		\vec p^{\text{\, tot}} = 0 \\
+		\vec L_O^{\text{tot}} = 0
+	\end{cases}
+\end{equation}
+
+\subsection{Centre de masse}
+La position du centre de masse:
+\begin{equation}
+	\boxed{ \vec R = \frac{1}{M} \sum_\alpha m_\alpha \vec r_\alpha }
+\end{equation}
+Les termes en majuscule désignent les attributs du centre de masse. Dans le cas de la masse, \(M\) désigne simplement la somme des masses des points composant le système.
+
+\subsubsection{Théorème du centre de masse}
+\begin{center}
+	\emph{"Le centre de masse d'un système se comporte comme un point matériel de masse \(M = \sum_\alpha m_\alpha\) \\ subissant toutes les forces extérieures appliquées sur les différentes parties du système, \\ comme si ces forces étaient directement exercées sur ce centre de masse."}
+\end{center}
+Bref, on va principalement se soucier du centre de masse d'un système de points matériels, parce qu'il se comporte de façon plus prévisible que les points individuels. \\
+Chaque système possède un centre de masse \textbf{unique}.
+
+\subsubsection{Propriétés du centre de masse}
+Lorsqu'on prend la position du centre de masse comme origine, on désignera les vecteurs exprimés par rapport à cette origine par une astérisque (*). \\
+
+Les propriétés du centre de masse sont les suivantes:
+\begin{equation}
+	\begin{cases}
+		\sum_\alpha m_\alpha \vec r_\alpha^* = 0 \\
+		\sum_\alpha m_\alpha \vec p_\alpha^* =0 \\
+	\end{cases}
+\end{equation} 
+avec les \(\vec r_\alpha *\) les vecteurs position de chaque point matériel du système, relatifs au le centre de masse.
+
+\subsection{Problèmes à deux corps}
+
+\subsubsection{Coordonnées relatives} %TODO: revoir, donner les infos importantes uniquement, verifier que toutes les infos importantes sont la
+Masse réduite du système:
+\begin{equation}
+	\boxed{ \mu = \frac{m_1m_2}{m_1 + m_2} }
+\end{equation}
+
+\subsubsection{Équation du mouvement et variables dynamiques} %TODO: changer titre de cette section. completer aussi. je sais pas quoi inclure et ne pas inclure
+Théorème de la quantité de mouvement:
+\begin{equation}
+	\begin{cases}
+		\vec p = m_1 \vec v_1 + m_2 \vec v_2 = M \vec V_G \\
+		\vec p * = m_1 \vec v_1^* + m_2 \vec v_2^* = 0
+	\end{cases}
+\end{equation}
+
+\subsubsection{Les deux théorèmes de König}
+1er théorème, le mouvement cinétique total:
+\begin{equation}
+	\boxed{ \vec L_\text{tot, O} = \vec R \wedge M \vec V + \vec L_\text{tot, O}^* }
+\end{equation}
+2nd théorème, l'énergie cinétique totale:
+\begin{equation}
+	\boxed{ K_\text{tot} = \frac{1}{2}MV^2 + K_\text{tot}^* }
+\end{equation}
+
+\subsection{Les chocs}
+
+\subsubsection{Concept d'impulsion, "force" du choc}
+En partant de la seconde loi de Newton (\ref{eq:lexsecunda}), on voit que:
+\begin{align*}
+	\vec F 			&= \frac{d \vec p}{dt} \approx \frac{\Delta \vec p}{\Delta t} \\
+	\vec F \Delta t 	&= \Delta \vec p \\
+\end{align*}
+Si on prend, par exemple, un oeuf qui tombe depuis la même hauteur (a) sur un matelas ou (b) sur du goudron, on observe que:
+\begin{itemize}
+	\item (a) le choc prend plus de temps, il est "amorti". L'oeuf ne se casse pas (\emph{don't try this at home, kiddos.})
+	\item (b) le choc est instantané. L'oeuf se casse (probablement. Sinon, pourriez-vous m'indiquer votre fournisseur d'oeufs?).
+\end{itemize}
+Dans les deux cas, la quantité de mouvement était identique avant le choc, et nulle après. \(\Delta \vec p\) est donc identique. Mais \(\Delta t\) était plus court dans le cas (b), ce qui a fait que le choc était plus "fort" (si \(\Delta t\) est plus petit, \(\vec F\) doit être plus grand pour que l'égalité tienne).
+
+\subsubsection{Chocs totalement élastiques}
+Les chocs totalement élastices sont les chocs où le coefficient de restitution est de 1.
+Dans le cas d'un choc élastique, on a:
+\begin{itemize}
+	\item conservation de la quantité de mouvement totale du système \((\vec p_i = \vec p_f)\)
+	\item conservation de l'énergie mécanique totale du système \((E_i = E_f)\)
+\end{itemize}
+Cela est vrai pour l'entier du mouvement et du choc (= longtemps avant et après le choc) uniquement si le système est isolé et qu'aucun potentiel ne change (= p.ex, le système reste à la même hauteur et ne gagne ou ne perd aucune énergie potentielle gravitationnelle). \\
+Cependant, ces deux conservations valent dans tous les cas à l'instant exact du choc élastique. Si on parle par exemple d'une balle qui tombe verticalement (\(\Rightarrow\) subit un changement d'énergie potentielle) et qui est soumise lors de sa chute à une force de frottement fluide (\(\Rightarrow\) non conservative), on peut considérer que la quantité de mouvement de la balle et son énergie mécanique \emph{un instant} avant le choc sera la même que \emph{un instant} après le choc. 
+
+\subsubsection{Chocs totalement inélastiques}
+Les chocs totalement inélastiques sont les chocs où le coefficient de restitution est nul. Les deux corps \emph{restent collés} après le choc, et on peut les considérer à partir de là comme un unique système.
+Dans ce cas-ci, on a uniquement:
+\begin{itemize}
+	\item conservation de la quantité de mouvement totale du système \((\vec p_i = \vec p_f)\)
+\end{itemize}
+L'énergie n'est pas conservée parce qu'une partie est perdue durant le choc, en déformation ou en chaleur. \\
+
+Dans les exercices, on nous indique souvent si un choc est parfaitement élastique ou parfaitement inélastique, et il faut donc procéder de la manière adaptée dans ce cas idéal. Cependant, le fait est que dans la réalité, aucun choc n'est totalement élastique ou totalement inélastique.
+
+Les paragraphes explicatifs de la section précédente sur les chocs élastiques s'appliquent aussi, mais uniquement pour la quantité de mouvement et non l'énergie.
+
+\section{Le solide indéformable} \label{sec:solideindeformable}
+En gros, c'est un système de points matériels, mais qui sont fixés les uns par rapport aux autres. Rien de bien grave. \\
+Le seul problème avec ça c'est que vu que les gens veulent toujours être très précis, ils remplacent la somme de points pour un nombre fini de points par des intégrales de Riemann pour des nombres infinis de points. Faut pas se faire trop impressionner, on utilise ces intégrales uniquement dans la théorie par souci de précision, et pas en exercices. \\
+
+Système de points matériels:
+\begin{equation*}
+	\vec R_G = \frac{1}{M} \sum_\alpha \vec r_\alpha m_\alpha
+\end{equation*}
+Solide indéformable:
+\begin{equation*}
+	\vec R_G = \frac{1}{M} \int_V \vec r \rho(\vec r) dV
+\end{equation*}
+On intègre par rapport au volume \(V\). La fonction \(\rho (\vec r)\) représente la masse volumique à la position \(\vec r\). \\
+Vraiment, ces intégrales ne sont pas très importantes au niveau des calculs. Je n'intégrerai (\emph{lel}) donc dans ce résumé que peu des résultats intermédiaires qui en comprennent, et tenterai de présenter uniquement les formules vraiment utiles. \\
+
+\subsection{Gyroscope}
+La propriété principale du gyroscope, c.à.d sa capacité à garder un axe de rotation constant qu'importe comment il est déplacé ou tourné, est en gros due au théorème du moment cinétique (\ref{eq:thmmomentcinetique}). \\
+
+Étant donné qu'on a \( \dot{\vec L}_O = M_O\), on sait que lorsqu'un moment de force extérieur au gyroscope est appliqué, on aura un petit "delta" vecteur de moment cinétique \emph{parallèle} à ce vecteur de moment de force, c'est à dire \emph{perpendiculaire} au vecteur de force. C'est pour ça que lorsqu'on essaie de tourner un gyroscope dans sa main (\(\Rightarrow\) on lui applique une force dans une certaine direction), le gyroscope "résiste" et ne se tourne pas comme on le voulait (\(\Rightarrow\) la direction de son vecteur de moment cinétique se tourne perpendiculairement comparé à ce qu'on attendait). \\
+
+Pour un gyroscope, on a:
+\begin{equation}
+	L_G = I_\Delta \vec \omega
+\end{equation}
+
+\subsection{Moment d'inertie}
+On peut penser au moment d'inertie comme le "moment de masse", c'est à dire l'équivalent de la masse dans un mouvement de rotation. De manière analogue à la masse qui résiste au changement de vitesse (\(\vec F = m \dot{\vec v}\)), le moment d'inertie résiste au changement de vitesse angulaire. \\
+
+L'inertie d'un système de points autour d'un axe \(\Delta\) peut être exprimée des deux façons suivantes:
+\begin{align*}
+	I &= \dfrac{L}{\omega} & I &= \sum_\alpha m_\alpha d_\alpha^2
+\end{align*}
+où \(d_\alpha\) est la distance perpendiculaire de l'axe \(\Delta\) au point \(\alpha\).
+
+\subsection{Calcul d'une vitesse dans un système de points}
+Il est souvent extrêmement pratique de savoir calculer la vitesse d'un point d'un solide lorsqu'on connaît déjà la vitesse d'un de ses autres points. Il faut dans ces cas utiliser la relation suivante:
+\begin{equation}
+	\boxed{ \vec v_A = \vec v_O + \vec \omega \wedge \overrightarrow{OA} }
+\end{equation}
+Ici, le point dont nous connaissons déjà la vitesse est le point \(O\), et nous pouvons trouver la vitesse au point \(A\) grâce à cette relation. \\
+Il est souvent très utile d'appliquer cette relation lorsqu'on sait que certains points du solide ont une vitesse nulle, comme par exemple dans le cas d'un roulement sans glissement où le point de contact entre les solides / entre le solide et le sol a une vitesse nulle.
+
+\subsection{Théorème du transfert}
+Le théorème du transfert concerne le moment cinétique d'système évalué par rapport à un autre système. Il est crucial dans les exercices, notamment lorsqu'il est demandé de trouver le moment cinétique total d'un système composé de plusieurs sous-systèmes. La relation est la suivante:
+\begin{equation}
+	\vec L_O = \overrightarrow{OA} \wedge m \vec v_A + \vec L_A^*
+\end{equation}
+Ici, \(\vec L_O\) est le moment cinétique de \(A\) évalué autour du point \(O\), et \(\vec L_A^*\) est le moment cinétique de \(A\) évalué autour de \(A\). Il est utile, pour se souvenir de cette propriété étrange, de penser qu'en plus du moment cinétique propre à \(A\) (évalué autour de \(A\)), il y a un "reste" qui vient de l'évaluation autour d'un autre point.
+
+\section{Tenseurs d'inertie}
+\begin{center}
+	\emph{"Inertia tensor? More like inertia cancer, haha!"} \\ \qquad \qquad - Bob Ross, 852 A.D.
+\end{center}
+Les tenseurs d'inertie, c'est vraiment caca. \\
+On utilise toujours des tenseurs d'inertie diagonaux. La diagonalité du tenseur d'inertie dépend du choix de la base. Si on ne choisit pas une base qui fait que le tenseur est diagonal, on est dans un caca de type profond. Un tenseur d'inertie sera généralement noté de la manière suivante:
+\begin{equation}
+\tilde{I}_G = \begin{pmatrix}
+I_1 & 0 & 0 \\
+0 & I_2 & 0 \\
+0 & 0 & I_2
+\end{pmatrix}
+\end{equation}
+\(I_1, I_2\) et \(I_3\) sont donc les coefficients diagonaux du tenseur. \\
+Si on place les axes du système le long des axes d'inertie principaux, le tenseur d'inertie sera diagonal.
+\subsection{Inerties de solides communs}
+\allowdisplaybreaks[1]
+\begin{align}
+\intertext{Brique pleine de dimensions \(a \times b \times c\):}
+&\tilde{I}_G = \dfrac{m}{12}
+\begin{pmatrix}
+b^2 + c^2 & 0 & 0 \\
+0 & c^2 + a^2 & 0 \\
+0 & 0 & a^2 + b^2
+\end{pmatrix} \\
+\intertext{Brique cubique pleine:}
+&\tilde{I}_G = \dfrac{ma^2}{6}
+\begin{pmatrix}
+1 & 0 & 0 \\
+0 & 1 & 0 \\
+0 & 0 & 1
+\end{pmatrix} \\
+\intertext{Cylindre plein:}
+&\begin{cases}
+I_1 = I_\Delta = \frac{1}{4}mR^2 + \frac{1}{12}mL^2 \\
+I_2 = I_1 \\
+I_3 = \frac{1}{2}mR^2
+\end{cases} \\
+\intertext{Cylindre vide:}
+&\begin{cases}
+I_1 = I_\Delta = \frac{1}{2}mR^2 + \frac{1}{12}mL^2 \\
+I_2 = I_1 \\
+I_3 = mR^2
+\end{cases} \\
+\intertext{Sphère pleine:}
+&I_1 = I_2 = I_3 = I_\Delta = \frac{2}{5}mR^2 \\
+\intertext{Sphère vide:}
+&I_1 = I_2 = I_3 = I_\Delta = \frac{2}{3}mR^2
+\end{align}
+\allowdisplaybreaks[0]
+
+
+\end{document}
+
+
+
+
+
+
+
