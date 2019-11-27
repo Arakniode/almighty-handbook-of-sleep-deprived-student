@@ -1,0 +1,595 @@
+\documentclass{book}
+\usepackage[utf8]{inputenc}
+\usepackage[french]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+\usepackage{amsthm}
+\usepackage{thmtools}
+\usepackage[dvipsnames]{xcolor}
+\declaretheorem[name=Théorème, style=plain, shaded={bgcolor=Lavender!30}]{thm}
+\declaretheorem[name=Proposition, style=plain]{prop}
+\declaretheorem[name=Lemme, style=plain]{lemme}
+\declaretheorem[name=Définition, style=definition]{defn}
+\declaretheorem[name=Exemple, style=definition]{exmp}
+
+\title{Géométrie I}
+\author{C. B.}
+\date{Semestre d'automne 2019}
+
+\numberwithin{equation}{section}
+
+\renewcommand{\labelitemi}{$\bullet$}
+\renewcommand{\labelitemii}{$\cdot$}
+\renewcommand{\phi}{\varphi}
+
+\providecommand{\plan}{{\mathbb R^2}}
+\providecommand{\origin}{{\vec 0}}
+\providecommand{\id}{{\textnormal{Id}}}
+\providecommand{\IdR}{{\id_\plan}}
+\providecommand{\MR}{{M_2(\mathbb R)}}
+\providecommand{\transR}{{\textnormal{T}(\plan)}}
+\providecommand{\isom}{{\textnormal{Isom}(\plan)}}
+\providecommand{\isomo}{{\isom_0}}
+\providecommand{\ker}{{\textnormal{ker}}}
+\providecommand{\trans}[1]{{t_{#1}}}
+\providecommand{\bij}[1]{{\textnormal{Bij}(#1)}}
+\providecommand{\bijR}{{\bij{\plan}}}
+\providecommand{\lin}{{\textnormal{lin}}}
+\providecommand{\longueur}[1]{{\lVert#1\rVert}}
+\providecommand{\abs}[1]{{\lvert#1\rvert}}
+\providecommand{\scalaire}[1]{{\langle#1\rangle}}
+\providecommand{\ad}{{\textnormal{ad}}}
+\providecommand{\tq}{\mid}
+\providecommand{\subgroupeq}{\leq}
+\providecommand{\subgroupnormaleq}{\trianglelefteq}
+
+% margins
+\usepackage{geometry}
+\geometry{left=1.5cm, right=1.5cm, top=1.5cm, bottom=1.5cm}
+
+\begin{document}
+\maketitle
+
+\chapter*{Ennuis préliminaires}
+
+Ce premier chapitre a pour but de définir quelques notions formelles dont nous aurons besoin afin de pouvoir explorer les vraies notions intéressantes de manière rigoureuse. Nous le garderons de longueur mininale afin de ne pas nous ennuyer, car vraiment, quel ennui! Pensez-y comme la préparation de votre sac à dos avant le départ vers cette forêt de connaissances que nous explorerons bientôt, afin d'en apprécier les plus belles clairières et les plus magnifiques détails: c'est là une étape nécessaire, mais certainement pas celle à laquelle nous nous adonnerons avec le plus d'excitation.
+
+\begin{defn}
+	Le \textbf{plan réel} est le produit cartésien $\mathbb R \times \mathbb R = \plan$. $\origin = (0, 0)$ est l'\textbf{origine}.\par
+	$\plan$ est muni d'une structure de groupe :
+	\begin{itemize}
+		\item $+$: $(x, y) + (x', y') = (x+x', y+y')$
+		\item $\origin$: $(x, y) + \origin = (x, y)$
+		\item $-$: $-(x, y) = (-x, y), (x, y) + (-(x, y)) = \origin$
+	\end{itemize}
+	On peut également voir $\plan$ comme un groupe de translations: à $(x, y) = \vec u \in \plan$ on associe l'application
+	\begin{align*}
+		\trans{\vec u} = \trans{(x, y)} : \plan \to \plan,\\ (a, b) \mapsto (a, b) + (x, y)
+	\end{align*}
+	$\trans{\vec u}$ admet quelques propriétés:
+	\begin{itemize}
+		\item $\trans{\vec u}$ est une application bijective d'inverse $\trans{\vec u}^{-1} = \trans{-\vec u}$ et on a $\trans{\vec u} \circ \trans{-\vec u} = \IdR$
+		\item $\trans{\vec u} \circ \trans{\vec v} = \trans{\vec u + \vec v}$
+	\end{itemize}
+\end{defn}
+
+\begin{prop}
+	L'application $t : \plan \to \bijR$ est un morphisme de groupes.
+	\begin{proof}
+		En fait, cela a déjà été montré plus haut, lorsqu'on examinait les propriétés des translations $\trans{\vec v}$.
+	\end{proof}
+\end{prop}
+
+\begin{defn}
+	La \textbf{longueur euclidienne} d'un vecteur $\vec v = (x, y)$ est donnée par
+	\begin{align*}
+		\longueur{\cdot} : \plan \to \mathbb R\\
+		(x, y) \mapsto (x^2 + y^2)^{\frac12}.
+	\end{align*}
+	La \textbf{distance euclidiennt} entre deux vecteurs est donnée par
+	\begin{align*}
+		d : \plan \times \plan \to \mathbb R\\
+		(\vec u, \vec v) \mapsto \longueur{\vec u - \vec v}.
+	\end{align*}
+\end{defn}
+
+\begin{prop}
+	La longueur $\longueur{\cdot}$ et la distance $d$ ont les propriétés suivantes:
+	\begin{itemize}
+		\item \textbf{séparation}:
+			\begin{enumerate}
+				\item $\longueur{\vec u} = 0 \iff \vec u = \origin$
+				\item $d(\vec u, \vec v) = 0 \iff \vec u = \vec v$
+			\end{enumerate}
+		\item \textbf{symétrie}:
+			\begin{enumerate}
+				\item $\longueur{\vec u} = \longueur{-\vec u}$
+				\item $d(\vec u, \vec v) = d(\vec v, \vec u)$
+			\end{enumerate}
+		\item \textbf{inégalité triangulaire}: 
+			\begin{enumerate}
+				\item $\longueur{\vec u + \vec v} \leq \longueur{\vec u} + \longueur{\vec v}$
+				\item $d(\vec u, \vec v) \leq d(\vec u, \vec w) + d(\vec w, \vec v)$
+			\end{enumerate}
+		\item \textbf{homogénéité}: $\forall \lambda \in \mathbb R$ on a
+			\begin{enumerate}
+				\item $\longueur{\lambda \vec u} = \abs{\lambda}\longueur{\vec u}$
+				\item $d(\lambda \vec u, \lambda \vec v) = \abs{\lambda}d(\vec u, \vec v)$
+			\end{enumerate}
+	\end{itemize}
+\end{prop}
+Les trois premières propriétés satisfaites par $d$ servent à définir la notion abstraite de ``distance'' sur un ensemble arbitraire $X$: c'est une application
+	\begin{equation*}
+		d: X \times X \to \mathbb R_{\geq 0}
+	\end{equation*}
+	vérifiant séparation, symétrie et inégalité triangulaire.
+
+\begin{proof}[Démonstration (inégalité triangulaire).]
+	La démonstration est trop chiante pour que je la recopie ici. J'ai des choses à faire moi.\\
+	Elle inclut cependant la preuve de l'inégalité de Cauchy-Schwartz, qui est importante lors de la définition de distances, donc cherchez dans vos notes.
+\end{proof}
+
+\begin{defn}
+	On définit l'application \textbf{produit scalaire}
+	\begin{align*}
+		\scalaire{\cdot, \cdot}: \plan \times \plan \to \mathbb R\\
+		((a, b), (c, d)) \mapsto a \cdot c + b \cdot d
+	\end{align*}
+\end{defn}
+
+\begin{prop}
+	Le produit scalaire a les propriétés suivantes:
+	\begin{itemize}
+		\item \textbf{symétrie}: $\scalaire{\vec u, \vec v} = \scalaire{\vec v, \vec u}$
+		\item \textbf{bilinéarité}: pour tous $\lambda, \mu \in \mathbb R$ on a $\scalaire{\lambda\vec u + \mu\vec v, \vec w} = \lambda\scalaire{\vec u, \vec w} + \mu\scalaire{\vec v, \vec w}$
+		\item \textbf{défini positif}: $\scalaire{\vec u, \vec u} \geq 0$. De plus $\scalaire{\vec u, \vec u} = 0 \iff \vec u = \origin$
+	\end{itemize}
+	On remarque aussi que $\scalaire{\vec u, \vec u} = \longueur{\vec u}^2$.
+\end{prop}
+
+\begin{defn}
+	On dit que deux vecteurs $\vec u$ et $\vec v$ sont \textbf{perpendiculaires} (ou \textbf{orthogonaux}) ssi $\scalaire{\vec u,  \vec v} = 0$.
+\end{defn}
+
+\begin{prop}
+	Soient $\vec u, \vec v \in \plan \setminus \{\origin\}$ perpendiculaires. Alors tout vecteur $\vec w \in \plan$ se décompose de manière unique comme combinaison linéaire de $\vec u$ et $\vec v$, càd $\exists! \lambda, \mu \in \mathbb R$ t.q. $\vec w = \lambda \vec u + \mu \vec v$. De plus, $\lambda$ et $\mu$ sont donnés par les formules
+	\begin{equation*}
+		\lambda = \frac{\scalaire{\vec w, \vec u}}{\scalaire{\vec u, \vec u}} \text{ et } \mu = \frac{\scalaire{\vec w, \vec v}}{\scalaire{\vec v, \vec v}}.
+	\end{equation*}
+	On dit que $(\vec u, \vec v)$ est une \textbf{base orthogonale} de $\plan$.
+\end{prop}
+\begin{proof}
+	Supposons que $\vec w = \lambda \vec u + \mu \vec v$, avec $\vec u$ et $\vec v$ orthogonaux non-nuls $\implies \scalaire{\vec u, \vec v} = 0$. Alors
+	\begin{align*}
+	\scalaire{\vec w, \vec u} &= \scalaire{\lambda \vec u + \mu \vec v, \vec u}\\
+	&= \lambda\scalaire{\vec u, \vec u} + \mu\scalaire{\vec u, \vec v}\\
+	&= \lambda\scalaire{\vec u, \vec u}
+	\end{align*}
+	$\iff \lambda = \dfrac{\scalaire{\vec w, \vec u}}{\scalaire{\vec u, \vec u}}$. On procède de la même manière pour trouver l'expression de $\mu$. Ces deux expressions sont uniques, et la décomposition de $\vec w$ sur $(\vec u, \vec v)$ est donc unique.\\
+	On voit également que si $\longueur{\vec u} = \longueur{\vec v} = 1$, les expression se simplifient en $\lambda = \scalaire{\vec w, \vec u}$ et $\mu = \scalaire{\vec w, \vec v}$. Dans ce cas-ci, on appelle $(\vec u, \vec v)$ une \textbf{base orthonormée} (B.O.N).
+\end{proof}
+
+\chapter{Isométries du plan}
+
+\section{Isométries, qu'êtes-vous donc?}
+Maintenant que l'on a défini le plan en tant qu'objet mathématique, ainsi que quelques éléments de sa structure, on peut passer aux définitions plus intéressantes. Ainsi, la très ennuyeuse section précédente ne servait que de base formelle (essentielle) à la définition de la notion qui va nous occuper pendant toute l'année: celle d'isométrie. Comment peut-on donc définir ce type de transformations ?
+
+\begin{defn}
+	Une \textbf{isométrie} $\phi$ de $\plan$ est une application $\phi : \plan \to \plan$ qui préserve la distance euclidienne. Mathématiquement, $\phi$ est une isométrie de $\plan$ ssi $\forall P, Q \in \plan$, on a 
+	\begin{equation}
+		d(\phi(P), \phi(Q)) = d(P, Q).
+	\end{equation}
+	On désignera l'ensemble des isométries de $\plan$ par $\isom$.
+\end{defn}
+
+Cette définition suit parfaitement l'intuition visuelle que l'on aurait d'une isométrie: une transformation du plan qui ne modifie pas les distances est, visuellement, une transformation qui n'``écrase'' ni n'``étire'' ni ne ``tord'' rien.\par
+Rien qu'en ayant posé cette définition simple et intuitive, on a ouvert le chemin à l'exploration formelle d'une forêt de connaissances qui ne demande qu'à être explorée; nombre de propriétés que l'on pourrait conjecturer en visualisant l'action de telles transformations, donc en observant la forêt de l'extérieur, seront rigoureusement démontrables dans le cadre de cette définition et de celles qui suivront.\par
+Nous pouvons donc nous poser la question : quelles applications que nous connaissons déjà sont des isométries ?
+
+\begin{exmp}
+	$\IdR \in \isom$, car $d(\IdR(P), \IdR(Q)) = d(P, Q)$.
+\end{exmp}
+
+\begin{prop}
+	Soit $\vec v \in \plan$. Alors $\trans{\vec v}$ est une isométrie $( \iff \trans{\vec v} \in \isom)$.
+\end{prop}
+\begin{proof}
+	$\forall P, Q \in \plan$, on a
+	\begin{align*}
+		d(\trans{\vec v}(P), \trans{\vec v}(Q)) &= \longueur{P + \vec v - (Q + \vec v)}\\
+		&= \longueur{P - Q + \vec v - \vec v}\\
+		&= \longueur{P - Q}\\
+		&= d(P, Q).
+	\end{align*}
+	Donc $\trans{\vec v} \in \isom$.
+\end{proof}
+
+Les translations, ainsi que l'identité (qui n'est en fait que la translation de vecteur $\origin$), font donc partie des isométries du plan; quand on visualise ça dans notre tête, ça paraît bien évident: l'identité ne change rien et conserve donc les distances, et les translations ne font que ``déplacer'' tous les points du plan de la même manière, sans modifier donc les distances entre eux. Mais nous avons là fait un grand pas en prouvant de manière formelle que ces transformations sont bien des isométries! Cet accord entre le résultat formel et notre intuition nous indique déjà que nous sommes probablement sur la bonne voie, que nous avons posé une définition formelle des isométries qui va dans le sens de nos intuitions, et donc que cette définition nous aidera probablement à prouver d'autres résultats qui, jusqu'ici, semblaient hors de portée de la rigueur mathématique.\par
+La question se pose maintenant: comment avancer plus loin dans notre exploration ? Nous sommes arrivé·e·s à un croisement qui nous offre tant de possibilités, et il faut que nous fassions un choix dans les définitions que nous allons poser et qui nous orienteront vers de nouvelles clairières et cascades. Oh, j'ai une idée! Pourquoi pas\dots
+
+\section{Les isométries préservant l'origine}
+
+\begin{defn}
+	On notera $\isomo$ l'ensemble des isométries qui préservent l'origine, c'est-à-dire, mathématiquement,
+	\begin{equation*}
+		\isomo = \{\phi \in \isom \tq \phi(\origin) = \origin\}.
+	\end{equation*}
+\end{defn}
+
+N'est-ce pas là une belle définition ? Peut-être les isométries préservant l'origine nous cachent-elles des secrets\dots Elles ont tout au moins la beauté d'être facilement imaginables visuellement, et nous pourrons donc probablement tenter de formaliser les intuitions qui nous viendront en tête! Nous nous enfonçons donc dans la forêt en suivant ce premier sentier, sans trop savoir où cela va nous mener\dots\par
+
+Voici qu'après quelques pas déjà se profile une intuition, que j'avais eue (mais j'ai l'avantage d'être rédacteur·e de cette aventure) avant même d'avoir posé la définition sur papier. Une isométrie conservant l'origine ne serait-elle pas linéaire ? Pour l'instant, je n'arrive à m'imaginer que des rotations et des symétries, ainsi que l'identité bien sûr, qui auraient toutes la propriété apparente de préserver la longueur, ainsi que le produit scalaire\dots
+
+\begin{lemme}
+	Soit $\phi \in \isomo$. Alors $\phi$ préserve la longueur et le produit scalaire.
+\end{lemme}
+\begin{proof}
+	$\forall \vec v \in \plan$, on a
+	\begin{align*}
+		\longueur{\phi(\vec v)} &= d(\origin, \phi(\vec v))\\
+		&= d(\phi(\origin), \phi(\vec v)) = d(\origin, \vec v)\\
+		&= \longueur{\vec v},
+	\end{align*}
+	donc $\phi$ préserve bien la longueur de tout vecteur.
+	Pour ce qui est du produit scalaire:
+	\begin{align*}
+		\scalaire{\phi(\vec u), \phi(\vec v)} &= \frac12\bigl( \longueur{\phi(\vec u)}^2 + \longueur{\phi(\vec v)}^2 - \longueur{\phi(\vec u) - \phi(\vec v)}^2 \bigr)\\
+		&= \frac12\bigl( \longueur{\vec u}^2 + \longueur{\vec v}^2 - d(\phi(\vec u), \phi(\vec v))^2 \bigr)\\
+		&= \frac12\bigl( \longueur{\vec u}^2 + \longueur{\vec v}^2 - d(\vec u, \vec v)^2 \bigr)\\
+		&= \frac12\bigl( \longueur{\vec u}^2 + \longueur{\vec v}^2 - \longueur{\vec u - \vec v}^2 \bigr)\\
+		&= \scalaire{\vec u, \vec v}.
+	\end{align*}
+\end{proof}
+
+Cela paraît peut-être ambitieux, mais j'ai bien l'impression que les rotations et symétries (et l'identité, qui en fait est une rotation d'angle nul), qui constituent selon mon intuition les seuls éléments de $\isomo$, sont toutes des applications linéaires. Voyons voir si ce résultat se tient:
+\begin{thm}
+	Toute isométrie préservant l'origine est linéaire.
+\end{thm}
+\begin{proof}
+	Il suffit de montrer que $\forall \phi \in \isomo, \phi(\lambda\vec u + \vec v) = \lambda\phi(\vec u) + \phi(\vec v)$. Or
+	\begin{align*}
+		&\phi(\lambda\vec u + \vec v) = \lambda\phi(\vec u) + \phi(\vec v)\\
+		\iff &\longueur{\phi(\lambda\vec u + \vec v) - (\lambda\phi(\vec u) + \phi(\vec v))} = 0,
+		\intertext{(par la propriété de séparation de la distance/longueur), ce qui est équivalent à l'équation}
+		&\longueur{\phi(\lambda\vec u + \vec v) - (\lambda\phi(\vec u) + \phi(\vec v))}^2 = 0
+	\end{align*}
+	Cependant
+	\begin{align*}
+		&\longueur{\phi(\lambda\vec u + \vec v) - (\lambda\phi(\vec u) + \phi(\vec v))} = \scalaire{\phi(\lambda \vec u + \vec v) - \lambda \phi(\vec u) - \phi(\vec v), \phi(\lambda \vec u + \vec v) - \lambda \phi(\vec u) - \phi(\vec v)}\\
+		= &\scalaire{\phi(\lambda \vec u + \vec v), \phi(\lambda \vec u + \vec v) - \lambda \phi(\vec u) - \phi(\vec v)} - \lambda\scalaire{\phi(\vec u), \phi(\lambda \vec u + \vec v) - \lambda \phi(\vec u) - \phi(\vec v)} - \scalaire{\phi(\vec v), \phi(\lambda \vec u + \vec v) - \lambda \phi(\vec u) - \phi(\vec v)}\\
+		= &\longueur{\phi(\lambda \vec u + \vec v)}^2 - \lambda^2\longueur{\phi(\vec u)}^2 + \longueur{\phi(\vec v)}^2 - 2\lambda\scalaire{\phi(\lambda \vec u + \vec v), \phi(\vec u)} - 2\scalaire{\phi(\lambda\vec u + \vec v), \phi(\vec v)} + 2\lambda\scalaire{\phi(\vec u), \phi(\vec v)}\\
+	\intertext{(par le lemme)}
+		= &\longueur{\lambda \vec u + \vec v}^2 - \lambda^2\longueur{\vec u}^2 + \longueur{\vec v}^2 - 2\lambda\scalaire{\lambda \vec u + \vec v, \vec u} - 2\scalaire{\lambda \vec u + \vec v, \vec v} + 2\lambda\scalaire{\vec u, \vec v}\\
+		= &\longueur{\lambda \vec u + \vec v - \lambda \vec u - \vec v}^2\\
+		= &\longueur{\origin}^2\\
+		= &0.
+	\end{align*}
+	Donc, les isométries préservant l'origine sont bien linéaires, c'est pourquoi nous les appellerons souvent plutôt \textbf{isométries linéaires}.
+\end{proof}
+
+\begin{thm}
+	Soit $\phi \in \isomo$. Alors $\phi$ est bijective, et $\phi^{-1} \in \isomo$. Ainsi, $\isomo$ est muni d'une structure de groupe et $\isomo \subgroupeq \textnormal{GL}(\plan)$ (où $\textnormal{GL}(\plan)$ est le groupe linéaire de $\plan$, l'ensemble des applications linéaires inversibles $\plan \to \plan$).
+\end{thm}
+\begin{proof}
+	Pour montrer l'injectivité, il suffit de montrer que $\ker(\phi) = \{\origin\}$. Supposons $\vec v \in \ker(\phi)$. Alors
+	\begin{equation*}
+		\phi(\vec v) = \origin \iff \longueur{\phi(\vec v)} = 0 \implies \longueur{\vec v} = 0 \iff \vec v = \origin.
+	\end{equation*}
+	La surjectivité peut être déduite directement par le théorème du rang, un résultat d'algèbre linéaire. Cependant on peut aussi la prouver directement, c'est-à-dire montrer que $\forall \vec v \in \plan \exists \vec u \in \plan$ t.q. $\phi(\vec u) = \vec v$. On pose la base canonique $B = (e_1, e_2)$ où $e_1 = (1, 0)$ et $e_2 = (0, 1)$. C'est une base orthonormée. Donc $\exists \alpha, \beta \in \mathbb R$ t.q. $\vec v = \alpha \phi(e_1) + \beta \phi(e_2)$. Par la linéarité de $\phi$, $\vec v = \phi(\alpha e_1) + \phi(\beta e_2) = \phi(\alpha e_1 + \beta e_2)$. En posant $\vec u = \alpha e_1 + \beta e_2$, on a trouvé le $\vec u$ recherché, donc $\phi$ est surjective.\\
+	Comme $\phi$ est injective et surjective, $\phi$ est bijective.\par
+	Il reste maintenant à montrer que $\phi^{-1} \in \isomo$, c.à.d que $\phi^{-1}$ préserve les distances et préserve l'origine. On sait que $\phi(\origin) = \origin \implies \phi^{-1}(\origin) = \origin$. De plus, $d(\phi^{-1}(\vec u), \phi^{-1}(\vec v)) = d(\phi(\phi^{-1}(\vec u)), \phi(\phi^{-1}(\vec v))) = d(\vec u, \vec v)$. Donc $\phi^{-1} \in \isomo$.\par
+	Finalement, montrons grâce aux résultats précédents que $\isomo \subgroupeq \textnormal{GL}(\plan)$:
+	\begin{itemize}
+		\item $\IdR \in \isomo$;
+		\item $\phi, \psi \in \isomo \implies \phi \circ \psi(\origin) = \phi(\phi(\origin)) = \phi(\origin) = \origin \implies \phi \circ \psi \in \isomo$;
+		\item $\phi \in \isomo \implies \phi$ est bijective et $\phi^{-1} \in \isomo$.
+	\end{itemize}
+	Donc, $\isomo \subgroupeq \textnormal{GL}(\plan)$.
+\end{proof}
+
+\begin{thm}
+	On a les relations suivantes:
+	\begin{enumerate}
+		\item $\transR, \isom$ et $\isomo \subgroupeq \bijR$;
+		\item $\isom = \transR \circ \isomo$, c.à.d que $\forall \phi \in \isom \exists t \in \transR, \phi_0 \in \isomo$ t.q. $\phi = t \circ \phi_0$. De plus, $t$ et $\phi_0$ sont uniques;
+		\item $\transR \subgroupnormaleq \isom$.
+	\end{enumerate}
+\end{thm}
+
+\begin{proof}
+	Nous allons prouver les trois points dans l'ordre.
+	\begin{enumerate}
+		\item Nous avons déjà montré que $\transR$ et $\isomo \subgroupeq \bijR$. Il reste donc à montrer que $\isom \subgroupeq \bijR$:
+		\begin{itemize}
+			\item $\IdR \in \isom$;
+			\item soient $\phi, \psi \in \isom$. Alors $\phi \circ \psi \in \isom$: $d(\phi \circ \psi(\vec u), \phi \circ \psi(\vec v)) = d(\phi(\vec u), \phi(\vec v)) = d(\vec u, \vec v)$;
+			\item il faut montrer que $\forall \phi \in \isom$, $\phi$ est bijective et $\phi^{-1} \in \isom$. Ce sera un corollaire du troisième point.
+		\end{itemize}
+		
+		\item `PREUVE À COMPLETER'
+		
+		\item On veut montrer que $\transR \subgroupnormaleq \isom$, c.à.d que $\forall \vec u \in \plan, \forall \phi \in \isom, \ad(\phi)(\trans{\vec u}) = \phi \circ \trans{\vec u} \circ \phi^{-1} \in \transR$.
+		\begin{itemize}
+			\item dans le cas où $\phi = \phi_0 \in \isomo$, on a
+				\begin{align*}
+					\phi_0 \circ \trans{\vec u} \circ \phi_0^{-1}(\vec w) &= \phi_0(\trans{\vec u}(\phi_0^{-1}(\vec w)))\\
+					&= \phi_0(\vec u + \phi_0^{-1}(\vec w))\\
+					&= \phi_0(\vec u) + \phi_0(\phi_0^{-1}(\vec w))\\
+					&= \phi_0(\vec u) + \vec w\\
+					&= \trans{\phi_0(\vec u)}(\vec w),
+				\end{align*}
+				donc on retombe bien sur une translation.
+			\item dans le cas général, on a
+				\begin{align*}
+					\ad(\phi)(\trans{\vec u}) &= \ad(\trans{\phi(\origin)} \circ \phi_0)(\trans{\vec u})\\
+					&= \trans{\phi(\origin)} \circ \phi_0 \circ \trans{\vec u} \circ (\trans{\phi(\origin)} \circ \phi_0)^{-1} \\
+					&= \trans{\phi(\origin)} \circ \underbrace{\phi_0 \circ \trans{\vec u} \circ \phi_0^{-1}}_{\ad(\phi_0)(\trans{\vec u})} \circ \trans{\phi(\origin)}^{-1}\\
+					&= \trans{\phi(\origin)} \circ \trans{\vec v} \circ \trans{-\phi(\origin)}\\
+					&= \trans{\phi(\origin) + \vec v - \phi(\origin)}\\
+					&= \trans{\vec v},
+				\end{align*}
+				donc ici aussi on retombe bien sur une translation.
+		\end{itemize}
+		Comme $\forall \vec u \in \plan \forall \phi \in \isom, \ad(\phi)(\trans{\vec u}) \in \transR$, on a bien montré que $\transR \subgroupnormaleq \isom$.
+	\end{enumerate}
+\end{proof}
+
+Le résultat de la décomposition de toute isométrie $\phi \in \isom$ en une composante linéaire $\phi_0 \in \isomo$ et une composante de translation $t \in \transR$ est très beau du point de vue de la structure mathématique des isométries du plan. Ce théorème est encore plus fort, parce qu'il nous donne la formule de ces deux parties. Cette formule est de plus assez intuitive: le fait que la translation soit de vecteur $\phi(\origin)$ s'explique par le fait que la partie linéaire ne modifie pas du tout l'origine $\origin$, et donc qu'il doit bien y avoir une autre composante qui s'occupe de la déplacer. Bref, tout ceci s'explique plus difficilement qu'il ne se comprend par l'exploration personnelle de ces concepts, c'est pourquoi je vous encourage à créer votre propre modèle mental pour vous expliquer ces choses-ci intuitivement au-delà de l'aspect purement rigoureux.\par
+L'importance de cette décomposition motive la définition suivante\dots
+
+\begin{defn}
+	On définit l'application
+	\begin{equation*}
+		\lin: \begin{array}{l}
+			\isom \to \isomo\\
+			\phi \mapsto \phi_0
+		\end{array}.
+	\end{equation*}
+	On appelle $\lin(\phi) = \phi_0$ la \textbf{partie linéaire} de $\phi$.
+\end{defn}
+
+\begin{thm}
+	L'application $\lin$ est un morphisme de groupes surjectif de noyau $\ker(\lin) = \transR$.
+\end{thm}
+\begin{proof}
+	La preuve de la surjectivité est facile: soit $\phi_0 \in \isomo$, alors comme $\isomo \subseteq \isom$, il suffit de choisir $\phi_0 \in \isom$ pour que $\lin(\phi_0) = \phi_0$.\par
+	Pour ce qui est du fait que $\lin$ est un morphisme, il faut montrer que $\lin(\phi \circ \psi) = \lin(\phi) \circ \lin(\psi) = \phi_0 \circ \psi_0$:
+	\begin{align*}
+		\lin(\phi \circ \psi) &= \lin(\trans{} \circ \phi_0 \circ \trans{}' \circ \psi_0)\\
+		&= \lin(\trans{} \circ \phi_0 \circ \trans{}' \circ \underbrace{\phi_0^{-1} \circ \phi_0}_{\IdR} \circ \psi_0)\\
+		&= \lin(\trans{} \circ \underbrace{\phi_0 \circ \trans{}' \circ \phi_0^{-1}}_{\ad(\phi_9)(\trans{}') = \trans{}''} \circ \underbrace{\phi_0 \circ \psi_0}_{\chi_0})\\
+		&= \lin(\trans{} \circ \trans{}'' \circ \chi_0)\\
+		&= \lin(\trans{}''' \circ \chi_0)\\
+		&= \chi_0\\
+		&= \phi_0 \circ \psi_0\\
+		&= \lin(\phi) \circ \lin(\psi).
+	\end{align*}
+	Finalement, soit $\phi \in \isom$ t.q. $\lin(\phi) = \IdR$. On a
+	\begin{align*}
+		\lin(\phi) = \lin(\trans{} \circ \phi_0) = \phi_0 = \IdR \implies \phi = \trans{} \implies \phi \in \transR,
+	\end{align*}
+	donc $\ker(\lin) = \transR$.
+\end{proof}
+
+Bon, maintenant que nous avons compris quelques unes des propriétés de base des isométries linéaires et leurs liens avec les isométries en général, il est intéressant de se rappeler que toute application linéaire peut être représentée par une matrice. Particulièrement, la matrice d'une application linéaire peut nous donner plus d'information sur son action géométrique sur le plan. À quoi ressemblent donc les matrices des isométries linéaires ?
+
+\section{Matrice associée à une isométrie linéaire}
+Soit $\phi \in \isomo$, et soit $B_0 = (e_1, e_2) = ((1, 0), (0, 1))$ la base canonique de $\plan$. Comme $\phi$ est linéaire, $\phi$ en tant qu'application est complètement déterminée par les valeurs de $\phi(e_1)$ et $\phi(e_2)$: en effet $(x, y) = x(1, 0) + y(0, 1) = xe_1 + ye_2$, et donc $\phi((x, y)) = \phi(xe_1 + ye_2) = x\phi(e_1) + y\phi(e_2)$.\par
+De cette observation, on peut conclure que $\phi \in \isomo$ est complètement déterminée par une matrice $2 \times 2$. Renommons $\phi(e_1) = (a, c)$ et $\phi(e_2) = (b, d)$, avec $a, b, c, d \in \mathbb R$.\par
+On peut définir une application bijective qui envoie $\phi$ sur une matrice:
+\begin{equation*}
+	\phi \mapsto M_\phi = \begin{pmatrix}
+		a & b\\
+		c & d
+	\end{pmatrix}
+	= \text{matrice associée à $\phi$ dans la base $B_0$}.
+\end{equation*}
+On a placé l'image de $e_1$ par $\phi$, donc $\phi(e_1) = e_1'$ dans la première colonne de la matrice, et $\phi(e_2) = e_2'$ dans la deuxième colonne. Ainsi, lorsqu'on multiplie un vecteur $(x, y)$ par cette matrice, on obtient
+
+\begin{equation*}
+	(x, y) \cdot \begin{pmatrix}
+	a & b\\
+	c & d
+	\end{pmatrix}
+	= \begin{pmatrix}
+		xa + yb\\
+		xc + yd
+	\end{pmatrix}
+	= x\begin{pmatrix} a\\c \end{pmatrix} + y\begin{pmatrix} b\\d \end{pmatrix}
+	= x\phi(e_1) + y\phi(e_2)
+	= \phi((x, y))
+\end{equation*}
+Multiplier le vecteur par la matrice de l'application revient donc à appliquer l'application au vecteur, ce qui est exactement ce que l'on désirait.\par
+On remarque que si l'on choisit de représenter le vecteur $(x, y)$ comme un vecteur vertical $\left(\begin{smallmatrix} x\\y \end{smallmatrix}\right)$, il suffit d'inverser l'ordre du vecteur et de la matrice:	\begin{equation*}
+	(x, y) \cdot \begin{pmatrix}
+		a & b\\
+		c & d
+	\end{pmatrix}
+	= \begin{pmatrix}
+		a & b\\
+		c & d
+	\end{pmatrix} \cdot \begin{pmatrix}
+		x\\y
+	\end{pmatrix}.
+\end{equation*}
+On préférera utiliser la seconde forme, car elle apparaît visuellement de manière plus semblable aux applications: lorsqu'on compose des applications, on ajoute les applications à gauche et non à droite:
+\begin{equation*}
+	\phi \circ \psi\bigl((x, y)\bigr) = M_\phi \cdot M_\psi \cdot \begin{pmatrix}
+		x\\y
+	\end{pmatrix}
+\end{equation*}
+Cette matrice dépend de la base $B$ choisie. On travaillera le plus souvent avec $B_0$ pour des questions de simplicité, mais il vaut mieux garder en tête cette possibilité de changer de base, on sait jamais.\par
+Comme les isométries linéaires sont entièrement déterminées par leur matrice, il est important que nous connaissions bien le fonctionnement de ces matrices.
+
+\begin{defn}
+	On nomme $M_{2 \times 2}(\mathbb R)$ ou $\MR$ l'ensemble des matrices $2 \times 2$ à coefficients dans $\mathbb R$. Ces matrices sont de la forme
+	\begin{equation*}
+		\begin{pmatrix}
+			a & b\\
+			c & d
+		\end{pmatrix}
+	\end{equation*}
+\end{defn}
+Toutes les matrices associées aux isométries linéaires seront dans $\MR$, comme vu plus haut. Quelle structure peut-on donc définir sur cet ensemble ?
+
+\begin{prop}
+	L'ensemble $\MR$, muni de l'addition matricielle $+$ et de la multiplication matricielle $\cdot$, forme un anneau unitaire.
+\end{prop}
+\begin{proof}
+	Il faut vérifier les trois axiomes qui définissent un anneau unitaire:
+	\begin{enumerate}
+		\item $\MR$ est un groupe abélien;
+		\item la multiplication $\cdot$ sur $\MR$ est associative, et il existe $1_\MR$ (l'unité multiplicative);
+		\item la multiplication est distributive par rapport à l'addition.
+	\end{enumerate}
+	La preuve de ces trois points est directe, un peu fastidieuse et pas très intéressante. Nous nous contenterons de montrer que $1_\MR = \left(\begin{smallmatrix}
+	1 & 0\\
+	0 & 1
+	\end{smallmatrix}\right)$:
+	\begin{align*}
+		\begin{pmatrix}
+			a & b\\
+			c & d
+		\end{pmatrix} \cdot
+		\begin{pmatrix}
+			1 & 0\\
+			0 & 1
+		\end{pmatrix} =
+		\begin{pmatrix}
+			a \cdot 1 + c \cdot 0 & a \cdot 0 + b \cdot 1\\
+			c \cdot 1 + d \cdot 0 & c \cdot 0 + d \cdot 1
+		\end{pmatrix} =
+		\begin{pmatrix}
+			a & b\\
+			c & d
+		\end{pmatrix}.		
+		\intertext{De même,}
+		\begin{pmatrix}
+			1 & 0\\
+			0 & 1
+		\end{pmatrix} \cdot
+		\begin{pmatrix}
+			a & b\\
+			c & d
+		\end{pmatrix} =
+		\begin{pmatrix}
+			1 \cdot a + 0 \cdot c & 0 \cdot a + 1 \cdot b\\
+			1 \cdot c + 0 \cdot d & 0 \cdot c + 1 \cdot d
+		\end{pmatrix} =
+		\begin{pmatrix}
+			a & b\\
+			c & d
+		\end{pmatrix}.
+	\end{align*}
+\end{proof}
+
+\begin{defn}
+	Soit $M = \left(\begin{smallmatrix}
+		a & b\\
+		c & d
+	\end{smallmatrix}\right)$. On définit l'application \textbf{déterminant} par
+	\begin{equation*}
+		\det: \begin{array}{l}
+			M_{2\times2}(\mathbb R) \to \mathbb R\\
+			\left(\begin{smallmatrix}
+				a & b\\
+				c & d
+			\end{smallmatrix}\right) \mapsto ad-bc
+		\end{array}
+	\end{equation*}
+	Donc $\det(M) = ad-bc$ est le \textbf{déterminant} de $M$.
+\end{defn}
+
+\begin{lemme}[FAUX]
+	L'application $\det : \bigl(\MR, +, \cdot\bigr) \to \bigl(\mathbb R, +, \cdot\bigr)$ est un morphisme d'anneaux.
+\end{lemme}
+
+\begin{proof}
+	Il faut montrer vérifier les trois égalités suivantes $\forall M_1, M_2 \in \MR$
+	\begin{enumerate}
+		\item $\det(M_1 + M_2) = \det(M_1) + \det(M_2)$;
+		\item $\det(M_1 \cdot M_2) = \det(M_1) \cdot \det(M_2)$;
+		\item $\det(1_\MR) = 1$.
+	\end{enumerate}
+	Il s'avère en fait que la première égalité n'est pas vérifiée. La seconde et la troisième, cependant, le sont. Cela laisse penser que \textbf{si les éléments de $\MR$ étaient inversibles, on aurait un morphisme de groupes} $\bigl(\MR, \cdot\bigr) \to \bigl(\mathbb R, \cdot\bigr)$. Gardons cela en tête lors de nos avancées.
+\end{proof}
+
+\begin{thm}
+	Soit $\phi \in \isomo$ et $M_\phi = \left(\begin{smallmatrix} a&b\\c&d \end{smallmatrix}\right)$ sa matrice associée. Alors $M_{\phi^{-1}} = \left(\begin{smallmatrix} a&c\\b&d \end{smallmatrix}\right)$ et les coefficients $a, b, c$ et $d$ vérifient
+	\begin{equation*}
+		\begin{cases}
+			a^2 + c^2 = b^2 + d^2 = a^2 + b^2 = c^2 + d^2 = 1\\
+			ab + cd = ac + bd = 0\\
+			\det(M_\phi) = det(M_{\phi^{-1}}) = ad - bc = \pm 1
+		\end{cases}
+	\end{equation*}
+\end{thm}
+
+Pour prouver ceci, nous aurons besoin du lemme suivant:
+
+\begin{lemme}[formule d'adjonction]
+	Soient $\phi \in \isomo$, $\vec u, \vec v \in \plan$. Alors $\scalaire{\phi(\vec u), \vec v} = \scalaire{\vec u, \phi^{-1}(\vec v)}$.
+\end{lemme}
+
+\begin{proof}
+	Soit $\phi \in \isomo$. Alors on sait que $\phi$ préserve le produit scalaire, donc $\scalaire{\vec u, \phi^{-1}(\vec v)} = \scalaire{\phi(\vec u), \phi(\phi^{-1}(\vec v))} = \scalaire{\phi(\vec u), \vec v}$.
+\end{proof}
+
+\begin{proof}[Démonstration du théorème.]
+	Posons $\phi(e_1) = ae_1 + ce_2, \phi(e_2) = be_1 + de_2$, avec $B_0 = (e_1, e_2)$ la base canonique de $\plan$. Comme $B_0$ est orthonormée on a
+	\begin{equation*}
+		a = \scalaire{\phi(e_1), e_1}, \;
+		c = \scalaire{\phi(e_1), e_2}, \;
+		b = \scalaire{\phi(e_2), e_1}, \;
+		d = \scalaire{\phi(e_2), e_2}.
+	\end{equation*}
+	Pareillement, avec $M_{\phi^{-1}} = \begin{smallmatrix} a'&b'\\c'&d' \end{smallmatrix}$:
+	\begin{equation*}
+		a' = \scalaire{\phi^{-1}(e_1), e_1}, \;
+		c' = \scalaire{\phi^{-1}(e_1), e_2}, \;
+		b' = \scalaire{\phi^{-1}(e_2), e_1}, \;
+		d' = \scalaire{\phi^{-1}(e_2), e_2}.
+	\end{equation*}
+	Par la formule d'injonction du lemme précédent, on a
+	\begin{equation*}
+		a = \scalaire{\phi(e_1), e_1} = \scalaire{e_1, \phi^{-1}(e_1)} = \scalaire{\phi^{-1}(e_1), e_1} = a'.
+	\end{equation*}
+	De même, $d = d'$.\par
+	Similairement,
+	\begin{equation*}
+		b = \scalaire{\phi(e_2), e_1} = \scalaire{e_2, \phi^{-1}(e_1)} = \scalaire{\phi^{-1}(e_1), e_2} = c'.
+	\end{equation*}
+	De même, $c = b'$. Donc,
+	\begin{equation*}
+		M_{\phi^{-1}} = \begin{pmatrix}
+			a & c\\
+			b & d
+		\end{pmatrix}.
+	\end{equation*}
+	Il reste donc à montrer les relations entre coefficients de $M_\phi$. On remarque que
+	\begin{equation*}
+		\scalaire{\phi(e_1), \phi(e_1)} =
+		\begin{cases}
+			\scalaire{e_1, e_1} = 1\\
+			\scalaire{ae_1 + ce_2, ae_1 + ce_2} = a^2\scalaire{e_1, e_1} + 2ac\scalaire{e_1, e_2} + c^2\scalaire{e_2, e_2} = a^2 + c^2
+		\end{cases}
+	\end{equation*}
+	donc $a^2 + c^2 = 1$. De la même façon, $\scalaire{\phi(e_2), \phi(e_2)} = b^2 + d^2 = 1$. Aussi,
+	\begin{equation*}
+		\scalaire{\phi(e_1), \phi(e_2)} =
+		\begin{cases}
+			\scalaire{e_1, e_2} = 0\\
+			\scalaire{ae_1 + ce_2, be_1 + de_2} = ab + cd
+		\end{cases}
+	\end{equation*}
+	donc $ab + cd = 1$. De même, on trouve les 3 autres relations. Finalement, on a
+	\begin{align*}
+		\det(M_\phi)^2 &= (ad - bc)^2 = a^2d^2 - 2abcd + b^2c^2\\
+		&= a^2d^2 + a^2c^2 + a^2c^2 + b^2c^2 = a^2(d^2 + c^2) + c^2(b^2 + a^2)\\
+		&= a^2 + c^2 = 1
+	\end{align*}
+	$\implies \det(M_\phi) = \pm 1$.
+\end{proof}
+
+\end{document}
