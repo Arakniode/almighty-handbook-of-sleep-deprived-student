@@ -12,6 +12,7 @@
 \declaretheorem[name=Lemme, style=plain]{lemme}
 \declaretheorem[name=Définition, style=definition]{defn}
 \declaretheorem[name=Exemple, style=definition]{exmp}
+\declaretheorem[name=Remarque, style=remark, numbered=no]{remark}
 
 \title{Géométrie I}
 \author{C. B.}
@@ -22,15 +23,24 @@
 \renewcommand{\labelitemi}{$\bullet$}
 \renewcommand{\labelitemii}{$\cdot$}
 \renewcommand{\phi}{\varphi}
+\providecommand{\implied}{\longleftarrow}
 
 \providecommand{\plan}{{\mathbb R^2}}
 \providecommand{\origin}{{\vec 0}}
 \providecommand{\id}{{\textnormal{Id}}}
-\providecommand{\IdR}{{\id_\plan}}
+\providecommand{\idR}{{\id_\plan}}
 \providecommand{\MR}{{M_2(\mathbb R)}}
 \providecommand{\transR}{{\textnormal{T}(\plan)}}
 \providecommand{\isom}{{\textnormal{Isom}(\plan)}}
 \providecommand{\isomo}{{\isom_0}}
+\providecommand{\isomop}{\isom_0^+}
+\providecommand{\isomom}{\isom_0^-}
+\providecommand{\mortho}[1]{{\textnormal{O}(#1)}}
+\providecommand{\morthoR}{\mortho{\mathbb R}}
+\providecommand{\mspec}[1]{{\textnormal{SO}_2(#1)}}
+\providecommand{\mnspec}[1]{{\textnormal{O}_2(#1)^-}}
+\providecommand{\mspecR}{\mspec{\mathbb R}}
+\providecommand{\mnspecR}{\mnspec{\mathbb R}}
 \providecommand{\ker}{{\textnormal{ker}}}
 \providecommand{\trans}[1]{{t_{#1}}}
 \providecommand{\bij}[1]{{\textnormal{Bij}(#1)}}
@@ -69,7 +79,7 @@ Ce premier chapitre a pour but de définir quelques notions formelles dont nous 
 	\end{align*}
 	$\trans{\vec u}$ admet quelques propriétés:
 	\begin{itemize}
-		\item $\trans{\vec u}$ est une application bijective d'inverse $\trans{\vec u}^{-1} = \trans{-\vec u}$ et on a $\trans{\vec u} \circ \trans{-\vec u} = \IdR$
+		\item $\trans{\vec u}$ est une application bijective d'inverse $\trans{\vec u}^{-1} = \trans{-\vec u}$ et on a $\trans{\vec u} \circ \trans{-\vec u} = \idR$
 		\item $\trans{\vec u} \circ \trans{\vec v} = \trans{\vec u + \vec v}$
 	\end{itemize}
 \end{defn}
@@ -188,7 +198,7 @@ Rien qu'en ayant posé cette définition simple et intuitive, on a ouvert le che
 Nous pouvons donc nous poser la question : quelles applications que nous connaissons déjà sont des isométries ?
 
 \begin{exmp}
-	$\IdR \in \isom$, car $d(\IdR(P), \IdR(Q)) = d(P, Q)$.
+	$\idR \in \isom$, car $d(\idR(P), \idR(Q)) = d(P, Q)$.
 \end{exmp}
 
 \begin{prop}
@@ -281,7 +291,7 @@ Cela paraît peut-être ambitieux, mais j'ai bien l'impression que les rotations
 	Il reste maintenant à montrer que $\phi^{-1} \in \isomo$, c.à.d que $\phi^{-1}$ préserve les distances et préserve l'origine. On sait que $\phi(\origin) = \origin \implies \phi^{-1}(\origin) = \origin$. De plus, $d(\phi^{-1}(\vec u), \phi^{-1}(\vec v)) = d(\phi(\phi^{-1}(\vec u)), \phi(\phi^{-1}(\vec v))) = d(\vec u, \vec v)$. Donc $\phi^{-1} \in \isomo$.\par
 	Finalement, montrons grâce aux résultats précédents que $\isomo \subgroupeq \textnormal{GL}(\plan)$:
 	\begin{itemize}
-		\item $\IdR \in \isomo$;
+		\item $\idR \in \isomo$;
 		\item $\phi, \psi \in \isomo \implies \phi \circ \psi(\origin) = \phi(\phi(\origin)) = \phi(\origin) = \origin \implies \phi \circ \psi \in \isomo$;
 		\item $\phi \in \isomo \implies \phi$ est bijective et $\phi^{-1} \in \isomo$.
 	\end{itemize}
@@ -302,7 +312,7 @@ Cela paraît peut-être ambitieux, mais j'ai bien l'impression que les rotations
 	\begin{enumerate}
 		\item Nous avons déjà montré que $\transR$ et $\isomo \subgroupeq \bijR$. Il reste donc à montrer que $\isom \subgroupeq \bijR$:
 		\begin{itemize}
-			\item $\IdR \in \isom$;
+			\item $\idR \in \isom$;
 			\item soient $\phi, \psi \in \isom$. Alors $\phi \circ \psi \in \isom$: $d(\phi \circ \psi(\vec u), \phi \circ \psi(\vec v)) = d(\phi(\vec u), \phi(\vec v)) = d(\vec u, \vec v)$;
 			\item il faut montrer que $\forall \phi \in \isom$, $\phi$ est bijective et $\phi^{-1} \in \isom$. Ce sera un corollaire du troisième point.
 		\end{itemize}
@@ -357,7 +367,7 @@ L'importance de cette décomposition motive la définition suivante\dots
 	Pour ce qui est du fait que $\lin$ est un morphisme, il faut montrer que $\lin(\phi \circ \psi) = \lin(\phi) \circ \lin(\psi) = \phi_0 \circ \psi_0$:
 	\begin{align*}
 		\lin(\phi \circ \psi) &= \lin(\trans{} \circ \phi_0 \circ \trans{}' \circ \psi_0)\\
-		&= \lin(\trans{} \circ \phi_0 \circ \trans{}' \circ \underbrace{\phi_0^{-1} \circ \phi_0}_{\IdR} \circ \psi_0)\\
+		&= \lin(\trans{} \circ \phi_0 \circ \trans{}' \circ \underbrace{\phi_0^{-1} \circ \phi_0}_{\idR} \circ \psi_0)\\
 		&= \lin(\trans{} \circ \underbrace{\phi_0 \circ \trans{}' \circ \phi_0^{-1}}_{\ad(\phi_9)(\trans{}') = \trans{}''} \circ \underbrace{\phi_0 \circ \psi_0}_{\chi_0})\\
 		&= \lin(\trans{} \circ \trans{}'' \circ \chi_0)\\
 		&= \lin(\trans{}''' \circ \chi_0)\\
@@ -365,9 +375,9 @@ L'importance de cette décomposition motive la définition suivante\dots
 		&= \phi_0 \circ \psi_0\\
 		&= \lin(\phi) \circ \lin(\psi).
 	\end{align*}
-	Finalement, soit $\phi \in \isom$ t.q. $\lin(\phi) = \IdR$. On a
+	Finalement, soit $\phi \in \isom$ t.q. $\lin(\phi) = \idR$. On a
 	\begin{align*}
-		\lin(\phi) = \lin(\trans{} \circ \phi_0) = \phi_0 = \IdR \implies \phi = \trans{} \implies \phi \in \transR,
+		\lin(\phi) = \lin(\trans{} \circ \phi_0) = \phi_0 = \idR \implies \phi = \trans{} \implies \phi \in \transR,
 	\end{align*}
 	donc $\ker(\lin) = \transR$.
 \end{proof}
@@ -590,6 +600,206 @@ Pour prouver ceci, nous aurons besoin du lemme suivant:
 		&= a^2 + c^2 = 1
 	\end{align*}
 	$\implies \det(M_\phi) = \pm 1$.
+\end{proof}
+
+\begin{remark}
+	Si l'on avait choisi une autre base de $\plan$ pour associer une matrice $M$ à une isométrie linéaire $\phi_0 \in \isomo$, la matrice aurait également satisfait ces propriétés.
+\end{remark}
+
+\begin{defn}
+	Une matrice $M$ est dite \textbf{orthogonale} ssi elle est associée à une isométrie linéaire (dans la base canonique).
+	\begin{itemize}
+		\item si $\det M = 1$ la matrice est dite \textbf{spéciale} et l'isométrie associée aussi;
+		\item si $\det M = -1$ la matrice est dite \textbf{non-spéciale} et l'isométrie associée aussi.		
+	\end{itemize}
+	On note $\morthoR$ l'ensemble des matrices orthogonales,
+	\begin{itemize}
+		\item $\mspecR$ l'ensemble des matrices spéciales et
+		\item $\mnspecR$ l'ensemble des matrices non-spéciales.
+	\end{itemize}
+\end{defn}
+
+\begin{prop}
+	Soit $M = \left(\begin{smallmatrix} a&b\\c&d \end{smallmatrix}\right)$ t.q. $a^2 + c^2 = b^2 + d^2 = 1$ et $ab + cd = 0$, alors $M$ est orthogonale et $a, b, c$ et $d$ satisfont les propriétés du théorème.
+\end{prop}
+\begin{proof}
+	Soit $\phi_0 \in \isomo$. Alors $\phi_0$ est telle que $\phi_0(e_1) = ae_1 + ce_2 = (a, c)$, $\phi_0(e_2) = be_1 + de_2 = (b, d)$. Alors $(\phi_0(e_1), \phi_0(e_2)$ est une base orthonormée de $\plan$.\par
+	En effet:
+	\begin{itemize}
+		\item $\scalaire{\phi_0(e_1), \phi_0(e_1)} = \scalaire{(a, c), (a, c)} = a^2 + c^2 = 1$;
+		\item $\scalaire{\phi_0(e_2), \phi_0(e_2)} = \scalaire{(b, d), (b, d)} = b^2 + d^2 = 1$;
+		\item $\scalaire{\phi_0(e_1), \phi_0(e_2)} = \scalaire{(a, b), (c, d)} = ab + cd = 0$.
+	\end{itemize}
+	$\phi_0$ est donc une isométrie linéaire.
+\end{proof}
+
+Nous avons désormais établi un certain nombre de conditions et résultats sur les matrices associées à des appplications linéaires. Le résultat suivant classifie exactement toutes les matrices qui remplissent ces conditions dans deux classes, que nous étudierons pendant quelque temps.
+
+\begin{prop}
+	Soit $M$ une matrice $2 \times 2$. Alors $M$ est orthogonale ssi $\exists c, s \in \mathbb R$ tels que $c^2 + s^2 = 1$ et $M$ est d'une des deux formes suivantes:
+	\begin{itemize}
+		\item $M = \begin{pmatrix}
+			\tilde c &-\tilde s \\ \tilde s & \tilde c
+		\end{pmatrix}$ et $M$ est spéciale;
+		\item $M = \begin{pmatrix}
+			\tilde c & \tilde s \\ \tilde s & -\tilde c
+		\end{pmatrix}$ et $M$ est non-spéciale.
+	\end{itemize}
+\end{prop}
+	
+\begin{proof}
+	"$\implied$": si $M$ est de l'une des deux formes ci-dessus, $M = \left(\begin{smallmatrix} a&b\\c&d \end{smallmatrix}\right)$ en renommant $\tilde s$, $\tilde c$, $-\tilde s$ et $-\tilde c$ et il est clair que $a^2 + c^2 = b^2 + d^2 = 1$ et $ab + cd = 0$, ce qui implique que $M$ est orthogonale. \par
+	"$\implies$": soit $M$ orthogonale, $M = \left(\begin{smallmatrix} a&b\\c&d \end{smallmatrix}\right)$. On pose $a = \tilde c, c = \tilde s$, et on a que $a^2 + c^2 = 1$. On sait que $\det M = ad - bc = \pm 1$.
+	\begin{itemize}
+		\item si $\det M = 1$, $ad - bc = 1 = \tilde cd + b\tilde s = 1$. De plus, comme $M$ est orthogonale, $ad + bc = \tilde cb + \tilde sd = 0$. Comme $\tilde c^2 + \tilde s^2 = 1$, les solutions de l'équation linéaire $\tilde cb + \tilde sd = 0$ sont toutes de la forme $\lambda(-\tilde s, \tilde c), \lambda \in \mathbb R \implies (b, d) = (-\lambda \tilde s, \lambda \tilde c) \implies 1 = \lambda \tilde c^2 + \lambda \tilde s^2 = \lambda(\tilde c^2 + \tilde s^2) \implies \lambda = 1 \implies (b, d) = (-\tilde s, \tilde c)$.
+		\item Si $\det M = -1$, on procède de manière similaire et on trouve que $(b, d) = (\tilde s, -\tilde c)$.
+	\end{itemize}
+	Donc, on a dans tous les cas $(a, c) = (\tilde c, \tilde s)$, et selon le déterminant de $M$, on a soit $(b, d) = (-\tilde s, \tilde c)$, soit $(b, d) = (\tilde s, -\tilde c)$. On a donc bien que
+	\begin{itemize}
+		\item $M = \begin{pmatrix}
+			\tilde c & -\tilde s\\
+			\tilde s & \tilde c
+		\end{pmatrix}$ si $\det M = 1$, et
+		\item $M = \begin{pmatrix}
+			\tilde c & -\tilde s\\
+			\tilde s & \tilde c
+		\end{pmatrix}$ si $\det M = -1$.
+	\end{itemize}
+\end{proof}
+
+La prochaine proposition, très utile, montre que la matrice de la composée de deux isométries linéaires est le produit des matrices de chacune des isométries.
+
+\begin{prop}
+	$\forall \phi, \psi \in \isomo$, avec $M_\phi = \left(\begin{smallmatrix} a&b\\c&d \end{smallmatrix}\right)$ et $M_\psi = \left(\begin{smallmatrix} a'&b'\\c'&d' \end{smallmatrix}\right)$. on a
+	\begin{equation*}
+		M_{\phi \circ \psi} = \begin{pmatrix}
+			a&b\\c&d
+		\end{pmatrix} \begin{pmatrix}
+			a'&b'\\c'&d'
+		\end{pmatrix} = \begin{pmatrix}
+			aa' + bc' & ab' + bd' \\
+			ca' + dc' & cb' + dd'
+		\end{pmatrix}
+	\end{equation*}
+	et $\det M_{\phi \circ \psi} = \det M_\phi \cdot \det M_\psi = (ad-bc)(a'd'-b'c')$.
+\end{prop}
+\begin{proof}
+	$\phi \circ \psi(e_1) = \phi(\psi(e_1)) = \phi((a', c')) = \phi(a'e_1 + c'e_2) = a'\phi(e_1) + c'\phi(e_2) = a'(a, c) + c'(b, d) = (aa' + c'b, a'c + c'd) = (aa' + bc', ca' + dc') =$ la première colonne de $M_{\phi \circ \psi}$. On fait de même avec $\phi \circ \psi (e_2)$ pour trouver la seconde colonne de $M_{\phi \circ \psi}$. \par
+	De plus on vérifie que $ \det M_{\phi \circ \psi} = (aa' + bc')(cb' + dd') - (ab' + bd')(ca' + dc') = (ad-bc)(a'd' - b'c') = \det M_\phi \cdot \det M_\psi$.
+\end{proof}
+
+\begin{thm}
+	\begin{enumerate}
+		\item $\isomop$ est un sous-groupe normal de $\isomo$, et de plus il est abélien;
+		\item $\isomom$ n'est pas un groupe, mais il est l'ensemble des translatés (à gauche ou à droite) de n'importe quelle isométrie non-spéciale par $\isomo$, càd:
+		\begin{equation*}
+			 \forall s, s' \in \isomom, \exists r, r' \in \isomop : s' = s \circ r = r' \circ s,
+		\end{equation*}
+		ou encore:
+		\begin{equation*}
+			\forall s \in \isomom : \isomom = s \circ \isomop = \isomop \circ s;
+		\end{equation*}
+		\item Toute isométrie linéaire est la composée d'une ou deux isométries non-spéciales. En particulier $\isomom$ engendre $\isomo$.
+	\end{enumerate}
+\end{thm}
+
+\begin{proof}[Démonstration du théorème.]
+	\begin{enumerate}
+		\item On vérifie que $\isomop$ est bien un sous-groupe de $\isomo$:
+		\begin{itemize}
+			\item $\idR \in \isomop$;
+			\item $\forall r, r' \in \isomop$, il faut montrer que $r \circ r' \in \isomop$, ce qui revient à montrer que $M_{r \circ r'}$ est bien de la forme d'une matrice spéciale:
+			\begin{equation*}
+				M_{r \circ r'} = \begin{pmatrix}
+					c & -s \\
+					s & c
+				\end{pmatrix} \begin{pmatrix}
+					c' & -s' \\
+					s' & c'
+				\end{pmatrix} = \begin{pmatrix}
+					cc'-ss' & -(sc' + cs') \\
+					sc' + cs' & cc' - ss'
+				\end{pmatrix} = \begin{pmatrix}
+					c'' & -s'' \\
+					s'' & c''
+				\end{pmatrix}.
+			\end{equation*}
+			De plus, $c''^2 + s''^2 = (cc' - ss')^2 + (sc' + cs')^2 = \ldots = 1$.
+			\item Finalement, si $r \in \isomop$, on a $M_r = \left(\begin{smallmatrix} c&-s \\ s&c \end{smallmatrix}\right)$, et si on pose $M_{r^{-1}} = \left(\begin{smallmatrix} c & s \\ -s & c \end{smallmatrix}\right)$, alors
+			\begin{equation*}
+				M_r \cdot M_{r^{-1}} = M_{r^{-1}} \cdot M_r = M_\idR,
+			\end{equation*}
+			donc il existe $r^{-1} \in \isomop$ t.q. $r \circ r^{-1} = r^{-1} \circ r = \idR$.
+			$\isomop$ est donc bien un sous-groupe de $\isomo$. \par
+			Il reste à montrer que $\isomop \subgroupnormaleq \isomo$, c.à.d que $\isomop$ est un sous-groupe distingué. Par définition, il faut montrer que $\forall r \in \isomop, \forall \phi \in \isomo, \ad(\phi)(r) \in \isomop$. Cela revient à montrer que $\det M_{\phi \circ r \circ \phi^{-1}} = 1$:
+			\begin{align*}
+				\det M_{\phi \circ r \circ \phi^{-1}} &= \det M_\phi \cdot \det M_r \cdot \det M_{\phi^{-1}} = \det M_\phi \cdot 1 \cdot \det M_{\phi^{-1}}\\
+				&= (\det M_\phi)^2 = (\pm 1)^2\\
+				&= 1.
+			\end{align*}
+			Finalement, on montre que $\isomop$ est un groupe abélien, c.à.d $\forall r, r' \in \isomop, r \circ r' = r' \circ r$. Il suffit de montrer que $M_{r \circ r'} = M_{r' \circ r}$:
+			\begin{equation*}
+				 M_{r \circ r'} = \begin{pmatrix}
+				 	cc' - ss' & -(sc' + cs') \\
+				 	sc' + cs' & cc' - ss'
+				 \end{pmatrix} = \begin{pmatrix}
+				 	c'c - s's & -(s'c + c's) \\
+				 	s'c + c's & c'c - s's
+				 \end{pmatrix}
+				 = M_{r' \circ r}.
+			\end{equation*}
+		\end{itemize}
+		
+		\item Soit $s \in \isomom$. On veut montrer que $s \circ \isomop = \{s \circ r \tq r \in \isomop \} = \isomom$. On va procéder par double inclusion, en séparant les cas $s \circ \isomop$ et $\isomop \circ s$:
+		\begin{itemize}
+			\item "$\subseteq$": soit $r \in \isomop$. Alors $\det M_{s \circ r} = \det (M_s \cdot M_r) = \det M_s \cdot \det M_r = (-1) \cdot 1 = -1 \implies s \circ r \in \isomom \implies s \circ \isomop \subseteq \isomom$.
+			\item "$\supseteq$": on va maintenant montrer que $s^{-1} \circ \isomo \subseteq \isomop$, ce qui nous permettra d'avoir $s \circ s^{-1} \circ \isomom = \isomom \subseteq s \circ \isomop$ (en composant des deux côtés par $s$). Soit donc $s' \in \isomom$. Alors $\det M_{s^{-1} \circ s'} = \det M_{s^{-1}} \cdot \det M_{s'} = (-1) \cdot (-1) = 1 \implies s^{-1} \circ s' \in \isomop$.
+		\end{itemize}
+		Donc, $\isomom = s \circ \isomop$. On fait de même pour montrer $\isomom = \isomop \circ s$.
+		
+		\item On veut montrer que toute isométrie linéaire est la composée d'une ou deux isométries non-spéciales.
+		\begin{itemize}
+			\item Si $\phi \in \isomom, \phi = s$ et $\phi$ est déjà "la composée d'une isométrie non-spéciale".
+			\item Si $\phi \in \isomop$, $\forall s \in \isomom$ on a $\det M_{\phi \circ s^{-1}} = 1 \cdot (-1) = -1 \implies \phi \circ s^{-1} = s' \in \isomom \implies \phi = s' \circ s$, et donc $\phi$ est bien la composée de deux isométries non-spéciales.
+		\end{itemize}
+	\end{enumerate}
+\end{proof}
+
+Pfiou ! Une page pour un théorème en 3 parties qui ne sont pas apparemment directement liées, ça n'est pas très digeste. Peut-être briserai-je ce théorème en plusieurs parties abordables dans une prochaine édition ! \par
+Ceci dit, on avance déjà vers le prochain théorème:
+
+\begin{thm}
+	\begin{enumerate}
+		\item Soit $s \in \isomom$. Alors $s^2 = \idR$ (et $s \neq \idR$).	
+		\item Soient $r \in \isomop$ et $\phi \in \isomo$. Alors 
+		\begin{itemize}
+			\item soit $\phi \in \isomom$ et $\ad(\phi)(r) = r^{-1}$,
+			\item soit $\phi \in \isomop$ et $\ad(\phi)(r) = r$.
+		\end{itemize}
+	\end{enumerate}
+\end{thm}
+\begin{proof}
+	\begin{enumerate}
+	 	\item Soit $s \in \isomom$ ($s \neq \idR$ car $\idR \notin \isomom$). Alors
+	 	\begin{equation*}
+	 		M_{s \circ s} = \begin{pmatrix}
+	 			c&s\\s&-c
+	 		\end{pmatrix} = \begin{pmatrix}
+	 			c&s\\s&-c
+	 		\end{pmatrix} = \begin{pmatrix}
+	 			c^2 + s^2 & cs - sc \\
+	 			sc - cs & s^2 + (-c)^2
+	 		\end{pmatrix} = \begin{pmatrix}
+	 			1&0\\0&1
+	 		\end{pmatrix}
+	 		= M_\idR.
+	 	\end{equation*}
+	 	\item Deux cas sont possibles:
+	 	\begin{itemize}
+	 		\item si $\phi = s \in \isomom$, pour montrer que $s \circ r \circ s^{-1} = r^{-1}$, il suffit de montrer que $(s \circ r \circ s^{-1}) \circ r = \idR$. Or $s \circ r \circ s^{-1} \circ r = s \circ r \circ s \circ r = s' \circ s' = \idR$ (car $s \circ r \in \isomom$, comme vu précédemment).
+	 		\item sinon, $\phi = r' \in \isomop$ et $\ad(r')(r) = r' \circ r \circ r'^{-1} = r' \circ r'^{-1} \circ r = r$.
+	 	\end{itemize}
+	\end{enumerate}
 \end{proof}
 
 \end{document}
