@@ -6,6 +6,8 @@
 \usepackage{amsmath}
 \usepackage{amssymb}
 \numberwithin{equation}{section}
+\providecommand{\norm}[1]{{\lVert#1\rVert}}
+
 
 %utility
 \usepackage[hidelinks]{hyperref}
@@ -148,8 +150,8 @@ Cette section contient des équations et théorèmes généraux par rapport aux 
 
 \subsubsection{Loi d'inertie}
 \begin{center}
-	\emph{"Tout corps persévère dans l'état de repos ou de mouvement uniforme en ligne droite, \\
-	 à moins qu'une force n'agisse sur lui et ne le contraigne à changer d'état."}
+	\emph{``Tout corps persévère dans l'état de repos ou de mouvement uniforme en ligne droite, \\
+	 à moins qu'une force n'agisse sur lui et ne le contraigne à changer d'état.''}
 \end{center}
 \begin{equation}
 	\boxed{\vec F = \vec 0 \Leftrightarrow \text{MRU}}
@@ -158,7 +160,7 @@ Cette section contient des équations et théorèmes généraux par rapport aux 
 
 \subsubsection{Principe fondamental de la dynamique (\emph{Lex Secunda})}
 \begin{center}
-	\emph{"Les changements dans le mouvement d'un corps \\ sont proportionnels à la force et se font dans la direction de la force."}
+	\emph{``Les changements dans le mouvement d'un corps \\ sont proportionnels à la force et se font dans la direction de la force.''}
 \end{center}
 \begin{equation} \label{eq:lexsecunda}
 	\boxed{\vec F = m \vec a}
@@ -178,7 +180,7 @@ Ces observations peuvent paraître relativement évidentes, voire inutiles, lors
 
 \subsubsection{Loi d'action-réaction} \label{sec:actionreaction}
 \begin{center}
-	\emph{"A chaque action, il y a toujours une réaction égale et opposée; si un corps exerce une force sur un autre, cet autre corps exerce une force égale et opposée sur le premier."}
+	\emph{``A chaque action, il y a toujours une réaction égale et opposée; si un corps exerce une force sur un autre, cet autre corps exerce une force égale et opposée sur le premier.''}
 \end{center}
 \begin{equation}
 	\boxed{\vec F_{1 \to 2} = - \vec F_{2 \to 1}}
@@ -272,13 +274,15 @@ La force de frottement statique s'oppose à la force parallèle à la surface, e
 \begin{equation*}
 	\vec F_s = - \vec F_\parallel
 \end{equation*}
-
-La force dépend des deux matériaux en contact, mais pas des surfaces:
+L'aspect important de la force de frottement sec statique n'est pas sa valeur, mais sa norme maximale:
 \begin{equation}
-	\boxed{ ||\vec F_s|| \leq \mu_s||\vec N|| }
+	\boxed{\norm{\vec F_s} \leq \mu_s \cdot \norm{\vec N}.}
 \end{equation}
-
-Lorsque la force de frottement maximale \( || \vec F_{s, \text{max}} || = \mu_s || \vec F_\parallel ||\) est atteinte, l'objet commence à glisser. 
+La force de frottement sec statique s'oppose exactement aux forces qui tentent de déplacer l'objet le long de la surface de contact, de telle façon à ce que l'objet reste statique (somme des forces $= \vec 0 \iff$ pas de changement de vitesse):
+\begin{equation}
+	\vec F_s = -\vec F_{\parallel}
+\end{equation}
+Une fois sa norme maximale dépassée, la force de frottement sec statique ne peut plus équilibrer les autres forces parallèles à la surface de contact, et l'objet se met à bouger.
 
 \subsubsection{Frottement sec cinétique}
 La force de frottement cinétique s'oppose à la vitesse, et est proportionnelle à la force normale:
@@ -289,13 +293,13 @@ La force de frottement cinétique s'oppose à la vitesse, et est proportionnelle
 \subsection{Impulsion, quantité de mouvement et lien avec la force}
 
 \subsubsection{Impulsion}
-On définit l'impulsion de la force appliquée d'un point 1 à un point 2 comme:
+On définit l'impulsion d'une force appliquée sur un point matériel entre un instant 1 et un instant 2 par
 \begin{equation}
 	\boxed{ \vec I_{12} = \vec p_2 - \vec p_1 }
 \end{equation}
 
 \begin{equation}
-	\boxed{ \vec I_{12} = \int_1^2 \vec F \, d \vec t }
+	\boxed{ \vec I_{12} = \int_1^2 \vec F \, dt }
 \end{equation}
 
 La première définition est la version qu'il faut en général appliquer dans les exercices. La seconde version est une version plus formelle et précise, car elle utilise une intégrale, cependant elle est également beaucoup moins pratique à appliquer lors de calculs qui ne prennent en compte que des trajectoires simples (rectilignes). \\
@@ -323,11 +327,11 @@ On peut définir le travail entre deux points de manière infinitésimale (sur u
 \begin{equation}
 	\boxed{ W_{12} = \int_1^2 \vec F \, d \vec r }
 \end{equation}
-Ce type de définition infinitésimale est utile lorsqu'on veut appliquer la notion de travail à des trajectoires curvilignes. Le calcul est plus simple pour des trajectoires rectilignes:
+Si la trajectoire entre le point 1 et le point 2 est rectiligne et la force reste constante sur cette trajectoire, cette équation se simplifie en
 \begin{equation}
-	\boxed{ W = ||\vec F|| \cdot \Delta x }
+	\boxed{W = \norm{\vec F} \cdot d_{12}}
 \end{equation}
-où \(\Delta x\) est la distance parcourue.
+où $d_{12}$ est la distance entre le point 1 et le point 2.
 
 \subsubsection{Énergie cinétique}
 Définition de l'énergie cinétique:
@@ -680,7 +684,7 @@ Pour un gyroscope, on a:
 \end{equation}
 
 \subsection{Moment d'inertie}
-On peut penser au moment d'inertie comme le "moment de masse", c'est à dire l'équivalent de la masse dans un mouvement de rotation. De manière analogue à la masse qui résiste au changement de vitesse (\(\vec F = m \dot{\vec v}\)), le moment d'inertie résiste au changement de vitesse angulaire. \\
+On peut penser au moment d'inertie comme le "moment de masse", c'est à dire l'équivalent de la masse dans un mouvement de rotation. De manière analogue à la masse qui résiste au changement de vitesse rectiligne (\(\vec F = m \dot{\vec v}\)), le moment d'inertie résiste au changement de vitesse angulaire, donc aux changement dans sa rotation. \\
 
 L'inertie d'un système de points autour d'un axe \(\Delta\) peut être exprimée des deux façons suivantes:
 \begin{align*}

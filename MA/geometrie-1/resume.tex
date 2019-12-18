@@ -28,13 +28,14 @@
 \providecommand{\plan}{{\mathbb R^2}}
 \providecommand{\origin}{{\vec 0}}
 \providecommand{\id}{{\textnormal{Id}}}
-\providecommand{\idR}{{\id_\plan}}
+\providecommand{\IdR}{{\id_\plan}}
 \providecommand{\MR}{{M_2(\mathbb R)}}
 \providecommand{\transR}{{\textnormal{T}(\plan)}}
 \providecommand{\isom}{{\textnormal{Isom}(\plan)}}
 \providecommand{\isomo}{{\isom_0}}
 \providecommand{\isomop}{\isom_0^+}
 \providecommand{\isomom}{\isom_0^-}
+\providecommand{\unitcircle}{{\mathbb C^1}}
 \providecommand{\mortho}[1]{{\textnormal{O}(#1)}}
 \providecommand{\morthoR}{\mortho{\mathbb R}}
 \providecommand{\mspec}[1]{{\textnormal{SO}_2(#1)}}
@@ -42,6 +43,7 @@
 \providecommand{\mspecR}{\mspec{\mathbb R}}
 \providecommand{\mnspecR}{\mnspec{\mathbb R}}
 \providecommand{\ker}{{\textnormal{ker}}}
+\providecommand{\Fix}{{\textnormal{Fix}}}
 \providecommand{\trans}[1]{{t_{#1}}}
 \providecommand{\bij}[1]{{\textnormal{Bij}(#1)}}
 \providecommand{\bijR}{{\bij{\plan}}}
@@ -50,7 +52,7 @@
 \providecommand{\abs}[1]{{\lvert#1\rvert}}
 \providecommand{\scalaire}[1]{{\langle#1\rangle}}
 \providecommand{\ad}{{\textnormal{ad}}}
-\providecommand{\tq}{\mid}
+\providecommand{\st}{\mid}
 \providecommand{\subgroupeq}{\leq}
 \providecommand{\subgroupnormaleq}{\trianglelefteq}
 
@@ -79,7 +81,7 @@ Ce premier chapitre a pour but de définir quelques notions formelles dont nous 
 	\end{align*}
 	$\trans{\vec u}$ admet quelques propriétés:
 	\begin{itemize}
-		\item $\trans{\vec u}$ est une application bijective d'inverse $\trans{\vec u}^{-1} = \trans{-\vec u}$ et on a $\trans{\vec u} \circ \trans{-\vec u} = \idR$
+		\item $\trans{\vec u}$ est une application bijective d'inverse $\trans{\vec u}^{-1} = \trans{-\vec u}$ et on a $\trans{\vec u} \circ \trans{-\vec u} = \IdR$
 		\item $\trans{\vec u} \circ \trans{\vec v} = \trans{\vec u + \vec v}$
 	\end{itemize}
 \end{defn}
@@ -198,7 +200,7 @@ Rien qu'en ayant posé cette définition simple et intuitive, on a ouvert le che
 Nous pouvons donc nous poser la question : quelles applications que nous connaissons déjà sont des isométries ?
 
 \begin{exmp}
-	$\idR \in \isom$, car $d(\idR(P), \idR(Q)) = d(P, Q)$.
+	$\IdR \in \isom$, car $d(\IdR(P), \IdR(Q)) = d(P, Q)$.
 \end{exmp}
 
 \begin{prop}
@@ -223,7 +225,7 @@ La question se pose maintenant: comment avancer plus loin dans notre exploration
 \begin{defn}
 	On notera $\isomo$ l'ensemble des isométries qui préservent l'origine, c'est-à-dire, mathématiquement,
 	\begin{equation*}
-		\isomo = \{\phi \in \isom \tq \phi(\origin) = \origin\}.
+		\isomo = \{\phi \in \isom \st \phi(\origin) = \origin\}.
 	\end{equation*}
 \end{defn}
 
@@ -291,7 +293,7 @@ Cela paraît peut-être ambitieux, mais j'ai bien l'impression que les rotations
 	Il reste maintenant à montrer que $\phi^{-1} \in \isomo$, c.à.d que $\phi^{-1}$ préserve les distances et préserve l'origine. On sait que $\phi(\origin) = \origin \implies \phi^{-1}(\origin) = \origin$. De plus, $d(\phi^{-1}(\vec u), \phi^{-1}(\vec v)) = d(\phi(\phi^{-1}(\vec u)), \phi(\phi^{-1}(\vec v))) = d(\vec u, \vec v)$. Donc $\phi^{-1} \in \isomo$.\par
 	Finalement, montrons grâce aux résultats précédents que $\isomo \subgroupeq \textnormal{GL}(\plan)$:
 	\begin{itemize}
-		\item $\idR \in \isomo$;
+		\item $\IdR \in \isomo$;
 		\item $\phi, \psi \in \isomo \implies \phi \circ \psi(\origin) = \phi(\phi(\origin)) = \phi(\origin) = \origin \implies \phi \circ \psi \in \isomo$;
 		\item $\phi \in \isomo \implies \phi$ est bijective et $\phi^{-1} \in \isomo$.
 	\end{itemize}
@@ -312,7 +314,7 @@ Cela paraît peut-être ambitieux, mais j'ai bien l'impression que les rotations
 	\begin{enumerate}
 		\item Nous avons déjà montré que $\transR$ et $\isomo \subgroupeq \bijR$. Il reste donc à montrer que $\isom \subgroupeq \bijR$:
 		\begin{itemize}
-			\item $\idR \in \isom$;
+			\item $\IdR \in \isom$;
 			\item soient $\phi, \psi \in \isom$. Alors $\phi \circ \psi \in \isom$: $d(\phi \circ \psi(\vec u), \phi \circ \psi(\vec v)) = d(\phi(\vec u), \phi(\vec v)) = d(\vec u, \vec v)$;
 			\item il faut montrer que $\forall \phi \in \isom$, $\phi$ est bijective et $\phi^{-1} \in \isom$. Ce sera un corollaire du troisième point.
 		\end{itemize}
@@ -367,7 +369,7 @@ L'importance de cette décomposition motive la définition suivante\dots
 	Pour ce qui est du fait que $\lin$ est un morphisme, il faut montrer que $\lin(\phi \circ \psi) = \lin(\phi) \circ \lin(\psi) = \phi_0 \circ \psi_0$:
 	\begin{align*}
 		\lin(\phi \circ \psi) &= \lin(\trans{} \circ \phi_0 \circ \trans{}' \circ \psi_0)\\
-		&= \lin(\trans{} \circ \phi_0 \circ \trans{}' \circ \underbrace{\phi_0^{-1} \circ \phi_0}_{\idR} \circ \psi_0)\\
+		&= \lin(\trans{} \circ \phi_0 \circ \trans{}' \circ \underbrace{\phi_0^{-1} \circ \phi_0}_{\IdR} \circ \psi_0)\\
 		&= \lin(\trans{} \circ \underbrace{\phi_0 \circ \trans{}' \circ \phi_0^{-1}}_{\ad(\phi_9)(\trans{}') = \trans{}''} \circ \underbrace{\phi_0 \circ \psi_0}_{\chi_0})\\
 		&= \lin(\trans{} \circ \trans{}'' \circ \chi_0)\\
 		&= \lin(\trans{}''' \circ \chi_0)\\
@@ -375,16 +377,16 @@ L'importance de cette décomposition motive la définition suivante\dots
 		&= \phi_0 \circ \psi_0\\
 		&= \lin(\phi) \circ \lin(\psi).
 	\end{align*}
-	Finalement, soit $\phi \in \isom$ t.q. $\lin(\phi) = \idR$. On a
+	Finalement, soit $\phi \in \isom$ t.q. $\lin(\phi) = \IdR$. On a
 	\begin{align*}
-		\lin(\phi) = \lin(\trans{} \circ \phi_0) = \phi_0 = \idR \implies \phi = \trans{} \implies \phi \in \transR,
+		\lin(\phi) = \lin(\trans{} \circ \phi_0) = \phi_0 = \IdR \implies \phi = \trans{} \implies \phi \in \transR,
 	\end{align*}
 	donc $\ker(\lin) = \transR$.
 \end{proof}
 
 Bon, maintenant que nous avons compris quelques unes des propriétés de base des isométries linéaires et leurs liens avec les isométries en général, il est intéressant de se rappeler que toute application linéaire peut être représentée par une matrice. Particulièrement, la matrice d'une application linéaire peut nous donner plus d'information sur son action géométrique sur le plan. À quoi ressemblent donc les matrices des isométries linéaires ?
 
-\section{Matrice associée à une isométrie linéaire}
+\section{Voyage au coeur de la Matrice}
 Soit $\phi \in \isomo$, et soit $B_0 = (e_1, e_2) = ((1, 0), (0, 1))$ la base canonique de $\plan$. Comme $\phi$ est linéaire, $\phi$ en tant qu'application est complètement déterminée par les valeurs de $\phi(e_1)$ et $\phi(e_2)$: en effet $(x, y) = x(1, 0) + y(0, 1) = xe_1 + ye_2$, et donc $\phi((x, y)) = \phi(xe_1 + ye_2) = x\phi(e_1) + y\phi(e_2)$.\par
 De cette observation, on peut conclure que $\phi \in \isomo$ est complètement déterminée par une matrice $2 \times 2$. Renommons $\phi(e_1) = (a, c)$ et $\phi(e_2) = (b, d)$, avec $a, b, c, d \in \mathbb R$.\par
 On peut définir une application bijective qui envoie $\phi$ sur une matrice:
@@ -707,7 +709,7 @@ La prochaine proposition, très utile, montre que la matrice de la composée de 
 	\begin{enumerate}
 		\item On vérifie que $\isomop$ est bien un sous-groupe de $\isomo$:
 		\begin{itemize}
-			\item $\idR \in \isomop$;
+			\item $\IdR \in \isomop$;
 			\item $\forall r, r' \in \isomop$, il faut montrer que $r \circ r' \in \isomop$, ce qui revient à montrer que $M_{r \circ r'}$ est bien de la forme d'une matrice spéciale:
 			\begin{equation*}
 				M_{r \circ r'} = \begin{pmatrix}
@@ -727,9 +729,9 @@ La prochaine proposition, très utile, montre que la matrice de la composée de 
 			De plus, $c''^2 + s''^2 = (cc' - ss')^2 + (sc' + cs')^2 = \ldots = 1$.
 			\item Finalement, si $r \in \isomop$, on a $M_r = \left(\begin{smallmatrix} c&-s \\ s&c \end{smallmatrix}\right)$, et si on pose $M_{r^{-1}} = \left(\begin{smallmatrix} c & s \\ -s & c \end{smallmatrix}\right)$, alors
 			\begin{equation*}
-				M_r \cdot M_{r^{-1}} = M_{r^{-1}} \cdot M_r = M_\idR,
+				M_r \cdot M_{r^{-1}} = M_{r^{-1}} \cdot M_r = M_\IdR,
 			\end{equation*}
-			donc il existe $r^{-1} \in \isomop$ t.q. $r \circ r^{-1} = r^{-1} \circ r = \idR$.
+			donc il existe $r^{-1} \in \isomop$ t.q. $r \circ r^{-1} = r^{-1} \circ r = \IdR$.
 			$\isomop$ est donc bien un sous-groupe de $\isomo$. \par
 			Il reste à montrer que $\isomop \subgroupnormaleq \isomo$, c.à.d que $\isomop$ est un sous-groupe distingué. Par définition, il faut montrer que $\forall r \in \isomop, \forall \phi \in \isomo, \ad(\phi)(r) \in \isomop$. Cela revient à montrer que $\det M_{\phi \circ r \circ \phi^{-1}} = 1$:
 			\begin{align*}
@@ -750,7 +752,7 @@ La prochaine proposition, très utile, montre que la matrice de la composée de 
 			\end{equation*}
 		\end{itemize}
 		
-		\item Soit $s \in \isomom$. On veut montrer que $s \circ \isomop = \{s \circ r \tq r \in \isomop \} = \isomom$. On va procéder par double inclusion, en séparant les cas $s \circ \isomop$ et $\isomop \circ s$:
+		\item Soit $s \in \isomom$. On veut montrer que $s \circ \isomop = \{s \circ r \st r \in \isomop \} = \isomom$. On va procéder par double inclusion, en séparant les cas $s \circ \isomop$ et $\isomop \circ s$:
 		\begin{itemize}
 			\item "$\subseteq$": soit $r \in \isomop$. Alors $\det M_{s \circ r} = \det (M_s \cdot M_r) = \det M_s \cdot \det M_r = (-1) \cdot 1 = -1 \implies s \circ r \in \isomom \implies s \circ \isomop \subseteq \isomom$.
 			\item "$\supseteq$": on va maintenant montrer que $s^{-1} \circ \isomo \subseteq \isomop$, ce qui nous permettra d'avoir $s \circ s^{-1} \circ \isomom = \isomom \subseteq s \circ \isomop$ (en composant des deux côtés par $s$). Soit donc $s' \in \isomom$. Alors $\det M_{s^{-1} \circ s'} = \det M_{s^{-1}} \cdot \det M_{s'} = (-1) \cdot (-1) = 1 \implies s^{-1} \circ s' \in \isomop$.
@@ -770,7 +772,7 @@ Ceci dit, on avance déjà vers le prochain théorème:
 
 \begin{thm}
 	\begin{enumerate}
-		\item Soit $s \in \isomom$. Alors $s^2 = \idR$ (et $s \neq \idR$).	
+		\item Soit $s \in \isomom$. Alors $s^2 = \IdR$ (et $s \neq \IdR$).	
 		\item Soient $r \in \isomop$ et $\phi \in \isomo$. Alors 
 		\begin{itemize}
 			\item soit $\phi \in \isomom$ et $\ad(\phi)(r) = r^{-1}$,
@@ -780,7 +782,7 @@ Ceci dit, on avance déjà vers le prochain théorème:
 \end{thm}
 \begin{proof}
 	\begin{enumerate}
-	 	\item Soit $s \in \isomom$ ($s \neq \idR$ car $\idR \notin \isomom$). Alors
+	 	\item Soit $s \in \isomom$ ($s \neq \IdR$ car $\IdR \notin \isomom$). Alors
 	 	\begin{equation*}
 	 		M_{s \circ s} = \begin{pmatrix}
 	 			c&s\\s&-c
@@ -792,14 +794,213 @@ Ceci dit, on avance déjà vers le prochain théorème:
 	 		\end{pmatrix} = \begin{pmatrix}
 	 			1&0\\0&1
 	 		\end{pmatrix}
-	 		= M_\idR.
+	 		= M_\IdR.
 	 	\end{equation*}
 	 	\item Deux cas sont possibles:
 	 	\begin{itemize}
-	 		\item si $\phi = s \in \isomom$, pour montrer que $s \circ r \circ s^{-1} = r^{-1}$, il suffit de montrer que $(s \circ r \circ s^{-1}) \circ r = \idR$. Or $s \circ r \circ s^{-1} \circ r = s \circ r \circ s \circ r = s' \circ s' = \idR$ (car $s \circ r \in \isomom$, comme vu précédemment).
+	 		\item si $\phi = s \in \isomom$, pour montrer que $s \circ r \circ s^{-1} = r^{-1}$, il suffit de montrer que $(s \circ r \circ s^{-1}) \circ r = \IdR$. Or $s \circ r \circ s^{-1} \circ r = s \circ r \circ s \circ r = s' \circ s' = \IdR$ (car $s \circ r \in \isomom$, comme vu précédemment).
 	 		\item sinon, $\phi = r' \in \isomop$ et $\ad(r')(r) = r' \circ r \circ r'^{-1} = r' \circ r'^{-1} \circ r = r$.
 	 	\end{itemize}
 	\end{enumerate}
 \end{proof}
+
+\section{La géométrie des isométries linéaires}
+Après avoir exploré certaines des propriétés des matrices associées aux isométries linéaires, nous pouvons prendre un peu de recul et nous souvenir que nos considérations étaient, originellement, géométriques. Nous allons donc tenter de saisir mathématiquement cet aspect central. Une manière de le faire est l'étude des points fixes de ces transformations.
+
+\begin{defn}
+	Un \textbf{point fixe} d'une application $\phi : X \to X$ est un élément $x$ tel que $\phi(x) = x$.
+\end{defn}
+
+\begin{defn}
+	On nomme $\Fix(\phi)$ l'ensemble de tous les points fixes de l'application $\phi : X \to X$.
+\end{defn}
+
+C'est surtout cette dernière définition qui nous intéressera: en effet, si une isométrie linéaire a pour ensemble de points fixes un unique point, ou une droite (ou même l'ensemble du plan), cela donnera lieu à de nouvelles définitions mathématiques pour (respectement) les rotations et les symétries linéaires (qui sont les deux types d'isométries linéaires que l'on pense intuitivement exister).
+
+\begin{prop}
+	Soit $\phi \in \isomo$. Alors $\Fix(\phi)$ est un sous-espace vectoriel de $\plan$.
+\end{prop}
+\begin{proof}
+	Soit $\vec v \in \plan$. Alors $\vec v \in \Fix(\phi) \iff \phi(\vec v) - \vec v = 0 \iff (\phi-\IdR)(\vec v) = \origin \iff \vec v \in \ker(\phi - \IdR)$. Or $\phi - \IdR$ est une application linéaire (car $\phi$ et $\IdR$ sont des applications linéaires), et donc, par un résultat d'algèbre linéaire, $\ker(\phi - \IdR) = \Fix(\phi)$ est un espace vectoriel.
+\end{proof}
+
+La proposition suivante cherche à confirmer les intuitions que l'on avait quand aux natures possibles des isométries linéaires:
+\begin{prop}
+	Soit $\phi \in \isomo$. Alors un et un seul des cas suivants se présente:
+	\begin{itemize}
+		\item $\phi = \IdR$ et $\Fix(\phi) = \plan$
+		\item $\phi \in \isomop \setminus \{\IdR\}$ et $\Fix(\phi) = \{\origin\}$
+		\item $\phi \in \isomom$ et $\Fix(\phi) = \mathbb R \vec u = \{\lambda \vec u \st \lambda \in \mathbb R\}$, une droite linéaire de $\plan$
+	\end{itemize}
+\end{prop}
+\begin{proof}
+	\begin{itemize}
+		\item Si $\phi = \IdR$, on a bien $\Fix(\phi) = \plan$.
+		\item Si $\phi \in \isomop \setminus \{\IdR\}$, alors si $(x, y) \in \Fix(\phi)$, on a $(x, y) = \phi((x, y)) = x\phi(e_1) + y\phi(e_2) = x(\tilde c, \tilde s) + y(-\tilde s, \tilde c) = (\tilde cx - \tilde sy, \tilde sx + \tilde cy)$, ce qui donne le système d'équations linéaires
+		\begin{equation*}
+			\begin{cases}
+				\tilde cx - \tilde sy = x\\
+				\tilde sx + \tilde cy = y
+			\end{cases} \iff
+			\begin{cases}
+				(\tilde c - 1)x - \tilde sy = 0\\
+				\tilde sx + (\tilde c - 1)y = 0
+			\end{cases}.
+		\end{equation*}
+		Le déterminant de ce système est $(\tilde c - 1)^2 + s^2$. Comme $\phi \neq \IdR$, on a $(\tilde c, \tilde s) \neq (1, 0)$. Donc ce déterminant n'est pas égal à 0, et il existe une unique solution (par un résultat d'algèbre linéaire). En résolvant le système algébriquement, on trouve que cette solution est $\origin$.
+		\item Si $\phi \in \isomom$, alors si $(x, y) \in \Fix(\phi)$, on a $(x, y) = \phi((x, y)) = x\phi(e_1) + y\phi(e_2) = x(\tilde c, \tilde s) + y(\tilde s, -\tilde c) = (\tilde cx + \tilde sy, \tilde sx - \tilde cy)$, ce qui donne le système d'équations linéaires
+		\begin{equation*}
+			\begin{cases}				
+				\tilde cx + \tilde sy = x\\
+				\tilde sx - \tilde cy = y
+			\end{cases} \iff
+			\begin{cases}
+				(\tilde c - 1)x + \tilde sy = 0\\
+				\tilde sx - (\tilde c + 1)y = 0
+			\end{cases}.
+		\end{equation*}
+		Ici, le déterminant vaut $-(c-1)(c+1) - s^2 = 1 - (c^2 + s^2) = 1-1 = 0$, et les deux lignes du système sont donc linéairement dépendantes. L'ensemble des points fixes satisfait donc
+		\begin{equation*}
+			(c-1)x + sy = 0
+		\end{equation*}
+		qui est l'équation d'une droite linéaire de $\plan$. Dans le cas où $(\tilde c, \tilde s) = (1, 0)$, cette équation est triviale ($0 = 0$) et on regarde l'autre équation du système, qui donne
+		\begin{equation*}
+			-2y = 0
+		\end{equation*}
+		c'est-à-dire la droite des abscisses.
+	\end{itemize}
+\end{proof}
+
+Bien! Pas de surprise, nous nous attendions intuitivement à ne trouver que ces deux types principaux d'isométrie.
+
+\subsection{Les isométries linéaires non-spéciales, ou symétries linéaires}
+
+\begin{thm}
+	Soit $\phi \in \isomop$ avec $\Fix(\phi) = \mathbb R \vec u$. Alors $\phi$ est donnée par 
+	\begin{equation}
+		\phi(\vec w) = \vec w - 2\frac{\scalaire{\vec w, \vec v}}{\longueur{v}^2} \vec v,
+	\end{equation}
+	où $\vec v$ est un vecteur perpendiculaire à $\vec u$.\\
+	Cas spéciaux:
+	\begin{itemize}
+		\item $\phi(\lambda \vec u) = \lambda \vec u$ par définition, et
+		\item $\phi(\lambda \vec v) = -\lambda \vec v$.
+	\end{itemize}
+\end{thm}
+\begin{proof}
+	Soit $\phi \in \isomom$. Alors $\Fix(\phi) = \mathbb R \vec u, \vec u \neq \origin$. Il existe $\vec v \neq \origin$ tel que $\vec v \perp \vec u$: si $\vec u = (a, b)$, alors $\vec v = \lambda(-b, a)$ est tel que $\scalaire{\vec v, \vec u} = 0$. Comme $\vec u$ et $\vec v$ sont alors perpendiculaires, ils forment une base orthogonale de $\plan$, et comme $\phi$ est linéaire, on peut entièrement déterminer $\phi$ par l'image de cette base. Or, $\phi(\vec u) = \vec u$, comme montré précédemment, et il nous reste à calculer $\phi(\vec v)$. On a
+	\begin{equation*}
+		\phi(\vec v) = \frac{\scalaire{\phi(\vec v), \vec u}}{\scalaire{\vec u, \vec u}}\vec u + \frac{\scalaire{\phi(\vec v), \vec v}}{\scalaire{\vec v, \vec v}}\vec v,
+	\end{equation*}
+	il nout faut donc trouver les expressions de $\scalaire{\phi(\vec v), \vec u}$ et $\scalaire{\phi(\vec v), \vec v}$:
+	\begin{align*}
+		&\scalaire{\phi(\vec v), \vec u} = \scalaire{\phi(\vec v), \phi(\vec u)} = \scalaire{\vec v, \vec u} = 0
+	\end{align*}
+	donc $\phi(\vec v)$ est perpendiculaire à $\vec u$ et est donc colinéaire à $\vec v$, c.à.d. $\phi(\vec v) = \mu \vec v$. Or, comme $\phi$ est une isométrie, on a
+	\begin{align*}
+		\scalaire{\vec v, \vec v} &= \scalaire{\phi(\vec v), \phi(\vec v)}\\
+		&= \scalaire{\mu \vec v, \mu \vec v}\\
+		&= \mu^2 \scalaire{\vec v, \vec v}, \text{ç.à.d.}\\
+		\scalaire{\vec v, \vec v} &= \mu^2 \scalaire{\vec v, \vec v}\\
+		\iff \mu^2 &= 1 \iff \mu = \pm 1.
+	\end{align*}
+	Or, si $\mu = 1$, on a $\phi(\vec u) = \vec u$ et $\phi(\vec v) = \vec v$ et donc $\phi = \IdR$, ce qui est impossible car $\IdR \notin \isomom$. Donc, $\mu = -1$ et $\phi(\vec v) = -\vec v$.\par
+	Soit maintenant $\vec w \in \plan$ quelconque. Pour calculer $\phi(\vec w)$, on exprime $\vec w$ dans la base $(\vec u, \vec v)$:
+	\begin{align*}
+		\vec w &= \frac{\scalaire{\vec w, \vec u}}{\scalaire{\vec u, \vec u}} \vec u + \frac{\scalaire{\vec w, \vec v}}{\scalaire{\vec v, \vec v}} \vec v,
+	\intertext{et donc}		
+		\phi(\vec w) &= \frac{\scalaire{\vec w, \vec u}}{\scalaire{\vec u, \vec u}} \phi(\vec u) + \frac{\scalaire{\vec w, \vec v}}{\scalaire{\vec v, \vec v}} \phi(\vec v)\\
+		&= \frac{\scalaire{\vec w, \vec u}}{\scalaire{\vec u, \vec u}}\vec u - \frac{\scalaire{\vec w, \vec v}}{\scalaire{\vec v, \vec v}} \vec v\\
+		&= \underbrace{\frac{\scalaire{\vec w, \vec u}}{\scalaire{\vec u, \vec u}}\vec u + \frac{\scalaire{\vec w, \vec v}}{\scalaire{\vec v, \vec v}} \vec v}_{\vec w}
+		- \frac{\scalaire{\vec w, \vec v}}{\scalaire{\vec v, \vec v}} \vec v - \frac{\scalaire{\vec w, \vec v}}{\scalaire{\vec v, \vec v}} \vec v\\
+		&= \vec w - 2\frac{\scalaire{\vec w, \vec v}}{\scalaire{\vec v, \vec v}} \vec v
+	\end{align*}
+\end{proof}
+
+Maintenant qu'on les connaît assez bien, il est temps de donner officiellement à ces isométries le nom qu'elles méritent!
+
+\begin{defn}
+	On appelle $\isomom$ l'ensemble des \textbf{symétries linéaires} du plan. Si $\phi \in \isomom$, on dit que $\phi$ est une \textbf{symétrie linéaire}.
+\end{defn}
+
+\begin{thm}[Matrice d'une symétrie]
+	Soit $s \in \isomom$ et $M_s = \left(\begin{smallmatrix} c&s\\s&-c \end{smallmatrix}\right)$, avec $c^2 + s^2 = 1$. Alors les vecteurs $\vec u$ et $\vec v$ qui décrivent $s$ géométriquement sont donnés par
+	\begin{equation*}
+		\begin{cases}
+			\vec u = (1, 0) \text{ et } \vec v = (0, 1) \text{ si } c = 1\\
+			\vec u = (0, 1) \text{ et } \vec v = (1, 0) \text{ si } c = -1\\
+			\vec u = (-s, -(c-1)) \text{ et } \vec v = (s, -(c+1)) \text{ en général.}
+		\end{cases}
+	\end{equation*}
+\end{thm}
+\begin{proof}
+	Vérifier $\vec u, \vec v \neq \origin, \vec u \perp \vec v, s(\vec u) = \vec u$ et $s(\vec v) = -\vec v$.
+\end{proof}
+\begin{remark}
+	$\vec u$ et $\vec v$ ne sont pas uniques: si $(\vec u, \vec v)$ marche alors $(\lambda \vec u, \mu \vec v)$ marche aussi $\forall \lambda, \mu \in \mathbb R$.\par
+	Pour trouver la matrice d'une symétrie à partir de la formule $\phi(\vec w) = \vec w - \dfrac{\scalaire{\vec w, \vec v}}{\scalaire{\vec v, \vec v}}$, on suppose $\vec u = (a, b)$ ($\implies \vec v = (-b, a)$) et on calcule $\phi(\vec e_1)$ ou $\phi(\vec e_2)$. CLARIFIER ???????????????????????????????????????????????????????????????????????????????
+\end{remark}
+
+\subsection{Les isométries linéaires spéciales, ou rotations linéaires}
+Passons maintenant à l'autre type d'isométries linéaires : les isométries spéciales. Deux cas se présentent:
+\begin{itemize}
+	\item soit $r = \IdR$, et on dit que $r$ est la rotation triviale
+	\item soit $r \neq \IdR$, et on dit que $r$ est une rotation autour de l'origine.
+\end{itemize}
+
+\begin{prop}\label{bij-isomop-unitcircle}
+	Soit $\unitcircle = \{(c, s) \in \plan \st c^2 + s^2 = 1\}$ le cercle unité de $\plan$. Alors il existe une bijection entre $\isomop$ et $\unitcircle$.
+\end{prop}
+\begin{proof}
+	Cette bijection est donnée par
+	\begin{align*}
+		r \in \isomop \mapsto M_r = \begin{pmatrix}
+		c & -s\\
+		s & c
+		\end{pmatrix}
+		\mapsto (c, s) \in \unitcircle.
+	\end{align*}
+\end{proof}
+
+\begin{thm}
+	Soient $P, Q \in \unitcircle$. Alors il existe exactement une rotation $r \in \isomop$ telle que $r(P) = Q$. En particulier, la réciproque de la bijection de la proposition \ref{bij-isomop-unitcircle} est donnée en associant à $Q \in \unitcircle$ l'unique rotation $r$ telle que $r(1, 0) = Q$.
+\end{thm}
+\begin{proof}
+	Soient $P = (c, s), Q = (c', s') \in \unitcircle$. On commence par montrer l'existence de $r$ telle que $r(P) = Q$. On pose
+	\begin{itemize}
+		\item $r_P$ la rotation de matrice $\begin{pmatrix}
+			c & -s\\
+			s & p
+		\end{pmatrix}$. Alors $r_P((1, 0)) = (c, s) = P$.
+		\item $r_Q$ la rotation de matrice $\begin{pmatrix}
+			c' & -s'\\
+			s' & p'
+		\end{pmatrix}$. Alors $r_P((1, 0)) = (c', s') = P$.
+	\end{itemize}
+	On peut montrer facilement (!) que $r_Q \circ r_P^{-1}$ envoie $P$ sur $Q$.\par
+	On montre maintenant l'unicité de cette rotation. Soient $r$ et $r'$ telles que $r(P) = r'(P) = Q$. Alors $r'^{-1} \circ r = r''$ est une rotation et $r'^{-1} \circ r(P) = r'^{-1}(Q) = P$, donc $P \in \Fix(r'')$ et $P \neq \origin$, ce qui implique que $r'' = \IdR$ et donc $r = r'$.
+\end{proof}
+
+Ce résultat donne sens à la définition suivante de l'angle.
+
+\begin{defn}
+	Soient $P, Q \in \unitcircle$. On définit l'\textbf{angle $\widehat{POQ}$} comme étant l'unique rotation $r_{PQ} \in \isomop$ qui envoie $P$ sur $Q$. Si la matrice de $r_{PQ}$ dans la base canonique est $M_{r_{PQ}} = \left(\begin{smallmatrix} c & -s \\ s & c \end{smallmatrix}\right)$, alors on définit le \textbf{cosinus} de l'angle $\widehat{POQ}$ comme étant le nombre $c$, et son \textbf{sinus} comme étant le nombre $s$.\par
+	De plus, on définit la somme de deux angles $r$ et $r'$ comme étant l'angle $r \circ r' = r' \circ r$.
+\end{defn}
+
+On peut faire quelques observations et remarques sur la généralisation de cette définition de l'angle à d'autres objets de $\plan$:
+\begin{itemize}
+	\item soient $\hat u$ et $\hat v$ des vecteurs unitaires, avec $\hat u = \overrightarrow{OP}$ et $\hat v = \overrightarrow{OQ}$. Alors l'angle $\widehat{\hat u \hat v}$ est l'unique rotation qui envoie $\hat u$ sur $\hat v$.
+	\item soient $\vec u$ et $\vec v$ des vecteurs non-nuls. L'angle $\widehat{\vec u, \vec v}$ est l'angle $\widehat{\hat u \hat v}$ où $\hat u$ (resp. $\hat v$) sont les vecteurs $\vec u$ (resp. $\vec v$) normalisés, c'est-à-dire divisés par leur norme.
+	\item l'angle entre deux segments orientés non-triviaux $[PQ]$ et $[P'Q']$ est l'angle $\widehat{\overrightarrow{PQ} \overrightarrow{P'Q'}}$ (notation très moche).
+	\item l'angle entre deux droites linéaires $D_0 = \mathbb R \vec u$ et $D_0' = \mathbb R \vec v$ est \textbf{l'ensemble des deux rotations} qui envoient $D_0$ sur $D_0'$, c'est-à-dire les deux angles $\widehat{\vec u \vec v}$ et $\widehat{\vec u (-\vec v)}$.
+\end{itemize}
+
+\begin{exmp}
+	On peut citer quelques angles remarquables:
+	\begin{equation*}\begin{array}{m | m | m}
+	
+	\end{array}
+\end{exmp}
 
 \end{document}
